@@ -30,6 +30,8 @@ import { LineChart } from './components/LineChart';
 import { PieChart } from './components/PieChart';
 import { Table } from './components/Table';
 import { Headline } from './components/Headline';
+import Chart from './components/chart/Chart';
+import ChartTransformation from './components/chart/ChartTransformation';
 
 const CoreComponents = {
     BaseChart,
@@ -70,5 +72,7 @@ export {
     VisEvents,
     Visualization,
     VisualizationEnvironment,
-    VisualizationTypes
+    VisualizationTypes,
+    ChartTransformation,
+    Chart
 };
