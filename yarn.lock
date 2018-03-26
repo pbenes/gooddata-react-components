@@ -30,9 +30,9 @@
     react-transition-group "1.2.1"
     rxjs "5.4.3"
 
-"@gooddata/indigo-visualizations@2.0.0-alpha8":
-  version "2.0.0-alpha8"
-  resolved "https://registry.yarnpkg.com/@gooddata/indigo-visualizations/-/indigo-visualizations-2.0.0-alpha8.tgz#11c3308a6dfb9f21c3b0bcba2aae303a5e627ee8"
+"@gooddata/indigo-visualizations@2.0.0-pbenes-pb-move-charts-2018-04-09T07-51-41-524Z":
+  version "2.0.0-pbenes-pb-move-charts-2018-04-09T07-51-41-524Z"
+  resolved "https://registry.yarnpkg.com/@gooddata/indigo-visualizations/-/indigo-visualizations-2.0.0-pbenes-pb-move-charts-2018-04-09T07-51-41-524Z.tgz#90e9a1ea71a4648dbd5257d6d872c8cec1529fcc"
   dependencies:
     "@gooddata/goodstrap" "55.0.0-alpha6"
     "@gooddata/js-utils" "^2.0.0"
@@ -326,9 +326,23 @@
     "@types/cheerio" "*"
     "@types/react" "*"
 
+"@types/geojson@*":
+  version "7946.0.2"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.2.tgz#0bd0a01ef04e813c2b7580318da9e37c2eadea9c"
+
+"@types/highcharts@4.2.56":
+  version "4.2.56"
+  resolved "https://registry.yarnpkg.com/@types/highcharts/-/highcharts-4.2.56.tgz#79b7062f56364d951cbb82f762206f26d71aabff"
+  dependencies:
+    "@types/geojson" "*"
+
 "@types/inline-style-prefixer@^3.0.0":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@types/inline-style-prefixer/-/inline-style-prefixer-3.0.1.tgz#8541e636b029124b747952e9a28848286d2b5bf6"
+
+"@types/invariant@2.2.27":
+  version "2.2.27"
+  resolved "https://registry.yarnpkg.com/@types/invariant/-/invariant-2.2.27.tgz#5acad9c1685cac25ff5b31260a6f1596b31328bc"
 
 "@types/jest@20.0.4":
   version "20.0.4"
@@ -368,6 +382,12 @@
 "@types/react-intl@2.3.5":
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/@types/react-intl/-/react-intl-2.3.5.tgz#eafa170d83c06302416075867a6fd219c1cf84d8"
+
+"@types/react-measure@0.4.7":
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/@types/react-measure/-/react-measure-0.4.7.tgz#f4dd9f6265b488032a31677af5e5eadee67ac8ce"
+  dependencies:
+    "@types/react" "*"
 
 "@types/react-test-renderer@16.0.0":
   version "16.0.0"
