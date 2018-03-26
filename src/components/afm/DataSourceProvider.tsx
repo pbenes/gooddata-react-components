@@ -7,7 +7,7 @@ import isEqual = require('lodash/isEqual');
 import omit = require('lodash/omit');
 import { AFM, Execution } from '@gooddata/typings';
 import { ExecuteAfmAdapter, createSubject, IAdapter } from '@gooddata/data-layer';
-import { AfmPropTypesShape, ResultSpecPropTypesShape } from '@gooddata/indigo-visualizations';
+import { AfmPropTypesShape, ResultSpecPropTypesShape } from '../visualizations/proptypes/execution';
 
 import { IDataSource } from '../../interfaces/DataSource';
 import { ISubject } from '../../helpers/async';
