@@ -1,6 +1,6 @@
 // (C) 2007-2018 GoodData Corporation
 import { colors2Object, numberFormat } from '@gooddata/numberjs';
-import invariant from 'invariant';
+import * as invariant from 'invariant';
 
 import { range, get, without, escape, unescape, isUndefined } from 'lodash';
 
@@ -21,22 +21,22 @@ import { VIEW_BY_DIMENSION_INDEX, STACK_BY_DIMENSION_INDEX, PIE_CHART_LIMIT } fr
 
 import { DEFAULT_CATEGORIES_LIMIT } from './highcharts/commonConfiguration';
 
-const enableAreaChartStacking = (stacking) => {
+const enableAreaChartStacking = (stacking: any) => {
     return stacking || isUndefined(stacking);
 };
 
-export function unwrap(wrappedObject) {
+export function unwrap(wrappedObject: any) {
     return wrappedObject[Object.keys(wrappedObject)[0]];
 }
 
-export function isNegativeValueIncluded(series) {
+export function isNegativeValueIncluded(series: any) {
     return series
-        .some(seriesItem => (
-            seriesItem.data.some(({ y }) => (y < 0))
+        .some((seriesItem: any) => (
+            seriesItem.data.some(({ y }: any) => (y < 0))
         ));
 }
 
-export function validateData(limits = {}, chartOptions) {
+export function validateData(limits: any = {}, chartOptions: any) {
     const pieChartLimits = {
         series: 1, // pie charts can have just one series
         categories: Math.min(limits.categories || DEFAULT_CATEGORIES_LIMIT, PIE_CHART_LIMIT)
@@ -54,29 +54,29 @@ export function validateData(limits = {}, chartOptions) {
     };
 }
 
-export function isPopMeasure(measureItem, afm) {
-    return afm.measures.some((measure) => {
+export function isPopMeasure(measureItem: any, afm: any) {
+    return afm.measures.some((measure: any) => {
         const popMeasureIdentifier = get(measure, 'definition.popMeasure') ? measure.localIdentifier : null;
         return popMeasureIdentifier && popMeasureIdentifier === measureItem.measureHeaderItem.localIdentifier;
     });
 }
 
-export function normalizeColorToRGB(color) {
+export function normalizeColorToRGB(color: any) {
     const hexPattern = /#([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})/i;
-    return color.replace(hexPattern, (_match, r, g, b) => {
+    return color.replace(hexPattern, ({}, r: any, g: any, b: any) => {
         return `rgb(${[r, g, b].map(value => (parseInt(value, 16).toString(10))).join(', ')})`;
     });
 }
 
 export function getColorPalette(
-    colorPalette = DEFAULT_COLOR_PALETTE,
-    measureGroup,
-    viewByAttribute,
-    stackByAttribute,
-    afm,
-    type
+    colorPalette: any = DEFAULT_COLOR_PALETTE,
+    measureGroup: any,
+    viewByAttribute: any,
+    stackByAttribute: any,
+    afm: any,
+    type: any
 ) {
-    let updatedColorPalette = [];
+    let updatedColorPalette: any[] = [];
     const isAttributePieChart = isPieChart(type) && afm.attributes && afm.attributes.length > 0;
 
     if (stackByAttribute || isAttributePieChart) {
@@ -85,7 +85,7 @@ export function getColorPalette(
             .map(itemIndex => colorPalette[itemIndex % colorPalette.length]);
     } else {
         let linkedPopMeasureCounter = 0;
-        measureGroup.items.forEach((measureItem, measureItemIndex) => {
+        measureGroup.items.forEach((measureItem: any, measureItemIndex: any) => {
             // skip linked popMeasures in color palete
             const colorIndex = (measureItemIndex - linkedPopMeasureCounter) % colorPalette.length;
             let color = colorPalette[colorIndex];
@@ -95,7 +95,7 @@ export function getColorPalette(
                 // find source measure
                 const sourceMeasureIdentifier = afm.measures[measureItemIndex].definition.popMeasure.measureIdentifier;
                 const sourceMeasureIndex = afm.measures.findIndex(
-                    measure => measure.localIdentifier === sourceMeasureIdentifier
+                    (measure: any) => measure.localIdentifier === sourceMeasureIdentifier
                 );
                 if (sourceMeasureIndex > -1) {
                     linkedPopMeasureCounter += 1;
@@ -114,15 +114,15 @@ export function getColorPalette(
 }
 
 export function getSeriesItemData(
-    seriesItem,
-    seriesIndex,
-    measureGroup,
-    viewByAttribute,
-    stackByAttribute,
-    type,
-    colorPalette
+    seriesItem: any,
+    seriesIndex: any,
+    measureGroup: any,
+    viewByAttribute: any,
+    stackByAttribute: any,
+    type: any,
+    colorPalette: any
 ) {
-    return seriesItem.map((pointValue, pointIndex) => {
+    return seriesItem.map((pointValue: any, pointIndex: any) => {
         // by default seriesIndex corresponds to measureGroup label index
         let measureIndex = seriesIndex;
         // by default pointIndex corresponds to viewBy label index
@@ -139,7 +139,7 @@ export function getSeriesItemData(
             measureIndex = pointIndex;
         }
 
-        const pointData = {
+        const pointData: any = {
             y: parseValue(pointValue),
             format: unwrap(measureGroup.items[measureIndex]).format,
             marker: {
@@ -165,16 +165,15 @@ export function getSeriesItemData(
     });
 }
 
-
 export function getSeries(
-    executionResultData,
-    measureGroup,
-    viewByAttribute,
-    stackByAttribute,
-    type,
-    colorPalette
+    executionResultData: any,
+    measureGroup: any,
+    viewByAttribute: any,
+    stackByAttribute: any,
+    type: any,
+    colorPalette: any
 ) {
-    return executionResultData.map((seriesItem, seriesIndex) => {
+    return executionResultData.map((seriesItem: any, seriesIndex: any) => {
         const seriesItemData = getSeriesItemData(
             seriesItem,
             seriesIndex,
@@ -184,7 +183,7 @@ export function getSeries(
             type,
             colorPalette
         );
-        const seriesItemConfig = {
+        const seriesItemConfig: any = {
             color: colorPalette[seriesIndex],
             legendIndex: seriesIndex,
             data: seriesItemData
@@ -196,7 +195,7 @@ export function getSeries(
             seriesItemConfig.name = stackByAttribute.items[seriesIndex].attributeHeaderItem.name;
         } else if (isPieChart(type) && !viewByAttribute) {
             // Pie charts with measures only have a single series which name would is ambiguous
-            seriesItemConfig.name = measureGroup.items.map((wrappedMeasure) => {
+            seriesItemConfig.name = measureGroup.items.map((wrappedMeasure: any) => {
                 return unwrap(wrappedMeasure).name;
             }).join(', ');
         } else {
@@ -208,14 +207,14 @@ export function getSeries(
     });
 }
 
-export const customEscape = str => str && escape(unescape(str));
+export const customEscape = (str: any) => str && escape(unescape(str));
 
-export function generateTooltipFn(viewByAttribute, type) {
-    const formatValue = (val, format) => {
+export function generateTooltipFn(viewByAttribute: any, type: any) {
+    const formatValue = (val: any, format: any) => {
         return colors2Object(numberFormat(val, format));
     };
 
-    return (point) => {
+    return (point: any) => {
         const formattedValue = customEscape(formatValue(point.y, point.format).label);
         const textData = [[customEscape(point.series.name), formattedValue]];
 
@@ -237,10 +236,10 @@ export function generateTooltipFn(viewByAttribute, type) {
     };
 }
 
-export function findInDimensionHeaders(dimensions, headerCallback) {
-    let returnValue = null;
-    dimensions.some((dimension, dimensionIndex) => {
-        dimension.headers.some((wrappedHeader, headerIndex) => {
+export function findInDimensionHeaders(dimensions: any, headerCallback: any): any {
+    let returnValue: any = null;
+    dimensions.some((dimension: any, dimensionIndex: any) => {
+        dimension.headers.some((wrappedHeader: any, headerIndex: any) => {
             const headerType = Object.keys(wrappedHeader)[0];
             const header = wrappedHeader[headerType];
             const headerCount = dimension.headers.length;
@@ -252,8 +251,8 @@ export function findInDimensionHeaders(dimensions, headerCallback) {
     return returnValue;
 }
 
-export function findMeasureGroupInDimensions(dimensions) {
-    return findInDimensionHeaders(dimensions, (headerType, header, dimensionIndex, headerIndex, headerCount) => {
+export function findMeasureGroupInDimensions(dimensions: any) {
+    return findInDimensionHeaders(dimensions, (headerType: any, header: any, {}, headerIndex: any, headerCount: any) => {
         const measureGroupHeader = headerType === 'measureGroupHeader' ? header : null;
         if (measureGroupHeader) {
             invariant(headerIndex === headerCount - 1, 'MeasureGroup must be the last header in it\'s dimension');
@@ -262,8 +261,8 @@ export function findMeasureGroupInDimensions(dimensions) {
     });
 }
 
-export function findAttributeInDimension(dimension, attributeHeaderItemsDimension) {
-    return findInDimensionHeaders([dimension], (headerType, header) => {
+export function findAttributeInDimension(dimension: any, attributeHeaderItemsDimension: any) {
+    return findInDimensionHeaders([dimension], (headerType: any, header: any) => {
         if (headerType === 'attributeHeader') {
             return {
                 ...header,
@@ -276,7 +275,7 @@ export function findAttributeInDimension(dimension, attributeHeaderItemsDimensio
     });
 }
 
-export function getDrillContext(stackByItem, viewByItem, measure, afm) {
+export function getDrillContext(stackByItem: any, viewByItem: any, measure: any, afm: any) {
     return without([
         stackByItem,
         viewByItem,
@@ -306,19 +305,19 @@ export function getDrillContext(stackByItem, viewByItem, measure, afm) {
 }
 
 export function getDrillableSeries(
-    series,
-    drillableItems,
-    measureGroup,
-    viewByAttribute,
-    stackByAttribute,
-    type,
-    afm
+    series: any,
+    drillableItems: any,
+    measureGroup: any,
+    viewByAttribute: any,
+    stackByAttribute: any,
+    type: any,
+    afm: any
 ) {
     const isMetricPieChart = isPieChart(type) && !viewByAttribute;
 
-    return series.map((seriesItem, seriesIndex) => {
+    return series.map((seriesItem: any, seriesIndex: any) => {
         let isSeriesDrillable = false;
-        const data = seriesItem.data.map((pointData, pointIndex) => {
+        const data = seriesItem.data.map((pointData: any, pointIndex: any) => {
             // measureIndex is usually seriesIndex,
             // except for stack by attribute and metricOnly pie chart it is looped-around pointIndex instead
             // Looping around the end of items array only works when measureGroup is the last header on it's dimension
@@ -357,7 +356,7 @@ export function getDrillableSeries(
                 isDrillable(drillableItems, drillableHook, afm)
             );
 
-            const drillableProps = {
+            const drillableProps: any = {
                 drilldown
             };
             if (drilldown) {
@@ -378,42 +377,34 @@ export function getDrillableSeries(
     });
 }
 
-function getCategories(type, viewByAttribute, measureGroup) {
+function getCategories(type: any, viewByAttribute: any, measureGroup: any) {
     // Categories make up bar/slice labels in charts. These usually match view by attribute values.
     // Measure only pie charts geet categories from measure names
     if (viewByAttribute) {
-        return viewByAttribute.items.map(({ attributeHeaderItem }) => attributeHeaderItem.name);
+        return viewByAttribute.items.map(({ attributeHeaderItem }: any) => attributeHeaderItem.name);
     }
     if (isPieChart(type)) {
         // Pie chart with measures only (no viewByAttribute) needs to list
-        return measureGroup.items.map(wrappedMeasure => unwrap(wrappedMeasure).name);
+        return measureGroup.items.map((wrappedMeasure: any) => unwrap(wrappedMeasure).name);
         // Pie chart categories are later sorted by seriesItem pointValue
     }
     return [];
 }
 
-function getStackingConfig(stackByAttribute, options) {
+function getStackingConfig(stackByAttribute: any, options: any) {
     const stackingValue = 'normal';
     const { type, stacking } = options;
 
     const isNotLineOrAreaChart = !(isLineChart(type) || isAreaChart(type));
 
     /**
-     * If stackby attibutes have been set, we should enable stacking for one of the following cases :
-     * 1) Chart that is not line/area chart
-     * 2) If chart is an area chart and stacking is enabled
+     * we should enable stacking for one of the following cases :
+     * 1) If stackby attibute have been set and chart is not line/area chart
+     * 2) If chart is an area chart and stacking is enabled (stackBy attribute doesn't matter)
      */
     const isStackByChart = stackByAttribute && isNotLineOrAreaChart;
-    const isStackByAreaChart = stackByAttribute && isAreaChart(type) && enableAreaChartStacking(stacking);
-    if (isStackByChart || isStackByAreaChart) {
-        return stackingValue;
-    }
-
-    /**
-     * Otherwise, we should enable stacking if the chart is an area chart and stacking config is enabled
-     */
     const isAreaChartWithEnabledStacking = isAreaChart(type) && enableAreaChartStacking(stacking);
-    if (isAreaChartWithEnabledStacking) {
+    if (isStackByChart || isAreaChartWithEnabledStacking) {
         return stackingValue;
     }
 
@@ -434,21 +425,22 @@ function getStackingConfig(stackByAttribute, options) {
  * @return Returns composed chart options object
  */
 export function getChartOptions(
-    afm,
-    resultSpec,
-    dimensions,
-    executionResultData,
-    unfilteredHeaderItems,
-    config,
-    drillableItems
+    afm: any,
+    {},
+    dimensions: any,
+    executionResultData: any,
+    unfilteredHeaderItems: any,
+    config: any,
+    drillableItems: any
 ) {
     // Future version of API will return measures alongside attributeHeaderItems
     // we need to filter these out in order to stay compatible
-    const attributeHeaderItems = unfilteredHeaderItems.map((dimension) => {
-        return dimension.filter(attributeHeaders => attributeHeaders[0].attributeHeaderItem);
+    const attributeHeaderItems = unfilteredHeaderItems.map((dimension: any) => {
+        return dimension.filter((attributeHeaders: any) => attributeHeaders[0].attributeHeaderItem);
     });
 
-    invariant(config && isChartSupported(config.type), `config.type must be defined and match one of supported chart types: ${stringifyChartTypes()}`);
+    invariant(config && isChartSupported(config.type),
+        `config.type must be defined and match one of supported chart types: ${stringifyChartTypes()}`);
 
     const { type } = config;
     const measureGroup = findMeasureGroupInDimensions(dimensions);
@@ -491,11 +483,11 @@ export function getChartOptions(
     // Pie charts dataPoints are sorted by default by value in descending order
     if (isPieChart(type)) {
         const dataPoints = series[0].data;
-        const indexSortOrder = [];
-        const sortedDataPoints = dataPoints.sort((pointDataA, pointDataB) => {
+        const indexSortOrder: any[] = [];
+        const sortedDataPoints = dataPoints.sort((pointDataA: any, pointDataB: any) => {
             if (pointDataA.y === pointDataB.y) { return 0; }
             return pointDataB.y - pointDataA.y;
-        }).map((dataPoint, dataPointIndex) => {
+        }).map((dataPoint: any, dataPointIndex: any) => {
             // Legend index equals original dataPoint index
             indexSortOrder.push(dataPoint.legendIndex);
             return {
@@ -506,7 +498,7 @@ export function getChartOptions(
             };
         });
         // categories need to be sorted in exactly the same order as dataPoints
-        categories = categories.map((_category, dataPointIndex) => categories[indexSortOrder[dataPointIndex]]);
+        categories = categories.map(({}, dataPointIndex: any) => categories[indexSortOrder[dataPointIndex]]);
         series[0].data = sortedDataPoints;
     }
 
@@ -527,7 +519,7 @@ export function getChartOptions(
             y: yLabel,
             yFormat
         },
-        showInPercent: measureGroup.items.some((wrappedMeasure) => {
+        showInPercent: measureGroup.items.some((wrappedMeasure: any) => {
             const measure = wrappedMeasure[Object.keys(wrappedMeasure)[0]];
             return measure.format.includes('%');
         }),

@@ -1248,6 +1248,18 @@ describe('chartOptionsBuilder', () => {
 
                 expect(chartOptions.stacking).toBe('normal');
             });
+
+            it('should disable stacking by config even with stack by attribute', () => {
+                const chartOptions = generateChartOptions(
+                    fixtures.areaChartWithMeasureViewByAndStackBy,
+                    {
+                        type: 'area',
+                        stacking: false
+                    }
+                );
+
+                expect(chartOptions.stacking).toBeNull();
+            });
         });
     });
 });
