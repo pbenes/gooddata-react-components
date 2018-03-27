@@ -2,7 +2,7 @@
 import * as React from 'react';
 import noop = require('lodash/noop');
 
-import { Visualization } from '@gooddata/indigo-visualizations';
+import { Visualization } from '../../visualizations/Visualization';
 
 import { IntlWrapper } from './IntlWrapper';
 import { ChartType } from '../../../constants/visualizationTypes';
