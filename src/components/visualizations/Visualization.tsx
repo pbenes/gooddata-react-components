@@ -17,8 +17,17 @@ import {
     stringifyChartTypes
 } from './utils/common';
 
-export class Visualization extends React.Component<any, any> {
-    public static propTypes = {
+import { IChartConfig } from './chart/Chart';
+
+export interface IVisualizationProps {
+    config: IChartConfig;
+    numericSymbols: string[];
+    onFiredDrillEvent(): void; // TODO: fix
+    afterRender(): void; // TODO: fix
+}
+
+export class Visualization extends React.Component<IVisualizationProps, null> {
+    public static propTypes = { // TODO: delete?
         config: PropTypes.shape({
             type: PropTypes.string.isRequired
         }).isRequired,
@@ -28,26 +37,26 @@ export class Visualization extends React.Component<any, any> {
     };
 
     public static defaultProps = {
-        numericSymbols: [] as any[],
+        numericSymbols: [] as string[],
         onFiredDrillEvent: noop,
         afterRender: noop
     };
 
-    constructor(props: any) {
+    constructor(props: IVisualizationProps) {
         super(props);
 
         this.setNumericSymbols(this.props);
     }
 
-    public componentWillReceiveProps(nextProps: any) {
+    public componentWillReceiveProps(nextProps: IVisualizationProps) {
         this.setNumericSymbols(nextProps);
     }
 
-    public shouldComponentUpdate(nextProps: any) {
+    public shouldComponentUpdate(nextProps: IVisualizationProps) {
         return !isEqual(omitBy(this.props, isFunction), omitBy(nextProps, isFunction));
     }
 
-    public setNumericSymbols(props: any = {}) {
+    public setNumericSymbols(props: IVisualizationProps) {
         const { numericSymbols } = props;
 
         if (numericSymbols && numericSymbols.length) {

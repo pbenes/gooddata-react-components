@@ -2,6 +2,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import * as invariant from 'invariant';
+import {
+    AFM,
+    Execution
+} from '@gooddata/typings';
 
 import noop = require('lodash/noop');
 import {
@@ -14,12 +18,48 @@ import { getHighchartsOptions } from './highChartsCreators';
 import getLegend from './legend/legendBuilder';
 import HighChartRenderer from './HighChartRenderer';
 import DrillableItem from '../proptypes/DrillableItem';
+import { IChartConfig, IChartLimits } from './Chart';
 
 export function renderHighCharts(props: any) {
     return <HighChartRenderer {...props} />;
 }
 
-export default class ChartTransformation extends React.Component<any, any> {
+export interface IDrillableItems {
+    identifier: string;
+    uri: string;
+}
+
+export interface IExecutionRequest {
+    afm: AFM.IAfm;
+    resultSpec: AFM.IResultSpec;
+}
+
+export interface IChartTransformationProps {
+    config: IChartConfig;
+    limits: IChartLimits;
+    drillableItems: IDrillableItems[];
+    height: number;
+    width: number;
+
+    executionRequest: IExecutionRequest;
+    executionResponse: Execution.IExecutionResponse;
+    executionResult: Execution.IExecutionResult;
+
+    afterRender(): void;
+    renderer(arg: any): void; // TODO: check
+    onDataTooLarge(): void;
+    onNegativeValues(): void;
+    onFiredDrillEvent(): void; // TODO: check, called with multiple parameters
+    onLegendReady(): void; // TODO: check if used
+
+}
+
+export interface IChartTransformationState {
+    dataTooLarge: boolean;
+    hasNegativeValue: boolean;
+}
+
+export default class ChartTransformation extends React.Component<IChartTransformationProps, IChartTransformationState> {
     public static propTypes = {
         config: PropTypes.shape({
             type: PropTypes.string.isRequired,

@@ -85,7 +85,7 @@ export function getColorPalette(
             .map(itemIndex => colorPalette[itemIndex % colorPalette.length]);
     } else {
         let linkedPopMeasureCounter = 0;
-        measureGroup.items.forEach((measureItem: any, measureItemIndex: any) => {
+        measureGroup.items.forEach((measureItem: any, measureItemIndex: number) => {
             // skip linked popMeasures in color palete
             const colorIndex = (measureItemIndex - linkedPopMeasureCounter) % colorPalette.length;
             let color = colorPalette[colorIndex];
@@ -115,7 +115,7 @@ export function getColorPalette(
 
 export function getSeriesItemData(
     seriesItem: any,
-    seriesIndex: any,
+    seriesIndex: number,
     measureGroup: any,
     viewByAttribute: any,
     stackByAttribute: any,
@@ -252,13 +252,14 @@ export function findInDimensionHeaders(dimensions: any, headerCallback: any): an
 }
 
 export function findMeasureGroupInDimensions(dimensions: any) {
-    return findInDimensionHeaders(dimensions, (headerType: any, header: any, {}, headerIndex: any, headerCount: any) => {
-        const measureGroupHeader = headerType === 'measureGroupHeader' ? header : null;
-        if (measureGroupHeader) {
-            invariant(headerIndex === headerCount - 1, 'MeasureGroup must be the last header in it\'s dimension');
-        }
-        return measureGroupHeader;
-    });
+    return findInDimensionHeaders(dimensions,
+        (headerType: any, header: any, {}, headerIndex: any, headerCount: any) => {
+            const measureGroupHeader = headerType === 'measureGroupHeader' ? header : null;
+            if (measureGroupHeader) {
+                invariant(headerIndex === headerCount - 1, 'MeasureGroup must be the last header in it\'s dimension');
+            }
+            return measureGroupHeader;
+        });
 }
 
 export function findAttributeInDimension(dimension: any, attributeHeaderItemsDimension: any) {

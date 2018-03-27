@@ -4,22 +4,46 @@ import { noop, isEqual } from 'lodash';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export default class Chart extends React.Component<any, null> {
-    public static propTypes = {
+export interface ILegendConfig {
+    enabled?: boolean;
+    position?: 'top' | 'left' | 'right' | 'bottom';
+    responsive?: boolean;
+}
+
+export interface IChartLimits { // TODO: Unused
+    series?: number;
+    categories?: number;
+}
+
+export interface IChartConfig { // TODO: validate config
+    colors?: string[];
+    type?: string;
+    legend?: ILegendConfig;
+    limits?: IChartLimits;
+}
+
+export interface IChartProps {
+    config: IChartConfig;
+    domProps: any; // TODO: remove
+    callback(): void;
+}
+
+export default class Chart extends React.Component<IChartProps, null> {
+    public static propTypes = { // TODO: remove propTypes
         callback: PropTypes.func,
         config: PropTypes.object.isRequired,
         domProps: PropTypes.object
     };
 
-    public static defaultProps = {
+    public static defaultProps: Partial<IChartProps> = {
         callback: noop,
         domProps: {}
     };
 
-    private chart: any;
-    private chartRef: any;
+    private chart: Highcharts.ChartObject;
+    private chartRef: HTMLElement;
 
-    public constructor(props: any) {
+    public constructor(props: IChartProps) {
         super(props);
         this.setChartRef = this.setChartRef.bind(this);
     }
@@ -28,7 +52,7 @@ export default class Chart extends React.Component<any, null> {
         this.createChart(this.props.config);
     }
 
-    public shouldComponentUpdate(nextProps: any) {
+    public shouldComponentUpdate(nextProps: IChartProps) {
         if (isEqual(this.props.config, nextProps.config)) {
             return false;
         }
@@ -44,7 +68,7 @@ export default class Chart extends React.Component<any, null> {
         this.chart.destroy();
     }
 
-    public setChartRef(ref: any) {
+    public setChartRef(ref: HTMLElement) {
         this.chartRef = ref;
     }
 
