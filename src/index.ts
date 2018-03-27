@@ -30,8 +30,8 @@ import { LineChart } from './components/LineChart';
 import { PieChart } from './components/PieChart';
 import { Table } from './components/Table';
 import { Headline } from './components/Headline';
-import Chart from './components/chart/Chart';
-import ChartTransformation from './components/chart/ChartTransformation';
+import Chart from './components/visualizations/chart/Chart';
+import ChartTransformation from './components/visualizations/chart/ChartTransformation';
 
 const CoreComponents = {
     BaseChart,
