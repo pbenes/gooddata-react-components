@@ -210,7 +210,7 @@ export function getSeries(
     type: string,
     colorPalette: string[]
 ) {
-    return executionResultData.map((seriesItem: any, seriesIndex: number) => {
+    return executionResultData.map((seriesItem: string[], seriesIndex: number) => {
         const seriesItemData = getSeriesItemData(
             seriesItem,
             seriesIndex,
