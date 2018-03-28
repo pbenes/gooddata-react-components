@@ -1,6 +1,7 @@
 // (C) 2007-2018 GoodData Corporation
 import { colors2Object, numberFormat } from '@gooddata/numberjs';
 import * as invariant from 'invariant';
+import { AFM } from '@gooddata/typings';
 
 import { range, get, without, escape, unescape, isUndefined } from 'lodash';
 
@@ -54,7 +55,7 @@ export function validateData(limits: any = {}, chartOptions: any) {
     };
 }
 
-export function isPopMeasure(measureItem: any, afm: any) {
+export function isPopMeasure(measureItem: any, afm: AFM.IAfm) {
     return afm.measures.some((measure: any) => {
         const popMeasureIdentifier = get(measure, 'definition.popMeasure') ? measure.localIdentifier : null;
         return popMeasureIdentifier && popMeasureIdentifier === measureItem.measureHeaderItem.localIdentifier;
@@ -73,10 +74,10 @@ export function getColorPalette(
     measureGroup: any,
     viewByAttribute: any,
     stackByAttribute: any,
-    afm: any,
+    afm: AFM.IAfm,
     type: string
 ) {
-    let updatedColorPalette: any[] = [];
+    let updatedColorPalette: string[] = [];
     const isAttributePieChart = isPieChart(type) && afm.attributes && afm.attributes.length > 0;
 
     if (stackByAttribute || isAttributePieChart) {
@@ -93,9 +94,10 @@ export function getColorPalette(
             // if this is a pop measure and we found it`s original measure
             if (isPopMeasure(measureItem, afm)) {
                 // find source measure
-                const sourceMeasureIdentifier = afm.measures[measureItemIndex].definition.popMeasure.measureIdentifier;
+                const measureDefinition = afm.measures[measureItemIndex].definition as AFM.IPopMeasureDefinition;
+                const sourceMeasureIdentifier = measureDefinition.popMeasure.measureIdentifier;
                 const sourceMeasureIndex = afm.measures.findIndex(
-                    (measure: any) => measure.localIdentifier === sourceMeasureIdentifier
+                    (measure: AFM.IMeasure) => measure.localIdentifier === sourceMeasureIdentifier
                 );
                 if (sourceMeasureIndex > -1) {
                     linkedPopMeasureCounter += 1;
@@ -113,14 +115,25 @@ export function getColorPalette(
     return updatedColorPalette;
 }
 
+interface IPointData {
+    y: number;
+    format: string;
+    marker: {
+        enabled: boolean;
+    };
+    name?: string;
+    color?: string;
+    legendIndex?: number;
+}
+
 export function getSeriesItemData(
     seriesItem: any,
     seriesIndex: number,
     measureGroup: any,
     viewByAttribute: any,
     stackByAttribute: any,
-    type: any,
-    colorPalette: any
+    type: string,
+    colorPalette: string[]
 ) {
     return seriesItem.map((pointValue: any, pointIndex: any) => {
         // by default seriesIndex corresponds to measureGroup label index
@@ -139,7 +152,7 @@ export function getSeriesItemData(
             measureIndex = pointIndex;
         }
 
-        const pointData: any = {
+        const pointData: IPointData = {
             y: parseValue(pointValue),
             format: unwrap(measureGroup.items[measureIndex]).format,
             marker: {
@@ -276,7 +289,7 @@ export function findAttributeInDimension(dimension: any, attributeHeaderItemsDim
     });
 }
 
-export function getDrillContext(stackByItem: any, viewByItem: any, measure: any, afm: any) {
+export function getDrillContext(stackByItem: any, viewByItem: any, measure: any, afm: AFM.IAfm) {
     return without([
         stackByItem,
         viewByItem,
