@@ -1,7 +1,7 @@
 // (C) 2007-2018 GoodData Corporation
 import { colors2Object, numberFormat } from '@gooddata/numberjs';
 import * as invariant from 'invariant';
-import { AFM } from '@gooddata/typings';
+import { AFM, Execution, VisualizationObject } from '@gooddata/typings';
 
 import { range, get, without, escape, unescape, isUndefined } from 'lodash';
 
@@ -55,8 +55,8 @@ export function validateData(limits: any = {}, chartOptions: any) {
     };
 }
 
-export function isPopMeasure(measureItem: any, afm: AFM.IAfm) {
-    return afm.measures.some((measure: any) => {
+export function isPopMeasure(measureItem: Execution.IMeasureHeaderItem, afm: AFM.IAfm) {
+    return afm.measures.some((measure: AFM.IMeasure) => {
         const popMeasureIdentifier = get(measure, 'definition.popMeasure') ? measure.localIdentifier : null;
         return popMeasureIdentifier && popMeasureIdentifier === measureItem.measureHeaderItem.localIdentifier;
     });
@@ -86,7 +86,7 @@ export function getColorPalette(
             .map(itemIndex => colorPalette[itemIndex % colorPalette.length]);
     } else {
         let linkedPopMeasureCounter = 0;
-        measureGroup.items.forEach((measureItem: any, measureItemIndex: number) => {
+        measureGroup.items.forEach((measureItem: Execution.IMeasureHeaderItem, measureItemIndex: number) => {
             // skip linked popMeasures in color palete
             const colorIndex = (measureItemIndex - linkedPopMeasureCounter) % colorPalette.length;
             let color = colorPalette[colorIndex];
@@ -115,7 +115,7 @@ export function getColorPalette(
     return updatedColorPalette;
 }
 
-interface IPointData {
+export interface IPointData {
     y: number;
     format: string;
     marker: {
@@ -124,6 +124,14 @@ interface IPointData {
     name?: string;
     color?: string;
     legendIndex?: number;
+}
+
+export interface IPoint {
+    y: number;
+    series: any;
+    category: any;
+    format: string;
+    name: string;
 }
 
 export function getSeriesItemData(
@@ -135,7 +143,7 @@ export function getSeriesItemData(
     type: string,
     colorPalette: string[]
 ) {
-    return seriesItem.map((pointValue: any, pointIndex: any) => {
+    return seriesItem.map((pointValue: any, pointIndex: number) => {
         // by default seriesIndex corresponds to measureGroup label index
         let measureIndex = seriesIndex;
         // by default pointIndex corresponds to viewBy label index
@@ -178,15 +186,22 @@ export function getSeriesItemData(
     });
 }
 
+interface ISeriesItemConfig {
+    color: string;
+    legendIndex: number;
+    data?: any;
+    name?: string;
+}
+
 export function getSeries(
     executionResultData: any,
     measureGroup: any,
     viewByAttribute: any,
     stackByAttribute: any,
-    type: any,
-    colorPalette: any
+    type: string,
+    colorPalette: string[]
 ) {
-    return executionResultData.map((seriesItem: any, seriesIndex: any) => {
+    return executionResultData.map((seriesItem: any, seriesIndex: number) => {
         const seriesItemData = getSeriesItemData(
             seriesItem,
             seriesIndex,
@@ -196,7 +211,7 @@ export function getSeries(
             type,
             colorPalette
         );
-        const seriesItemConfig: any = {
+        const seriesItemConfig: ISeriesItemConfig = {
             color: colorPalette[seriesIndex],
             legendIndex: seriesIndex,
             data: seriesItemData
@@ -208,7 +223,7 @@ export function getSeries(
             seriesItemConfig.name = stackByAttribute.items[seriesIndex].attributeHeaderItem.name;
         } else if (isPieChart(type) && !viewByAttribute) {
             // Pie charts with measures only have a single series which name would is ambiguous
-            seriesItemConfig.name = measureGroup.items.map((wrappedMeasure: any) => {
+            seriesItemConfig.name = measureGroup.items.map((wrappedMeasure: VisualizationObject.IMeasure) => {
                 return unwrap(wrappedMeasure).name;
             }).join(', ');
         } else {
@@ -220,14 +235,14 @@ export function getSeries(
     });
 }
 
-export const customEscape = (str: any) => str && escape(unescape(str));
+export const customEscape = (str: string) => str && escape(unescape(str));
 
-export function generateTooltipFn(viewByAttribute: any, type: any) {
-    const formatValue = (val: any, format: any) => {
+export function generateTooltipFn(viewByAttribute: any, type: string) {
+    const formatValue = (val: number, format: string) => {
         return colors2Object(numberFormat(val, format));
     };
 
-    return (point: any) => {
+    return (point: IPoint) => {
         const formattedValue = customEscape(formatValue(point.y, point.format).label);
         const textData = [[customEscape(point.series.name), formattedValue]];
 
@@ -252,7 +267,7 @@ export function generateTooltipFn(viewByAttribute: any, type: any) {
 export function findInDimensionHeaders(dimensions: any, headerCallback: any): any {
     let returnValue: any = null;
     dimensions.some((dimension: any, dimensionIndex: any) => {
-        dimension.headers.some((wrappedHeader: any, headerIndex: any) => {
+        dimension.headers.some((wrappedHeader: any, headerIndex: number) => {
             const headerType = Object.keys(wrappedHeader)[0];
             const header = wrappedHeader[headerType];
             const headerCount = dimension.headers.length;
@@ -289,7 +304,7 @@ export function findAttributeInDimension(dimension: any, attributeHeaderItemsDim
     });
 }
 
-export function getDrillContext(stackByItem: any, viewByItem: any, measure: any, afm: AFM.IAfm) {
+export function getDrillContext(stackByItem: any, viewByItem: any, measure: AFM.IMeasure, afm: AFM.IAfm) {
     return without([
         stackByItem,
         viewByItem,
@@ -324,14 +339,14 @@ export function getDrillableSeries(
     measureGroup: any,
     viewByAttribute: any,
     stackByAttribute: any,
-    type: any,
-    afm: any
+    type: string,
+    afm: AFM.IAfm
 ) {
     const isMetricPieChart = isPieChart(type) && !viewByAttribute;
 
-    return series.map((seriesItem: any, seriesIndex: any) => {
+    return series.map((seriesItem: any, seriesIndex: number) => {
         let isSeriesDrillable = false;
-        const data = seriesItem.data.map((pointData: any, pointIndex: any) => {
+        const data = seriesItem.data.map((pointData: IPointData, pointIndex: number) => {
             // measureIndex is usually seriesIndex,
             // except for stack by attribute and metricOnly pie chart it is looped-around pointIndex instead
             // Looping around the end of items array only works when measureGroup is the last header on it's dimension
@@ -391,7 +406,7 @@ export function getDrillableSeries(
     });
 }
 
-function getCategories(type: any, viewByAttribute: any, measureGroup: any) {
+function getCategories(type: string, viewByAttribute: any, measureGroup: any) {
     // Categories make up bar/slice labels in charts. These usually match view by attribute values.
     // Measure only pie charts geet categories from measure names
     if (viewByAttribute) {
@@ -399,7 +414,7 @@ function getCategories(type: any, viewByAttribute: any, measureGroup: any) {
     }
     if (isPieChart(type)) {
         // Pie chart with measures only (no viewByAttribute) needs to list
-        return measureGroup.items.map((wrappedMeasure: any) => unwrap(wrappedMeasure).name);
+        return measureGroup.items.map((wrappedMeasure: VisualizationObject.IMeasure) => unwrap(wrappedMeasure).name);
         // Pie chart categories are later sorted by seriesItem pointValue
     }
     return [];
@@ -439,7 +454,7 @@ function getStackingConfig(stackByAttribute: any, options: any) {
  * @return Returns composed chart options object
  */
 export function getChartOptions(
-    afm: any,
+    afm: AFM.IAfm,
     {},
     dimensions: any,
     executionResultData: any,
@@ -497,11 +512,11 @@ export function getChartOptions(
     // Pie charts dataPoints are sorted by default by value in descending order
     if (isPieChart(type)) {
         const dataPoints = series[0].data;
-        const indexSortOrder: any[] = [];
-        const sortedDataPoints = dataPoints.sort((pointDataA: any, pointDataB: any) => {
+        const indexSortOrder: number[] = [];
+        const sortedDataPoints = dataPoints.sort((pointDataA: IPointData, pointDataB: IPointData) => {
             if (pointDataA.y === pointDataB.y) { return 0; }
             return pointDataB.y - pointDataA.y;
-        }).map((dataPoint: any, dataPointIndex: any) => {
+        }).map((dataPoint: IPointData, dataPointIndex: number) => {
             // Legend index equals original dataPoint index
             indexSortOrder.push(dataPoint.legendIndex);
             return {
@@ -512,7 +527,7 @@ export function getChartOptions(
             };
         });
         // categories need to be sorted in exactly the same order as dataPoints
-        categories = categories.map(({}, dataPointIndex: any) => categories[indexSortOrder[dataPointIndex]]);
+        categories = categories.map(({}, dataPointIndex: number) => categories[indexSortOrder[dataPointIndex]]);
         series[0].data = sortedDataPoints;
     }
 
@@ -533,7 +548,7 @@ export function getChartOptions(
             y: yLabel,
             yFormat
         },
-        showInPercent: measureGroup.items.some((wrappedMeasure: any) => {
+        showInPercent: measureGroup.items.some((wrappedMeasure: VisualizationObject.IMeasure) => {
             const measure = wrappedMeasure[Object.keys(wrappedMeasure)[0]];
             return measure.format.includes('%');
         }),
