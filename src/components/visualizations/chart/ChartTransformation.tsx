@@ -21,7 +21,17 @@ import DrillableItem from '../proptypes/DrillableItem';
 // import { IChartConfig, IChartLimits } from './Chart';
 import { IChartConfig } from './Chart';
 
-export function renderHighCharts(props: any) {
+export interface IHighChartsProps {
+    chartOptions: any;
+    hcOptions: any;
+    height: number;
+    width: number;
+    legend: any;
+    afterRender(): void;
+    onLegendReady(): void;
+}
+
+export function renderHighCharts(props: IHighChartsProps) {
     return <HighChartRenderer {...props} />;
 }
 
@@ -47,7 +57,7 @@ export interface IChartTransformationProps {
     executionResult: Execution.IExecutionResult;
 
     afterRender(): void;
-    renderer(arg: any): JSX.Element; // TODO: check
+    renderer(arg: IHighChartsProps): JSX.Element; // TODO: check
     onDataTooLarge(): void;
     onNegativeValues(): void;
     onFiredDrillEvent(): void; // TODO: check, called with multiple parameters

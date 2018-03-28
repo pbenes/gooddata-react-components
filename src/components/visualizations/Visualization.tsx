@@ -20,13 +20,8 @@ import {
     stringifyChartTypes
 } from './utils/common';
 
-import HighChartRenderer from './chart/HighChartRenderer';
 import { IChartConfig } from './chart/Chart';
-import ChartTransformation, { IExecutionRequest, IDrillableItems } from './chart/ChartTransformation';
-
-export function renderHighCharts(props: any) {
-    return <HighChartRenderer {...props} />;
-}
+import ChartTransformation, { IExecutionRequest, IDrillableItems, renderHighCharts } from './chart/ChartTransformation';
 
 export interface IVisualizationProps {
     height: number;
