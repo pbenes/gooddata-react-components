@@ -25,14 +25,14 @@ export const DEFAULT_COLOR_PALETTE = [
     'rgb(239,197,194)'
 ];
 
-function lighter(color: any, percent: any) {
+function lighter(color: number, percent: number) {
     const t = percent < 0 ? 0 : 255;
     const p = Math.abs(percent);
 
     return Math.round((t - color) * p) + color;
 }
 
-function formatColor(red: any, green: any, blue: any) {
+function formatColor(red: number, green: number, blue: number) {
     return `rgb(${red},${green},${blue})`;
 }
 
@@ -40,7 +40,7 @@ function formatColor(red: any, green: any, blue: any) {
  * Source:
  *     http://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
  */
-export function getLighterColor(color: any, percent: any) {
+export function getLighterColor(color: string, percent: number) {
     const f = color.split(',');
     const R = parseInt(f[0].slice(4), 10);
     const G = parseInt(f[1], 10);
