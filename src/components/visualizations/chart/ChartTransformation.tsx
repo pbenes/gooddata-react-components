@@ -16,22 +16,16 @@ import {
 import { getChartOptions, validateData } from './chartOptionsBuilder';
 import { getHighchartsOptions } from './highChartsCreators';
 import getLegend from './legend/legendBuilder';
-import HighChartRenderer from './HighChartRenderer';
+import HighChartRenderer, {
+    IHighChartsRendererProps,
+    renderLegend as legendRenderer,
+    renderChart as chartRenderer
+} from './HighChartRenderer';
 import DrillableItem from '../proptypes/DrillableItem';
 // import { IChartConfig, IChartLimits } from './Chart';
 import { IChartConfig } from './Chart';
 
-export interface IHighChartsProps {
-    chartOptions: any;
-    hcOptions: any;
-    height: number;
-    width: number;
-    legend: any;
-    afterRender(): void;
-    onLegendReady(): void;
-}
-
-export function renderHighCharts(props: IHighChartsProps) {
+export function renderHighCharts(props: IHighChartsRendererProps) {
     return <HighChartRenderer {...props} />;
 }
 
@@ -57,7 +51,7 @@ export interface IChartTransformationProps {
     executionResult: Execution.IExecutionResult;
 
     afterRender(): void;
-    renderer(arg: IHighChartsProps): JSX.Element; // TODO: check
+    renderer(arg: IHighChartsRendererProps): JSX.Element; // TODO: check
     onDataTooLarge(): void;
     onNegativeValues(): void;
     onFiredDrillEvent(): void; // TODO: check, called with multiple parameters
@@ -189,6 +183,6 @@ export default class ChartTransformation extends React.Component<IChartTransform
         if (this.state.dataTooLarge || this.state.hasNegativeValue) {
             return null;
         }
-        return this.props.renderer(this.getRendererProps());
+        return this.props.renderer({ ...this.getRendererProps(), chartRenderer, legendRenderer });
     }
 }

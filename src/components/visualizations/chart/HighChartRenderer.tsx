@@ -14,6 +14,18 @@ import { TOP, LEFT, BOTTOM, RIGHT } from './legend/PositionTypes';
 // tslint:disable-next-line
 const drillmodule = require('highcharts/modules/drilldown');
 
+export interface IHighChartsRendererProps {
+    chartOptions: any;
+    hcOptions: any;
+    height: number;
+    width: number;
+    legend: any;
+    legendRenderer(legendProps: any): void;
+    chartRenderer(chartProps: any): void;
+    afterRender(): void;
+    onLegendReady(legendItems: any): void;
+}
+
 drillmodule(Highcharts);
 initChartPlugins(Highcharts);
 
@@ -25,7 +37,7 @@ export function renderLegend(props: any) {
     return <Legend {...props} />;
 }
 
-export default class HighChartRenderer extends React.PureComponent<any, any> {
+export default class HighChartRenderer extends React.PureComponent<IHighChartsRendererProps, any> {
     public static propTypes = {
         hcOptions: PropTypes.object.isRequired,
         chartOptions: PropTypes.object.isRequired,
