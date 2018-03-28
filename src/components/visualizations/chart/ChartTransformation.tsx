@@ -18,7 +18,8 @@ import { getHighchartsOptions } from './highChartsCreators';
 import getLegend from './legend/legendBuilder';
 import HighChartRenderer from './HighChartRenderer';
 import DrillableItem from '../proptypes/DrillableItem';
-import { IChartConfig, IChartLimits } from './Chart';
+// import { IChartConfig, IChartLimits } from './Chart';
+import { IChartConfig } from './Chart';
 
 export function renderHighCharts(props: any) {
     return <HighChartRenderer {...props} />;
@@ -36,7 +37,7 @@ export interface IExecutionRequest {
 
 export interface IChartTransformationProps {
     config: IChartConfig;
-    limits: IChartLimits;
+    // limits: IChartLimits;
     drillableItems: IDrillableItems[];
     height: number;
     width: number;
@@ -46,12 +47,11 @@ export interface IChartTransformationProps {
     executionResult: Execution.IExecutionResult;
 
     afterRender(): void;
-    renderer(arg: any): void; // TODO: check
+    renderer(arg: any): JSX.Element; // TODO: check
     onDataTooLarge(): void;
     onNegativeValues(): void;
     onFiredDrillEvent(): void; // TODO: check, called with multiple parameters
     onLegendReady(): void; // TODO: check if used
-
 }
 
 export interface IChartTransformationState {
@@ -69,10 +69,10 @@ export default class ChartTransformation extends React.Component<IChartTransform
             colors: PropTypes.arrayOf(PropTypes.string),
             stacking: PropTypes.bool
         }).isRequired,
-        limits: PropTypes.shape({
-            series: PropTypes.number,
-            categories: PropTypes.number
-        }),
+        // limits: PropTypes.shape({
+        //     series: PropTypes.number,
+        //     categories: PropTypes.number
+        // }),
         drillableItems: PropTypes.arrayOf(PropTypes.shape(DrillableItem)),
         height: PropTypes.number,
         width: PropTypes.number,
@@ -97,7 +97,7 @@ export default class ChartTransformation extends React.Component<IChartTransform
         onNegativeValues: null as any,
         onFiredDrillEvent: noop,
         onLegendReady: noop,
-        limits: {},
+        // limits: {},
         height: undefined as any,
         width: undefined as any
     };
@@ -175,7 +175,7 @@ export default class ChartTransformation extends React.Component<IChartTransform
         return this.chartOptions;
     }
 
-    public render() {
+    public render(): JSX.Element {
         if (this.state.dataTooLarge || this.state.hasNegativeValue) {
             return null;
         }

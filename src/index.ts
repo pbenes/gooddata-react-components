@@ -3,7 +3,7 @@ import * as AfmComponents from './components/afm/afmComponents';
 import * as VisEvents from './interfaces/Events';
 import CatalogHelper from './helpers/CatalogHelper';
 import { isEmptyResult } from './helpers/errorHandlers';
-import { BaseChart, IBaseChartProps } from './components/core/base/BaseChart';
+import { BaseChart as CoreBaseChart, IBaseChartProps } from './components/core/base/BaseChart';
 import { Table as CoreTable } from './components/core/Table';
 import { Headline as CoreHeadline } from './components/core/Headline';
 import { ICommonVisualizationProps } from './components/core/base/VisualizationLoadingHOC';
@@ -34,7 +34,7 @@ import Chart, { ILegendConfig } from './components/visualizations/chart/Chart';
 import ChartTransformation from './components/visualizations/chart/ChartTransformation';
 
 const CoreComponents = {
-    BaseChart,
+    BaseChart: CoreBaseChart,
     Headline: CoreHeadline,
     Table: CoreTable
 };

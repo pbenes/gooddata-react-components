@@ -5,11 +5,14 @@ import * as invariant from 'invariant';
 import { noop, isEqual, isFunction, omitBy } from 'lodash';
 import * as Highcharts from 'highcharts';
 
-import ChartTransformation from './chart/ChartTransformation';
 // TODO: will be ported by DavidOcetnik
 import {
     TableTransformation
 } from '@gooddata/indigo-visualizations';
+
+import {
+    Execution
+} from '@gooddata/typings';
 
 import {
     isTable,
@@ -17,13 +20,30 @@ import {
     stringifyChartTypes
 } from './utils/common';
 
+import HighChartRenderer from './chart/HighChartRenderer';
 import { IChartConfig } from './chart/Chart';
+import ChartTransformation, { IExecutionRequest, IDrillableItems } from './chart/ChartTransformation';
+
+export function renderHighCharts(props: any) {
+    return <HighChartRenderer {...props} />;
+}
 
 export interface IVisualizationProps {
+    height: number;
+    width: number;
     config: IChartConfig;
     numericSymbols: string[];
+
+    executionRequest: IExecutionRequest;
+    executionResponse: Execution.IExecutionResponse;
+    executionResult: Execution.IExecutionResult;
+    drillableItems: IDrillableItems[];
+
     onFiredDrillEvent(): void; // TODO: fix
     afterRender(): void; // TODO: fix
+    onDataTooLarge(): void;
+    onNegativeValues(): void;
+    onLegendReady(): void; // TODO: check if used
 }
 
 export class Visualization extends React.Component<IVisualizationProps, null> {
@@ -68,7 +88,7 @@ export class Visualization extends React.Component<IVisualizationProps, null> {
         }
     }
 
-    public render() {
+    public render(): JSX.Element {
         const visType = this.props.config.type;
 
         if (isTable(visType)) {
@@ -78,14 +98,45 @@ export class Visualization extends React.Component<IVisualizationProps, null> {
         }
 
         if (isChartSupported(visType)) {
+            const {
+                height,
+                width,
+                config,
+                executionRequest,
+                executionResponse,
+                executionResult,
+                drillableItems,
+                onFiredDrillEvent,
+                afterRender,
+                onDataTooLarge,
+                onNegativeValues,
+                onLegendReady
+            } = this.props;
+
             return (
-                <ChartTransformation {...this.props} />
+                <ChartTransformation
+                    height={height}
+                    width={width}
+                    config={config}
+                    drillableItems={drillableItems}
+
+                    executionRequest={executionRequest}
+                    executionResponse={executionResponse}
+                    executionResult={executionResult}
+
+                    afterRender={afterRender}
+                    onFiredDrillEvent={onFiredDrillEvent}
+                    onDataTooLarge={onDataTooLarge}
+                    onNegativeValues={onNegativeValues}
+                    onLegendReady={onLegendReady}
+                    renderer={renderHighCharts}
+                />
             );
         }
 
         invariant(isChartSupported(visType),
             `Unknown visualization type: ${visType}. Supported visualization types: ${stringifyChartTypes()}`);
 
-        return false;
+        return null;
     }
 }
