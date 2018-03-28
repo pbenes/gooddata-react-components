@@ -21,7 +21,7 @@ import { VIEW_BY_DIMENSION_INDEX, STACK_BY_DIMENSION_INDEX, PIE_CHART_LIMIT } fr
 
 import { DEFAULT_CATEGORIES_LIMIT } from './highcharts/commonConfiguration';
 
-const enableAreaChartStacking = (stacking: any) => {
+const enableAreaChartStacking = (stacking: string) => {
     return stacking || isUndefined(stacking);
 };
 
@@ -61,20 +61,20 @@ export function isPopMeasure(measureItem: any, afm: any) {
     });
 }
 
-export function normalizeColorToRGB(color: any) {
+export function normalizeColorToRGB(color: string) {
     const hexPattern = /#([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})/i;
-    return color.replace(hexPattern, ({}, r: any, g: any, b: any) => {
+    return color.replace(hexPattern, ({}, r: string, g: string, b: string) => {
         return `rgb(${[r, g, b].map(value => (parseInt(value, 16).toString(10))).join(', ')})`;
     });
 }
 
 export function getColorPalette(
-    colorPalette: any = DEFAULT_COLOR_PALETTE,
+    colorPalette: string[] = DEFAULT_COLOR_PALETTE,
     measureGroup: any,
     viewByAttribute: any,
     stackByAttribute: any,
     afm: any,
-    type: any
+    type: string
 ) {
     let updatedColorPalette: any[] = [];
     const isAttributePieChart = isPieChart(type) && afm.attributes && afm.attributes.length > 0;
