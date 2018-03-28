@@ -20,14 +20,14 @@ import {
 const isEqual = require('lodash/fp/isEqual');
 /* tslint:enable */
 
-export function parseValue(value: any) {
+export function parseValue(value: string) {
     const parsedValue = parseFloat(value);
     return isNaN(parsedValue) ? null : parsedValue;
 }
 
 export const immutableSet = (dataSet: any, path: any, newValue: any) => setWith({ ...dataSet }, path, newValue, clone);
 
-export const repeatItemsNTimes = (array: any, n: any) =>
+export const repeatItemsNTimes = (array: any[], n: number) =>
     new Array(n).fill(null).reduce(result => [...result, ...array], []);
 
 export function subscribeEvent(event: any, debounce: any, func: any, target: any = window): any {
@@ -43,15 +43,16 @@ export function subscribeEvent(event: any, debounce: any, func: any, target: any
         .subscribe(func);
 }
 
-export function subscribeEvents(func: any, events: any, target: any= window) {
+export function subscribeEvents(func: any, events: any[], target: any = window) {
     return events.map((event: any) => {
         return subscribeEvent(event.name, event.debounce, func, target);
     });
 }
 
-export const unEscapeAngleBrackets = (str: any) => str && str.replace(/&lt;|&#60;/g, '<').replace(/&gt;|&#62;/g, '>');
+export const unEscapeAngleBrackets = (str: string) =>
+    str && str.replace(/&lt;|&#60;/g, '<').replace(/&gt;|&#62;/g, '>');
 
-export function getAttributeElementIdFromAttributeElementUri(attributeElementUri: any) {
+export function getAttributeElementIdFromAttributeElementUri(attributeElementUri: string) {
     const match = '/elements?id=';
     return attributeElementUri.slice(attributeElementUri.lastIndexOf(match) + match.length);
 }
@@ -64,5 +65,5 @@ export const isPieChart = isEqual(PIE_CHART);
 export const isAreaChart = isEqual(AREA_CHART);
 export const isDoughnutChart = isEqual(DOUGHNUT_CHART);
 export const isHeadline = isEqual(HEADLINE);
-export const isChartSupported = (type : any) => includes(CHART_TYPES, type);
+export const isChartSupported = (type: string) => includes(CHART_TYPES, type);
 export const stringifyChartTypes = () => CHART_TYPES.join(', ');
