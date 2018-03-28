@@ -30,10 +30,19 @@ export function unwrap(wrappedObject: any) {
     return wrappedObject[Object.keys(wrappedObject)[0]];
 }
 
-export function isNegativeValueIncluded(series: any) {
+export interface ISeriesDataItem {
+    y: number;
+}
+
+export interface ISeriesItem {
+    data: ISeriesDataItem[];
+    name: string;
+}
+
+export function isNegativeValueIncluded(series: ISeriesItem[]) {
     return series
-        .some((seriesItem: any) => (
-            seriesItem.data.some(({ y }: any) => (y < 0))
+        .some((seriesItem: ISeriesItem) => (
+            seriesItem.data.some(({ y }: ISeriesDataItem) => (y < 0))
         ));
 }
 
@@ -128,14 +137,14 @@ export interface IPointData {
 
 export interface IPoint {
     y: number;
-    series: any;
-    category: any;
+    series: ISeriesItem;
+    category: string;
     format: string;
     name: string;
 }
 
 export function getSeriesItemData(
-    seriesItem: any,
+    seriesItem: string[],
     seriesIndex: number,
     measureGroup: any,
     viewByAttribute: any,
@@ -143,7 +152,7 @@ export function getSeriesItemData(
     type: string,
     colorPalette: string[]
 ) {
-    return seriesItem.map((pointValue: any, pointIndex: number) => {
+    return seriesItem.map((pointValue: string, pointIndex: number) => {
         // by default seriesIndex corresponds to measureGroup label index
         let measureIndex = seriesIndex;
         // by default pointIndex corresponds to viewBy label index
