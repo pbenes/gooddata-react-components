@@ -30,7 +30,7 @@ module.exports = {
                 exclude: /node_modules/,
                 include: [
                     path.join(__dirname, '../stories'),
-                    path.join(__dirname, '../src')
+                    path.join(__dirname, '../')
                 ],
                 loaders: ['ts-loader']
             }
