@@ -6,6 +6,7 @@ import {
     isDrillable
 } from '../drilldownEventing';
 import { BAR_CHART, COLUMN_CHART, LINE_CHART, PIE_CHART, TABLE } from '../../VisualizationTypes';
+import { noop } from 'lodash';
 
 describe('isDrillable', () => {
     const PURE_MEASURE_URI = '/gdc/md/projectId/obj/1';
@@ -171,7 +172,7 @@ describe('Drilldown Eventing', () => {
 
     it('should call default fire event on point click and fire correct data', () => {
         const afm = { is: 'AFM' };
-        const drillConfig = { afm, onFiredDrillEvent: () => {} };
+        const drillConfig = { afm, onFiredDrillEvent: noop };
         const target = { dispatchEvent: jest.fn() };
 
         chartClick(drillConfig, pointClickEventData, target, LINE_CHART);
@@ -220,7 +221,7 @@ describe('Drilldown Eventing', () => {
     it('should call user defined callback on point click', () => {
         const afm = { is: 'AFM' };
         const drillConfig = { afm, onFiredDrillEvent: jest.fn() };
-        const target = { dispatchEvent: () => {} };
+        const target = { dispatchEvent: noop };
 
         chartClick(drillConfig, pointClickEventData, target, LINE_CHART);
 
@@ -257,7 +258,7 @@ describe('Drilldown Eventing', () => {
 
     it('should call fire event on label click', () => {
         const afm = { is: 'AFM' };
-        const drillConfig = { afm, onFiredDrillEvent: () => {} };
+        const drillConfig = { afm, onFiredDrillEvent: noop };
         const target = { dispatchEvent: jest.fn() };
         const labelClickEventData = {
             points: [{
@@ -308,7 +309,7 @@ describe('Drilldown Eventing', () => {
 
     it('should call fire event on cell click', () => {
         const afm = { is: 'AFM' };
-        const drillConfig = { afm, onFiredDrillEvent: () => {} };
+        const drillConfig = { afm, onFiredDrillEvent: noop };
         const target = { dispatchEvent: jest.fn() };
         const cellClickEventData = {
             columnIndex: 1,

@@ -1,6 +1,7 @@
 // (C) 2007-2018 GoodData Corporation
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
+import { noop } from 'lodash';
 
 import HighChartRenderer from '../HighChartRenderer';
 import { getHighchartsOptions } from '../highChartsCreators';
@@ -139,7 +140,7 @@ describe('HighChartRenderer', () => {
                     }
                 ],
                 position: LEFT,
-                onItemClick: () => {}
+                onItemClick: noop
             }
         }));
         expect(wrapper.find(Chart)).toHaveLength(1);
@@ -252,7 +253,7 @@ describe('HighChartRenderer', () => {
                     }
                 ],
                 position: LEFT,
-                onItemClick: () => {}
+                onItemClick: noop
             }
         }));
         wrapper.instance().onLegendItemClick({ legendIndex: 0 });
