@@ -123,7 +123,7 @@ export const barChartWith60MetricsAndViewByAttribute: any = barChartWithNTimes3M
 
 export const barChartWith6PopMeasuresAndViewByAttribute = (() => {
     const n = 6;
-    let dataSet = immutableSet(
+    let dataSet: any = immutableSet(
         barChartWithPopMeasureAndViewByAttribute,
         'executionRequest.afm.measures',
         range(n).reduce((result, measuresIndex) => {
@@ -147,7 +147,7 @@ export const barChartWith6PopMeasuresAndViewByAttribute = (() => {
         `executionResponse.dimensions[${STACK_BY_DIMENSION_INDEX}].headers[0].measureGroupHeader.items`,
         repeatItemsNTimes(
             dataSet.executionResponse.dimensions[STACK_BY_DIMENSION_INDEX].headers[0].measureGroupHeader.items, n)
-            .map((headerItem, headerItemIndex) => {
+            .map((headerItem: any, headerItemIndex: any) => {
                 const postfix = `_${Math.floor(headerItemIndex / 2)}`;
                 return {
                     measureHeaderItem: {

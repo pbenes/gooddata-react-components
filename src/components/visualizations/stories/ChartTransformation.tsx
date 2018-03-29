@@ -3,18 +3,19 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { screenshotWrap } from '@gooddata/test-storybook';
+import identity = require('lodash/identity');
 
-import ChartTransformation from '../src/chart/ChartTransformation';
-import { FLUID_LEGEND_THRESHOLD } from '../src/chart/legend/Legend';
-import { immutableSet } from '../src/utils/common';
-import { VIEW_BY_DIMENSION_INDEX, STACK_BY_DIMENSION_INDEX } from '../src/chart/constants';
+import ChartTransformation from '../chart/ChartTransformation';
+import { FLUID_LEGEND_THRESHOLD } from '../chart/legend/Legend';
+import { immutableSet } from '../utils/common';
+import { VIEW_BY_DIMENSION_INDEX, STACK_BY_DIMENSION_INDEX } from '../chart/constants';
 
 import fixtureDataSets, * as fixtures from './test_data/fixtures';
 
 import { wrap } from './utils/wrap';
 import CustomLegend from './utils/CustomLegend';
 
-import '../src/styles/charts.scss';
+import '../styles/charts.scss';
 
 function getChart({
     type = 'column',
@@ -30,7 +31,7 @@ function getChart({
     chartHeight,
     chartWidth,
     key
-}) {
+}: any) {
     return wrap(<ChartTransformation
         config={{
             type,
@@ -44,19 +45,23 @@ function getChart({
         height={chartHeight}
         width={chartWidth}
         {...dataSet}
-        onDataTooLarge={f => f}
+        onDataTooLarge={identity}
     />, height, width, minHeight, minWidth, key);
 }
 
-class DynamicChart extends React.Component {
-    constructor(props) {
+class DynamicChart extends React.Component<any, any> {
+    private fixtures: any;
+    private legendOptions: any;
+    private chartTypes: any;
+
+    constructor(props: any) {
         super(props);
         this.fixtures = {
             ...fixtureDataSets,
             updatedBarChartWith3MetricsAndViewByAttribute: (dataSet => immutableSet(
                 dataSet,
                 'executionResult.data[1]',
-                dataSet.executionResult.data[1].map(pointValue => pointValue * 2)
+                dataSet.executionResult.data[1].map((pointValue: any) => pointValue * 2)
             ))(fixtures.barChartWith3MetricsAndViewByAttribute)
         };
 
@@ -82,19 +87,19 @@ class DynamicChart extends React.Component {
         };
     }
 
-    setDataSet(dataSetName) {
+    setDataSet(dataSetName: any) {
         this.setState({
             dataSet: this.fixtures[dataSetName]
         });
     }
 
-    setLegend(legendOption) {
+    setLegend(legendOption: any) {
         this.setState({
             legendOption: this.legendOptions[legendOption]
         });
     }
 
-    setChartType(chartType) {
+    setChartType(chartType: any) {
         this.setState({
             chartType
         });
@@ -129,7 +134,7 @@ class DynamicChart extends React.Component {
                     )) }
                 </div>
                 <div>
-                    { this.chartTypes.map(chartTypeOption => (
+                    { this.chartTypes.map((chartTypeOption: any) => (
                         <button key={chartTypeOption} onClick={() => this.setChartType(chartTypeOption)} >
                             {chartTypeOption}
                         </button>
@@ -197,7 +202,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
@@ -224,7 +229,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
@@ -250,7 +255,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
@@ -276,7 +281,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
@@ -303,7 +308,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
@@ -330,7 +335,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
@@ -357,7 +362,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
@@ -384,7 +389,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
@@ -411,7 +416,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
@@ -438,7 +443,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
@@ -465,13 +470,13 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );
     })
     .add('Pie chart view viewBy attribute with empty value', () => {
-        const dataSet = immutableSet(fixtures.barChartWithViewByAttribute, 'executionResult.data[0][0]', null);
+        const dataSet: any = immutableSet(fixtures.barChartWithViewByAttribute, 'executionResult.data[0][0]', null);
 
         return screenshotWrap(
             wrap(
@@ -492,7 +497,7 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={f => f}
+                    onDataTooLarge={identity}
                 />
             )
         );

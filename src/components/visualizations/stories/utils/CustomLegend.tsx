@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { screenshotWrap } from '@gooddata/test-storybook';
+import identity = require('lodash/identity');
 
 import ChartTransformation from '../../chart/ChartTransformation';
 import { barChartWith3MetricsAndViewByAttribute } from '../test_data/fixtures';
@@ -31,7 +32,7 @@ export default class CustomLegend extends React.PureComponent<any, any> {
         const { legendItems } = this.state;
         return (
             <div className="custom-legend">
-                {legendItems.map((item, i) => {
+                {legendItems.map((item: any, i: number) => {
                     const { color } = item;
                     return (
                         <div
@@ -62,8 +63,8 @@ export default class CustomLegend extends React.PureComponent<any, any> {
                             }
                         }}
                         {...dataSet}
-                        onDataTooLarge={f => f}
-                        onLegendReady={(data) => {
+                        onDataTooLarge={identity}
+                        onLegendReady={(data: any) => {
                             this.setState(data);
                         }}
                     />
