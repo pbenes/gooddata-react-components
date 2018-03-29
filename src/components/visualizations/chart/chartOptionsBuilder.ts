@@ -35,7 +35,7 @@ export interface ISeriesDataItem {
 }
 
 export interface ISeriesItem {
-    data: ISeriesDataItem[];
+    data?: ISeriesDataItem[];
     name: string;
 }
 

@@ -33,12 +33,12 @@ import {
 } from '../../utils/color';
 
 export function generateChartOptions(
-    dataSet = fixtures.barChartWithStackByAndViewByAttributes,
-    config = {
+    dataSet: any = fixtures.barChartWithStackByAndViewByAttributes,
+    config: any = {
         type: 'column',
         stacking: false
     },
-    drillableItems = []
+    drillableItems: any = []
 ) {
     const {
         executionRequest: { afm, resultSpec },
@@ -56,7 +56,7 @@ export function generateChartOptions(
     );
 }
 
-function getMVS(dataSet) {
+function getMVS(dataSet: any) {
     const {
         executionResponse: { dimensions },
         executionResult: { headerItems }
@@ -77,12 +77,15 @@ function getMVS(dataSet) {
     ];
 }
 
-function getSeriesItemDataParameters(dataSet, seriesIndex) {
+function getSeriesItemDataParameters(dataSet: any, seriesIndex: any) {
     const seriesItem = dataSet.executionResult.data[seriesIndex];
+    const mvs = getMVS(dataSet);
     return [
         seriesItem,
         seriesIndex,
-        ...getMVS(dataSet)
+        mvs[0],
+        mvs[1],
+        mvs[2]
     ];
 }
 
@@ -380,9 +383,19 @@ describe('chartOptionsBuilder', () => {
 
     describe('getSeriesItemData', () => {
         describe('in usecase of bar chart with pop measure and view by attribute', () => {
-            const parameters: any = getSeriesItemDataParameters(fixtures.barChartWithPopMeasureAndViewByAttribute, 0);
-            const seriesItemData: any = getSeriesItemData(
-                ...parameters,
+            const parameters = getSeriesItemDataParameters(fixtures.barChartWithPopMeasureAndViewByAttribute, 0);
+            const seriesItem = parameters[0];
+            const seriesIndex = parameters[1];
+            const measureGroup = parameters[2];
+            const viewByAttribute = parameters[3];
+            const stackByAttribute = parameters[4];
+
+            const seriesItemData = getSeriesItemData(
+                seriesItem,
+                seriesIndex,
+                measureGroup,
+                viewByAttribute,
+                stackByAttribute,
                 'column',
                 DEFAULT_COLOR_PALETTE
             );
@@ -429,8 +442,18 @@ describe('chartOptionsBuilder', () => {
 
         describe('in usecase of pie chart with metrics only', () => {
             const parameters = getSeriesItemDataParameters(fixtures.pieChartWithMetricsOnly, 0);
+            const seriesItem = parameters[0];
+            const seriesIndex = parameters[1];
+            const measureGroup = parameters[2];
+            const viewByAttribute = parameters[3];
+            const stackByAttribute = parameters[4];
+
             const seriesItemData = getSeriesItemData(
-                ...parameters,
+                seriesItem,
+                seriesIndex,
+                measureGroup,
+                viewByAttribute,
+                stackByAttribute,
                 'pie',
                 DEFAULT_COLOR_PALETTE
             );
@@ -470,8 +493,18 @@ describe('chartOptionsBuilder', () => {
 
         describe('in usecase of pie chart with an attribute', () => {
             const parameters = getSeriesItemDataParameters(fixtures.barChartWithViewByAttribute, 0);
+            const seriesItem = parameters[0];
+            const seriesIndex = parameters[1];
+            const measureGroup = parameters[2];
+            const viewByAttribute = parameters[3];
+            const stackByAttribute = parameters[4];
+
             const seriesItemData = getSeriesItemData(
-                ...parameters,
+                seriesItem,
+                seriesIndex,
+                measureGroup,
+                viewByAttribute,
+                stackByAttribute,
                 'pie',
                 DEFAULT_COLOR_PALETTE
             );
@@ -515,7 +548,9 @@ describe('chartOptionsBuilder', () => {
             const type = 'column';
             const seriesData = getSeries(
                 dataSet.executionResult.data,
-                ...mVS,
+                mVS[0],
+                mVS[1],
+                mVS[2],
                 type,
                 DEFAULT_COLOR_PALETTE
             );
@@ -545,9 +580,20 @@ describe('chartOptionsBuilder', () => {
             });
 
             it('should fill correct series data', () => {
-                const expectedData = [0, 1, 2].map(((seriesIndex) => {
+                const expectedData = [0, 1, 2].map(((seriesIndex: any) => {
+                    const parameters = getSeriesItemDataParameters(dataSet, seriesIndex);
+                    const seriesItem = parameters[0];
+                    const si = parameters[1];
+                    const measureGroup = parameters[2];
+                    const viewByAttribute = parameters[3];
+                    const stackByAttribute = parameters[4];
+
                     return getSeriesItemData(
-                        ...getSeriesItemDataParameters(dataSet, seriesIndex),
+                        seriesItem,
+                        si,
+                        measureGroup,
+                        viewByAttribute,
+                        stackByAttribute,
                         type,
                         DEFAULT_COLOR_PALETTE
                     );
@@ -562,7 +608,9 @@ describe('chartOptionsBuilder', () => {
             const type = 'column';
             const seriesData = getSeries(
                 dataSet.executionResult.data,
-                ...mVS,
+                mVS[0],
+                mVS[1],
+                mVS[2],
                 type,
                 DEFAULT_COLOR_PALETTE
             );
@@ -591,8 +639,19 @@ describe('chartOptionsBuilder', () => {
 
             it('should fill correct series data', () => {
                 const expectedData = [0, 1].map(((seriesIndex) => {
+                    const parameters = getSeriesItemDataParameters(dataSet, seriesIndex);
+                    const seriesItem = parameters[0];
+                    const si = parameters[1];
+                    const measureGroup = parameters[2];
+                    const viewByAttribute = parameters[3];
+                    const stackByAttribute = parameters[4];
+
                     return getSeriesItemData(
-                        ...getSeriesItemDataParameters(dataSet, seriesIndex),
+                        seriesItem,
+                        si,
+                        measureGroup,
+                        viewByAttribute,
+                        stackByAttribute,
                         type,
                         DEFAULT_COLOR_PALETTE
                     );
@@ -673,7 +732,9 @@ describe('chartOptionsBuilder', () => {
             const type = 'bar';
             const seriesWithoutDrillability = getSeries(
                 dataSet.executionResult.data,
-                ...mVS,
+                mVS[0],
+                mVS[1],
+                mVS[2],
                 type,
                 DEFAULT_COLOR_PALETTE
             );
@@ -685,7 +746,9 @@ describe('chartOptionsBuilder', () => {
                 const drillableMeasuresSeriesData = getDrillableSeries(
                     seriesWithoutDrillability,
                     drillableMeasures,
-                    ...mVS,
+                    mVS[0],
+                    mVS[1],
+                    mVS[2],
                     type,
                     afm
                 );
@@ -710,7 +773,9 @@ describe('chartOptionsBuilder', () => {
             const type = 'column';
             const seriesWithoutDrillability = getSeries(
                 dataSet.executionResult.data,
-                ...mVS,
+                mVS[0],
+                mVS[1],
+                mVS[2],
                 type,
                 DEFAULT_COLOR_PALETTE
             );
@@ -720,7 +785,9 @@ describe('chartOptionsBuilder', () => {
                 const noDrillableSeriesData = getDrillableSeries(
                     seriesWithoutDrillability,
                     noDrillableItems,
-                    ...mVS,
+                    mVS[0],
+                    mVS[1],
+                    mVS[2],
                     type,
                     afm
                 );
@@ -773,7 +840,9 @@ describe('chartOptionsBuilder', () => {
                 const twoDrillableMeasuresSeriesData = getDrillableSeries(
                     seriesWithoutDrillability,
                     twoDrillableMeasuresItems,
-                    ...mVS,
+                    mVS[0],
+                    mVS[1],
+                    mVS[2],
                     type,
                     afm
                 );
@@ -842,7 +911,9 @@ describe('chartOptionsBuilder', () => {
             const type = 'column';
             const seriesData = getSeries(
                 dataSet.executionResult.data,
-                ...mVS,
+                mVS[0],
+                mVS[1],
+                mVS[2],
                 type,
                 DEFAULT_COLOR_PALETTE
             );
@@ -870,9 +941,20 @@ describe('chartOptionsBuilder', () => {
             });
 
             it('should fill correct series data', () => {
-                const expectedData = [0, 1].map(((seriesIndex) => {
+                const expectedData = [0, 1].map(((seriesIndex: any) => {
+                    const parameters = getSeriesItemDataParameters(dataSet, seriesIndex);
+                    const seriesItem = parameters[0];
+                    const si = parameters[1];
+                    const measureGroup = parameters[2];
+                    const viewByAttribute = parameters[3];
+                    const stackByAttribute = parameters[4];
+
                     return getSeriesItemData(
-                        ...getSeriesItemDataParameters(dataSet, seriesIndex),
+                        seriesItem,
+                        si,
+                        measureGroup,
+                        viewByAttribute,
+                        stackByAttribute,
                         type,
                         DEFAULT_COLOR_PALETTE
                     );
@@ -912,7 +994,7 @@ describe('chartOptionsBuilder', () => {
         function getValues(str: any) {
             const test = />([^<]+)<\/td>/g;
             const result = str.match(test).map((match: any) => match.slice(1, -5));
-            return (result && result.length) >= 2 ? Array.from(result) : null;
+            return (result && result.length) >= 2 ? result : null;
         }
 
         describe('unescaping angle brackets and htmlescaping the whole value', () => {
