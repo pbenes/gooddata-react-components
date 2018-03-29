@@ -51,6 +51,9 @@ export default class CustomLegend extends React.PureComponent<any, any> {
 
     public render() {
         const dataSet = barChartWith3MetricsAndViewByAttribute;
+        const setData = (data: any) => {
+            this.setState(data);
+        };
         return screenshotWrap(
             <div>
                 {this.state.legendItems && this.renderLegend()}
@@ -64,9 +67,7 @@ export default class CustomLegend extends React.PureComponent<any, any> {
                         }}
                         {...dataSet}
                         onDataTooLarge={identity}
-                        onLegendReady={(data: any) => {
-                            this.setState(data);
-                        }}
+                        onLegendReady={setData}
                     />
                 )}
             </div>

@@ -422,11 +422,11 @@ const data = {
         [
             {
                 id: '961216',
-                name: "Amelia's"
+                name: 'Amelia\'s'
             },
             {
                 id: '961216',
-                name: "Amelia's"
+                name: 'Amelia\'s'
             },
             '40507'
         ],
@@ -1478,11 +1478,11 @@ const data = {
         [
             {
                 id: '958467',
-                name: "Bojangles' Restaurants, Inc."
+                name: 'Bojangles\' Restaurants, Inc.'
             },
             {
                 id: '958467',
-                name: "Bojangles' Restaurants, Inc."
+                name: 'Bojangles\' Restaurants, Inc.'
             },
             '40379'
         ],
@@ -1654,11 +1654,11 @@ const data = {
         [
             {
                 id: '958439',
-                name: "Blaser's USA"
+                name: 'Blaser\'s USA'
             },
             {
                 id: '958439',
-                name: "Blaser's USA"
+                name: 'Blaser\'s USA'
             },
             '40361'
         ],
@@ -1731,11 +1731,11 @@ const data = {
         [
             {
                 id: '955155',
-                name: "Aaron's Sales & Lease Ownership"
+                name: 'Aaron\'s Sales & Lease Ownership'
             },
             {
                 id: '955155',
-                name: "Aaron's Sales & Lease Ownership"
+                name: 'Aaron\'s Sales & Lease Ownership'
             },
             '40359'
         ],

@@ -5,7 +5,8 @@ import { STACK_BY_DIMENSION_INDEX } from '../../src/components/visualizations/ch
 
 export const barChartWithSingleMeasureAndNoAttributes: any = {
     executionRequest: require('../test_data/bar_chart_with_single_measure_and_no_attributes_request.json').execution,
-    executionResponse: require('../test_data/bar_chart_with_single_measure_and_no_attributes_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/bar_chart_with_single_measure_and_no_attributes_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_single_measure_and_no_attributes_result.json').executionResult
 };
 
@@ -22,79 +23,97 @@ export const barChartWithNegativeAndZeroValues: any = immutableSet(barChartWitho
 
 export const barChartWith3MetricsAndViewByAttribute: any = {
     executionRequest: require('../test_data/bar_chart_with_3_metrics_and_view_by_attribute_request.json').execution,
-    executionResponse: require('../test_data/bar_chart_with_3_metrics_and_view_by_attribute_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/bar_chart_with_3_metrics_and_view_by_attribute_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_3_metrics_and_view_by_attribute_result.json').executionResult
 };
 
 export const areaChartWith3MetricsAndViewByAttribute: any = {
     executionRequest: require('../test_data/area_chart_with_3_metrics_and_view_by_attribute_request.json').execution,
-    executionResponse: require('../test_data/area_chart_with_3_metrics_and_view_by_attribute_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/area_chart_with_3_metrics_and_view_by_attribute_response.json').executionResponse,
     executionResult: require('../test_data/area_chart_with_3_metrics_and_view_by_attribute_result.json').executionResult
 };
 
 export const areaChartWith1MetricsAndStackByAttributeAndFilters: any = {
-    executionRequest: require('../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_request.json').execution,
-    executionResponse: require('../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_response.json').executionResponse,
-    executionResult: require('../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_result.json').executionResult
+    executionRequest:
+        require('../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_request.json').execution,
+    executionResponse:
+        require('../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_response.json')
+        .executionResponse,
+    executionResult:
+        require('../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_result.json')
+        .executionResult
 };
 
 export const areaChartWithNegativeValues: any = {
     executionRequest: require('../test_data/area_chart_with_negative_values_request.json').execution,
-    executionResponse: require('../test_data/area_chart_with_negative_values_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/area_chart_with_negative_values_response.json').executionResponse,
     executionResult: require('../test_data/area_chart_with_negative_values_result.json').executionResult
 };
 
 export const areaChartWithMeasureViewByAndStackBy: any = {
     executionRequest: require('../test_data/area_chart_with_measure_view_by_and_stack_by_request.json').execution,
-    executionResponse: require('../test_data/area_chart_with_measure_view_by_and_stack_by_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/area_chart_with_measure_view_by_and_stack_by_response.json').executionResponse,
     executionResult: require('../test_data/area_chart_with_measure_view_by_and_stack_by_result.json').executionResult
 };
 
 export const barChartWithViewByAttribute: any = {
     executionRequest: require('../test_data/bar_chart_with_view_by_attribute_request.json').execution,
-    executionResponse: require('../test_data/bar_chart_with_view_by_attribute_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/bar_chart_with_view_by_attribute_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_view_by_attribute_result.json').executionResult
 };
 
 export const barChartWithManyViewByAttributeValues: any = {
     executionRequest: require('../test_data/bar_chart_with_many_view_by_attribute_values_request.json').execution,
-    executionResponse: require('../test_data/bar_chart_with_many_view_by_attribute_values_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/bar_chart_with_many_view_by_attribute_values_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_many_view_by_attribute_values_result.json').executionResult
 };
 
 export const barChartWithStackByAndViewByAttributes: any = {
     executionRequest: require('../test_data/bar_chart_with_stack_by_and_view_by_attributes_request.json').execution,
-    executionResponse: require('../test_data/bar_chart_with_stack_by_and_view_by_attributes_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/bar_chart_with_stack_by_and_view_by_attributes_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_stack_by_and_view_by_attributes_result.json').executionResult
 };
 
 export const barChartWithStackByAndOnlyOneStack: any = {
     executionRequest: require('../test_data/bar_chart_with_stack_by_and_only_one_stack_request.json').execution,
-    executionResponse: require('../test_data/bar_chart_with_stack_by_and_only_one_stack_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/bar_chart_with_stack_by_and_only_one_stack_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_stack_by_and_only_one_stack_result.json').executionResult
 };
 
 export const barChartWithPopMeasureAndViewByAttribute: any = {
     executionRequest: require('../test_data/bar_chart_with_pop_measure_and_view_by_attribute_request.json').execution,
-    executionResponse: require('../test_data/bar_chart_with_pop_measure_and_view_by_attribute_response.json').executionResponse,
-    executionResult: require('../test_data/bar_chart_with_pop_measure_and_view_by_attribute_result.json').executionResult
+    executionResponse:
+        require('../test_data/bar_chart_with_pop_measure_and_view_by_attribute_response.json').executionResponse,
+    executionResult:
+        require('../test_data/bar_chart_with_pop_measure_and_view_by_attribute_result.json').executionResult
 };
 
 export const pieChartWithMetricsOnly: any = {
     executionRequest: require('../test_data/pie_chart_with_metrics_only_request.json').execution,
-    executionResponse: require('../test_data/pie_chart_with_metrics_only_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/pie_chart_with_metrics_only_response.json').executionResponse,
     executionResult: require('../test_data/pie_chart_with_metrics_only_result.json').executionResult
 };
 
 export const headlineWithOneMeasure: any = {
     executionRequest: require('../test_data/headline_with_one_measure_request.json').execution,
-    executionResponse: require('../test_data/headline_with_one_measure_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/headline_with_one_measure_response.json').executionResponse,
     executionResult: require('../test_data/headline_with_one_measure_result.json').executionResult
 };
 
 export const headlineWithTwoMeasures: any = {
     executionRequest: require('../test_data/headline_with_two_measures_request.json').execution,
-    executionResponse: require('../test_data/headline_with_two_measures_response.json').executionResponse,
+    executionResponse:
+        require('../test_data/headline_with_two_measures_response.json').executionResponse,
     executionResult: require('../test_data/headline_with_two_measures_result.json').executionResult
 };
 
