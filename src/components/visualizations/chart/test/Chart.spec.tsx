@@ -1,6 +1,6 @@
 // (C) 2007-2018 GoodData Corporation
-import Highcharts from 'highcharts';
-import React from 'react';
+import * as Highcharts from 'highcharts';
+import * as React from 'react';
 import { mount } from 'enzyme';
 
 import Chart from '../Chart';
@@ -13,7 +13,6 @@ jest.mock('highcharts', () => {
     };
 });
 
-
 describe('Chart', () => {
     function createComponent(props = {}) {
         return mount(<Chart config={{}} {...props} />);
@@ -22,7 +21,7 @@ describe('Chart', () => {
     it('should render highcharts', () => {
         const spy = jest.spyOn(Highcharts, 'Chart');
         const wrapper = createComponent();
-        const component = wrapper.instance();
+        const component: any = wrapper.instance();
         expect(component.chart).toBeTruthy();
         expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -48,7 +47,7 @@ describe('Chart', () => {
 
     it('should call destroy callback on componentWillUnmount', () => {
         const wrapper = createComponent();
-        const component = wrapper.instance();
+        const component: any = wrapper.instance();
         component.chart.destroy = jest.fn();
 
         component.componentWillUnmount();

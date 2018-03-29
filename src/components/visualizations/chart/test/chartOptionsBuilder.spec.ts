@@ -20,7 +20,7 @@ import {
 } from '../chartOptionsBuilder';
 import { DEFAULT_CATEGORIES_LIMIT } from '../highcharts/commonConfiguration';
 
-import * as fixtures from '../../../stories/test_data/fixtures';
+import * as fixtures from '../../stories/test_data/fixtures';
 
 import {
     PIE_CHART_LIMIT,

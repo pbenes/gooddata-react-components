@@ -1,8 +1,8 @@
 // (C) 2007-2018 GoodData Corporation
-import React from 'react';
+import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import ChartTransformation from '../ChartTransformation';
-import * as fixtures from '../../../stories/test_data/fixtures';
+import * as fixtures from '../../stories/test_data/fixtures';
 import { RIGHT } from '../legend/PositionTypes';
 import HighChartRenderer from '../HighChartRenderer';
 
