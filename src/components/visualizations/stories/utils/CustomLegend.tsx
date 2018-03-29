@@ -14,7 +14,7 @@ export default class CustomLegend extends React.PureComponent<any, any> {
         };
     }
 
-    renderTriangle(color: any) {
+    public renderTriangle(color: any) {
         const style = {
             width: 0,
             height: 0,
@@ -28,7 +28,7 @@ export default class CustomLegend extends React.PureComponent<any, any> {
         );
     }
 
-    renderLegend() {
+    public renderLegend() {
         const { legendItems } = this.state;
         return (
             <div className="custom-legend">
@@ -49,7 +49,7 @@ export default class CustomLegend extends React.PureComponent<any, any> {
         );
     }
 
-    render() {
+    public render() {
         const dataSet = barChartWith3MetricsAndViewByAttribute;
         return screenshotWrap(
             <div>
