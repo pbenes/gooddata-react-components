@@ -1,5 +1,5 @@
 // (C) 2007-2018 GoodData Corporation
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
 const HeadlineDataItem = PropTypes.shape({
     localIdentifier: PropTypes.string.isRequired,

@@ -7,14 +7,14 @@ import Chart from '../Chart';
 
 jest.mock('highcharts', () => {
     return {
-        Chart: (options, callback) => {
+        Chart: ({}, callback) => {
             callback();
         }
     };
 });
 
 describe('Chart', () => {
-    function createComponent(props = {}) {
+    function createComponent(props: any = {}) {
         return mount(<Chart config={{}} {...props} />);
     }
 

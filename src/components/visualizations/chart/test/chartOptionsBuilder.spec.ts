@@ -35,7 +35,8 @@ import {
 export function generateChartOptions(
     dataSet = fixtures.barChartWithStackByAndViewByAttributes,
     config = {
-        type: 'column'
+        type: 'column',
+        stacking: false
     },
     drillableItems = []
 ) {
@@ -107,7 +108,7 @@ describe('chartOptionsBuilder', () => {
         type: 'pie'
     });
 
-    const pieChartWithMetricsOnlyOptions = generateChartOptions({
+    const pieChartWithMetricsOnlyOptions: any = generateChartOptions({
         ...fixtures.pieChartWithMetricsOnly
     },
     {
@@ -163,7 +164,9 @@ describe('chartOptionsBuilder', () => {
                 hasNegativeValue: false
             });
         });
-        it(`should validate with "dataTooLarge: true" against default chart categories limit of ${DEFAULT_CATEGORIES_LIMIT}`, () => {
+
+        it('should validate with "dataTooLarge: true" against default chart categories limit ' +
+            `of ${DEFAULT_CATEGORIES_LIMIT}`, () => {
             const chartOptions = generateChartOptions(fixtures.barChartWith3MetricsAndViewByAttribute);
             chartOptions.data.categories = range(DEFAULT_CATEGORIES_LIMIT + 1);
 
@@ -176,6 +179,7 @@ describe('chartOptionsBuilder', () => {
                 hasNegativeValue: false
             });
         });
+
         it('should validate with "dataTooLarge: true" against default pie chart series limit of 1', () => {
             const chartOptions = generateChartOptions(fixtures.barChartWith3MetricsAndViewByAttribute,
                 {
@@ -190,7 +194,9 @@ describe('chartOptionsBuilder', () => {
                 hasNegativeValue: false
             });
         });
-        it(`should validate with "dataTooLarge: true" against default pie chart categories limit of ${PIE_CHART_LIMIT}`, () => {
+
+        it('should validate with "dataTooLarge: true" against default' +
+            `pie chart categories limit of ${PIE_CHART_LIMIT}`, () => {
             const chartOptions = generateChartOptions(fixtures.pieChartWithMetricsOnly,
                 {
                     type: 'pie'
@@ -374,8 +380,8 @@ describe('chartOptionsBuilder', () => {
 
     describe('getSeriesItemData', () => {
         describe('in usecase of bar chart with pop measure and view by attribute', () => {
-            const parameters = getSeriesItemDataParameters(fixtures.barChartWithPopMeasureAndViewByAttribute, 0);
-            const seriesItemData = getSeriesItemData(
+            const parameters: any = getSeriesItemDataParameters(fixtures.barChartWithPopMeasureAndViewByAttribute, 0);
+            const seriesItemData: any = getSeriesItemData(
                 ...parameters,
                 'column',
                 DEFAULT_COLOR_PALETTE
@@ -383,7 +389,7 @@ describe('chartOptionsBuilder', () => {
 
             it('should fill correct pointData name', () => {
                 expect(
-                    seriesItemData.map(pointData => pointData.name)
+                    seriesItemData.map((pointData: any) => pointData.name)
                 ).toEqual([
                     'Amount previous year',
                     'Amount previous year',
@@ -396,7 +402,7 @@ describe('chartOptionsBuilder', () => {
 
             it('should parse all pointData values', () => {
                 expect(
-                    seriesItemData.map(pointData => pointData.y)
+                    seriesItemData.map((pointData: any) => pointData.y)
                 ).toEqual([
                     null,
                     2773426.95,
@@ -409,7 +415,7 @@ describe('chartOptionsBuilder', () => {
 
             it('should enable markers for all non-null pointData values', () => {
                 expect(
-                    seriesItemData.map(pointData => pointData.marker.enabled)
+                    seriesItemData.map((pointData: any) => pointData.marker.enabled)
                 ).toEqual([
                     false,
                     true,
@@ -519,7 +525,7 @@ describe('chartOptionsBuilder', () => {
             });
 
             it('should fill correct series name', () => {
-                expect(seriesData.map(seriesItem => seriesItem.name)).toEqual([
+                expect(seriesData.map((seriesItem: any) => seriesItem.name)).toEqual([
                     '<button>Lost</button> ...',
                     'Won',
                     'Expected'
@@ -527,7 +533,7 @@ describe('chartOptionsBuilder', () => {
             });
 
             it('should fill correct series color', () => {
-                expect(seriesData.map(seriesItem => seriesItem.color)).toEqual([
+                expect(seriesData.map((seriesItem: any) => seriesItem.color)).toEqual([
                     DEFAULT_COLOR_PALETTE[0],
                     DEFAULT_COLOR_PALETTE[1],
                     DEFAULT_COLOR_PALETTE[2]
@@ -535,7 +541,7 @@ describe('chartOptionsBuilder', () => {
             });
 
             it('should fill correct series legendIndex', () => {
-                expect(seriesData.map(seriesItem => seriesItem.legendIndex)).toEqual([0, 1, 2]);
+                expect(seriesData.map((seriesItem: any) => seriesItem.legendIndex)).toEqual([0, 1, 2]);
             });
 
             it('should fill correct series data', () => {
@@ -546,7 +552,7 @@ describe('chartOptionsBuilder', () => {
                         DEFAULT_COLOR_PALETTE
                     );
                 }));
-                expect(seriesData.map(seriesItem => seriesItem.data)).toEqual(expectedData);
+                expect(seriesData.map((seriesItem: any) => seriesItem.data)).toEqual(expectedData);
             });
         });
 
@@ -566,21 +572,21 @@ describe('chartOptionsBuilder', () => {
             });
 
             it('should fill correct series name equal to stack by attribute values', () => {
-                expect(seriesData.map(seriesItem => seriesItem.name)).toEqual([
+                expect(seriesData.map((seriesItem: any) => seriesItem.name)).toEqual([
                     'East Coast',
                     'West Coast'
                 ]);
             });
 
             it('should fill correct series color', () => {
-                expect(seriesData.map(seriesItem => seriesItem.color)).toEqual([
+                expect(seriesData.map((seriesItem: any) => seriesItem.color)).toEqual([
                     DEFAULT_COLOR_PALETTE[0],
                     DEFAULT_COLOR_PALETTE[1]
                 ]);
             });
 
             it('should fill correct series legendIndex', () => {
-                expect(seriesData.map(seriesItem => seriesItem.legendIndex)).toEqual([0, 1]);
+                expect(seriesData.map((seriesItem: any) => seriesItem.legendIndex)).toEqual([0, 1]);
             });
 
             it('should fill correct series data', () => {
@@ -591,7 +597,7 @@ describe('chartOptionsBuilder', () => {
                         DEFAULT_COLOR_PALETTE
                     );
                 }));
-                expect(seriesData.map(seriesItem => seriesItem.data)).toEqual(expectedData);
+                expect(seriesData.map((seriesItem: any) => seriesItem.data)).toEqual(expectedData);
             });
         });
     });
@@ -642,8 +648,8 @@ describe('chartOptionsBuilder', () => {
             const [measureGroup] = getMVS(dataSet);
             const measure = measureGroup.items[0].measureHeaderItem;
 
-            const viewByItem = null;
-            const stackByItem = null;
+            const viewByItem: any = null;
+            const stackByItem: any = null;
 
             const { afm } = dataSet.executionRequest;
             const drillContext = getDrillContext(stackByItem, viewByItem, measure, afm);
@@ -688,8 +694,8 @@ describe('chartOptionsBuilder', () => {
                     const startYear = parseInt( // should be 2008
                         drillableMeasuresSeriesData[0].data[0].drillContext[1].value, 10
                     );
-                    drillableMeasuresSeriesData.forEach((seriesItem) => {
-                        seriesItem.data.forEach((point, index) => {
+                    drillableMeasuresSeriesData.forEach((seriesItem: any) => {
+                        seriesItem.data.forEach((point: any, index: number) => {
                             expect(point.drillContext[1].value - index).toEqual(startYear);
                         });
                     });
@@ -710,7 +716,7 @@ describe('chartOptionsBuilder', () => {
             );
 
             describe('with no drillable items', () => {
-                const noDrillableItems = [];
+                const noDrillableItems: any = [];
                 const noDrillableSeriesData = getDrillableSeries(
                     seriesWithoutDrillability,
                     noDrillableItems,
@@ -725,18 +731,36 @@ describe('chartOptionsBuilder', () => {
                 it('should return new series array with isDrillable false', () => {
                     expect(noDrillableSeriesData).not.toBe(seriesWithoutDrillability);
                     expect(noDrillableSeriesData
-                        .map(seriesItem => seriesItem.isDrillable)).toEqual([false, false, false]);
+                        .map((seriesItem: any) => seriesItem.isDrillable)).toEqual([false, false, false]);
                 });
 
                 it('should return new pointData items drilldown false and no drillContext', () => {
                     expect(noDrillableSeriesData
-                        .map(seriesItem => seriesItem.data.map(({ drilldown, drillContext }) => {
+                        .map((seriesItem: any) => seriesItem.data.map(({ drilldown, drillContext }: any) => {
                             return { drilldown, drillContext };
                         }))
                     ).toEqual([
-                        [{ drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }], // eslint-disable-line max-len
-                        [{ drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }], // eslint-disable-line max-len
-                        [{ drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }, { drillContext: undefined, drilldown: false }] // eslint-disable-line max-len
+                        [
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false }
+                        ],
+                        [
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false }
+                        ],
+                        [
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false },
+                            { drillContext: undefined, drilldown: false }
+                        ]
                     ]);
                 });
             });
@@ -759,12 +783,12 @@ describe('chartOptionsBuilder', () => {
 
                 it('should return new series array with isDrillable true for the first and last measure ', () => {
                     expect(twoDrillableMeasuresSeriesData
-                        .map(seriesItem => seriesItem.isDrillable)).toEqual([true, false, true]);
+                        .map((seriesItem: any) => seriesItem.isDrillable)).toEqual([true, false, true]);
                 });
 
                 it('should assign new pointData items with drilldown true in the first and last serie', () => {
                     expect(twoDrillableMeasuresSeriesData
-                        .map(seriesItem => seriesItem.data.map(pointData => pointData.drilldown))
+                        .map((seriesItem: any) => seriesItem.data.map((pointData: any) => pointData.drilldown))
                     ).toEqual([
                         [true, true, true, true, true],
                         [false, false, false, false, false],
@@ -774,7 +798,7 @@ describe('chartOptionsBuilder', () => {
 
                 it('should assign correct drillContext to pointData with drilldown true', () => {
                     expect(twoDrillableMeasuresSeriesData
-                        .map(seriesItem => seriesItem.data[0].drillContext)
+                        .map((seriesItem: any) => seriesItem.data[0].drillContext)
                     ).toEqual([
                         [
                             {
@@ -828,21 +852,21 @@ describe('chartOptionsBuilder', () => {
             });
 
             it('should fill correct series name equal to stack by attribute values', () => {
-                expect(seriesData.map(seriesItem => seriesItem.name)).toEqual([
+                expect(seriesData.map((seriesItem: any) => seriesItem.name)).toEqual([
                     'East Coast',
                     'West Coast'
                 ]);
             });
 
             it('should fill correct series color', () => {
-                expect(seriesData.map(seriesItem => seriesItem.color)).toEqual([
+                expect(seriesData.map((seriesItem: any) => seriesItem.color)).toEqual([
                     DEFAULT_COLOR_PALETTE[0],
                     DEFAULT_COLOR_PALETTE[1]
                 ]);
             });
 
             it('should fill correct series legendIndex', () => {
-                expect(seriesData.map(seriesItem => seriesItem.legendIndex)).toEqual([0, 1]);
+                expect(seriesData.map((seriesItem: any) => seriesItem.legendIndex)).toEqual([0, 1]);
             });
 
             it('should fill correct series data', () => {
@@ -853,7 +877,7 @@ describe('chartOptionsBuilder', () => {
                         DEFAULT_COLOR_PALETTE
                     );
                 }));
-                expect(seriesData.map(seriesItem => seriesItem.data)).toEqual(expectedData);
+                expect(seriesData.map((seriesItem: any) => seriesItem.data)).toEqual(expectedData);
             });
         });
     });
@@ -885,9 +909,9 @@ describe('chartOptionsBuilder', () => {
             }
         };
 
-        function getValues(string) {
+        function getValues(str: any) {
             const test = />([^<]+)<\/td>/g;
-            const result = string.match(test).map(match => match.slice(1, -5));
+            const result = str.match(test).map((match: any) => match.slice(1, -5));
             return (result && result.length) >= 2 ? Array.from(result) : null;
         }
 
@@ -1171,7 +1195,8 @@ describe('chartOptionsBuilder', () => {
         });
 
         describe('in usecase of bar chart with pop measure', () => {
-            const chartOptions = generateChartOptions(fixtures.barChartWithPopMeasureAndViewByAttribute, { type: 'column' });
+            const chartOptions =
+                generateChartOptions(fixtures.barChartWithPopMeasureAndViewByAttribute, { type: 'column' });
 
             it('should assign stacking normal', () => {
                 expect(chartOptions.stacking).toBe(null);

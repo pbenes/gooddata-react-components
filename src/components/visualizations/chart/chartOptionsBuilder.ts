@@ -22,7 +22,7 @@ import { VIEW_BY_DIMENSION_INDEX, STACK_BY_DIMENSION_INDEX, PIE_CHART_LIMIT } fr
 
 import { DEFAULT_CATEGORIES_LIMIT } from './highcharts/commonConfiguration';
 
-const enableAreaChartStacking = (stacking: string) => {
+const enableAreaChartStacking = (stacking: any) => {
     return stacking || isUndefined(stacking);
 };
 

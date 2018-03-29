@@ -21,7 +21,7 @@ describe('Common utils', () => {
     });
 
     describe('immutableSet', () => {
-        const data = {
+        const data: any = {
             array: [
                 {
                     modified: [1],
@@ -33,7 +33,7 @@ describe('Common utils', () => {
         const path = 'array[0].modified[1]';
         const newValue = 4;
 
-        const updated = immutableSet(data, path, newValue);
+        const updated: any = immutableSet(data, path, newValue);
         it('should set values deep in the object hierarchy', () => {
             expect(updated.array[0].modified[1]).toEqual(4);
         });
@@ -64,11 +64,11 @@ describe('Common utils', () => {
     });
 
     describe('unEscapeAngleBrackets', () => {
-        const string = 'abc&lt;&#60;&gt;&#62;def';
+        const str = 'abc&lt;&#60;&gt;&#62;def';
         const expectedString = 'abc<<>>def';
 
         it('should return id from attribute value uri', () => {
-            expect(unEscapeAngleBrackets(string)).toEqual(expectedString);
+            expect(unEscapeAngleBrackets(str)).toEqual(expectedString);
         });
     });
 });
