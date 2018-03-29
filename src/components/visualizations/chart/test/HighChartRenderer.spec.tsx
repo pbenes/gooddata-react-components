@@ -9,15 +9,15 @@ import Legend from '../legend/Legend';
 import { TOP, BOTTOM, LEFT, RIGHT } from '../legend/PositionTypes';
 import { BAR_CHART } from '../../VisualizationTypes';
 
-function createComponent(customProps = {}) {
+function createComponent(customProps: any = {}) {
     const chartOptions = {
         type: BAR_CHART,
         ...customProps.chartOptions
     };
 
-    const drillConfig = {
+    const drillConfig: any = {
         afm: {},
-        onFiredDrillEvent: f => f
+        onFiredDrillEvent: (f: any) => f
     };
     const chartProps = {
         chartOptions,
@@ -155,11 +155,11 @@ describe('HighChartRenderer', () => {
                 reflow: jest.fn()
             })
         };
-        const chartRenderer = (props) => {
+        const chartRenderer = (props: any) => {
             props.ref(mockRef);
             return jest.fn().mockReturnValue(<div />);
         };
-        const wrapper = mount(createComponent({
+        const wrapper: any = mount(createComponent({
             chartRenderer,
             ref: mockRef
         }));
@@ -168,7 +168,7 @@ describe('HighChartRenderer', () => {
     });
 
     it('should force chart reflow and set container styles when height is set', () => {
-        const chartMock = {
+        const chartMock: any = {
             container: {
                 style: {}
             },
@@ -179,7 +179,7 @@ describe('HighChartRenderer', () => {
         };
         const mockHeight = 123;
 
-        const chartRenderer = (props) => {
+        const chartRenderer = (props: any) => {
             props.ref(mockRef);
             return jest.fn().mockReturnValue(<div />);
         };
@@ -198,7 +198,7 @@ describe('HighChartRenderer', () => {
     });
 
     it('should force chart reflow and set container styles when height is not set', () => {
-        const chartMock = {
+        const chartMock: any = {
             container: {
                 style: {}
             },
@@ -207,7 +207,7 @@ describe('HighChartRenderer', () => {
         const mockRef = {
             getChart: () => chartMock
         };
-        const chartRenderer = (props) => {
+        const chartRenderer = (props: any) => {
             props.ref(mockRef);
             return jest.fn().mockReturnValue(<div />);
         };
@@ -241,7 +241,7 @@ describe('HighChartRenderer', () => {
     });
 
     it('should toggle legend when onLegendItemClick is called', () => {
-        const wrapper = shallow(createComponent({
+        const wrapper: any = shallow(createComponent({
             legend: {
                 enabled: true,
                 items: [
