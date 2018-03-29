@@ -214,7 +214,8 @@ describe('chartOptionsBuilder', () => {
                 hasNegativeValue: false
             });
         });
-        it('should validate with "hasNegativeValue: true" for pie chart if its series contains a negative value', () => {
+        it('should validate with "hasNegativeValue: true" for pie chart if its series contains a negative value',
+            () => {
             const chartOptions = pieChartOptionsWithNegativeValue;
             const validationResult = validateData({}, chartOptions);
 
@@ -347,7 +348,8 @@ describe('chartOptionsBuilder', () => {
     });
 
     describe('getColorPalette', () => {
-        it('should just return the original palette if there are no pop measures shorten to cover all legend items', () => {
+        it('should just return the original palette if there are no pop measures shorten to cover all legend items',
+            () => {
             const [measureGroup, viewByAttribute, stackByAttribute] = getMVS(fixtures.barChartWithoutAttributes);
             const { afm } = fixtures.barChartWithoutAttributes.executionRequest;
             const type = 'column';
@@ -754,7 +756,7 @@ describe('chartOptionsBuilder', () => {
                 );
 
                 it('should assign correct drillContext to pointData with drilldown true', () => {
-                    const startYear = parseInt( // should be 2008
+                    const startYear = parseInt(// should be 2008
                         drillableMeasuresSeriesData[0].data[0].drillContext[1].value, 10
                     );
                     drillableMeasuresSeriesData.forEach((seriesItem: any) => {
@@ -1050,7 +1052,8 @@ describe('chartOptionsBuilder', () => {
 
     describe('getChartOptions', () => {
         const dataSet = fixtures.barChartWith3MetricsAndViewByAttribute;
-        const dataSetWithoutMeasureGroup = immutableSet(dataSet, `executionResponse.dimensions[${STACK_BY_DIMENSION_INDEX}].headers`, []);
+        const dataSetWithoutMeasureGroup = immutableSet(dataSet,
+            `executionResponse.dimensions[${STACK_BY_DIMENSION_INDEX}].headers`, []);
         const chartOptionsWithCustomOptions = generateChartOptions(dataSet, {
             xLabel: 'xLabel',
             yLabel: 'yLabel',
@@ -1068,7 +1071,10 @@ describe('chartOptionsBuilder', () => {
         });
 
         it('should assign showInPercent true only if at least one measure`s format includes a "%" sign', () => {
-            const dataSetWithPercentFormat = immutableSet(dataSet, `executionResponse.dimensions[${STACK_BY_DIMENSION_INDEX}].headers[0].measureGroupHeader.items[0].measureHeaderItem.format`, '0.00 %');
+            const dataSetWithPercentFormat = immutableSet(dataSet,
+                `executionResponse.dimensions[${STACK_BY_DIMENSION_INDEX}]` +
+                'headers[0].measureGroupHeader.items[0].measureHeaderItem.format',
+                '0.00 %');
             const chartOptions = generateChartOptions(dataSetWithPercentFormat);
             expect(generateChartOptions(dataSet).showInPercent).toBe(false); // false by default
             expect(chartOptions.showInPercent).toBe(true); // true if format includes %
@@ -1101,7 +1107,8 @@ describe('chartOptionsBuilder', () => {
                 expect(chartOptions.stacking).toBe(null);
             });
 
-            it('should assign X axis name by default to view by attribute name instead of attribute display form name', () => {
+            it('should assign X axis name by default to view by attribute name instead of attribute display form name',
+                () => {
                 expect(chartOptions.title.x).toEqual('Year created');
             });
 
@@ -1328,7 +1335,8 @@ describe('chartOptionsBuilder', () => {
 
         describe('in usecase of stacked area chart', () => {
             it('should assign stacking normal', () => {
-                const chartOptions = generateChartOptions(fixtures.areaChartWith3MetricsAndViewByAttribute, { type: 'area' });
+                const chartOptions = generateChartOptions(fixtures.areaChartWith3MetricsAndViewByAttribute,
+                    { type: 'area' });
                 expect(chartOptions.stacking).toBe('normal');
             });
 
