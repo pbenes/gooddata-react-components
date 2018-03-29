@@ -20,6 +20,7 @@ export interface IChartConfig { // TODO: validate config
     type?: string;
     legend?: ILegendConfig;
     limits?: IChartLimits;
+    stacking?: boolean;
 }
 
 export interface IChartProps {

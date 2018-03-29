@@ -6,6 +6,7 @@ import * as fixtures from '../../stories/test_data/fixtures';
 import { RIGHT } from '../legend/PositionTypes';
 import HighChartRenderer from '../HighChartRenderer';
 import noop = require('lodash/noop');
+import { IChartConfig } from '../Chart';
 
 describe('ChartTransformation', () => {
     const defaultProps = {
@@ -22,7 +23,7 @@ describe('ChartTransformation', () => {
         onNegativeValuess: noop
     };
 
-    function createComponent(customProps) {
+    function createComponent(customProps: any = {}) {
         const props = { ...defaultProps, ...customProps };
         return <ChartTransformation {...props} />;
     }
@@ -57,10 +58,9 @@ describe('ChartTransformation', () => {
             type: 'area'
         };
 
-
         function createChartRendererProps(
             executionData = fixtures.areaChartWith3MetricsAndViewByAttribute,
-            config = {}
+            config: IChartConfig = {}
         ) {
             const renderer = jest.fn().mockReturnValue(<div />);
             mount(createComponent({
@@ -103,7 +103,7 @@ describe('ChartTransformation', () => {
         };
         function createChartRendererProps(
             executionData = fixtures.barChartWithStackByAndViewByAttributes,
-            config = {}
+            config: IChartConfig = {}
         ) {
             const renderer = jest.fn().mockReturnValue(<div />);
             mount(createComponent({
