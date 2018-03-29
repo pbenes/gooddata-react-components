@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IntlProvider } from 'react-intl';
 
-import translations from '../../mock-translations/en';
+import translations from '../../src/components/visualizations/mock-translations/en';
 
 export default class IntlWrap extends React.PureComponent {
     public static propTypes = {

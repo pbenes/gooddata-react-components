@@ -3,8 +3,14 @@ import * as React from 'react';
 
 import IntlWrapper from './IntlWrapper';
 
-export function wrap(component: any, height: number = 600,
-                     width: number = 600, minHeight?: number, minWidth?: number, key?: any) {
+export function wrap(
+    component: any,
+    height: number = 600,
+    width: number = 600,
+    minHeight?: number,
+    minWidth?: number,
+    key?: any
+) {
     const keyProp = key ? { key } : {};
     return (
         <IntlWrapper {...keyProp}>

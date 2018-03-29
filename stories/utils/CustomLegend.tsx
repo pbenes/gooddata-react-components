@@ -2,7 +2,7 @@ import * as React from 'react';
 import { screenshotWrap } from '@gooddata/test-storybook';
 import identity = require('lodash/identity');
 
-import ChartTransformation from '../../chart/ChartTransformation';
+import ChartTransformation from '../../src/components/visualizations/chart/ChartTransformation';
 import { barChartWith3MetricsAndViewByAttribute } from '../test_data/fixtures';
 import { wrap } from './wrap';
 

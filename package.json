@@ -87,7 +87,6 @@
     "validate": "tsc -p tsconfig.base.json --noEmit && yarn tslint",
     "validate-ci": "tsc -p tsconfig.base.json --noEmit && yarn tslint-ci",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook-visualizations": "start-storybook -p 9002 -c ./src/components/visualizations/.storybook",
     "build-storybook": "build-storybook -c .storybook -o dist-storybook",
     "test-storybook": "test-storybook"
   },

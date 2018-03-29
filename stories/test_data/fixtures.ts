@@ -1,7 +1,7 @@
 // (C) 2007-2018 GoodData Corporation
 import { range, cloneDeep } from 'lodash';
-import { immutableSet, repeatItemsNTimes } from '../../utils/common';
-import { STACK_BY_DIMENSION_INDEX } from '../../chart/constants';
+import { immutableSet, repeatItemsNTimes } from '../../src/components/visualizations/utils/common';
+import { STACK_BY_DIMENSION_INDEX } from '../../src/components/visualizations/chart/constants';
 
 export const barChartWithSingleMeasureAndNoAttributes: any = {
     executionRequest: require('../test_data/bar_chart_with_single_measure_and_no_attributes_request.json').execution,

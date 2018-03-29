@@ -5,17 +5,19 @@ import { action } from '@storybook/addon-actions';
 import { screenshotWrap } from '@gooddata/test-storybook';
 import identity = require('lodash/identity');
 
-import ChartTransformation from '../chart/ChartTransformation';
-import { FLUID_LEGEND_THRESHOLD } from '../chart/legend/Legend';
-import { immutableSet } from '../utils/common';
-import { VIEW_BY_DIMENSION_INDEX, STACK_BY_DIMENSION_INDEX } from '../chart/constants';
+// import ChartTransformation from '../chart/ChartTransformation';
+import ChartTransformation from '../src/components/visualizations/chart/ChartTransformation';
+// import { FLUID_LEGEND_THRESHOLD } from '../chart/legend/Legend';
+import { FLUID_LEGEND_THRESHOLD } from '../src/components/visualizations/chart/legend/Legend';
+import { immutableSet } from '../src/components/visualizations/utils/common';
+import { VIEW_BY_DIMENSION_INDEX, STACK_BY_DIMENSION_INDEX } from '../src/components/visualizations/chart/constants';
 
 import fixtureDataSets, * as fixtures from './test_data/fixtures';
 
 import { wrap } from './utils/wrap';
 import CustomLegend from './utils/CustomLegend';
 
-import '../styles/charts.scss';
+import '../styles/scss/charts.scss';
 
 function getChart({
     type = 'column',
