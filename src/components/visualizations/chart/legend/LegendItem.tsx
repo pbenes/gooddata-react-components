@@ -40,11 +40,15 @@ export default class LegendItem extends React.Component<any, any> {
 
         const style = width ? { width: `${width}px` } : {};
 
+        const onItemClick = () => {
+            return this.props.onItemClick(item);
+        };
+
         return (
             <div
                 style={style}
                 className="series-item"
-                onClick={() => this.props.onItemClick(item)}
+                onClick={onItemClick}
             >
                 <div className="series-icon" style={iconStyle} />
                 <div

@@ -26,7 +26,8 @@ export function getLegendItems(chartOptions: any) {
     const legendDataSource = isPieChart(chartOptions.type)
         ? chartOptions.data.series[0].data
         : chartOptions.data.series;
-    return legendDataSource.map((legendDataSourceItem: any) => pick(legendDataSourceItem, ['name', 'color', 'legendIndex']));
+    return legendDataSource.map((legendDataSourceItem: any) =>
+        pick(legendDataSourceItem, ['name', 'color', 'legendIndex']));
 }
 
 export default function getLegend(legendConfig: any = {}, chartOptions: any) {
