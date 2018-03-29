@@ -1,5 +1,5 @@
 // (C) 2007-2018 GoodData Corporation
-const config = {
+const config: any = {
     type: 'column',
     buckets: {
         measures: [
@@ -1938,7 +1938,7 @@ const data = {
             '40331'
         ]
     ],
-    warnings: [],
+    warnings: [] as any,
     isEmpty: false,
     isLoading: false
 };

@@ -1,19 +1,19 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import { screenshotWrap } from '@gooddata/test-storybook';
 
-import ChartTransformation from '../../src/chart/ChartTransformation';
+import ChartTransformation from '../../chart/ChartTransformation';
 import { barChartWith3MetricsAndViewByAttribute } from '../test_data/fixtures';
 import { wrap } from './wrap';
 
-export default class CustomLegend extends PureComponent {
-    constructor(props) {
+export default class CustomLegend extends React.PureComponent<any, any> {
+    constructor(props: any) {
         super(props);
         this.state = {
             legendItems: null
         };
     }
 
-    renderTriangle(color) {
+    renderTriangle(color: any) {
         const style = {
             width: 0,
             height: 0,

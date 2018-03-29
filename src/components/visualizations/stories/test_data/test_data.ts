@@ -1,5 +1,5 @@
 // (C) 2007-2018 GoodData Corporation
-export const pieChart = {
+export const pieChart: any = {
     isLoaded: true,
     headers: [{
         type: 'attrLabel',
@@ -67,7 +67,7 @@ export const pieChart = {
     isLoading: false
 };
 
-export const pieChartWithEmpty = {
+export const pieChartWithEmpty: any = {
     isLoaded: true,
     headers: [{
         type: 'attrLabel',

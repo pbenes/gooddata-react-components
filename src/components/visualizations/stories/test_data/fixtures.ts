@@ -3,103 +3,103 @@ import { range, cloneDeep } from 'lodash';
 import { immutableSet, repeatItemsNTimes } from '../../utils/common';
 import { STACK_BY_DIMENSION_INDEX } from '../../chart/constants';
 
-export const barChartWithSingleMeasureAndNoAttributes = {
+export const barChartWithSingleMeasureAndNoAttributes: any = {
     executionRequest: require('../test_data/bar_chart_with_single_measure_and_no_attributes_request.json').execution,
     executionResponse: require('../test_data/bar_chart_with_single_measure_and_no_attributes_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_single_measure_and_no_attributes_result.json').executionResult
 };
 
-export const barChartWithoutAttributes = {
+export const barChartWithoutAttributes: any = {
     executionRequest: require('../test_data/bar_chart_without_attributes_request.json').execution,
     executionResponse: require('../test_data/bar_chart_without_attributes_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_without_attributes_result.json').executionResult
 };
 
-export const barChartWithNegativeAndZeroValues = immutableSet(barChartWithoutAttributes, 'executionResult.data', [
+export const barChartWithNegativeAndZeroValues: any = immutableSet(barChartWithoutAttributes, 'executionResult.data', [
     ['-116625456.54'],
     ['0']
 ]);
 
-export const barChartWith3MetricsAndViewByAttribute = {
+export const barChartWith3MetricsAndViewByAttribute: any = {
     executionRequest: require('../test_data/bar_chart_with_3_metrics_and_view_by_attribute_request.json').execution,
     executionResponse: require('../test_data/bar_chart_with_3_metrics_and_view_by_attribute_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_3_metrics_and_view_by_attribute_result.json').executionResult
 };
 
-export const areaChartWith3MetricsAndViewByAttribute = {
+export const areaChartWith3MetricsAndViewByAttribute: any = {
     executionRequest: require('../test_data/area_chart_with_3_metrics_and_view_by_attribute_request.json').execution,
     executionResponse: require('../test_data/area_chart_with_3_metrics_and_view_by_attribute_response.json').executionResponse,
     executionResult: require('../test_data/area_chart_with_3_metrics_and_view_by_attribute_result.json').executionResult
 };
 
-export const areaChartWith1MetricsAndStackByAttributeAndFilters = {
+export const areaChartWith1MetricsAndStackByAttributeAndFilters: any = {
     executionRequest: require('../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_request.json').execution,
     executionResponse: require('../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_response.json').executionResponse,
     executionResult: require('../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_result.json').executionResult
 };
 
-export const areaChartWithNegativeValues = {
+export const areaChartWithNegativeValues: any = {
     executionRequest: require('../test_data/area_chart_with_negative_values_request.json').execution,
     executionResponse: require('../test_data/area_chart_with_negative_values_response.json').executionResponse,
     executionResult: require('../test_data/area_chart_with_negative_values_result.json').executionResult
 };
 
-export const areaChartWithMeasureViewByAndStackBy = {
+export const areaChartWithMeasureViewByAndStackBy: any = {
     executionRequest: require('../test_data/area_chart_with_measure_view_by_and_stack_by_request.json').execution,
     executionResponse: require('../test_data/area_chart_with_measure_view_by_and_stack_by_response.json').executionResponse,
     executionResult: require('../test_data/area_chart_with_measure_view_by_and_stack_by_result.json').executionResult
 };
 
-export const barChartWithViewByAttribute = {
+export const barChartWithViewByAttribute: any = {
     executionRequest: require('../test_data/bar_chart_with_view_by_attribute_request.json').execution,
     executionResponse: require('../test_data/bar_chart_with_view_by_attribute_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_view_by_attribute_result.json').executionResult
 };
 
-export const barChartWithManyViewByAttributeValues = {
+export const barChartWithManyViewByAttributeValues: any = {
     executionRequest: require('../test_data/bar_chart_with_many_view_by_attribute_values_request.json').execution,
     executionResponse: require('../test_data/bar_chart_with_many_view_by_attribute_values_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_many_view_by_attribute_values_result.json').executionResult
 };
 
-export const barChartWithStackByAndViewByAttributes = {
+export const barChartWithStackByAndViewByAttributes: any = {
     executionRequest: require('../test_data/bar_chart_with_stack_by_and_view_by_attributes_request.json').execution,
     executionResponse: require('../test_data/bar_chart_with_stack_by_and_view_by_attributes_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_stack_by_and_view_by_attributes_result.json').executionResult
 };
 
-export const barChartWithStackByAndOnlyOneStack = {
+export const barChartWithStackByAndOnlyOneStack: any = {
     executionRequest: require('../test_data/bar_chart_with_stack_by_and_only_one_stack_request.json').execution,
     executionResponse: require('../test_data/bar_chart_with_stack_by_and_only_one_stack_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_stack_by_and_only_one_stack_result.json').executionResult
 };
 
-export const barChartWithPopMeasureAndViewByAttribute = {
+export const barChartWithPopMeasureAndViewByAttribute: any = {
     executionRequest: require('../test_data/bar_chart_with_pop_measure_and_view_by_attribute_request.json').execution,
     executionResponse: require('../test_data/bar_chart_with_pop_measure_and_view_by_attribute_response.json').executionResponse,
     executionResult: require('../test_data/bar_chart_with_pop_measure_and_view_by_attribute_result.json').executionResult
 };
 
-export const pieChartWithMetricsOnly = {
+export const pieChartWithMetricsOnly: any = {
     executionRequest: require('../test_data/pie_chart_with_metrics_only_request.json').execution,
     executionResponse: require('../test_data/pie_chart_with_metrics_only_response.json').executionResponse,
     executionResult: require('../test_data/pie_chart_with_metrics_only_result.json').executionResult
 };
 
-export const headlineWithOneMeasure = {
+export const headlineWithOneMeasure: any = {
     executionRequest: require('../test_data/headline_with_one_measure_request.json').execution,
     executionResponse: require('../test_data/headline_with_one_measure_response.json').executionResponse,
     executionResult: require('../test_data/headline_with_one_measure_result.json').executionResult
 };
 
-export const headlineWithTwoMeasures = {
+export const headlineWithTwoMeasures: any = {
     executionRequest: require('../test_data/headline_with_two_measures_request.json').execution,
     executionResponse: require('../test_data/headline_with_two_measures_response.json').executionResponse,
     executionResult: require('../test_data/headline_with_two_measures_result.json').executionResult
 };
 
 export function barChartWithNTimes3MetricsAndViewByAttribute(n = 1) {
-    let dataSet = immutableSet(
+    let dataSet: any = immutableSet(
         barChartWith3MetricsAndViewByAttribute,
         'executionRequest.afm.measures',
         repeatItemsNTimes(barChartWith3MetricsAndViewByAttribute.executionRequest.afm.measures, n));
@@ -117,9 +117,9 @@ export function barChartWithNTimes3MetricsAndViewByAttribute(n = 1) {
     return dataSet;
 }
 
-export const barChartWith18MetricsAndViewByAttribute = barChartWithNTimes3MetricsAndViewByAttribute(6);
+export const barChartWith18MetricsAndViewByAttribute: any = barChartWithNTimes3MetricsAndViewByAttribute(6);
 
-export const barChartWith60MetricsAndViewByAttribute = barChartWithNTimes3MetricsAndViewByAttribute(18);
+export const barChartWith60MetricsAndViewByAttribute: any = barChartWithNTimes3MetricsAndViewByAttribute(18);
 
 export const barChartWith6PopMeasuresAndViewByAttribute = (() => {
     const n = 6;

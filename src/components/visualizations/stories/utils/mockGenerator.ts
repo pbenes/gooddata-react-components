@@ -1,8 +1,8 @@
 // (C) 2007-2018 GoodData Corporation
 import { range, unzip, isNumber } from 'lodash';
 
-function generateRawData(fns, length) {
-    const data = [x => ({ id: x, name: x.toString() }), ...fns].map((fn) => {
+function generateRawData(fns: any, length: any) {
+    const data = [(x: any) => ({ id: x, name: x.toString() }), ...fns].map((fn: any) => {
         return range(1, length + 1).map((n) => {
             const res = fn(n);
 
@@ -13,10 +13,10 @@ function generateRawData(fns, length) {
     return unzip(data);
 }
 
-export function createMock(type, fnsConfig, length) {
-    const fns = fnsConfig.map(config => config.fn);
+export function createMock(type: any, fnsConfig: any, length: any) {
+    const fns = fnsConfig.map((config: any) => config.fn);
     const rawData = generateRawData(fns, length);
-    const metricHeaders = fnsConfig.map((config, i) => {
+    const metricHeaders = fnsConfig.map((config: any, i: any) => {
         const n = i + 1;
         return {
             type: 'metric',

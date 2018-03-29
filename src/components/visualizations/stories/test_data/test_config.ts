@@ -1,7 +1,7 @@
 // (C) 2007-2018 GoodData Corporation
 import { assign } from 'lodash';
 
-export const barChart2Series = {
+export const barChart2Series: any = {
     type: 'line',
     buckets: {
         measures: [
@@ -51,7 +51,7 @@ export const barChart2Series = {
     }
 };
 
-export const stackedBar = {
+export const stackedBar: any = {
     type: 'column',
     buckets: {
         measures: [
@@ -108,7 +108,7 @@ export const stackedBar = {
     }
 };
 
-export const pie = {
+export const pie: any = {
     type: 'pie',
     buckets: {
         measures: [
@@ -147,7 +147,7 @@ export const pie = {
     }
 };
 
-export const metricPie = {
+export const metricPie: any = {
     type: 'pie',
     buckets: {
         measures: [
@@ -197,10 +197,10 @@ export const metricPie = {
     }
 };
 
-export const bar = assign({}, barChart2Series, { type: 'bar' });
-export const column = assign({}, metricPie, { type: 'column' });
+export const bar: any = assign({}, barChart2Series, { type: 'bar' });
+export const column: any = assign({}, metricPie, { type: 'column' });
 
-export const longBar = {
+export const longBar: any = {
     type: 'column',
     buckets: {
         measures: [
