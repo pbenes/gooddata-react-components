@@ -34,21 +34,23 @@ function getChart({
     chartWidth,
     key
 }: any) {
-    return wrap(<ChartTransformation
-        config={{
-            type,
-            legend: {
-                enabled: legendEnabled,
-                position: legendPosition,
-                responsive: legendResponsive
-            },
-            colors
-        }}
-        height={chartHeight}
-        width={chartWidth}
-        {...dataSet}
-        onDataTooLarge={identity}
-    />, height, width, minHeight, minWidth, key);
+    return wrap((
+        <ChartTransformation
+            config={{
+                type,
+                legend: {
+                    enabled: legendEnabled,
+                    position: legendPosition,
+                    responsive: legendResponsive
+                },
+                colors
+            }}
+            height={chartHeight}
+            width={chartWidth}
+            {...dataSet}
+            onDataTooLarge={identity}
+        />
+    ), height, width, minHeight, minWidth, key);
 }
 
 class DynamicChart extends React.Component<any, any> {
@@ -89,26 +91,30 @@ class DynamicChart extends React.Component<any, any> {
         };
     }
 
-    setDataSet(dataSetName: any) {
+    public setDataSet(dataSetName: any) {
         this.setState({
             dataSet: this.fixtures[dataSetName]
         });
     }
 
-    setLegend(legendOption: any) {
+    public setLegend(legendOption: any) {
         this.setState({
             legendOption: this.legendOptions[legendOption]
         });
     }
 
-    setChartType(chartType: any) {
+    public setChartType(chartType: any) {
         this.setState({
             chartType
         });
     }
 
-    render() {
+    public render() {
         const { dataSet, legendOption, chartType } = this.state;
+
+        const setDataSet = (dataSetName: any) => (() => this.setDataSet(dataSetName));
+        const setLegend = (legendOptionsItem: any) => (() => this.setLegend(legendOptionsItem));
+        const setChartType = (chartTypeOption: any) => (() => this.setChartType(chartTypeOption));
         return (
             <div>
                 <div>
@@ -125,19 +131,19 @@ class DynamicChart extends React.Component<any, any> {
                 <br />
                 <div>
                     { Object.keys(this.fixtures).map(dataSetName => (
-                        <button key={dataSetName} onClick={() => this.setDataSet(dataSetName)} >{dataSetName}</button>
+                        <button key={dataSetName} onClick={setDataSet(dataSetName)} >{dataSetName}</button>
                     )) }
                 </div>
                 <div>
                     { Object.keys(this.legendOptions).map(legendOptionsItem => (
-                        <button key={legendOptionsItem} onClick={() => this.setLegend(legendOptionsItem)} >
+                        <button key={legendOptionsItem} onClick={setLegend(legendOptionsItem)} >
                             {legendOptionsItem}
                         </button>
                     )) }
                 </div>
                 <div>
                     { this.chartTypes.map((chartTypeOption: any) => (
-                        <button key={chartTypeOption} onClick={() => this.setChartType(chartTypeOption)} >
+                        <button key={chartTypeOption} onClick={setChartType(chartTypeOption)} >
                             {chartTypeOption}
                         </button>
                     )) }
@@ -152,6 +158,8 @@ storiesOf('ChartTransformation', module)
         const dataSet = {
             ...fixtures.barChartWithSingleMeasureAndNoAttributes
         };
+        const dataLarge = () => { throw new Error('Data too large'); };
+        const negativePieChart = () => { throw new Error('Negative values in pie chart'); };
 
         return screenshotWrap(
             wrap(
@@ -172,12 +180,8 @@ storiesOf('ChartTransformation', module)
                         colors: fixtures.customPalette
                     }}
                     {...dataSet}
-                    onDataTooLarge={() => {
-                        throw new Error('Data too large');
-                    }}
-                    onNegativeValues={() => {
-                        throw new Error('Negative values in pie chart');
-                    }}
+                    onDataTooLarge={dataLarge}
+                    onNegativeValues={negativePieChart}
                 />
             )
         );
