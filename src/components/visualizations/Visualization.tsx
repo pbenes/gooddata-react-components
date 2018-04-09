@@ -6,7 +6,7 @@ import noop = require('lodash/noop');
 import isEqual = require('lodash/isEqual');
 import isFunction = require('lodash/isFunction');
 import omitBy = require('lodash/omitBy');
-import * as Highcharts from 'highcharts';
+import { Highcharts, IChartConfig } from './chart/Chart';
 
 // TODO: will be ported later
 import {
@@ -23,7 +23,6 @@ import {
     stringifyChartTypes
 } from './utils/common';
 
-import { IChartConfig } from './chart/Chart';
 import ChartTransformation, { IExecutionRequest, IDrillableItems, renderHighCharts } from './chart/ChartTransformation';
 
 export interface IVisualizationProps {

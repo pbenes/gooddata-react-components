@@ -12,13 +12,7 @@ import * as cx from 'classnames';
 import { VisualizationTypes } from '../../../constants/visualizationTypes';
 import Chart from './Chart';
 import Legend from './legend/Legend';
-import { initChartPlugins } from './highcharts/chartPlugins';
 import { TOP, LEFT, BOTTOM, RIGHT } from './legend/PositionTypes';
-
-// tslint:disable-next-line
-const Highcharts = require('highcharts/highcharts');
-// tslint:disable-next-line
-const drillmodule = require('highcharts/modules/drilldown');
 
 export interface IHighChartsRendererProps {
     chartOptions: any;
@@ -31,9 +25,6 @@ export interface IHighChartsRendererProps {
     afterRender(): void;
     onLegendReady(legendItems: any): void;
 }
-
-drillmodule(Highcharts);
-initChartPlugins(Highcharts);
 
 export function renderChart(props: any) {
     return <Chart {...props} />;

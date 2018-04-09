@@ -1,9 +1,8 @@
 // (C) 2007-2018 GoodData Corporation
-import * as Highcharts from 'highcharts';
 import * as React from 'react';
 import { mount } from 'enzyme';
 
-import Chart from '../Chart';
+import { Chart, Highcharts } from '../Chart';
 
 jest.mock('highcharts', () => {
     return {
