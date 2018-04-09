@@ -1,27 +1,13 @@
 // (C) 2007-2018 GoodData Corporation
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import * as cx from 'classnames';
 
 import LegendItem from './LegendItem';
-import { TOP, BOTTOM, LEFT, RIGHT } from './PositionTypes';
+import { TOP, BOTTOM } from './PositionTypes';
 import { calculateStaticLegend, ITEM_HEIGHT } from './helpers';
 
 export default class StaticLegend extends React.PureComponent<any, any> {
-    public static propTypes = {
-        chartType: PropTypes.string.isRequired,
-        series: PropTypes.array.isRequired,
-        onItemClick: PropTypes.func.isRequired,
-        containerHeight: PropTypes.number.isRequired,
-        position: PropTypes.oneOf([
-            TOP,
-            BOTTOM,
-            LEFT,
-            RIGHT
-        ]).isRequired
-    };
-
     constructor(props: any) {
         super(props);
         this.state = {

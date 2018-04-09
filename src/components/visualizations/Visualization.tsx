@@ -1,9 +1,8 @@
 // (C) 2007-2018 GoodData Corporation
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import * as invariant from 'invariant';
-import noop = require('lodash/noop');
 import isEqual = require('lodash/isEqual');
+import noop = require('lodash/noop');
 import isFunction = require('lodash/isFunction');
 import omitBy = require('lodash/omitBy');
 import { Highcharts, IChartConfig } from './chart/Chart';
@@ -43,16 +42,7 @@ export interface IVisualizationProps {
     onLegendReady(): void;
 }
 
-export class Visualization extends React.Component<IVisualizationProps, null> {
-    public static propTypes = {
-        config: PropTypes.shape({
-            type: PropTypes.string.isRequired
-        }).isRequired,
-        onFiredDrillEvent: PropTypes.func,
-        numericSymbols: PropTypes.array,
-        afterRender: PropTypes.func
-    };
-
+export class Visualization extends React.Component<IVisualizationProps> {
     public static defaultProps = {
         numericSymbols: [] as string[],
         onFiredDrillEvent: noop,

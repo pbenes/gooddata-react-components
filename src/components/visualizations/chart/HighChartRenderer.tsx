@@ -1,11 +1,10 @@
 // (C) 2007-2018 GoodData Corporation
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import noop = require('lodash/noop');
 import cloneDeep = require('lodash/cloneDeep');
 import get = require('lodash/get');
 import set = require('lodash/set');
 import isEqual = require('lodash/isEqual');
+import noop = require('lodash/noop');
 import partial = require('lodash/partial');
 import * as cx from 'classnames';
 
@@ -35,26 +34,6 @@ export function renderLegend(props: any) {
 }
 
 export default class HighChartRenderer extends React.PureComponent<IHighChartsRendererProps, any> {
-    public static propTypes = {
-        hcOptions: PropTypes.object.isRequired,
-        chartOptions: PropTypes.object.isRequired,
-        afterRender: PropTypes.func,
-        height: PropTypes.number,
-        legend: PropTypes.shape({
-            enabled: PropTypes.bool,
-            position: PropTypes.string,
-            responsive: PropTypes.bool,
-            items: PropTypes.arrayOf(PropTypes.shape({
-                legendIndex: PropTypes.number.isRequired,
-                name: PropTypes.string.isRequired,
-                color: PropTypes.string.isRequired
-            })).isRequired
-        }),
-        chartRenderer: PropTypes.func,
-        legendRenderer: PropTypes.func,
-        onLegendReady: PropTypes.func
-    };
-
     public static defaultProps = {
         afterRender: noop,
         height: null as any,

@@ -1,7 +1,6 @@
 // (C) 2007-2018 GoodData Corporation
 import * as React from 'react';
 import unescape = require('lodash/unescape');
-import * as PropTypes from 'prop-types';
 
 import { isLineChart, isAreaChart } from '../../utils/common';
 
@@ -9,17 +8,6 @@ const VISIBLE_COLOR = '#6D7680';
 const DISABLED_COLOR = '#CCCCCC';
 
 export default class LegendItem extends React.Component<any, any> {
-    public static propTypes = {
-        item: PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            color: PropTypes.string.isRequired,
-            isVisible: PropTypes.bool
-        }).isRequired,
-        onItemClick: PropTypes.func.isRequired,
-        chartType: PropTypes.string.isRequired,
-        width: PropTypes.number
-    };
-
     public static defaultProps: any = {
         width: null
     };

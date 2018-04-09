@@ -1,6 +1,5 @@
 // (C) 2007-2018 GoodData Corporation
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import throttle = require('lodash/throttle');
 import * as Measure from 'react-measure';
 import * as cx from 'classnames';
@@ -11,21 +10,6 @@ import StaticLegend from './StaticLegend';
 export const FLUID_LEGEND_THRESHOLD = 768;
 
 export default class Legend extends React.PureComponent<any, any> {
-    public static propTypes = {
-        chartType: PropTypes.string.isRequired,
-        series: PropTypes.array.isRequired,
-        onItemClick: PropTypes.func.isRequired,
-        position: PropTypes.string.isRequired,
-        responsive: PropTypes.bool,
-        height: PropTypes.number, // Prop is required for fixed height on Dashboards
-        documentObj: PropTypes.shape({
-            documentElement: PropTypes.shape({
-                clientWidth: PropTypes.number.isRequired
-            })
-        }),
-        legendItemsEnabled: PropTypes.arrayOf(PropTypes.bool)
-    };
-
     public static defaultProps = {
         responsive: false,
         documentObj: document,

@@ -1,8 +1,7 @@
 // (C) 2007-2018 GoodData Corporation
-import noop = require('lodash/noop');
 import isEqual = require('lodash/isEqual');
+import noop = require('lodash/noop');
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { initChartPlugins } from './highcharts/chartPlugins';
 
 // Have only one entrypoint to highcharts and drill module
@@ -38,13 +37,7 @@ export interface IChartProps {
     callback(): void;
 }
 
-export default class Chart extends React.Component<IChartProps, null> {
-    public static propTypes = {
-        callback: PropTypes.func,
-        config: PropTypes.object.isRequired,
-        domProps: PropTypes.object
-    };
-
+export default class Chart extends React.Component<IChartProps> {
     public static defaultProps: Partial<IChartProps> = {
         callback: noop,
         domProps: {}

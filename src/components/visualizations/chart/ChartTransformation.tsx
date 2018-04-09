@@ -1,18 +1,12 @@
 // (C) 2007-2018 GoodData Corporation
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import * as invariant from 'invariant';
+import noop = require('lodash/noop');
 import {
     AFM,
     Execution
 } from '@gooddata/typings';
 
-import noop = require('lodash/noop');
-import {
-    ExecutionRequestPropTypes,
-    ExecutionResponsePropTypes,
-    ExecutionResultPropTypes
-} from '../proptypes/execution';
 import { getChartOptions, validateData } from './chartOptionsBuilder';
 import { getHighchartsOptions } from './highChartsCreators';
 import getLegend from './legend/legendBuilder';
@@ -21,7 +15,6 @@ import HighChartRenderer, {
     renderLegend as legendRenderer,
     renderChart as chartRenderer
 } from './HighChartRenderer';
-import DrillableItem from '../proptypes/DrillableItem';
 import { IChartConfig } from './Chart';
 
 export function renderHighCharts(props: IHighChartsRendererProps) {
@@ -62,31 +55,6 @@ export interface IChartTransformationState {
 }
 
 export default class ChartTransformation extends React.Component<IChartTransformationProps, IChartTransformationState> {
-    public static propTypes = {
-        config: PropTypes.shape({
-            type: PropTypes.string.isRequired,
-            legend: PropTypes.shape({
-                enabled: PropTypes.bool
-            }),
-            colors: PropTypes.arrayOf(PropTypes.string),
-            stacking: PropTypes.bool
-        }).isRequired,
-        drillableItems: PropTypes.arrayOf(PropTypes.shape(DrillableItem)),
-        height: PropTypes.number,
-        width: PropTypes.number,
-
-        afterRender: PropTypes.func,
-        renderer: PropTypes.func,
-        onDataTooLarge: PropTypes.func.isRequired,
-        onNegativeValues: PropTypes.func,
-        onFiredDrillEvent: PropTypes.func,
-        onLegendReady: PropTypes.func,
-
-        executionRequest: ExecutionRequestPropTypes.isRequired,
-        executionResponse: ExecutionResponsePropTypes.isRequired,
-        executionResult: ExecutionResultPropTypes.isRequired
-    };
-
     public static defaultProps = {
         afm: {},
         drillableItems: [] as any,

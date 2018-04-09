@@ -1,19 +1,11 @@
 // (C) 2007-2018 GoodData Corporation
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import * as cx from 'classnames';
 
 import LegendItem from './LegendItem';
 import { calculateFluidLegend } from './helpers';
 
 export default class FluidLegend extends React.PureComponent<any, any> {
-    public static propTypes = {
-        chartType: PropTypes.string.isRequired,
-        series: PropTypes.array.isRequired,
-        onItemClick: PropTypes.func.isRequired,
-        containerWidth: PropTypes.number
-    };
-
     public static defaultProps: any = {
         containerWidth: null
     };
