@@ -2,34 +2,6 @@
 # yarn lockfile v1
 
 
-"@gooddata/goodstrap@55.0.0-alpha4":
-  version "55.0.0-alpha4"
-  resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-55.0.0-alpha4.tgz#8ecff67043cb83ce3946a3b6783f3abd294fbd89"
-  dependencies:
-    "@gooddata/js-utils" "0.7.1"
-    classnames "2.2.5"
-    custom-event "1.0.1"
-    fixed-data-table-2 "0.7.17"
-    foundation-sites "5.5.3"
-    immutable "3.8.1"
-    invariant "2.2.2"
-    jquery "2.1.4"
-    kefir "3.7.1"
-    lodash "4.17.4"
-    moment "2.18.1"
-    moment-timezone "0.5.11"
-    prop-types "15.6.0"
-    react-day-picker "7.0.7"
-    react-dnd "2.5.4"
-    react-document-title "2.0.3"
-    react-intl "2.4.0"
-    react-native-listener "1.0.2"
-    react-portal "3.1.0"
-    react-responsive "3.0.0"
-    react-textarea-autosize "4.2.2"
-    react-transition-group "1.2.1"
-    rxjs "5.4.3"
-
 "@gooddata/goodstrap@55.0.0-alpha5":
   version "55.0.0-alpha5"
   resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-55.0.0-alpha5.tgz#5a46a6340beb11586f7ae8443bf4e40ca71600d3"
@@ -58,12 +30,40 @@
     react-transition-group "1.2.1"
     rxjs "5.4.3"
 
-"@gooddata/indigo-visualizations@2.0.0-alpha7":
-  version "2.0.0-alpha7"
-  resolved "https://registry.yarnpkg.com/@gooddata/indigo-visualizations/-/indigo-visualizations-2.0.0-alpha7.tgz#4677bbbaae89ce8f77b4a0d925c714a41c36f92e"
+"@gooddata/goodstrap@55.0.0-alpha6":
+  version "55.0.0-alpha6"
+  resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-55.0.0-alpha6.tgz#f21c6441e0a35c9ae98d450fc81044d867dbf4f7"
   dependencies:
-    "@gooddata/goodstrap" "55.0.0-alpha4"
-    "@gooddata/js-utils" "0.7.1"
+    "@gooddata/js-utils" "^2.0.0"
+    classnames "2.2.5"
+    custom-event "1.0.1"
+    fixed-data-table-2 "0.7.17"
+    foundation-sites "5.5.3"
+    immutable "3.8.1"
+    invariant "2.2.2"
+    jquery "2.1.4"
+    kefir "3.7.1"
+    lodash "4.17.4"
+    moment "2.18.1"
+    moment-timezone "0.5.11"
+    prop-types "15.6.0"
+    react-day-picker "7.0.7"
+    react-dnd "2.5.4"
+    react-document-title "2.0.3"
+    react-intl "2.4.0"
+    react-native-listener "1.0.2"
+    react-portal "3.1.0"
+    react-responsive "3.0.0"
+    react-textarea-autosize "4.2.2"
+    react-transition-group "1.2.1"
+    rxjs "5.4.3"
+
+"@gooddata/indigo-visualizations@2.0.0-pbenes-pb-move-charts-2018-04-09T07-51-41-524Z":
+  version "2.0.0-pbenes-pb-move-charts-2018-04-09T07-51-41-524Z"
+  resolved "https://registry.yarnpkg.com/@gooddata/indigo-visualizations/-/indigo-visualizations-2.0.0-pbenes-pb-move-charts-2018-04-09T07-51-41-524Z.tgz#90e9a1ea71a4648dbd5257d6d872c8cec1529fcc"
+  dependencies:
+    "@gooddata/goodstrap" "55.0.0-alpha6"
+    "@gooddata/js-utils" "^2.0.0"
     "@gooddata/numberjs" "3.0.0"
     classnames "2.2.5"
     fixed-data-table-2 "0.7.17"
@@ -93,6 +93,13 @@
     lodash "4.17.4"
     moment "2.17.1"
     moment-timezone "0.5.11"
+
+"@gooddata/js-utils@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@gooddata/js-utils/-/js-utils-2.0.0.tgz#357d795cf5c7a7b58ecb14bd04189338a428559c"
+  dependencies:
+    js-cookie "^2.1.4"
+    lodash "^4.17.4"
 
 "@gooddata/mock-js@1.0.0-alpha4":
   version "1.0.0-alpha4"
@@ -5503,6 +5510,10 @@ js-base64@^2.1.8, js-base64@^2.1.9:
 js-cookie@2.1.4:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.1.4.tgz#da4ec503866f149d164cf25f579ef31015025d8d"
+
+js-cookie@^2.1.4:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
