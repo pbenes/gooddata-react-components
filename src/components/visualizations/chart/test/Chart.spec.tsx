@@ -1,14 +1,25 @@
 // (C) 2007-2018 GoodData Corporation
 import * as React from 'react';
 import { mount } from 'enzyme';
+import identity = require('lodash/identity');
 
-import { Chart, Highcharts } from '../Chart';
+import Chart, { Highcharts } from '../Chart';
 
 jest.mock('highcharts', () => {
     return {
         Chart: ({}, callback: any) => {
             callback();
         }
+    };
+});
+
+jest.mock('highcharts/modules/drilldown', () => {
+    return H => H;
+});
+
+jest.mock('../highcharts/chartPlugins', () => {
+    return {
+        initChartPlugins: H => H
     };
 });
 
