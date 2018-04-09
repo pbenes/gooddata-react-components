@@ -7,7 +7,7 @@ import { initChartPlugins } from './highcharts/chartPlugins';
 
 // Have only one entrypoint to highcharts and drill module
 // tslint:disable-next-line
-export const Highcharts = require('highcharts/highcharts.src');
+export const Highcharts = require('highcharts/highcharts');
 // tslint:disable-next-line
 const drillmodule = require('highcharts/modules/drilldown');
 drillmodule(Highcharts);
