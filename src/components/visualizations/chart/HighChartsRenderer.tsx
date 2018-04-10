@@ -26,7 +26,7 @@ export interface IHighChartsRendererProps {
 }
 
 export interface IHighChartsRendererState {
-    legendItemsEnabled: boolean[];
+    legendItemsEnabled: any[];
 }
 
 export function renderChart(props: any) {
