@@ -383,9 +383,9 @@
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/@types/react-intl/-/react-intl-2.3.5.tgz#eafa170d83c06302416075867a6fd219c1cf84d8"
 
-"@types/react-measure@0.4.7":
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/@types/react-measure/-/react-measure-0.4.7.tgz#f4dd9f6265b488032a31677af5e5eadee67ac8ce"
+"@types/react-measure@^0.4.7":
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/@types/react-measure/-/react-measure-0.4.8.tgz#8747c98531fb05ae9a6b9422979606aa4dd2d25f"
   dependencies:
     "@types/react" "*"
 
@@ -7680,7 +7680,7 @@ react-intl@2.4.0, react-intl@^2.4.0:
     intl-relativeformat "^2.0.0"
     invariant "^2.1.1"
 
-react-measure@1.4.7:
+react-measure@1.4.7, react-measure@^1.4.7:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/react-measure/-/react-measure-1.4.7.tgz#a1d2ca0dcfef04978b7ac263a765dcb6a0936fdb"
   dependencies:
