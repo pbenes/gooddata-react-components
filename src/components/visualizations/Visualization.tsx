@@ -121,7 +121,7 @@ export class Visualization extends React.Component<IVisualizationProps> {
             );
         }
 
-        invariant(isChartSupported(visType),
+        invariant(false,
             `Unknown visualization type: ${visType}. Supported visualization types: ${stringifyChartTypes()}`);
 
         return null;
