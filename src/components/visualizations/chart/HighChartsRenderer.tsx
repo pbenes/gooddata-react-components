@@ -33,7 +33,7 @@ export function renderLegend(props: any) {
     return <Legend {...props} />;
 }
 
-export default class HighChartRenderer extends React.PureComponent<IHighChartsRendererProps, any> {
+export default class HighChartsRenderer extends React.PureComponent<IHighChartsRendererProps, any> {
     public static defaultProps = {
         afterRender: noop,
         height: null as any,

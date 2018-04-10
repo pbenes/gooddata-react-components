@@ -10,15 +10,15 @@ import {
 import { getChartOptions, validateData } from './chartOptionsBuilder';
 import { getHighchartsOptions } from './highChartsCreators';
 import getLegend from './legend/legendBuilder';
-import HighChartRenderer, {
+import HighChartsRenderer, {
     IHighChartsRendererProps,
     renderLegend as legendRenderer,
     renderChart as chartRenderer
-} from './HighChartRenderer';
+} from './HighChartsRenderer';
 import { IChartConfig } from './Chart';
 
 export function renderHighCharts(props: IHighChartsRendererProps) {
-    return <HighChartRenderer {...props} />;
+    return <HighChartsRenderer {...props} />;
 }
 
 export interface IDrillableItems {

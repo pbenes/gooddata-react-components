@@ -3,7 +3,7 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import noop = require('lodash/noop');
 
-import HighChartRenderer from '../HighChartRenderer';
+import HighChartsRenderer from '../HighChartsRenderer';
 import { getHighchartsOptions } from '../highChartsCreators';
 import Chart from '../Chart';
 import Legend from '../legend/Legend';
@@ -33,10 +33,10 @@ function createComponent(customProps: any = {}) {
         },
         ...customProps
     };
-    return <HighChartRenderer {...chartProps} />;
+    return <HighChartsRenderer {...chartProps} />;
 }
 
-describe('HighChartRenderer', () => {
+describe('HighChartsRenderer', () => {
     describe('onLegendReady', () => {
         it('should dispatch after mount', () => {
             const onLegendReady = jest.fn();

@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme';
 import ChartTransformation from '../ChartTransformation';
 import * as fixtures from '../../../../../stories/test_data/fixtures';
 import { RIGHT } from '../legend/PositionTypes';
-import HighChartRenderer from '../HighChartRenderer';
+import HighChartsRenderer from '../HighChartsRenderer';
 import noop = require('lodash/noop');
 import { IChartConfig } from '../Chart';
 
@@ -184,7 +184,7 @@ describe('ChartTransformation', () => {
                 }
             };
             const wrapper = shallow(createComponent(props));
-            expect(wrapper.find(HighChartRenderer)).toHaveLength(0);
+            expect(wrapper.find(HighChartsRenderer)).toHaveLength(0);
             expect(onDataTooLarge).toHaveBeenCalledTimes(1);
         });
 
@@ -201,10 +201,10 @@ describe('ChartTransformation', () => {
                 }
             };
             const wrapper = shallow(createComponent());
-            expect(wrapper.find(HighChartRenderer)).toHaveLength(1);
+            expect(wrapper.find(HighChartsRenderer)).toHaveLength(1);
 
             wrapper.setProps(props);
-            expect(wrapper.find(HighChartRenderer)).toHaveLength(0);
+            expect(wrapper.find(HighChartsRenderer)).toHaveLength(0);
             expect(onDataTooLarge).toHaveBeenCalledTimes(1);
 
             wrapper.setProps({
@@ -214,7 +214,7 @@ describe('ChartTransformation', () => {
                     limits: undefined
                 }
             });
-            expect(wrapper.find(HighChartRenderer)).toHaveLength(1);
+            expect(wrapper.find(HighChartsRenderer)).toHaveLength(1);
         });
     });
 
@@ -285,7 +285,7 @@ describe('ChartTransformation', () => {
                 ...pieChartPropsWithNegativeValue
             };
             const wrapper = shallow(createComponent(props));
-            expect(wrapper.find(HighChartRenderer)).toHaveLength(0);
+            expect(wrapper.find(HighChartsRenderer)).toHaveLength(0);
             expect(onNegativeValues).toHaveBeenCalledTimes(1);
         });
 
@@ -296,14 +296,14 @@ describe('ChartTransformation', () => {
                 ...pieChartPropsWithNegativeValue
             };
             const wrapper = shallow(createComponent());
-            expect(wrapper.find(HighChartRenderer)).toHaveLength(1);
+            expect(wrapper.find(HighChartsRenderer)).toHaveLength(1);
 
             wrapper.setProps(props);
-            expect(wrapper.find(HighChartRenderer)).toHaveLength(0);
+            expect(wrapper.find(HighChartsRenderer)).toHaveLength(0);
             expect(onNegativeValues).toHaveBeenCalledTimes(1);
 
             wrapper.setProps(fixtures.pieChartWithMetricsOnly);
-            expect(wrapper.find(HighChartRenderer)).toHaveLength(1);
+            expect(wrapper.find(HighChartsRenderer)).toHaveLength(1);
         });
     });
 });
