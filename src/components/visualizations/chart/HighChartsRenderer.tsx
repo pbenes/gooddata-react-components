@@ -102,7 +102,7 @@ export default class HighChartsRenderer
 
     public onLegendItemClick(item: any) {
         this.setState({
-            legendItemsEnabled: set(
+            legendItemsEnabled: set<any[]>(
                 [...this.state.legendItemsEnabled],
                 item.legendIndex,
                 !this.state.legendItemsEnabled[item.legendIndex]
