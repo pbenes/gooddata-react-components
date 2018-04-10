@@ -26,7 +26,7 @@ export interface IHighChartsRendererProps {
 }
 
 export interface IHighChartsRendererState {
-    legendItemsEnabled: any[];
+    legendItemsEnabled: boolean[];
 }
 
 export function renderChart(props: any) {
@@ -102,7 +102,7 @@ export default class HighChartsRenderer
 
     public onLegendItemClick(item: any) {
         this.setState({
-            legendItemsEnabled: set<any[]>(
+            legendItemsEnabled: set<boolean[]>(
                 [...this.state.legendItemsEnabled],
                 item.legendIndex,
                 !this.state.legendItemsEnabled[item.legendIndex]
