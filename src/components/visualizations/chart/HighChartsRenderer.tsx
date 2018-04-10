@@ -25,6 +25,10 @@ export interface IHighChartsRendererProps {
     onLegendReady(legendItems: any): void;
 }
 
+export interface IHighChartsRendererState {
+    legendItemsEnabled: boolean[];
+}
+
 export function renderChart(props: any) {
     return <Chart {...props} />;
 }
@@ -33,7 +37,8 @@ export function renderLegend(props: any) {
     return <Legend {...props} />;
 }
 
-export default class HighChartsRenderer extends React.PureComponent<IHighChartsRendererProps, any> {
+export default class HighChartsRenderer
+    extends React.PureComponent<IHighChartsRendererProps, IHighChartsRendererState> {
     public static defaultProps = {
         afterRender: noop,
         height: null as any,
