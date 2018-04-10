@@ -70,7 +70,7 @@ export default class StaticLegend extends React.PureComponent<any, any> {
                             return (
                                 <LegendItem
                                     chartType={chartType}
-                                    key={index} // eslint-disable-line react/no-array-index-key
+                                    key={index}
                                     item={item}
                                     onItemClick={onItemClick}
                                 />
@@ -98,7 +98,7 @@ export default class StaticLegend extends React.PureComponent<any, any> {
                         return (
                             <LegendItem
                                 chartType={chartType}
-                                key={index} // eslint-disable-line react/no-array-index-key
+                                key={index}
                                 item={item}
                                 onItemClick={onItemClick}
                             />

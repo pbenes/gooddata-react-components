@@ -10,16 +10,12 @@ import {
 } from '../helpers';
 
 const setWhiteColor = (point: any) => {
-    // eslint-disable-next-line no-param-reassign
     point.dataLabel.element.childNodes[0].style.fill = '#fff';
-    // eslint-disable-next-line no-param-reassign
     point.dataLabel.element.childNodes[0].style['text-shadow'] = 'rgb(0, 0, 0) 0px 0px 1px';
 };
 
 const setBlackColor = (point: any) => {
-    // eslint-disable-next-line no-param-reassign
     point.dataLabel.element.childNodes[0].style.fill = '#000';
-    // eslint-disable-next-line no-param-reassign
     point.dataLabel.element.childNodes[0].style['text-shadow'] = 'none';
 };
 

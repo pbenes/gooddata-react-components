@@ -1,6 +1,4 @@
 // (C) 2007-2018 GoodData Corporation
-/* eslint no-underscore-dangle: 0 */
-
 import { getLighterColor } from '../color';
 
 describe('Transformation', () => {

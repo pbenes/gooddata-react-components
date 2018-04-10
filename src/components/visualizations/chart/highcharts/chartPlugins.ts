@@ -4,7 +4,7 @@ import { extendDataLabelColors } from './plugins/dataLabelsColors';
 import { applyPointHaloOptions } from './plugins/pointHalo';
 
 const extendRenderStackTotals = (Highcharts: any) => {
-    Highcharts.wrap(Highcharts.Axis.prototype, 'renderStackTotals', function(proceed: any) { // eslint-disable-line
+    Highcharts.wrap(Highcharts.Axis.prototype, 'renderStackTotals', function(proceed: any) {
         const axis = this;
         const { chart, stackTotalGroup } = axis;
         const { renderer } = chart;

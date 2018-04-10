@@ -16,7 +16,7 @@ import {
     hideDataLabels
 } from '../../helpers';
 
-const toggleNonStackedChartLabels = (visiblePoints: any, shouldCheckShapeIntersection: any = false) => {
+const toggleNonStackedChartLabels = (visiblePoints: any, shouldCheckShapeIntersection: boolean = false) => {
     const foundIntersection = toNeighbors(
         // some data labels may not be rendered (too many points)
         visiblePoints.filter(hasDataLabel)
