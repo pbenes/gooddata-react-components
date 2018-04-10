@@ -47,7 +47,7 @@ const toggleStackedChartLabels = (visiblePoints: any) => {
     }
 };
 
-const toggleNonStackedChartLabels = (points: any, shouldCheckShapeIntersection: any = false) => {
+const toggleNonStackedChartLabels = (points: any, shouldCheckShapeIntersection: boolean = false) => {
     const sortedPoints = sortBy(points, (a, b) => {
         const firstLabelAttr = getDataLabelAttributes(a);
         const nextLabelAttr = getDataLabelAttributes(b);
