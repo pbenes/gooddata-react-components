@@ -39,7 +39,7 @@ export default class FluidLegend extends React.PureComponent<any, any> {
                         <LegendItem
                             width={itemWidth}
                             chartType={chartType}
-                            key={index} // eslint-disable-line react/no-array-index-key
+                            key={index}
                             item={item}
                             onItemClick={onItemClick}
                         />
