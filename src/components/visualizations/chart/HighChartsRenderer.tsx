@@ -7,7 +7,6 @@ import isEqual = require('lodash/isEqual');
 import noop = require('lodash/noop');
 import partial = require('lodash/partial');
 import * as cx from 'classnames';
-
 import { VisualizationTypes } from '../../../constants/visualizationTypes';
 import Chart from './Chart';
 import Legend from './legend/Legend';
@@ -37,7 +36,7 @@ export function renderLegend(props: any) {
     return <Legend {...props} />;
 }
 
-function updateAxisTitleStyle(axis: any) {
+function updateAxisTitleStyle(axis: Highcharts.AxisOptions) {
     set(axis, 'title.style', {
         ...get(axis, 'title.style', {}),
         textOverflow: 'ellipsis',
@@ -152,7 +151,7 @@ export default class HighChartsRenderer
         const config: any = cloneDeep(chartConfig);
         const { yAxis } = config;
 
-        yAxis.forEach((axis: any) => updateAxisTitleStyle(axis));
+        yAxis.forEach((axis: Highcharts.AxisOptions) => updateAxisTitleStyle(axis));
 
         if (this.props.height) {
             // fixed chart height is used in Dashboard mobile view

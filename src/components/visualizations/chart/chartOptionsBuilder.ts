@@ -467,7 +467,7 @@ function getStackingConfig(stackByAttribute: any, options: any) {
     return null;
 }
 
-function isPrimaryMeasuresBucketEmpty(mdObject: any) {
+function isPrimaryMeasuresBucketEmpty(mdObject: VisualizationObject.IVisualizationObjectContent) {
     const primaryMeasuresBucket = get(mdObject, 'buckets', [])
         .find(bucket => bucket.localIdentifier === 'measures');
 
@@ -573,7 +573,7 @@ export function getChartOptions(
     const yFormat = config.yFormat || unwrap(measureGroup.items[0]).format;
     const gridEnabled = get(config, 'grid.enabled', true);
 
-    const measureGroupItems = measureGroup.items.map((item: any, index: number) => {
+    const measureGroupItems = measureGroup.items.map((item: VisualizationObject.IMeasure, index: number) => {
         const unwrapped = unwrap(item);
         return index ? {
             label: unwrapped.name,
