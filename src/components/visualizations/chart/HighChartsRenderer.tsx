@@ -37,6 +37,13 @@ export function renderLegend(props: any) {
     return <Legend {...props} />;
 }
 
+function updateAxisTitleStyle(axis: any) {
+    set(axis, 'title.style', {
+        ...get(axis, 'title.style', {}),
+        textOverflow: 'ellipsis',
+        overflow: 'hidden'
+    });
+}
 export default class HighChartsRenderer
     extends React.PureComponent<IHighChartsRendererProps, IHighChartsRendererState> {
     public static defaultProps = {
@@ -143,12 +150,9 @@ export default class HighChartsRenderer
 
     public createChartConfig(chartConfig: any, legendItemsEnabled: any) {
         const config: any = cloneDeep(chartConfig);
+        const { yAxis } = config;
 
-        config.yAxis.title.style = {
-            ...config.yAxis.title.style,
-            textOverflow: 'ellipsis',
-            overflow: 'hidden'
-        };
+        yAxis.forEach((axis: any) => updateAxisTitleStyle(axis));
 
         if (this.props.height) {
             // fixed chart height is used in Dashboard mobile view

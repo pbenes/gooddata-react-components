@@ -539,6 +539,27 @@ storiesOf('Internal/HighCharts/ChartTransformation', module)
             )
         );
     })
+    .add('Dual axis line/line chart', () => {
+        const dataSet: any = fixtures.barChartWith3MetricsAndViewByAttribute;
+
+        return screenshotWrap(
+            wrap(
+                <ChartTransformation
+                    drillableItems={[
+                        {
+                            uri: dataSet.executionResult
+                                .headerItems[VIEW_BY_DIMENSION_INDEX][0][0].attributeHeaderItem.uri
+                        }
+                    ]}
+                    config={{
+                        type: 'dual'
+                    }}
+                    {...dataSet}
+                    onDataTooLarge={identity}
+                />
+            )
+        );
+    })
     .add('Legend positions', () => {
         return screenshotWrap(
             <div>

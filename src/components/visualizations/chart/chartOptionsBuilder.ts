@@ -5,6 +5,7 @@ import { AFM, Execution, VisualizationObject } from '@gooddata/typings';
 
 import range = require('lodash/range');
 import get = require('lodash/get');
+import compact = require('lodash/compact');
 import without = require('lodash/without');
 import escape = require('lodash/escape');
 import unescape = require('lodash/unescape');
@@ -209,6 +210,7 @@ interface ISeriesItemConfig {
     legendIndex: number;
     data?: any;
     name?: string;
+    yAxis?: number;
 }
 
 export function getSeries(
@@ -234,6 +236,10 @@ export function getSeries(
             legendIndex: seriesIndex,
             data: seriesItemData
         };
+
+        if (type === 'dual' && seriesIndex > 0) {
+            seriesItemConfig.yAxis = 1;
+        }
 
         if (stackByAttribute) {
             // if stackBy attribute is available, seriesName is a stackBy attribute value of index seriesIndex
@@ -557,6 +563,38 @@ export function getChartOptions(
     const yFormat = config.yFormat || unwrap(measureGroup.items[0]).format;
     const gridEnabled = get(config, 'grid.enabled', true);
 
+    const measureGroupItems = measureGroup.items.map((item: any, index: number) => {
+        const unwrapped = unwrap(item);
+        return index ? {
+            label: unwrapped.name,
+            format: unwrapped.format
+        } : {
+            label: config.yLabel || unwrapped.name,
+            format: config.yFormat || unwrapped.format
+        };
+    });
+    const firstMeasureGroupItem = measureGroupItems[0];
+    const secondMeasureGroupItem = measureGroupItems[1];
+    const hasMoreThanOneMeasure = measureGroupItems > 1;
+
+    let yAxes;
+    if (type === 'dual') {
+        const secondAxis = secondMeasureGroupItem ? {
+            ...secondMeasureGroupItem,
+            opposite: true
+        } : null;
+        yAxes = compact([firstMeasureGroupItem, secondAxis]);
+    } else {
+        // if more than one measure and NOT dual, then have empty item name
+        const nonDualMeasureAxis = hasMoreThanOneMeasure ? {
+            label: ''
+        } : {};
+        yAxes = [{
+            firstMeasureGroupItem,
+            ...nonDualMeasureAxis
+        }];
+    }
+
     return {
         type,
         stacking,
@@ -568,6 +606,7 @@ export function getChartOptions(
             y: yLabel,
             yFormat
         },
+        yAxes,
         showInPercent: measureGroup.items.some((wrappedMeasure: VisualizationObject.IMeasure) => {
             const measure = wrappedMeasure[Object.keys(wrappedMeasure)[0]];
             return measure.format.includes('%');

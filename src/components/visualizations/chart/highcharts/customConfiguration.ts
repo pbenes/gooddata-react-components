@@ -10,6 +10,7 @@ import isEmpty = require('lodash/isEmpty');
 import compact = require('lodash/compact');
 import cloneDeep = require('lodash/cloneDeep');
 import every = require('lodash/every');
+import styleVariables from '../../styles/variables';
 
 import * as numberJS from '@gooddata/numberjs';
 import { VisualizationTypes } from '../../../../constants/visualizationTypes';
@@ -19,6 +20,7 @@ import {
     isLineChart,
     isAreaChart,
     isBarChart,
+    isDualChart,
     isColumnChart
 } from '../../utils/common';
 
@@ -42,12 +44,14 @@ const TOOLTIP_VERTICAL_OFFSET = 14;
 const escapeAngleBrackets = (str: any) => str && str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 function getTitleConfiguration(chartOptions: any) {
+    const { yAxes = [] as any } = chartOptions;
+    const yAxis = yAxes.map((axis: any) => ({
+        title: {
+            text: escapeAngleBrackets(get(axis, 'label', ''))
+        }
+    }));
     return {
-        yAxis: {
-            title: {
-                text: escapeAngleBrackets(get(chartOptions, 'title.y', ''))
-            }
-        },
+        yAxis,
         xAxis: {
             title: {
                 text: escapeAngleBrackets(get(chartOptions, 'title.x', ''))
@@ -62,14 +66,15 @@ function formatAsPercent() {
 }
 
 function getShowInPercentConfiguration(chartOptions: any) {
-    const { showInPercent } = chartOptions;
+    const { showInPercent, yAxes = [] as any } = chartOptions;
+    const yAxis = yAxes.map(() => ({
+        labels: {
+            formatter: formatAsPercent
+        }
+    }));
 
     return showInPercent ? {
-        yAxis: {
-            labels: {
-                formatter: formatAsPercent
-            }
-        }
+        yAxis
     } : {};
 }
 
@@ -173,7 +178,7 @@ function formatTooltip(chartType: any, stacking: any, tooltipCallback: any) {
         return false;
     }
 
-    const dataPointEnd = (isLineChart(chartType) || isAreaChart(chartType))
+    const dataPointEnd = (isLineChart(chartType) || isAreaChart(chartType) || isDualChart(chartType))
         ? this.point.plotX
         : getDataPointEnd(
             chartType,
@@ -183,7 +188,8 @@ function formatTooltip(chartType: any, stacking: any, tooltipCallback: any) {
             stacking
         );
 
-    const dataPointHeight = (isLineChart(chartType) || isAreaChart(chartType)) ? 0 : this.point.shapeArgs.height;
+    const ignorePointHeight = isLineChart(chartType) || isAreaChart(chartType) || isDualChart(chartType);
+    const dataPointHeight = ignorePointHeight ? 0 : this.point.shapeArgs.height;
 
     const arrowPosition = getArrowHorizontalPosition(
         chartType,
@@ -267,7 +273,8 @@ function getTooltipConfiguration(chartOptions: any) {
 }
 
 function getLabelsConfiguration(chartOptions: any) {
-    const style = chartOptions.stacking ? {
+    const { stacking, yAxes = [] as any } = chartOptions;
+    const style = stacking ? {
         color: '#ffffff',
         textShadow: '0 0 1px #000000'
     } : {
@@ -275,11 +282,15 @@ function getLabelsConfiguration(chartOptions: any) {
         textShadow: 'none'
     };
 
-    const drilldown = chartOptions.stacking ? {
+    const drilldown = stacking ? {
         activeDataLabelStyle: {
             color: '#ffffff'
         }
     } : {};
+
+    const yAxis = yAxes.map((axis: any) => ({
+        defaultFormat: get(axis, 'format')
+    }));
 
     return {
         drilldown,
@@ -299,14 +310,18 @@ function getLabelsConfiguration(chartOptions: any) {
                 }
             }
         },
-        yAxis: {
-            defaultFormat: get(chartOptions, 'title.yFormat')
-        }
+        yAxis
     };
 }
 
 function getStackingConfiguration(chartOptions: any) {
-    const { stacking } = chartOptions;
+    const { stacking, yAxes = [] as any } = chartOptions;
+
+    const yAxis = yAxes.map(() => ({
+        stackLabels: {
+            formatter: stackLabelFormatter
+        }
+    }));
 
     return stacking ? {
         plotOptions: {
@@ -314,11 +329,7 @@ function getStackingConfiguration(chartOptions: any) {
                 stacking
             }
         },
-        yAxis: {
-            stackLabels: {
-                formatter: stackLabelFormatter
-            }
-        }
+        yAxis
     } : {};
 }
 
@@ -372,6 +383,7 @@ function getHoverStyles(chartOptions: any, config: any) {
         default:
             throw new Error(`Undefined chart type "${chartOptions.type}".`);
 
+        case VisualizationTypes.DUAL:
         case VisualizationTypes.LINE:
         case VisualizationTypes.AREA:
             seriesMapFn = (seriesOrig) => {
@@ -430,20 +442,45 @@ function getHoverStyles(chartOptions: any, config: any) {
 
 function getGridConfiguration(chartOptions: any) {
     const gridEnabled = get(chartOptions, 'grid.enabled', true);
+    const { yAxes = [] as any } = chartOptions;
+    const yAxis = yAxes.map(() => ({
+        gridLineWidth: 0
+    }));
 
     if (!gridEnabled) {
         return {
-            yAxis: {
-                gridLineWidth: 0
-            }
+            yAxis
         };
     }
 
     return {};
 }
 
+function getAxesConfiguration(chartOptions: any) {
+    return {
+        yAxis: get(chartOptions, 'yAxes', []).map((axis: any) => ({
+            gridLineColor: '#ebebeb',
+            labels: {
+                style: {
+                    color: styleVariables.gdColorStateBlank,
+                    font: '12px Avenir, "Helvetica Neue", Arial, sans-serif'
+                }
+            },
+            title: {
+                margin: 15,
+                style: {
+                    color: styleVariables.gdColorLink,
+                    font: '14px Avenir, "Helvetica Neue", Arial, sans-serif'
+                }
+            },
+            opposite: axis.opposite
+        }))
+    };
+}
+
 export function getCustomizedConfiguration(chartOptions: any) {
     const configurators = [
+        getAxesConfiguration,
         getTitleConfiguration,
         getStackingConfiguration,
         getShowInPercentConfiguration,
