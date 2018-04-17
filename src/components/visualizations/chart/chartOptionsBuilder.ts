@@ -5,6 +5,7 @@ import { AFM, Execution, VisualizationObject } from '@gooddata/typings';
 
 import range = require('lodash/range');
 import get = require('lodash/get');
+import isEmpty = require('lodash/isEmpty');
 import compact = require('lodash/compact');
 import without = require('lodash/without');
 import escape = require('lodash/escape');
@@ -16,6 +17,7 @@ import {
     getAttributeElementIdFromAttributeElementUri,
     isLineChart,
     isAreaChart,
+    isDualChart,
     isPieChart,
     isChartSupported,
     stringifyChartTypes
@@ -465,6 +467,14 @@ function getStackingConfig(stackByAttribute: any, options: any) {
     return null;
 }
 
+function isPrimaryMeasuresBucketEmpty(mdObject: any) {
+    const primaryMeasuresBucket = get(mdObject, 'buckets', [])
+        .find(bucket => bucket.localIdentifier === 'measures');
+
+    const primaryMeasuresBucketItems = get(primaryMeasuresBucket, 'items', []);
+    return isEmpty(primaryMeasuresBucketItems);
+}
+
 /**
  * Creates an object providing data for all you need to render a chart except drillability.
  *
@@ -495,7 +505,7 @@ export function getChartOptions(
     invariant(config && isChartSupported(config.type),
         `config.type must be defined and match one of supported chart types: ${stringifyChartTypes()}`);
 
-    const { type } = config;
+    const { type, mdObject } = config;
     const measureGroup = findMeasureGroupInDimensions(dimensions);
     const viewByAttribute = findAttributeInDimension(
         dimensions[VIEW_BY_DIMENSION_INDEX],
@@ -578,12 +588,17 @@ export function getChartOptions(
     const hasMoreThanOneMeasure = measureGroupItems > 1;
 
     let yAxes;
-    if (type === 'dual') {
-        const secondAxis = secondMeasureGroupItem ? {
-            ...secondMeasureGroupItem,
-            opposite: true
-        } : null;
-        yAxes = compact([firstMeasureGroupItem, secondAxis]);
+    if (isDualChart(type)) {
+        const noPrimaryMeasures = isPrimaryMeasuresBucketEmpty(mdObject);
+        if (firstMeasureGroupItem && noPrimaryMeasures) {
+            yAxes = [{}, { ...firstMeasureGroupItem, opposite: true }];
+        } else {
+            const secondAxis = secondMeasureGroupItem ? {
+                ...secondMeasureGroupItem,
+                opposite: true
+            } : null;
+            yAxes = compact([firstMeasureGroupItem, secondAxis]);
+        }
     } else {
         // if more than one measure and NOT dual, then have empty item name
         const nonDualMeasureAxis = hasMoreThanOneMeasure ? {
