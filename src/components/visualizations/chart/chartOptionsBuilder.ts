@@ -605,7 +605,7 @@ export function getChartOptions(
             label: ''
         } : {};
         yAxes = [{
-            firstMeasureGroupItem,
+            ...firstMeasureGroupItem,
             ...nonDualMeasureAxis
         }];
     }
