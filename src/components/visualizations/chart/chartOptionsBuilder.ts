@@ -475,6 +475,48 @@ function isPrimaryMeasuresBucketEmpty(mdObject: VisualizationObject.IVisualizati
     return isEmpty(primaryMeasuresBucketItems);
 }
 
+function getYAxes(config: any, measureGroup: any) {
+    const { type, mdObject } = config;
+    const measureGroupItems = measureGroup.items.map((item: VisualizationObject.IMeasure, index: number) => {
+        const unwrapped = unwrap(item);
+        return index ? {
+            label: unwrapped.name,
+            format: unwrapped.format
+        } : {
+            label: config.yLabel || unwrapped.name,
+            format: config.yFormat || unwrapped.format
+        };
+    });
+    const firstMeasureGroupItem = measureGroupItems[0];
+    const secondMeasureGroupItem = measureGroupItems[1];
+    const hasMoreThanOneMeasure = measureGroupItems.length > 1;
+
+    let yAxes;
+    if (isDualChart(type)) {
+        const noPrimaryMeasures = isPrimaryMeasuresBucketEmpty(mdObject);
+        if (firstMeasureGroupItem && noPrimaryMeasures) {
+            yAxes = [{}, { ...firstMeasureGroupItem, opposite: true }];
+        } else {
+            const secondAxis = secondMeasureGroupItem ? {
+                ...secondMeasureGroupItem,
+                opposite: true
+            } : null;
+            yAxes = compact([firstMeasureGroupItem, secondAxis]);
+        }
+    } else {
+        // if more than one measure and NOT dual, then have empty item name
+        const nonDualMeasureAxis = hasMoreThanOneMeasure ? {
+            label: ''
+        } : {};
+        yAxes = [{
+            ...firstMeasureGroupItem,
+            ...nonDualMeasureAxis
+        }];
+    }
+
+    return yAxes;
+}
+
 /**
  * Creates an object providing data for all you need to render a chart except drillability.
  *
@@ -505,7 +547,7 @@ export function getChartOptions(
     invariant(config && isChartSupported(config.type),
         `config.type must be defined and match one of supported chart types: ${stringifyChartTypes()}`);
 
-    const { type, mdObject } = config;
+    const { type } = config;
     const measureGroup = findMeasureGroupInDimensions(dimensions);
     const viewByAttribute = findAttributeInDimension(
         dimensions[VIEW_BY_DIMENSION_INDEX],
@@ -573,43 +615,6 @@ export function getChartOptions(
     const yFormat = config.yFormat || unwrap(measureGroup.items[0]).format;
     const gridEnabled = get(config, 'grid.enabled', true);
 
-    const measureGroupItems = measureGroup.items.map((item: VisualizationObject.IMeasure, index: number) => {
-        const unwrapped = unwrap(item);
-        return index ? {
-            label: unwrapped.name,
-            format: unwrapped.format
-        } : {
-            label: config.yLabel || unwrapped.name,
-            format: config.yFormat || unwrapped.format
-        };
-    });
-    const firstMeasureGroupItem = measureGroupItems[0];
-    const secondMeasureGroupItem = measureGroupItems[1];
-    const hasMoreThanOneMeasure = measureGroupItems > 1;
-
-    let yAxes;
-    if (isDualChart(type)) {
-        const noPrimaryMeasures = isPrimaryMeasuresBucketEmpty(mdObject);
-        if (firstMeasureGroupItem && noPrimaryMeasures) {
-            yAxes = [{}, { ...firstMeasureGroupItem, opposite: true }];
-        } else {
-            const secondAxis = secondMeasureGroupItem ? {
-                ...secondMeasureGroupItem,
-                opposite: true
-            } : null;
-            yAxes = compact([firstMeasureGroupItem, secondAxis]);
-        }
-    } else {
-        // if more than one measure and NOT dual, then have empty item name
-        const nonDualMeasureAxis = hasMoreThanOneMeasure ? {
-            label: ''
-        } : {};
-        yAxes = [{
-            ...firstMeasureGroupItem,
-            ...nonDualMeasureAxis
-        }];
-    }
-
     return {
         type,
         stacking,
@@ -621,7 +626,7 @@ export function getChartOptions(
             y: yLabel,
             yFormat
         },
-        yAxes,
+        yAxes: getYAxes(config, measureGroup),
         showInPercent: measureGroup.items.some((wrappedMeasure: VisualizationObject.IMeasure) => {
             const measure = wrappedMeasure[Object.keys(wrappedMeasure)[0]];
             return measure.format.includes('%');
