@@ -239,7 +239,7 @@ export function getSeries(
             data: seriesItemData
         };
 
-        if (type === 'dual' && seriesIndex > 0) {
+        if (isDualChart(type) && seriesIndex > 0) {
             seriesItemConfig.yAxis = 1;
         }
 
