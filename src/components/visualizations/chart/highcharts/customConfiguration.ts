@@ -45,11 +45,12 @@ const escapeAngleBrackets = (str: any) => str && str.replace(/</g, '&lt;').repla
 
 function getTitleConfiguration(chartOptions: any) {
     const { yAxes = [] as any } = chartOptions;
-    const yAxis = yAxes.map((axis: any) => ({
+    const yAxis = yAxes.map((axis: any) => (axis ? {
         title: {
             text: escapeAngleBrackets(get(axis, 'label', ''))
         }
-    }));
+    } : {}));
+
     return {
         yAxis,
         xAxis: {
@@ -458,23 +459,31 @@ function getGridConfiguration(chartOptions: any) {
 
 function getAxesConfiguration(chartOptions: any) {
     return {
-        yAxis: get(chartOptions, 'yAxes', []).map((axis: any) => ({
-            gridLineColor: '#ebebeb',
-            labels: {
-                style: {
-                    color: styleVariables.gdColorStateBlank,
-                    font: '12px Avenir, "Helvetica Neue", Arial, sans-serif'
-                }
-            },
-            title: {
-                margin: 15,
-                style: {
-                    color: styleVariables.gdColorLink,
-                    font: '14px Avenir, "Helvetica Neue", Arial, sans-serif'
-                }
-            },
-            opposite: axis.opposite
-        }))
+        yAxis: get(chartOptions, 'yAxes', []).map((axis: any) => {
+            if (!axis) {
+                return {
+                    visible: false
+                };
+            }
+
+            return {
+                gridLineColor: '#ebebeb',
+                labels: {
+                    style: {
+                        color: styleVariables.gdColorStateBlank,
+                        font: '12px Avenir, "Helvetica Neue", Arial, sans-serif'
+                    }
+                },
+                title: {
+                    margin: 15,
+                    style: {
+                        color: styleVariables.gdColorLink,
+                        font: '14px Avenir, "Helvetica Neue", Arial, sans-serif'
+                    }
+                },
+                opposite: axis.opposite
+            };
+        })
     };
 }
 

@@ -5,6 +5,7 @@ import { AFM, Execution, VisualizationObject } from '@gooddata/typings';
 
 import range = require('lodash/range');
 import get = require('lodash/get');
+import includes = require('lodash/includes');
 import isEmpty = require('lodash/isEmpty');
 import compact = require('lodash/compact');
 import without = require('lodash/without');
@@ -114,7 +115,7 @@ export function getColorPalette(
 
     let parentMeasuresCounter = 0;
 
-    const paletteMeasures = range(0, measureGroup.items.length).map((measureItemIndex) => {
+    const paletteMeasures = range(measureGroup.items.length).map((measureItemIndex) => {
         if (isPopMeasure(measureGroup.items[measureItemIndex], afm)) {
             return '';
         }
@@ -495,13 +496,22 @@ function getYAxes(config: any, measureGroup: any) {
     if (isDualChart(type)) {
         const noPrimaryMeasures = isPrimaryMeasuresBucketEmpty(mdObject);
         if (firstMeasureGroupItem && noPrimaryMeasures) {
-            yAxes = [{}, { ...firstMeasureGroupItem, opposite: true }];
+            yAxes = [null, {
+                ...firstMeasureGroupItem,
+                opposite: true,
+                seriesIndices: range(measureGroupItems.length)
+            }];
         } else {
+            const firstAxis = {
+                ...firstMeasureGroupItem,
+                seriesIndices: [0]
+            };
             const secondAxis = secondMeasureGroupItem ? {
                 ...secondMeasureGroupItem,
-                opposite: true
+                opposite: true,
+                seriesIndices: range(1, measureGroupItems.length)
             } : null;
-            yAxes = compact([firstMeasureGroupItem, secondAxis]);
+            yAxes = compact([firstAxis, secondAxis]);
         }
     } else {
         // if more than one measure and NOT dual, then have empty item name
@@ -510,11 +520,26 @@ function getYAxes(config: any, measureGroup: any) {
         } : {};
         yAxes = [{
             ...firstMeasureGroupItem,
-            ...nonDualMeasureAxis
+            ...nonDualMeasureAxis,
+            seriesIndices: range(measureGroupItems.length)
         }];
     }
 
     return yAxes;
+}
+
+function assignYAxes(series: any, yAxes: any) {
+    series.forEach((seriesItem: any, index: number) => {
+        const yAxisIndex = yAxes.findIndex((axis: any) => {
+            return includes(get(axis, 'seriesIndices', []), index);
+        });
+
+        if (yAxisIndex !== -1) {
+            seriesItem.yAxis = yAxisIndex;
+        }
+    });
+
+    return series;
 }
 
 /**
@@ -572,7 +597,7 @@ export function getChartOptions(
         colorPalette
     );
 
-    const series = getDrillableSeries(
+    const drillableSeries = getDrillableSeries(
         seriesWithoutDrillability,
         drillableItems,
         measureGroup,
@@ -581,6 +606,9 @@ export function getChartOptions(
         type,
         afm
     );
+
+    const yAxes = getYAxes(config, measureGroup);
+    const series = assignYAxes(drillableSeries, yAxes);
 
     let categories = getCategories(type, viewByAttribute, measureGroup);
     const stacking = getStackingConfig(stackByAttribute, config);
@@ -626,7 +654,7 @@ export function getChartOptions(
             y: yLabel,
             yFormat
         },
-        yAxes: getYAxes(config, measureGroup),
+        yAxes,
         showInPercent: measureGroup.items.some((wrappedMeasure: VisualizationObject.IMeasure) => {
             const measure = wrappedMeasure[Object.keys(wrappedMeasure)[0]];
             return measure.format.includes('%');
