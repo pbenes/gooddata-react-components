@@ -1402,7 +1402,8 @@ describe('chartOptionsBuilder', () => {
                 const chartOptions = generateChartOptions(fixtures.barChartWith3MetricsAndViewByAttribute);
                 const expectedAxes = [{
                     label: '',
-                    format: '#,##0.00'
+                    format: '#,##0.00',
+                    seriesIndices: [0, 1, 2]
                 }];
                 expect(chartOptions.yAxes).toEqual(expectedAxes);
             });
@@ -1411,7 +1412,8 @@ describe('chartOptionsBuilder', () => {
                 const chartOptions = generateChartOptions(fixtures.barChartWithSingleMeasureAndNoAttributes);
                 const expectedAxes = [{
                     label: 'Amount',
-                    format: '#,##0.00'
+                    format: '#,##0.00',
+                    seriesIndices: [0]
                 }];
                 expect(chartOptions.yAxes).toEqual(expectedAxes);
             });
@@ -1428,11 +1430,13 @@ describe('chartOptionsBuilder', () => {
                 });
                 const expectedAxes = [{
                     label: '<button>Lost</button> ...',
-                    format: '#,##0.00'
+                    format: '#,##0.00',
+                    seriesIndices: [0]
                 }, {
                     format: '#,##0.00',
                     label: 'Won',
-                    opposite: true
+                    opposite: true,
+                    seriesIndices: [1, 2]
                 }];
 
                 expect(chartOptions.yAxes).toEqual(expectedAxes);
