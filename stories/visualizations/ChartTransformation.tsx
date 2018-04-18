@@ -545,12 +545,6 @@ storiesOf('Internal/HighCharts/ChartTransformation', module)
         return screenshotWrap(
             wrap(
                 <ChartTransformation
-                    drillableItems={[
-                        {
-                            uri: dataSet.executionResult
-                                .headerItems[VIEW_BY_DIMENSION_INDEX][0][0].attributeHeaderItem.uri
-                        }
-                    ]}
                     config={{
                         type: 'dual'
                     }}
