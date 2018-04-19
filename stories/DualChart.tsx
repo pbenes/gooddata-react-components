@@ -12,8 +12,8 @@ storiesOf('Core components/DualChart', module)
             <div style={{ width: 800, height: 400 }}>
                 <DualChart
                     projectId="storybook"
-                    measures={[MEASURE_1]}
-                    secondaryMeasures={[MEASURE_2]}
+                    leftAxisMeasure={MEASURE_1}
+                    rightAxisMeasure={MEASURE_2}
                     trendBy={ATTRIBUTE_1}
                     onError={onErrorHandler}
                     LoadingComponent={null}

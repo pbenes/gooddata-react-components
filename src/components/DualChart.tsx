@@ -8,8 +8,8 @@ import { ICommonChartProps } from './core/base/BaseChart';
 import { convertBucketsToAFM, convertBucketsToMdObject } from '../helpers/conversion';
 
 export interface IDualChartBucketProps {
-    measures: VisualizationObject.BucketItem[];
-    secondaryMeasures: VisualizationObject.BucketItem[];
+    leftAxisMeasure: VisualizationObject.BucketItem;
+    rightAxisMeasure: VisualizationObject.BucketItem;
     trendBy?: VisualizationObject.IVisualizationAttribute;
     filters?: VisualizationObject.VisualizationObjectFilter[];
 }
@@ -49,11 +49,11 @@ export function DualChart(props: IDualChartProps): JSX.Element {
     const buckets: VisualizationObject.IBucket[] = [
         {
             localIdentifier: 'measures',
-            items: props.measures || []
+            items: props.leftAxisMeasure ? [props.leftAxisMeasure] : []
         },
         {
             localIdentifier: 'secondary_measures',
-            items: props.secondaryMeasures || []
+            items: props.rightAxisMeasure ? [props.rightAxisMeasure] : []
         },
         {
             localIdentifier: 'trend',
@@ -62,7 +62,7 @@ export function DualChart(props: IDualChartProps): JSX.Element {
     ];
 
     const newProps = omit<IDualChartProps, IDualChartNonBucketProps>(props,
-        ['measures', 'secondaryMeasures', 'trendBy', 'filters']);
+        ['leftAxisMeasure', 'rightAxisMeasure', 'trendBy', 'filters']);
 
     newProps.config = {
         ...newProps.config,
