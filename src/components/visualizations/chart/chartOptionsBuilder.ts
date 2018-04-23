@@ -36,7 +36,7 @@ import { isDataOfReasonableSize } from './highChartsCreators';
 import { VIEW_BY_DIMENSION_INDEX, STACK_BY_DIMENSION_INDEX, PIE_CHART_LIMIT } from './constants';
 
 import { DEFAULT_CATEGORIES_LIMIT } from './highcharts/commonConfiguration';
-import { VisualizationTypes } from '../../..';
+import { VisualizationTypes } from '../../../constants/visualizationTypes';
 
 import { getComboChartOptions } from './chartOptions/comboChartOptions';
 
