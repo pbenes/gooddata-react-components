@@ -17,8 +17,7 @@ import {
     customEscape,
     generateTooltipFn,
     getChartOptions,
-    generateTooltipHeatMapFn,
-    getHeatMapChartOptions
+    generateTooltipHeatMapFn
 } from '../chartOptionsBuilder';
 import { DEFAULT_CATEGORIES_LIMIT } from '../highcharts/commonConfiguration';
 
@@ -1572,29 +1571,17 @@ describe('chartOptionsBuilder', () => {
         });
 
         describe('HeatMap configuration', () => {
-            const viewBy = {
-                formOf: {
-                    name: 'viewAttr'
-                },
-                items: [{
-                    attributeHeaderItem: {
-                        name: 'viewHeader'
-                    }
-                }]
-            };
-
-            const stackBy = {
-                formOf: {
-                    name: 'stackAttr'
-                },
-                items: [{
-                    attributeHeaderItem: {
-                        name: 'stackHeader'
-                    }
-                }]
-            };
-
             describe('generateTooltipHeatMapFn', () => {
+                const viewBy = {
+                    formOf: { name: 'viewAttr' },
+                    items: [{ attributeHeaderItem: { name: 'viewHeader' } }]
+                };
+
+                const stackBy = {
+                    formOf: { name: 'stackAttr' },
+                    items: [{ attributeHeaderItem: { name: 'stackHeader' } }]
+                };
+
                 const point = {
                     value: 300,
                     x: 0,
@@ -1627,61 +1614,58 @@ describe('chartOptionsBuilder', () => {
                 });
             });
 
-            describe('getHeatMapChartOptions', () => {
-                const executionResultData = [
-                    [ 10, 12 ],
-                    [ 20, 30 ]
-                ];
-                const measureGroup = {
-                    items: [
-                        {
-                            format: 'format',
-                            measureHeaderItem: {
-                                name: 'name'
-                            }
-                        }
-                    ]
-                };
-                const type = 'heatmap';
-                const yAxes = [] as any;
-                const xAxes = [] as any;
-
+            describe('getChartOptions for heatmap', () => {
                 it('should generate correct series with enabled data labels', () => {
-                    const chartOptions = getHeatMapChartOptions(
-                        executionResultData, measureGroup, viewBy, stackBy, type, xAxes, yAxes
+                    const chartOptions = generateChartOptions(
+                        fixtures.barChartWithStackByAndViewByAttributes,
+                        {
+                            type: 'heatmap',
+                            stacking: false
+                        }
                     );
                     const expectedSeries = [{
                         borderWidth: 1,
                         data: [
-                            [0, 0, 10],
-                            [1, 0, 12],
-                            [0, 1, 20],
-                            [1, 1, 30]
+                            { x: 0, y: 0, value: 21978695.46, drilldown: false },
+                            { x: 1, y: 0, value: 6038400.96, drilldown: false },
+                            { x: 0, y: 1, value: 58427629.5, drilldown: false },
+                            { x: 1, y: 1, value: 30180730.62, drilldown: false }
                         ],
                         dataLabels: {
                             enabled: true,
-                            formatGD: undefined as any
+                            formatGD: '#,##0.00'
                         },
                         legendIndex: 0,
-                        name: 'name',
+                        name: 'Amount',
                         turboThreshold: 0,
-                        yAxis: 0
+                        yAxis: 0,
+                        isDrillable: false
                     }];
 
                     expect(chartOptions.data.series).toEqual(expectedSeries);
                 });
 
                 it('should generate valid categories', () => {
-                    const chartOptions = getHeatMapChartOptions(
-                        executionResultData, measureGroup, viewBy, stackBy, type, xAxes, yAxes
+                    const chartOptions = generateChartOptions(
+                        fixtures.barChartWithStackByAndViewByAttributes,
+                        {
+                            type: 'heatmap',
+                            stacking: false
+                        }
                     );
-                    const expectedCategories = [['viewHeader'], ['stackHeader']];
+
+                    const expectedCategories = [['Direct Sales', 'Inside Sales'], ['East Coast', 'West Coast']];
+
                     expect(chartOptions.data.categories).toEqual(expectedCategories);
                 });
 
                 it('should generate categories with empty strings', () => {
-                    const chartOptions = getHeatMapChartOptions(
-                        executionResultData, measureGroup, null, null, type, xAxes, yAxes
+                    const chartOptions = generateChartOptions(
+                        fixtures.barChartWithSingleMeasureAndNoAttributes,
+                        {
+                            type: 'heatmap',
+                            stacking: false
+                        }
                     );
                     const expectedCategories = [[''], ['']];
                     expect(chartOptions.data.categories).toEqual(expectedCategories);
