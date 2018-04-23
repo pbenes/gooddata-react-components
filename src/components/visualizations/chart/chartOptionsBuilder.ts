@@ -161,6 +161,7 @@ export function getColorPalette(
 }
 
 export interface IPointData {
+    x?: number;
     y: number;
     value?: number;
     format: string;
@@ -248,6 +249,35 @@ export interface ISeriesItemConfig {
     xAxis?: number;
 }
 
+export function getHeatMapSeries(
+    executionResultData: any,
+    measureGroup: any,
+    viewByAttribute: any,
+    stackByAttribute: any
+) {
+    const data = [] as any;
+    executionResultData.forEach((rowItem: any, rowItemIndex: number) => {
+        rowItem.forEach((columnItem: any, columnItemIndex: number) => {
+            data.push({ x: columnItemIndex, y: rowItemIndex, value: parseValue(columnItem) });
+        });
+    });
+
+    return[{
+        name: measureGroup.items[0].measureHeaderItem.name,
+        data,
+        turboThreshold: 0,
+        yAxis: 0,
+        dataLabels: {
+            enabled: ((!viewByAttribute || (viewByAttribute.items.length <= 6)) &&
+                        (!stackByAttribute || (stackByAttribute.items.length <= 20))),
+            formatGD: unwrap(measureGroup.items[0]).format
+        },
+        legendIndex: 0,
+        borderWidth: ((!viewByAttribute || (viewByAttribute.items.length <= 30)) &&
+                        (!stackByAttribute || (stackByAttribute.items.length <= 30))) ? 1 : 0
+    }];
+}
+
 export function getSeries(
     executionResultData: any,
     measureGroup: any,
@@ -256,6 +286,9 @@ export function getSeries(
     type: string,
     colorPalette: string[]
 ) {
+    if (isHeatMap(type)) {
+        return getHeatMapSeries(executionResultData, measureGroup, viewByAttribute, stackByAttribute);
+    }
     return executionResultData.map((seriesItem: string[], seriesIndex: number) => {
         const seriesItemData = getSeriesItemData(
             seriesItem,
@@ -483,14 +516,17 @@ export function getDrillableSeries(
                 : pointIndex % measureGroup.items.length;
             const measure = unwrap(measureGroup.items[measureIndex]);
 
+            const viewByIndex = isHeatMap(type) ? pointData.x : pointIndex;
+            const stackByIndex = isHeatMap(type) ? pointData.y : seriesIndex;
+
             const viewByItem = viewByAttribute ? {
-                ...unwrap(viewByAttribute.items[pointIndex]),
+                ...unwrap(viewByAttribute.items[viewByIndex]),
                 attribute: viewByAttribute
             } : null;
 
             // stackBy item index is always equal to seriesIndex
             const stackByItem = stackByAttribute ? {
-                ...unwrap(stackByAttribute.items[seriesIndex]),
+                ...unwrap(stackByAttribute.items[stackByIndex]),
                 attribute: stackByAttribute
             } : null;
 
@@ -533,7 +569,14 @@ export function getDrillableSeries(
     });
 }
 
-function getCategories(type: string, viewByAttribute: any, measureGroup: any) {
+function getCategories(type: string, measureGroup: any, viewByAttribute: any, stackByAttribute: any) {
+    if (isHeatMap(type)) {
+        return [
+            viewByAttribute ? viewByAttribute.items.map((item: any) => item.attributeHeaderItem.name) : [''],
+            stackByAttribute ? stackByAttribute.items.map((item: any) => item.attributeHeaderItem.name) : ['']
+        ];
+    }
+
     // Categories make up bar/slice labels in charts. These usually match view by attribute values.
     // Measure only pie or treemap charts get categories from measure names
     if (viewByAttribute) {
@@ -692,70 +735,6 @@ function assignYAxes(series: any, yAxes: IAxis[]) {
     return series;
 }
 
-export function getHeatMapChartOptions(
-        executionResultData: any,
-        measureGroup: any,
-        viewByAttribute: any,
-        stackByAttribute: any,
-        type: string,
-        xAxes: any,
-        yAxes: any
-    ) {
-    const data: any = [];
-
-    executionResultData.forEach((rowItem: any, rowItemIndex: number) => {
-        rowItem.forEach((columnItem: any, columnItemIndex: number) => {
-            data.push([columnItemIndex, rowItemIndex, parseValue(columnItem)]);
-        });
-    });
-
-    const seriesItem = {
-        name: measureGroup.items[0].measureHeaderItem.name,
-        data,
-        turboThreshold: 0,
-        yAxis: 0,
-        dataLabels: {
-            enabled: ((!viewByAttribute || (viewByAttribute.items.length <= 6)) &&
-                        (!stackByAttribute || (stackByAttribute.items.length <= 20))),
-            formatGD: unwrap(measureGroup.items[0]).format
-        },
-        legendIndex: 0,
-        borderWidth: ((!viewByAttribute || (viewByAttribute.items.length <= 30)) &&
-                        (!stackByAttribute || (stackByAttribute.items.length <= 30))) ? 1 : 0
-    };
-
-    const series = [seriesItem];
-    const categories = [
-        viewByAttribute ? viewByAttribute.items.map((item: any) => item.attributeHeaderItem.name) : [''],
-        stackByAttribute ? stackByAttribute.items.map((item: any) => item.attributeHeaderItem.name) : ['']
-    ];
-
-    return {
-        type,
-        stacking: null as any,
-        legendLayout: 'horizontal',
-        title: {
-            x: (viewByAttribute ? viewByAttribute.name : ''),
-            y: (stackByAttribute ? stackByAttribute.name : ''),
-            format: unwrap(measureGroup.items[0]).format
-        },
-        xAxes,
-        yAxes,
-        showInPercent: false,
-        data: {
-            series,
-            categories
-        },
-        actions: {
-            tooltip: generateTooltipHeatMapFn(viewByAttribute, stackByAttribute)
-        },
-        grid: {
-            enabled: false
-        },
-        colorPalette: [] as any
-    };
-}
-
 /**
  * Creates an object providing data for all you need to render a chart except drillability.
  *
@@ -805,12 +784,6 @@ export function getChartOptions(
     const stacking = getStackingConfig(stackByAttribute, config);
     const xAxes = getXAxes(config, measureGroup, viewByAttribute);
     const yAxes = getYAxes(config, measureGroup, stackByAttribute);
-
-    if (isHeatMap(type)) {
-        return getHeatMapChartOptions(
-            executionResultData, measureGroup, viewByAttribute, stackByAttribute, type, xAxes, yAxes
-        );
-    }
 
     if (type === VisualizationTypes.SCATTER) {
         const primaryMeasuresBucket = get(mdObject, ['buckets'], [])
@@ -907,7 +880,7 @@ export function getChartOptions(
 
     const series = assignYAxes(drillableSeries, yAxes);
 
-    let categories = getCategories(type, viewByAttribute, measureGroup);
+    let categories = getCategories(type, measureGroup, viewByAttribute, stackByAttribute);
 
     // Pie charts dataPoints are sorted by default by value in descending order
     if (isPieOrDonutChart(type) || isFunnelChart(type)) {
@@ -952,6 +925,33 @@ export function getChartOptions(
                 series,
                 categories
             )
+        };
+    }
+
+    if (isHeatMap(type)) {
+        return {
+            type,
+            stacking: null as any,
+            legendLayout: 'horizontal',
+            title: {
+                x: (viewByAttribute ? viewByAttribute.name : ''),
+                y: (stackByAttribute ? stackByAttribute.name : ''),
+                format: unwrap(measureGroup.items[0]).format
+            },
+            xAxes,
+            yAxes,
+            showInPercent: false,
+            data: {
+                series,
+                categories
+            },
+            actions: {
+                tooltip: generateTooltipHeatMapFn(viewByAttribute, stackByAttribute)
+            },
+            grid: {
+                enabled: false
+            },
+            colorPalette: [] as any
         };
     }
 
