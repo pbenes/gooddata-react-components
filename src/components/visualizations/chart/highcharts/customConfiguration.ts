@@ -175,6 +175,14 @@ const showFullscreenTooltip = () => {
     return document.documentElement.clientWidth <= TOOLTIP_FULLSCREEN_THRESHOLD;
 };
 
+function isPointBasedChart(chartType: string) {
+    return isLineChart(chartType) ||
+        isAreaChart(chartType) ||
+        isTreemap(chartType) ||
+        isDualChart(chartType) ||
+        isScatterPlot(chartType);
+}
+
 function formatTooltip(chartType: any, stacking: any, tooltipCallback: any) {
     const { chart } = this.series;
     const { color: pointColor } = this.point;
@@ -184,12 +192,9 @@ function formatTooltip(chartType: any, stacking: any, tooltipCallback: any) {
         return false;
     }
 
-    const dataPointEnd = (isLineChart(chartType) ||
-        isAreaChart(chartType) ||
-        isTreemap(chartType) ||
-        isDualChart(chartType) ||
-        isScatterPlot(chartType) ||
-        (!this.point.tooltipPos)
+    const dataPointEnd = (
+        isPointBasedChart(chartType) ||
+        !this.point.tooltipPos
     )
         ? this.point.plotX
         : getDataPointEnd(
@@ -200,12 +205,9 @@ function formatTooltip(chartType: any, stacking: any, tooltipCallback: any) {
             stacking
         );
 
-    const ignorePointHeight = isLineChart(chartType) ||
-        isAreaChart(chartType) ||
-        isDualChart(chartType) ||
-        isScatterPlot(chartType) ||
-        isTreemap(chartType) ||
-        (!this.point.shapeArgs);
+    const ignorePointHeight =
+        isPointBasedChart(chartType) ||
+        !this.point.shapeArgs;
 
     const dataPointHeight = ignorePointHeight ? 0 : this.point.shapeArgs.height;
 
