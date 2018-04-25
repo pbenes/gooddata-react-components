@@ -121,6 +121,16 @@ function findParentMeasureIndex(afm: AFM.IAfm, measureItemIndex: number): number
     );
 }
 
+export function isAttributeColorPalette(type: string, afm: AFM.IAfm, stackByAttribute: any) {
+    const attributeChartSupported = isPieOrDonutChart(type) ||
+        isFunnelChart(type) ||
+        isScatterPlot(type) ||
+        isBubbleChart(type) ||
+        isTreemap(type);
+
+    return stackByAttribute || (attributeChartSupported && afm.attributes && afm.attributes.length > 0);
+}
+
 export function getColorPalette(
     colorPalette: string[] = DEFAULT_COLOR_PALETTE,
     measureGroup: any,
@@ -130,22 +140,11 @@ export function getColorPalette(
     type: string
 
 ): string[] {
-    const isAttributePieChart = (isPieOrDonutChart(type) || isFunnelChart(type))
-        && afm.attributes && afm.attributes.length > 0;
-    const isAttributeScatterPlot = isScatterPlot(type) && afm.attributes && afm.attributes.length > 0;
-    const isAttributeBubbleChart = isBubbleChart(type) && afm.attributes && afm.attributes.length > 0;
-    const isAttributeTreemap = isTreemap(type) && afm.attributes && afm.attributes.length > 0;
     if (isHeatMap(type)) {
         return [];
     }
 
-    if (
-        stackByAttribute ||
-        isAttributePieChart ||
-        isAttributeScatterPlot ||
-        isAttributeBubbleChart ||
-        isAttributeTreemap
-    ) {
+    if (isAttributeColorPalette(type, afm, stackByAttribute)) {
         const itemsCount = stackByAttribute ? stackByAttribute.items.length : viewByAttribute.items.length;
         return range(itemsCount).map(itemIndex => colorPalette[itemIndex % colorPalette.length]);
     }
