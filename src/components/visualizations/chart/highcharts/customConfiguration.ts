@@ -437,62 +437,58 @@ function getDataConfiguration(chartOptions: any) {
     };
 }
 
-function getHoverStyles(chartOptions: any, config: any) {
+function lineSeriesMapFn(seriesOrig: any) {
+    const series = cloneDeep(seriesOrig);
+
+    if (series.isDrillable) {
+        set(series, 'marker.states.hover.fillColor', getLighterColor(series.color, HOVER_BRIGHTNESS));
+        set(series, 'cursor', 'pointer');
+    } else {
+        set(series, 'states.hover.halo.size', 0);
+    }
+
+    return series;
+}
+
+function barSeriesMapFn(seriesOrig: any) {
+    const series = cloneDeep(seriesOrig);
+
+    set(series, 'states.hover.brightness', HOVER_BRIGHTNESS);
+    set(series, 'states.hover.enabled', series.isDrillable);
+
+    return series;
+}
+
+function getHoverStyles({ type }: any, config: any) {
     let seriesMapFn = noop;
 
-    switch (chartOptions.type) {
+    switch (type) {
         default:
-            throw new Error(`Undefined chart type "${chartOptions.type}".`);
+            throw new Error(`Undefined chart type "${type}".`);
 
         case VisualizationTypes.DUAL:
         case VisualizationTypes.LINE:
         case VisualizationTypes.SCATTER:
         case VisualizationTypes.AREA:
         case VisualizationTypes.BUBBLE:
-            seriesMapFn = (seriesOrig) => {
-                const series = cloneDeep(seriesOrig);
-
-                if (series.isDrillable) {
-                    set(series, 'marker.states.hover.fillColor', getLighterColor(series.color, HOVER_BRIGHTNESS));
-                    set(series, 'cursor', 'pointer');
-                } else {
-                    set(series, 'states.hover.halo.size', 0);
-                }
-
-                return series;
-            };
+            seriesMapFn = lineSeriesMapFn;
             break;
 
         case VisualizationTypes.BAR:
         case VisualizationTypes.COLUMN:
         case VisualizationTypes.FUNNEL:
         case VisualizationTypes.HEATMAP:
-            seriesMapFn = (seriesOrig) => {
-                const series = cloneDeep(seriesOrig);
-
-                set(series, 'states.hover.brightness', HOVER_BRIGHTNESS);
-                set(series, 'states.hover.enabled', series.isDrillable);
-
-                return series;
-            };
+            seriesMapFn = barSeriesMapFn;
             break;
 
         case VisualizationTypes.COMBO:
             seriesMapFn = (seriesOrig) => {
-                const series = cloneDeep(seriesOrig);
-                // TODO duplicates code above - rewrite once merged with others
-                if (seriesOrig.type === 'line') {
-                    if (series.isDrillable) {
-                        set(series, 'marker.states.hover.fillColor', getLighterColor(series.color, HOVER_BRIGHTNESS));
-                        set(series, 'cursor', 'pointer');
-                    } else {
-                        set(series, 'states.hover.halo.size', 0);
-                    }
-                } else {
-                    set(series, 'states.hover.brightness', HOVER_BRIGHTNESS);
-                    set(series, 'states.hover.enabled', series.isDrillable);
+                const { type } = seriesOrig;
+
+                if (type === 'line') {
+                    return lineSeriesMapFn(seriesOrig);
                 }
-                return series;
+                return barSeriesMapFn(seriesOrig);
             };
             break;
 
