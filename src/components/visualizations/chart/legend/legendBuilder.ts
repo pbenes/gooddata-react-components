@@ -4,11 +4,12 @@ import set = require('lodash/set');
 import { RIGHT } from './PositionTypes';
 import {
     isAreaChart,
-    isPieOrDonutChart,
     isScatterPlot,
     isTreemap,
-    isFunnelChart
+    isFunnelChart,
+    isOneOfTypes
 } from '../../utils/common';
+import { VisualizationTypes } from '../../../../constants/visualizationTypes';
 
 export const DEFAULT_LEGEND_CONFIG = {
     enabled: true,
@@ -23,17 +24,24 @@ export function shouldLegendBeEnabled(chartOptions: any) {
     const isAreaChartWithOneSerie = isAreaChart(type) && !hasMoreThanOneSeries && !hasStackByAttribute;
     const isStacked = !isAreaChartWithOneSerie && Boolean(stacking);
 
-    const isPieOrTreemapWithMoreThanOneCategory = ((isPieOrDonutChart(type) || isTreemap(type)) &&
-        chartOptions.data.series[0].data.length > 1);
+    const sliceTypes = [VisualizationTypes.PIE, VisualizationTypes.DONUT, VisualizationTypes.TREEMAP];
+    const isSliceChartWithMoreThanOneCategory = isOneOfTypes(type, sliceTypes) &&
+        chartOptions.data.series[0].data.length > 1;
 
     const isScatterPlotWithAttribute = isScatterPlot(type) && chartOptions.data.series[0].name;
 
-    return hasMoreThanOneSeries || isPieOrTreemapWithMoreThanOneCategory || isStacked || isScatterPlotWithAttribute;
+    return hasMoreThanOneSeries || isSliceChartWithMoreThanOneCategory || isStacked || isScatterPlotWithAttribute;
 }
 
 export function getLegendItems(chartOptions: any) {
     const { type } = chartOptions;
-    const legendDataSource = (isPieOrDonutChart(type) || isTreemap(type) || isFunnelChart(type))
+    const firstSeriesDataTypes = [
+        VisualizationTypes.PIE,
+        VisualizationTypes.DONUT,
+        VisualizationTypes.TREEMAP,
+        VisualizationTypes.FUNNEL
+    ];
+    const legendDataSource = isOneOfTypes(type, firstSeriesDataTypes)
         ? chartOptions.data.series[0].data
         : chartOptions.data.series;
 
