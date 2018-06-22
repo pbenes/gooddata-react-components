@@ -7,18 +7,17 @@ import { VisualizationObject, AFM } from '@gooddata/typings';
 import { Treemap as AfmTreemap } from './afm/Treemap';
 import { ICommonChartProps } from './core/base/BaseChart';
 import { convertBucketsToAFM } from '../helpers/conversion';
-import { generateDefaultDimensionsForRoundChart } from '../helpers/dimensions';
+import { getTreemapDimensionsFromBuckets } from '../helpers/dimensions';
 import { getResultSpec } from '../helpers/resultSpec';
+import { MEASURES, VIEW, SEGMENT } from '../constants/bucketNames';
 
 export interface ITreemapBucketProps {
     measures: VisualizationObject.BucketItem[];
     viewBy?: VisualizationObject.IVisualizationAttribute;
+    segmentBy?: VisualizationObject.IVisualizationAttribute;
     filters?: VisualizationObject.VisualizationObjectFilter[];
     sortBy?: AFM.SortItem[]; // TODO would it be removed? if not dont forget to test
 }
-
-const generateTreemapDimensionsFromBuckets =
-    (buckets: VisualizationObject.IBucket[]) => generateDefaultDimensionsForRoundChart(convertBucketsToAFM(buckets));
 
 export interface ITreemapProps extends ICommonChartProps, ITreemapBucketProps {
     projectId: string;
@@ -33,17 +32,21 @@ type ITreemapNonBucketProps = Subtract<ITreemapProps, ITreemapBucketProps>;
 export function Treemap(props: ITreemapProps): JSX.Element {
     const buckets: VisualizationObject.IBucket[] = [
         {
-            localIdentifier: 'measures',
+            localIdentifier: MEASURES,
             items: props.measures || []
         },
         {
-            localIdentifier: 'view',
+            localIdentifier: VIEW,
             items: props.viewBy ? [props.viewBy] : []
+        },
+        {
+            localIdentifier: SEGMENT,
+            items: props.segmentBy ? [props.segmentBy] : []
         }
     ];
 
     const newProps = omit<ITreemapProps, ITreemapNonBucketProps>(
-        props, ['measures', 'viewBy', 'filters']
+        props, ['measures', 'viewBy', 'segmentBy', 'filters']
     );
 
     return (
@@ -51,7 +54,7 @@ export function Treemap(props: ITreemapProps): JSX.Element {
             {...newProps}
             projectId={props.projectId}
             afm={convertBucketsToAFM(buckets, props.filters)}
-            resultSpec={getResultSpec(buckets, props.sortBy, generateTreemapDimensionsFromBuckets)}
+            resultSpec={getResultSpec(buckets, props.sortBy, getTreemapDimensionsFromBuckets)}
         />
     );
 }
