@@ -283,16 +283,18 @@ function formatTooltip(chartType: any, stacking: any, tooltipCallback: any) {
         });
     };
 
-    return (
+    const tooltipContent = tooltipCallback(this.point); // null disables whole tooltip
+
+    return tooltipContent !== null ? (
         `<div class="hc-tooltip">
             <span class="stroke" style="${strokeStyle}"></span>
             <div class="content">
-                ${tooltipCallback(this.point)}
+                ${tooltipContent}
             </div>
             <div class="${getTailClasses('tail1')}" ${tailStyle}></div>
             <div class="${getTailClasses('tail2')}" ${tailStyle}></div>
         </div>`
-    );
+    ) : null;
 }
 
 function formatLabel(value: any, format: any) {

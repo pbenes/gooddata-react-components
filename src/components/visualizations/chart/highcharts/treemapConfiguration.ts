@@ -16,6 +16,9 @@ const TREEMAP_TEMPLATE: any = {
     },
     legend: {
         enabled: false
+    },
+    drilldown: {
+        animation: true
     }
 };
 

@@ -69,8 +69,11 @@ export function getLegendItems(chartOptions: any) {
         ? chartOptions.data.series[0].data
         : chartOptions.data.series;
 
-    return legendDataSource.map((legendDataSourceItem: any) =>
-        pick(legendDataSourceItem, ['name', 'color', 'legendIndex']));
+    return legendDataSource
+        .filter((legendDataSourceItem: any) =>
+            legendDataSourceItem.showInLegend !== false)
+        .map((legendDataSourceItem: any) =>
+            pick(legendDataSourceItem, ['name', 'color', 'legendIndex']));
 }
 
 export default function getLegend(legendConfig: any = {}, chartOptions: any) {
