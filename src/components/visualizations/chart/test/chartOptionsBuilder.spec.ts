@@ -20,6 +20,7 @@ import {
     generateTooltipFn,
     generateTooltipHeatMapFn,
     generateTooltipXYFn,
+    generateTooltipTreemapFn,
     IPoint,
     getBubbleChartSeries,
     getHeatMapDataClasses
@@ -1727,6 +1728,155 @@ describe('chartOptionsBuilder', () => {
 
             const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
             expect(tooltipFn(pointWithoutName)).toEqual(expectedResult);
+        });
+    });
+
+    describe('generateTooltipTreemapFn', () => {
+        // const dataSet = fixtures.bubbleChartWith3MetricsAndAttribute;
+        // const [measureGroup, , stackByAttribute] = getMVS(dataSet);
+
+        // const point: IPoint = {
+        //     value: 300,
+        //     name: 'point name',
+        //     x: 10,
+        //     y: 20,
+        //     z: 30,
+        //     series: {
+        //         name: 'serie name',
+        //         userOptions: {
+        //             dataLabels: {
+        //                 formatGD: 'abcd'
+        //             }
+        //         }
+        //     }
+        // };
+        it('should generate valid tooltip for no measures', () => {
+            const measures: any[] = [];
+            const expectedResult =
+                `<table class=\"tt-values\"><tr>
+                <td class=\"title\">Sales Rep</td>
+                <td class=\"value\">point name</td>
+            </tr></table>`;
+
+            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            expect(tooltipFn(point)).toEqual(expectedResult);
+        });
+
+        it('should generate valid tooltip for 1 measure', () => {
+            const measures = [measureGroup.items[0]];
+            const expectedResult =
+                `<table class=\"tt-values\"><tr>
+                <td class=\"title\">Sales Rep</td>
+                <td class=\"value\">point name</td>
+            </tr>\n<tr>
+                <td class=\"title\">_Snapshot [EOP-2]</td>
+                <td class=\"value\">10.00</td>
+            </tr></table>`;
+
+            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            expect(tooltipFn(point)).toEqual(expectedResult);
+        });
+
+        it('should generate valid tooltip for 2 measures', () => {
+            const measures = [measureGroup.items[0], measureGroup.items[1]];
+            const expectedResult =
+                `<table class=\"tt-values\"><tr>
+                <td class=\"title\">Sales Rep</td>
+                <td class=\"value\">point name</td>
+            </tr>\n<tr>
+                <td class=\"title\">_Snapshot [EOP-2]</td>
+                <td class=\"value\">10.00</td>
+            </tr>\n<tr>
+                <td class=\"title\"># of Open Opps.</td>
+                <td class=\"value\">20</td>
+            </tr></table>`;
+
+            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            expect(tooltipFn(point)).toEqual(expectedResult);
+        });
+
+        it('should generate valid tooltip for 1 measure and view by', () => {
+            const measures = [measureGroup.items[0], measureGroup.items[1], measureGroup.items[2]];
+            const expectedResult =
+                `<table class=\"tt-values\"><tr>
+                <td class=\"title\">Sales Rep</td>
+                <td class=\"value\">point name</td>
+            </tr>\n<tr>
+                <td class=\"title\">_Snapshot [EOP-2]</td>
+                <td class=\"value\">10.00</td>
+            </tr>\n<tr>
+                <td class=\"title\"># of Open Opps.</td>
+                <td class=\"value\">20</td>
+            </tr>\n<tr>
+                <td class=\"title\">Remaining Quota</td>
+                <td class=\"value\">$30.00</td>
+            </tr></table>`;
+
+            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            expect(tooltipFn(point)).toEqual(expectedResult);
+        });
+
+        it('should generate valid tooltip for 1 measure and stack by', () => {
+            const measures = [measureGroup.items[0], measureGroup.items[1], measureGroup.items[2]];
+            const expectedResult =
+                `<table class=\"tt-values\"><tr>
+                <td class=\"title\">Sales Rep</td>
+                <td class=\"value\">point name</td>
+            </tr>\n<tr>
+                <td class=\"title\">_Snapshot [EOP-2]</td>
+                <td class=\"value\">10.00</td>
+            </tr>\n<tr>
+                <td class=\"title\"># of Open Opps.</td>
+                <td class=\"value\">20</td>
+            </tr>\n<tr>
+                <td class=\"title\">Remaining Quota</td>
+                <td class=\"value\">$30.00</td>
+            </tr></table>`;
+
+            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            expect(tooltipFn(point)).toEqual(expectedResult);
+        });
+
+        it('should generate valid tooltip for 1 measure, view by and stack by', () => {
+            const measures = [measureGroup.items[0], measureGroup.items[1], measureGroup.items[2]];
+            const expectedResult =
+                `<table class=\"tt-values\"><tr>
+                <td class=\"title\">Sales Rep</td>
+                <td class=\"value\">point name</td>
+            </tr>\n<tr>
+                <td class=\"title\">_Snapshot [EOP-2]</td>
+                <td class=\"value\">10.00</td>
+            </tr>\n<tr>
+                <td class=\"title\"># of Open Opps.</td>
+                <td class=\"value\">20</td>
+            </tr>\n<tr>
+                <td class=\"title\">Remaining Quota</td>
+                <td class=\"value\">$30.00</td>
+            </tr></table>`;
+
+            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            expect(tooltipFn(point)).toEqual(expectedResult);
+        });
+
+        it('should generate valid tooltip for 2 measures and stack by', () => {
+            const measures = [measureGroup.items[0], measureGroup.items[1], measureGroup.items[2]];
+            const expectedResult =
+                `<table class=\"tt-values\"><tr>
+                <td class=\"title\">Sales Rep</td>
+                <td class=\"value\">point name</td>
+            </tr>\n<tr>
+                <td class=\"title\">_Snapshot [EOP-2]</td>
+                <td class=\"value\">10.00</td>
+            </tr>\n<tr>
+                <td class=\"title\"># of Open Opps.</td>
+                <td class=\"value\">20</td>
+            </tr>\n<tr>
+                <td class=\"title\">Remaining Quota</td>
+                <td class=\"value\">$30.00</td>
+            </tr></table>`;
+
+            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            expect(tooltipFn(point)).toEqual(expectedResult);
         });
     });
 

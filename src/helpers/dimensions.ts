@@ -11,6 +11,7 @@ import {
     ATTRIBUTE,
     MEASURES
  } from '../constants/bucketNames';
+import { convertBucketsToAFM } from '../helpers/conversion';
 
 function getDimensionTotals(bucket: VisualizationObject.IBucket): AFM.ITotalItem[] {
     const bucketTotals = get(bucket, 'totals', []);
@@ -52,7 +53,7 @@ function getLocalIdentifierFromAttribute(attribute: VisualizationObject.IVisuali
     return attribute.visualizationAttribute.localIdentifier;
 }
 
-function getPieOrTreemapDimensions(mdObject: VisualizationObject.IVisualizationObjectContent): AFM.IDimension[] {
+function getPieOrDonutDimensions(mdObject: VisualizationObject.IVisualizationObjectContent): AFM.IDimension[] {
     const view = mdObject.buckets.find(bucket => bucket.localIdentifier === VIEW);
 
     if (view && view.items.length) {
@@ -259,10 +260,13 @@ export function generateDimensions(
         }
         case VisualizationTypes.PIE:
         case VisualizationTypes.DONUT:
-        case VisualizationTypes.TREEMAP:
         case VisualizationTypes.FUNNEL: {
-            return getPieOrTreemapDimensions(mdObject);
+            return getPieOrDonutDimensions(mdObject);
         }
+        case VisualizationTypes.TREEMAP: {
+            return getTreemapDimensionsFromMdObj(mdObject);
+        }
+
         case VisualizationTypes.DUAL:
         case VisualizationTypes.LINE: {
             return getLineDimensions(mdObject);
@@ -321,8 +325,8 @@ export function generateDefaultDimensions(afm: AFM.IAfm): AFM.IDimension[] {
     ];
 }
 
-export function isStackedChart(buckets: VisualizationObject.IBucket[]) {
-    return buckets.some(bucket => bucket.localIdentifier === 'stacks' && bucket.items.length > 0);
+export function isStackedChart(buckets: VisualizationObject.IBucket[], stackedBuckedName: string = STACK) {
+    return buckets.some(bucket => bucket.localIdentifier === stackedBuckedName && bucket.items.length > 0);
 }
 
 // for ScatterPlot and BubbleChart
@@ -359,3 +363,53 @@ export const generateDefaultDimensionsForRoundChart = (afm: AFM.IAfm): AFM.IDime
         }
     ];
 };
+
+// Treemap
+export function getTreemapDimensionsFromMdObj(
+    mdObject: VisualizationObject.IVisualizationObjectContent
+): AFM.IDimension[] {
+    const buckets: VisualizationObject.IBucket[] = mdObject.buckets;
+    return getTreemapDimensionsFromBuckets(buckets);
+}
+
+export function getTreemapDimensionsFromBuckets(buckets: VisualizationObject.IBucket[]): AFM.IDimension[] {
+    const afm: AFM.IAfm = convertBucketsToAFM(buckets);
+    const isStacked = isStackedChart(buckets, SEGMENT);
+    return getTreemapDimensionsFromAFM(afm, isStacked);
+}
+
+export function getTreemapDimensionsFromAFM(afm: AFM.IAfm, isStacked: boolean = false): AFM.IDimension[] {
+    const attributes = (afm.attributes || []);
+    const restOfAttributes = attributes.slice(0, attributes.length);
+    let stackByAttribute;
+    if (isStacked) {
+        stackByAttribute = restOfAttributes.pop();
+        return [
+            {
+                itemIdentifiers: [stackByAttribute.localIdentifier]
+            },
+            {
+                itemIdentifiers: [...(restOfAttributes.map(a => a.localIdentifier)), 'measureGroup']
+            }
+        ];
+    }
+    if (attributes.length === 0) {
+        return [
+            {
+                itemIdentifiers: []
+            },
+            {
+                itemIdentifiers: ['measureGroup']
+            }
+        ];
+    }
+
+    return [
+        {
+            itemIdentifiers: ['measureGroup']
+        },
+        {
+            itemIdentifiers: (afm.attributes || []).map(a => a.localIdentifier)
+        }
+    ];
+}
