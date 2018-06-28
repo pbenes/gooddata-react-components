@@ -6,7 +6,7 @@ import { VisualizationObject, AFM } from '@gooddata/typings';
 
 import { Treemap as AfmTreemap } from './afm/Treemap';
 import { ICommonChartProps } from './core/base/BaseChart';
-import { convertBucketsToAFM } from '../helpers/conversion';
+import { convertBucketsToAFM, convertBucketsToMdObject } from '../helpers/conversion';
 import { getTreemapDimensionsFromBuckets } from '../helpers/dimensions';
 import { getResultSpec } from '../helpers/resultSpec';
 import { MEASURES, VIEW, SEGMENT } from '../constants/bucketNames';
@@ -48,6 +48,11 @@ export function Treemap(props: ITreemapProps): JSX.Element {
     const newProps = omit<ITreemapProps, ITreemapNonBucketProps>(
         props, ['measures', 'viewBy', 'segmentBy', 'filters']
     );
+
+    newProps.config = {
+        ...newProps.config,
+        mdObject: convertBucketsToMdObject(buckets, props.filters, 'local:treemap')
+    };
 
     return (
         <AfmTreemap

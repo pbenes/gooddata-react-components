@@ -315,6 +315,13 @@ function labelFormatterHeatMap(options: any) {
     return formatLabel(this.point.value, options.formatGD);
 }
 
+function level1LabelsFormatter() {
+    return `${get(this, 'point.name')} (${formatLabel(get(this, 'point.node.val'), get(this, 'point.format'))})`;
+}
+function level2LabelsFormatter() {
+    return `${get(this, 'point.name')} (${formatLabel(get(this, 'point.value'), get(this, 'point.format'))})`;
+}
+
 // check whether series contains only positive values, not consider nulls
 function hasOnlyPositiveValues(series: any, x: any) {
     return every(series, (seriesItem: any) => {
@@ -354,8 +361,12 @@ function getTooltipConfiguration(chartOptions: any) {
     } : {};
 }
 
+function isMultiLevelTreemap(data: any) {
+    return !!get(data, 'series.0.data.0.id');
+}
+
 function getLabelsConfiguration(chartOptions: any) {
-    const { stacking, yAxes = [] }: {stacking: boolean; yAxes: IAxis[]} = chartOptions;
+    const { stacking, yAxes = [], data }: {stacking: boolean; yAxes: IAxis[]; data: any} = chartOptions;
     const style = stacking ? {
         color: '#ffffff',
         textShadow: '0 0 1px #000000'
@@ -373,6 +384,30 @@ function getLabelsConfiguration(chartOptions: any) {
     const yAxis = yAxes.map((axis: any) => ({
         defaultFormat: get(axis, 'format')
     }));
+
+    let multiLevelProp = {};
+    if (isMultiLevelTreemap(data)) {
+        multiLevelProp = {
+            levels: [{
+                level: 1,
+                dataLabels: {
+                    enabled: true,
+                    align: 'left',
+                    verticalAlign: 'top',
+                    style: {
+                        fontSize: '14px'
+                    },
+                    formatter: level1LabelsFormatter
+                }
+            }, {
+                level: 2,
+                dataLabels: {
+                    enabled: true,
+                    formatter: level2LabelsFormatter
+                }
+            }]
+        };
+    }
 
     return {
         drilldown,
@@ -395,6 +430,9 @@ function getLabelsConfiguration(chartOptions: any) {
                 dataLabels: {
                     formatter: labelFormatterHeatMap
                 }
+            },
+            treemap: {
+                ...multiLevelProp
             }
         },
         yAxis
