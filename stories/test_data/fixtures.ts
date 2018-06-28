@@ -168,6 +168,13 @@ export const comboWithTwoMeasuresAndViewByAttributeMdObject: VisualizationObject
     visualizationClass: require('../test_data/combo_chart_with_two_measures_view_by_attribute_md_object.json').buckets // tslint:disable-line:max-line-length
 };
 
+export const tableWithSorting: any = {
+    executionRequest: require('../test_data/table_with_sort_request.json').execution,
+    executionResponse:
+        require('../test_data/table_with_sort_response.json').executionResponse,
+    executionResult: require('../test_data/table_with_sort_result.json').executionResult
+};
+
 export function barChartWithNTimes3MetricsAndViewByAttribute(n = 1) {
     let dataSet: any = immutableSet(
         barChartWith3MetricsAndViewByAttribute,
@@ -265,5 +272,6 @@ export default {
     headlineWithTwoMeasures,
     comboWithTwoMeasuresAndViewByAttribute,
     comboWithTwoMeasuresAndViewByAttributeMdObject,
-    scatterWithNulls
+    scatterWithNulls,
+    tableWithSorting
 };
