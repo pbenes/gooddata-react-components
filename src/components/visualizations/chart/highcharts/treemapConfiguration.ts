@@ -9,16 +9,16 @@ const TREEMAP_TEMPLATE: any = {
     plotOptions: {
         treemap: {
             dataLabels: {
-                enabled: true
+                enabled: true,
+                allowOverlap: false
             },
-            showInLegend: true
+            showInLegend: true,
+            borderColor: 'white',
+            layoutAlgorithm: 'squarified'
         }
     },
     legend: {
         enabled: false
-    },
-    drilldown: {
-        animation: true
     }
 };
 

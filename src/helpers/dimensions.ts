@@ -374,42 +374,28 @@ export function getTreemapDimensionsFromMdObj(
 
 export function getTreemapDimensionsFromBuckets(buckets: VisualizationObject.IBucket[]): AFM.IDimension[] {
     const afm: AFM.IAfm = convertBucketsToAFM(buckets);
-    const isStacked = isStackedChart(buckets, SEGMENT);
-    return getTreemapDimensionsFromAFM(afm, isStacked);
+    return getTreemapDimensionsFromAFM(afm);
 }
 
-export function getTreemapDimensionsFromAFM(afm: AFM.IAfm, isStacked: boolean = false): AFM.IDimension[] {
+export function getTreemapDimensionsFromAFM(afm: AFM.IAfm): AFM.IDimension[] {
     const attributes = (afm.attributes || []);
-    const restOfAttributes = attributes.slice(0, attributes.length);
-    let stackByAttribute;
-    if (isStacked) {
-        stackByAttribute = restOfAttributes.pop();
+    if (attributes.length === 1) {
         return [
-            {
-                itemIdentifiers: [stackByAttribute.localIdentifier]
-            },
-            {
-                itemIdentifiers: [...(restOfAttributes.map(a => a.localIdentifier)), 'measureGroup']
-            }
-        ];
-    }
-    if (attributes.length === 0) {
-        return [
-            {
-                itemIdentifiers: []
-            },
             {
                 itemIdentifiers: ['measureGroup']
+            },
+            {
+                itemIdentifiers: attributes.map(a => a.localIdentifier)
             }
         ];
     }
 
     return [
         {
-            itemIdentifiers: ['measureGroup']
+            itemIdentifiers: attributes.map(a => a.localIdentifier)
         },
         {
-            itemIdentifiers: (afm.attributes || []).map(a => a.localIdentifier)
+            itemIdentifiers: ['measureGroup']
         }
     ];
 }

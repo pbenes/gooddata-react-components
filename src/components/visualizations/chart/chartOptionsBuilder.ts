@@ -39,7 +39,7 @@ import { DEFAULT_COLOR_PALETTE, HEATMAP_BLUE_COLOR_PALETTE, getLighterColor } fr
 import { isDataOfReasonableSize } from './highChartsCreators';
 import { VIEW_BY_DIMENSION_INDEX, STACK_BY_DIMENSION_INDEX, PIE_CHART_LIMIT } from './constants';
 import { VisualizationTypes, VisType } from '../../../constants/visualizationTypes';
-import { MEASURES, SECONDARY_MEASURES, TERTIARY_MEASURES } from '../../../constants/bucketNames';
+import { MEASURES, SECONDARY_MEASURES, TERTIARY_MEASURES, VIEW, SEGMENT } from '../../../constants/bucketNames';
 
 import { DEFAULT_CATEGORIES_LIMIT } from './highcharts/commonConfiguration';
 import { getComboChartOptions } from './chartOptions/comboChartOptions';
@@ -452,6 +452,133 @@ export function getBubbleChartSeries(
     });
 }
 
+function gradientPreviousGroup(solidColorLeafs: any[]): any[] {
+    const colorChange = 0.8 / solidColorLeafs.length;
+    return solidColorLeafs.map((leaf: any, index: number) =>
+        ({
+            ...leaf,
+            color: getLighterColor(leaf.color, (colorChange * index))
+        })
+    );
+}
+
+function getRootPoint(
+    rootName: string,
+    index: number,
+    colorPalette: string[]
+) {
+    return {
+        id: `id_${index}`,
+        name: rootName,
+        color: colorPalette[index],
+        showInLegend: true,
+        legendIndex: index
+    };
+}
+
+function getLeafPoint(
+    stackByAttribute: any,
+    parentIndex: number,
+    seriesIndex: number,
+    data: any,
+    colorPalette: string[]
+) {
+    return {
+        name: stackByAttribute.items[seriesIndex].attributeHeaderItem.name,
+        parent: `id_${parentIndex}`,
+        value: parseValue(data),
+        x: seriesIndex,
+        y: seriesIndex,
+        showInLegend: false,
+        color: colorPalette[parentIndex]
+    };
+}
+
+function isLastSerie(seriesIndex: number, dataLength: number) {
+    return seriesIndex === (dataLength - 1);
+}
+
+export function getTreemapStackedSeriesDataWithViewBy(
+    executionResultData: Execution.DataValue[][],
+    viewByAttribute: any,
+    stackByAttribute: any,
+    colorPalette: string[]
+): any[] {
+    const roots: any = [];
+    const leafs: any = [];
+    let rootId = -1;
+    let uncoloredLeafs: any = [];
+    let lastRootName = '';
+
+    const dataLength = executionResultData.length;
+
+    executionResultData.forEach((seriesItems: string[], seriesIndex: number) => {
+        const currentRootName = viewByAttribute.items[seriesIndex].attributeHeaderItem.name;
+
+        if (currentRootName !== lastRootName) {
+            // store previous group leafs
+            leafs.push(...gradientPreviousGroup(uncoloredLeafs));
+            rootId++;
+            lastRootName = currentRootName;
+            uncoloredLeafs = [];
+            // create parent for pasted leafs
+            roots.push(getRootPoint(lastRootName, rootId, colorPalette));
+        }
+        // create leafs which will be colored at the end of group
+        uncoloredLeafs.push(getLeafPoint(stackByAttribute, rootId, seriesIndex, seriesItems[0], colorPalette));
+
+        if (isLastSerie(seriesIndex, dataLength)) {
+            // store last group leafs
+            leafs.push(...gradientPreviousGroup(uncoloredLeafs));
+        }
+    });
+
+    return [...roots, ...leafs]; // roots need to be first items in data to keep legend working
+}
+
+export function getTreemapStackedSeriesDataWithMeasures(
+    executionResultData: Execution.DataValue[][],
+    measureGroup: Execution.IMeasureGroupHeader['measureGroupHeader'],
+    stackByAttribute: any,
+    colorPalette: string[]
+): any[] {
+    let data: any = [];
+
+    measureGroup.items.reduce((data: any[], measureGroupItem: any, index: number) => {
+        data.push({
+            id: `id_${index}`,
+            name: measureGroupItem.measureHeaderItem.name,
+            color: colorPalette[index],
+            showInLegend: true,
+            legendIndex: index
+        });
+        return data;
+    }, data);
+
+    executionResultData.forEach((seriesItems: string[], seriesIndex: number) => {
+        const colorChange = 0.8 / seriesItems.length;
+        const unsortedLeafs: any[] = [];
+        seriesItems.forEach((seriesItem: string, seriesItemIndex: number) => {
+            unsortedLeafs.push({
+                name: stackByAttribute.items[seriesItemIndex].attributeHeaderItem.name,
+                parent: `id_${seriesIndex}`,
+                value: parseValue(seriesItem),
+                x: seriesIndex,
+                y: seriesItemIndex,
+                showInLegend: false
+            });
+        });
+        const sortedLeafs = unsortedLeafs.sort((a: IPoint, b: IPoint) => b.value - a.value);
+
+        data = [...data, ...sortedLeafs.map((leaf: IPoint, seriesItemIndex: number) => ({
+            ...leaf,
+            color: getLighterColor(colorPalette[seriesIndex], (colorChange * seriesItemIndex))
+        }))];
+    });
+
+    return data;
+}
+
 export function getTreemapStackedSeries(
     executionResultData: Execution.DataValue[][],
     measureGroup: Execution.IMeasureGroupHeader['measureGroupHeader'],
@@ -459,54 +586,31 @@ export function getTreemapStackedSeries(
     stackByAttribute: any,
     colorPalette: string[]
 ) {
-    const data: any = [];
+    let data = [];
+    if (viewByAttribute) {
+        data = getTreemapStackedSeriesDataWithViewBy(
+            executionResultData,
+            viewByAttribute,
+            stackByAttribute,
+            colorPalette
+        );
+    } else {
+        data = getTreemapStackedSeriesDataWithMeasures(
+            executionResultData,
+            measureGroup,
+            stackByAttribute,
+            colorPalette
+        );
+    }
+
     const seriesName = measureGroup.items.map((wrappedMeasure: Execution.IMeasureHeaderItem) => {
         return unwrap(wrappedMeasure).name;
     }).join(', ');
 
-    if (viewByAttribute) { // roots defined by view by attribute
-        viewByAttribute.items.reduce((data: any[], viewByAttributeItem: any, index: number) => {
-            data.push({
-                id: `id_${index}`,
-                name: viewByAttributeItem.attributeHeaderItem.name,
-                color: colorPalette[index],
-                showInLegend: true,
-                legendIndex: index
-            });
-            return data;
-        }, data);
-    } else {  // roots defined by measures
-        measureGroup.items.reduce((data: any[], measureGroupItem: any, index: number) => {
-            data.push({
-                id: `id_${index}`,
-                name: measureGroupItem.measureHeaderItem.name,
-                color: colorPalette[index],
-                showInLegend: true,
-                legendIndex: index
-            });
-            return data;
-        }, data);
-    }
-
-    const colorChange = 0.8 / executionResultData.length;
-    executionResultData.forEach((seriesItems: string[], seriesIndex: number) => {
-        seriesItems.forEach((seriesItem: string, seriesItemIndex: number) => {
-            data.push({
-                name: stackByAttribute.items[seriesIndex].attributeHeaderItem.name,
-                parent: `id_${seriesItemIndex}`,
-                value: parseValue(seriesItem),
-                x: seriesItemIndex,
-                y: seriesIndex,
-                showInLegend: false,
-                color: getLighterColor(colorPalette[seriesItemIndex], (colorChange * seriesIndex))
-            });
-        });
-    });
     return [{
         name: seriesName,
         legendType: 'point',
         showInLegend: true,
-        layoutAlgorithm: 'squarified',
         data
     }];
 }
@@ -747,17 +851,23 @@ export function findMeasureGroupInDimensions(dimensions: Execution.IResultDimens
         });
 }
 
-export function findAttributeInDimension(dimension: any, attributeHeaderItemsDimension: any) {
-    return findInDimensionHeaders([dimension], (headerType: any, header: any) => {
-        if (headerType === 'attributeHeader') {
-            return {
-                ...header,
-                // attribute items are delivered separately from attributeHeaderItems
-                // there should ever only be maximum of one attribute on each dimension, other attributes are ignored
-                items: attributeHeaderItemsDimension[0]
-            };
-        }
-        return null;
+export function findAttributeInDimension(
+    dimension: any,
+    attributeHeaderItemsDimension: any,
+    indexInDimension?: number
+) {
+    return findInDimensionHeaders(
+        [dimension],
+        (headerType: any, header: any, {}, headerIndex: number) => {
+            if (headerType === 'attributeHeader'
+                && (indexInDimension === undefined || indexInDimension === headerIndex)) {
+                return {
+                    ...header,
+                    // attribute items are delivered separately from attributeHeaderItems
+                    items: attributeHeaderItemsDimension[indexInDimension ? indexInDimension : 0]
+                };
+            }
+            return null;
     });
 }
 
@@ -1116,6 +1226,48 @@ export function getHeatMapDataClasses(series: any = [], colorPalette: string[]):
     return dataClasses;
 }
 
+function getTreemapAttributes(
+    dimensions: Execution.IResultDimension[],
+    attributeHeaderItems: Execution.IResultHeaderItem[][][],
+    mdObject: VisualizationObject.IVisualizationObjectContent
+): any {
+    if (isBucketEmpty(mdObject, SEGMENT)) {
+        if (isBucketEmpty(mdObject, VIEW)) {
+            return {
+                viewByAttribute: null,
+                stackByAttribute: null
+            };
+        }
+        return {
+            viewByAttribute: findAttributeInDimension(
+                dimensions[VIEW_BY_DIMENSION_INDEX],
+                attributeHeaderItems[VIEW_BY_DIMENSION_INDEX]
+            ),
+            stackByAttribute: null
+        };
+    }
+    if (isBucketEmpty(mdObject, VIEW)) {
+        return {
+            viewByAttribute: null,
+            stackByAttribute: findAttributeInDimension(
+                dimensions[VIEW_BY_DIMENSION_INDEX],
+                attributeHeaderItems[VIEW_BY_DIMENSION_INDEX]
+            )
+        };
+    }
+    return {
+        viewByAttribute: findAttributeInDimension(
+            dimensions[STACK_BY_DIMENSION_INDEX],
+            attributeHeaderItems[STACK_BY_DIMENSION_INDEX]
+        ),
+        stackByAttribute: findAttributeInDimension(
+            dimensions[STACK_BY_DIMENSION_INDEX],
+            attributeHeaderItems[STACK_BY_DIMENSION_INDEX],
+            1
+        )
+    };
+}
+
 /**
  * Creates an object providing data for all you need to render a chart except drillability.
  *
@@ -1148,14 +1300,30 @@ export function getChartOptions(
 
     const { type, mdObject } = config;
     const measureGroup: Execution.IMeasureGroupHeader['measureGroupHeader'] = findMeasureGroupInDimensions(dimensions);
-    const viewByAttribute = findAttributeInDimension(
-        dimensions[VIEW_BY_DIMENSION_INDEX],
-        attributeHeaderItems[VIEW_BY_DIMENSION_INDEX]
-    );
-    const stackByAttribute = findAttributeInDimension(
-        dimensions[STACK_BY_DIMENSION_INDEX],
-        attributeHeaderItems[STACK_BY_DIMENSION_INDEX]
-    );
+    let viewByAttribute;
+    let stackByAttribute;
+
+    if (isTreemap(type)) {
+        const {
+            viewByAttribute: treemapViewByAttribute,
+            stackByAttribute: treemapStackByAttribute
+        } = getTreemapAttributes(
+            dimensions,
+            attributeHeaderItems,
+            mdObject
+        );
+        viewByAttribute = treemapViewByAttribute;
+        stackByAttribute = treemapStackByAttribute;
+    } else {
+        viewByAttribute = findAttributeInDimension(
+            dimensions[VIEW_BY_DIMENSION_INDEX],
+            attributeHeaderItems[VIEW_BY_DIMENSION_INDEX]
+        );
+        stackByAttribute = findAttributeInDimension(
+            dimensions[STACK_BY_DIMENSION_INDEX],
+            attributeHeaderItems[STACK_BY_DIMENSION_INDEX]
+        );
+    }
 
     invariant(measureGroup, 'missing measureGroup');
 
