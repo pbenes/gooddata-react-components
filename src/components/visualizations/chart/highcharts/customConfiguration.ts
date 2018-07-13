@@ -22,7 +22,8 @@ import {
     isColumnChart,
     isOneOfTypes,
     isAreaChart,
-    isRotationInRange
+    isRotationInRange,
+    isTreemap
 } from '../../utils/common';
 import {
     shouldFollowPointer,
@@ -362,11 +363,58 @@ function getTooltipConfiguration(chartOptions: any) {
 }
 
 function isMultiLevelTreemap(data: any) {
-    return !!get(data, 'series.0.data.0.id');
+    return !!get(data, 'series.0.data.0.id'); // first data point is parent with some id
+}
+
+function getTreemapLabelsConfiguration(data: any) {
+    const smallLabelInCenter = {
+        dataLabels: {
+            enabled: true,
+            padding: 2,
+            formatter: level2LabelsFormatter
+        }
+    };
+    if (isMultiLevelTreemap(data)) {
+        return {
+            levels: [{
+                level: 1,
+                dataLabels: {
+                    enabled: true,
+                    align: 'left',
+                    verticalAlign: 'top',
+                    padding: 5,
+                    style: {
+                        fontSize: '14px'
+                    },
+                    formatter: level1LabelsFormatter
+                }
+            }, {
+                level: 2,
+                ...smallLabelInCenter
+            }]
+        };
+    } else {
+        return {
+            levels: [{
+                level: 1,
+                ...smallLabelInCenter
+            }]
+        };
+    }
 }
 
 function getLabelsConfiguration(chartOptions: any) {
-    const { stacking, yAxes = [], data }: {stacking: boolean; yAxes: IAxis[]; data: any} = chartOptions;
+    const {
+        stacking,
+        yAxes = [],
+        data,
+        type
+    }: {
+        stacking: boolean;
+        yAxes: IAxis[];
+        data: any;
+        type: string;
+    } = chartOptions;
     const style = stacking ? {
         color: '#ffffff',
         textShadow: '0 0 1px #000000'
@@ -386,27 +434,8 @@ function getLabelsConfiguration(chartOptions: any) {
     }));
 
     let multiLevelProp = {};
-    if (isMultiLevelTreemap(data)) {
-        multiLevelProp = {
-            levels: [{
-                level: 1,
-                dataLabels: {
-                    enabled: true,
-                    align: 'left',
-                    verticalAlign: 'top',
-                    style: {
-                        fontSize: '14px'
-                    },
-                    formatter: level1LabelsFormatter
-                }
-            }, {
-                level: 2,
-                dataLabels: {
-                    enabled: true,
-                    formatter: level2LabelsFormatter
-                }
-            }]
-        };
+    if (isTreemap(type)) {
+        multiLevelProp = getTreemapLabelsConfiguration(data);
     }
 
     return {
