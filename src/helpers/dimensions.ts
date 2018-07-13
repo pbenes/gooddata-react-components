@@ -26,7 +26,7 @@ function getDimensionTotals(bucket: VisualizationObject.IBucket): AFM.ITotalItem
 
 export function getTableDimensions(buckets: VisualizationObject.IBucket[]): AFM.IDimension[] {
     const attributes: VisualizationObject.IBucket = buckets
-        .find(bucket => bucket.localIdentifier === ATTRIBUTE || bucket.localIdentifier === 'attributes');
+        .find(bucket => bucket.localIdentifier === ATTRIBUTE);
 
     const measures: VisualizationObject.IBucket = buckets
         .find(bucket => bucket.localIdentifier === MEASURES);
@@ -294,10 +294,10 @@ export function generateDimensions(
 }
 
 export function generateStackedDimensions(buckets: VisualizationObject.IBucket[]): AFM.IDimension[] {
-    const stackByAttribute = buckets.find(bucket => bucket.localIdentifier === 'stacks').items[0] as
+    const stackByAttribute = buckets.find(bucket => bucket.localIdentifier === STACK).items[0] as
         VisualizationObject.IVisualizationAttribute;
 
-    const viewByAttribute = buckets.find(bucket => bucket.localIdentifier === 'attributes').items[0] as
+    const viewByAttribute = buckets.find(bucket => bucket.localIdentifier === ATTRIBUTE).items[0] as
         VisualizationObject.IVisualizationAttribute;
 
     const stackByAttributeLocalIdentifier = stackByAttribute.visualizationAttribute.localIdentifier;
@@ -308,7 +308,7 @@ export function generateStackedDimensions(buckets: VisualizationObject.IBucket[]
             itemIdentifiers: [stackByAttributeLocalIdentifier]
         },
         {
-            itemIdentifiers: [viewByAttributeLocalIdentifier, 'measureGroup']
+            itemIdentifiers: [viewByAttributeLocalIdentifier, MEASUREGROUP]
         }
     ];
 }
@@ -317,7 +317,7 @@ export function generateStackedDimensions(buckets: VisualizationObject.IBucket[]
 export function generateDefaultDimensions(afm: AFM.IAfm): AFM.IDimension[] {
     return [
         {
-            itemIdentifiers: ['measureGroup']
+            itemIdentifiers: [MEASUREGROUP]
         },
         {
             itemIdentifiers: (afm.attributes || []).map(a => a.localIdentifier)
@@ -336,7 +336,7 @@ export function generateDefaultDimensionsForPointsCharts(afm: AFM.IAfm): AFM.IDi
             itemIdentifiers: (afm.attributes || []).map(a => a.localIdentifier)
         },
         {
-            itemIdentifiers: ['measureGroup']
+            itemIdentifiers: [MEASUREGROUP]
         }
     ];
 }
@@ -349,14 +349,14 @@ export const generateDefaultDimensionsForRoundChart = (afm: AFM.IAfm): AFM.IDime
                 itemIdentifiers: []
             },
             {
-                itemIdentifiers: ['measureGroup']
+                itemIdentifiers: [MEASUREGROUP]
             }
         ];
     }
 
     return [
         {
-            itemIdentifiers: ['measureGroup']
+            itemIdentifiers: [MEASUREGROUP]
         },
         {
             itemIdentifiers: (afm.attributes || []).map(a => a.localIdentifier)
@@ -382,7 +382,7 @@ export function getTreemapDimensionsFromAFM(afm: AFM.IAfm): AFM.IDimension[] {
     if (attributes.length === 1) {
         return [
             {
-                itemIdentifiers: ['measureGroup']
+                itemIdentifiers: [MEASUREGROUP]
             },
             {
                 itemIdentifiers: attributes.map(a => a.localIdentifier)
@@ -395,7 +395,7 @@ export function getTreemapDimensionsFromAFM(afm: AFM.IAfm): AFM.IDimension[] {
             itemIdentifiers: attributes.map(a => a.localIdentifier)
         },
         {
-            itemIdentifiers: ['measureGroup']
+            itemIdentifiers: [MEASUREGROUP]
         }
     ];
 }
