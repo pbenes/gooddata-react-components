@@ -22,7 +22,8 @@ import {
     generateTooltipXYFn,
     generateTooltipTreemapFn,
     IPoint,
-    getBubbleChartSeries
+    getBubbleChartSeries,
+    getTreemapAttributes
 } from '../chartOptionsBuilder';
 import { DEFAULT_CATEGORIES_LIMIT } from '../highcharts/commonConfiguration';
 import { generateChartOptions } from './helper';
@@ -36,7 +37,8 @@ import {
 } from '../constants';
 
 import {
-    DEFAULT_COLOR_PALETTE
+    DEFAULT_COLOR_PALETTE,
+    getLighterColor
 } from '../../utils/color';
 
 export { IPoint };
@@ -59,6 +61,29 @@ function getMVS(dataSet: any) {
         measureGroup,
         viewByAttribute,
         stackByAttribute
+    ];
+}
+
+function getMVSTreemap(dataSet: any) {
+    const {
+        executionResponse: { dimensions },
+        executionResult: { headerItems },
+        mdObject
+    } = dataSet;
+    const measureGroup = findMeasureGroupInDimensions(dimensions);
+    const {
+        viewByAttribute: treemapViewByAttribute,
+        stackByAttribute: treemapStackByAttribute
+    } = getTreemapAttributes(
+        dimensions,
+        headerItems,
+        mdObject
+    );
+
+    return [
+        measureGroup,
+        treemapViewByAttribute,
+        treemapStackByAttribute
     ];
 }
 
@@ -1019,6 +1044,336 @@ describe('chartOptionsBuilder', () => {
                 expect(series).toEqual(expectedSeries);
             });
         });
+
+        describe('in use case of treemap', () => {
+            describe('with only one measure', () => {
+                const dataSet = fixtures.barChartWithSingleMeasureAndNoAttributes;
+                const mVS = getMVSTreemap(dataSet);
+                const type = 'treemap';
+                const seriesData = getSeries(
+                    dataSet.executionResult.data,
+                    mVS[0],
+                    mVS[1],
+                    mVS[2],
+                    type,
+                    {} as any,
+                    DEFAULT_COLOR_PALETTE
+                );
+
+                it('should return only one serie', () => {
+                    expect(seriesData.length).toBe(1);
+                });
+
+                it('should fill correct series name equal to measure name', () => {
+                    expect(seriesData[0].name).toEqual('Amount');
+                });
+
+                it('should fill correct series color', () => {
+                    expect(seriesData[0].color).toEqual(DEFAULT_COLOR_PALETTE[0]);
+                });
+
+                it('should fill correct series legendIndex', () => {
+                    expect(seriesData[0].legendIndex).toEqual(0);
+                });
+
+                it('should fill correct series data', () => {
+                    expect(seriesData[0].data.length).toBe(1);
+                    expect(seriesData[0].data[0]).toMatchObject({
+                        y: 116625456.54,
+                        value: 116625456.54,
+                        color: DEFAULT_COLOR_PALETTE[0],
+                        format: '#,##0.00',
+                        legendIndex: 0,
+                        name: 'Amount',
+                        marker: expect.any(Object)
+                    });
+                });
+            });
+
+            describe('with one measure and view by attribute', () => {
+                const dataSet = fixtures.treemapWithMetricAndViewByAttribute;
+                const mVS = getMVSTreemap(dataSet);
+                const type = 'treemap';
+                const seriesData = getSeries(
+                    dataSet.executionResult.data,
+                    mVS[0],
+                    mVS[1],
+                    mVS[2],
+                    type,
+                    dataSet.mdObject,
+                    DEFAULT_COLOR_PALETTE
+                );
+
+                it('should return only one serie', () => {
+                    expect(seriesData.length).toBe(1);
+                });
+
+                it('should fill correct series name equal to measure name', () => {
+                    expect(seriesData[0].name).toEqual('Amount');
+                });
+
+                it('should fill correct series legendIndex', () => {
+                    expect(seriesData[0].legendIndex).toEqual(0);
+                });
+
+                it('should fill correct series data', () => {
+                    expect(seriesData[0].data.length).toBe(2);
+                    expect(seriesData[0].data[0]).toMatchObject({
+                        y: 80406324.96,
+                        value: 80406324.96,
+                        color: DEFAULT_COLOR_PALETTE[0],
+                        format: '#,##0.00',
+                        legendIndex: 0,
+                        name: 'Direct Sales',
+                        marker: expect.any(Object)
+                    });
+
+                    expect(seriesData[0].data[1]).toMatchObject({
+                        y: 36219131.58,
+                        value: 36219131.58,
+                        color: DEFAULT_COLOR_PALETTE[1],
+                        format: '#,##0.00',
+                        legendIndex: 1,
+                        name: 'Inside Sales',
+                        marker: expect.any(Object)
+                    });
+                });
+            });
+
+            describe('with one measure and stack by attribute', () => {
+                const dataSet = fixtures.treemapWithMetricAndStackByAttribute;
+                const mVS = getMVSTreemap(dataSet);
+                const type = 'treemap';
+                const seriesData = getSeries(
+                    dataSet.executionResult.data,
+                    mVS[0],
+                    mVS[1],
+                    mVS[2],
+                    type,
+                    dataSet.mdObject,
+                    DEFAULT_COLOR_PALETTE
+                );
+
+                it('should return only one serie', () => {
+                    expect(seriesData.length).toBe(1);
+                });
+
+                it('should fill correct series name equal to measure name', () => {
+                    expect(seriesData[0].name).toEqual('Amount');
+                });
+
+                it('should fill correct series data', () => {
+                    expect(seriesData[0].data.length).toBe(3); // parent + 2 leafs
+
+                    expect(seriesData[0].data[0]).toMatchObject({
+                        id: 'id_0',
+                        name: 'Amount',
+                        color: DEFAULT_COLOR_PALETTE[0],
+                        showInLegend: true,
+                        legendIndex: 0,
+                        format: '#,##0.00'
+                    });
+
+                    expect(seriesData[0].data[1]).toMatchObject({
+                        parent: 'id_0',
+                        x: 0,
+                        y: 0,
+                        value: 80406324.96,
+                        color: DEFAULT_COLOR_PALETTE[0],
+                        format: '#,##0.00',
+                        showInLegend: false,
+                        name: 'Direct Sales'
+                    });
+
+                    expect(seriesData[0].data[2]).toMatchObject({
+                        parent: 'id_0',
+                        x: 0,
+                        y: 1,
+                        value: 36219131.58,
+                        color: getLighterColor(DEFAULT_COLOR_PALETTE[0], 0.4),
+                        format: '#,##0.00',
+                        showInLegend: false,
+                        name: 'Inside Sales'
+                    });
+                });
+            });
+
+            describe('with one measure, view by and stack by attribute', () => {
+                const dataSet = fixtures.treemapWithMetricViewByAndStackByAttribute;
+                const mVS = getMVSTreemap(dataSet);
+                const type = 'treemap';
+                const seriesData = getSeries(
+                    dataSet.executionResult.data,
+                    mVS[0],
+                    mVS[1],
+                    mVS[2],
+                    type,
+                    dataSet.mdObject,
+                    DEFAULT_COLOR_PALETTE
+                );
+
+                it('should return only one serie', () => {
+                    expect(seriesData.length).toBe(1);
+                });
+
+                it('should fill correct series name equal to measure name', () => {
+                    expect(seriesData[0].name).toEqual('Amount');
+                });
+
+                it('should fill correct series data', () => {
+                    expect(seriesData[0].data.length).toBe(6); // 2 parents + 2 * 2 leafs
+
+                    expect(seriesData[0].data[0]).toMatchObject({
+                        id: 'id_0',
+                        name: 'Direct Sales',
+                        color: DEFAULT_COLOR_PALETTE[0],
+                        showInLegend: true,
+                        legendIndex: 0,
+                        format: '#,##0.00'
+                    });
+                    expect(seriesData[0].data[1]).toMatchObject({
+                        id: 'id_1',
+                        name: 'Inside Sales',
+                        color: DEFAULT_COLOR_PALETTE[1],
+                        showInLegend: true,
+                        legendIndex: 1,
+                        format: '#,##0.00'
+                    });
+
+                    expect(seriesData[0].data[2]).toMatchObject({
+                        parent: 'id_0',
+                        x: 0,
+                        y: 0,
+                        value: 58427629.5,
+                        color: DEFAULT_COLOR_PALETTE[0],
+                        format: '#,##0.00',
+                        showInLegend: false,
+                        name: 'West Coast'
+                    });
+
+                    expect(seriesData[0].data[3]).toMatchObject({
+                        parent: 'id_0',
+                        x: 0,
+                        y: 1,
+                        value: 21978695.46,
+                        color: getLighterColor(DEFAULT_COLOR_PALETTE[0], 0.4),
+                        format: '#,##0.00',
+                        showInLegend: false,
+                        name: 'East Coast'
+                    });
+
+                    expect(seriesData[0].data[4]).toMatchObject({
+                        parent: 'id_1',
+                        x: 1,
+                        y: 0,
+                        value: 30180730.62,
+                        color: DEFAULT_COLOR_PALETTE[1],
+                        format: '#,##0.00',
+                        showInLegend: false,
+                        name: 'West Coast'
+                    });
+
+                    expect(seriesData[0].data[5]).toMatchObject({
+                        parent: 'id_1',
+                        x: 1,
+                        y: 1,
+                        value: 6038400.96,
+                        color: getLighterColor(DEFAULT_COLOR_PALETTE[1], 0.4),
+                        format: '#,##0.00',
+                        showInLegend: false,
+                        name: 'East Coast'
+                    });
+                });
+            });
+
+            describe('with two measures and stack by attribute including client sorting', () => {
+                const dataSet = fixtures.treemapWithTwoMetricsAndStackByAttribute;
+                const mVS = getMVSTreemap(dataSet);
+                const type = 'treemap';
+                const seriesData = getSeries(
+                    dataSet.executionResult.data,
+                    mVS[0],
+                    mVS[1],
+                    mVS[2],
+                    type,
+                    dataSet.mdObject,
+                    DEFAULT_COLOR_PALETTE
+                );
+
+                it('should return only one serie', () => {
+                    expect(seriesData.length).toBe(1);
+                });
+
+                it('should fill correct series name equal to measure name', () => {
+                    expect(seriesData[0].name).toEqual('Amount, # of Open Opps.');
+                });
+
+                it('should fill correct series data', () => {
+                    expect(seriesData[0].data.length).toBe(6); // 2 parents + 2 * 2 leafs
+
+                    expect(seriesData[0].data[0]).toMatchObject({
+                        id: 'id_0',
+                        name: 'Amount',
+                        color: DEFAULT_COLOR_PALETTE[0],
+                        showInLegend: true,
+                        legendIndex: 0,
+                        format: '#,##0.00'
+                    });
+                    expect(seriesData[0].data[1]).toMatchObject({
+                        id: 'id_1',
+                        name: '# of Open Opps.',
+                        color: DEFAULT_COLOR_PALETTE[1],
+                        showInLegend: true,
+                        legendIndex: 1,
+                        format: '#,##0.00'
+                    });
+
+                    expect(seriesData[0].data[2]).toMatchObject({
+                        parent: 'id_0',
+                        x: 0,
+                        y: 0,
+                        value: 58427629.5,
+                        color: DEFAULT_COLOR_PALETTE[0],
+                        format: '#,##0.00',
+                        showInLegend: false,
+                        name: 'Direct Sales'
+                    });
+
+                    expect(seriesData[0].data[3]).toMatchObject({
+                        parent: 'id_0',
+                        x: 0,
+                        y: 1,
+                        value: 21978695.46,
+                        color: getLighterColor(DEFAULT_COLOR_PALETTE[0], 0.4),
+                        format: '#,##0.00',
+                        showInLegend: false,
+                        name: 'Inside Sales'
+                    });
+
+                    expect(seriesData[0].data[4]).toMatchObject({
+                        parent: 'id_1',
+                        x: 1,
+                        y: 1,
+                        value: 30180730.62,
+                        color: DEFAULT_COLOR_PALETTE[1],
+                        format: '#,##0.00',
+                        showInLegend: false,
+                        name: 'Inside Sales'
+                    });
+
+                    expect(seriesData[0].data[5]).toMatchObject({
+                        parent: 'id_1',
+                        x: 1,
+                        y: 0,
+                        value: 6038400.96,
+                        color: getLighterColor(DEFAULT_COLOR_PALETTE[1], 0.4),
+                        format: '#,##0.00',
+                        showInLegend: false,
+                        name: 'Direct Sales'
+                    });
+                });
+            });
+        });
     });
 
     describe('getDrillContext', () => {
@@ -1669,7 +2024,7 @@ describe('chartOptionsBuilder', () => {
         it('should generate valid tooltip for 2 measures', () => {
             const measures = [measureGroup.items[0], measureGroup.items[1]];
             const expectedResult =
-                `<table class=\"tt-values\"><tr>
+            `<table class=\"tt-values\"><tr>
                 <td class=\"title\">Sales Rep</td>
                 <td class=\"value\">point name</td>
             </tr>\n<tr>
@@ -1687,7 +2042,7 @@ describe('chartOptionsBuilder', () => {
         it('should generate valid tooltip for 3 measures', () => {
             const measures = [measureGroup.items[0], measureGroup.items[1], measureGroup.items[2]];
             const expectedResult =
-                `<table class=\"tt-values\"><tr>
+            `<table class=\"tt-values\"><tr>
                 <td class=\"title\">Sales Rep</td>
                 <td class=\"value\">point name</td>
             </tr>\n<tr>
@@ -1711,7 +2066,7 @@ describe('chartOptionsBuilder', () => {
             pointWithoutName.name = undefined;
 
             const expectedResult =
-                `<table class=\"tt-values\"><tr>
+            `<table class=\"tt-values\"><tr>
                 <td class=\"title\">Sales Rep</td>
                 <td class=\"value\">serie name</td>
             </tr>\n<tr>
@@ -1731,150 +2086,93 @@ describe('chartOptionsBuilder', () => {
     });
 
     describe('generateTooltipTreemapFn', () => {
-        // const dataSet = fixtures.bubbleChartWith3MetricsAndAttribute;
-        // const [measureGroup, , stackByAttribute] = getMVS(dataSet);
-
-        // const point: IPoint = {
-        //     value: 300,
-        //     name: 'point name',
-        //     x: 10,
-        //     y: 20,
-        //     z: 30,
-        //     series: {
-        //         name: 'serie name',
-        //         userOptions: {
-        //             dataLabels: {
-        //                 formatGD: 'abcd'
-        //             }
-        //         }
-        //     }
-        // };
-        it('should generate valid tooltip for no measures', () => {
-            const measures: any[] = [];
-            const expectedResult =
-                `<table class=\"tt-values\"><tr>
-                <td class=\"title\">Sales Rep</td>
-                <td class=\"value\">point name</td>
-            </tr></table>`;
-
-            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
-            expect(tooltipFn(point)).toEqual(expectedResult);
-        });
-
+        const point: IPoint = {
+            category: 'category',
+            value: 300,
+            name: 'point name',
+            x: 0,
+            y: 0,
+            series: {
+                name: 'serie name',
+                userOptions: {
+                    dataLabels: {
+                        formatGD: 'abcd'
+                    }
+                }
+            }
+        };
         it('should generate valid tooltip for 1 measure', () => {
-            const measures = [measureGroup.items[0]];
             const expectedResult =
-                `<table class=\"tt-values\"><tr>
-                <td class=\"title\">Sales Rep</td>
-                <td class=\"value\">point name</td>
-            </tr>\n<tr>
-                <td class=\"title\">_Snapshot [EOP-2]</td>
-                <td class=\"value\">10.00</td>
+            `<table class=\"tt-values\"><tr>
+                <td class=\"title\">category</td>
+                <td class=\"value\">300</td>
             </tr></table>`;
 
-            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            const tooltipFn = generateTooltipTreemapFn(null, null);
             expect(tooltipFn(point)).toEqual(expectedResult);
         });
 
-        it('should generate valid tooltip for 2 measures', () => {
-            const measures = [measureGroup.items[0], measureGroup.items[1]];
+        it('should respect measure format', () => {
+            const pointWithFormat = cloneDeep(point);
+            pointWithFormat.format = 'abcd';
             const expectedResult =
-                `<table class=\"tt-values\"><tr>
-                <td class=\"title\">Sales Rep</td>
-                <td class=\"value\">point name</td>
-            </tr>\n<tr>
-                <td class=\"title\">_Snapshot [EOP-2]</td>
-                <td class=\"value\">10.00</td>
-            </tr>\n<tr>
-                <td class=\"title\"># of Open Opps.</td>
-                <td class=\"value\">20</td>
+            `<table class=\"tt-values\"><tr>
+                <td class=\"title\">category</td>
+                <td class=\"value\">abcd</td>
             </tr></table>`;
 
-            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
-            expect(tooltipFn(point)).toEqual(expectedResult);
+            const tooltipFn = generateTooltipTreemapFn(null, null);
+            expect(tooltipFn(pointWithFormat)).toEqual(expectedResult);
         });
 
         it('should generate valid tooltip for 1 measure and view by', () => {
-            const measures = [measureGroup.items[0], measureGroup.items[1], measureGroup.items[2]];
+            const dataSet = fixtures.treemapWithMetricAndViewByAttribute;
+            const [, viewByAttribute , stackByAttribute] = getMVSTreemap(dataSet);
             const expectedResult =
-                `<table class=\"tt-values\"><tr>
-                <td class=\"title\">Sales Rep</td>
-                <td class=\"value\">point name</td>
+            `<table class=\"tt-values\"><tr>
+                <td class=\"title\">Department</td>
+                <td class=\"value\">Direct Sales</td>
             </tr>\n<tr>
-                <td class=\"title\">_Snapshot [EOP-2]</td>
-                <td class=\"value\">10.00</td>
-            </tr>\n<tr>
-                <td class=\"title\"># of Open Opps.</td>
-                <td class=\"value\">20</td>
-            </tr>\n<tr>
-                <td class=\"title\">Remaining Quota</td>
-                <td class=\"value\">$30.00</td>
+                <td class=\"title\">serie name</td>
+                <td class=\"value\">300</td>
             </tr></table>`;
 
-            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            const tooltipFn = generateTooltipTreemapFn(viewByAttribute, stackByAttribute);
             expect(tooltipFn(point)).toEqual(expectedResult);
         });
 
         it('should generate valid tooltip for 1 measure and stack by', () => {
-            const measures = [measureGroup.items[0], measureGroup.items[1], measureGroup.items[2]];
+            const dataSet = fixtures.treemapWithMetricAndStackByAttribute;
+            const [, viewByAttribute, stackByAttribute] = getMVSTreemap(dataSet);
             const expectedResult =
-                `<table class=\"tt-values\"><tr>
-                <td class=\"title\">Sales Rep</td>
-                <td class=\"value\">point name</td>
+            `<table class=\"tt-values\"><tr>
+                <td class=\"title\">Department</td>
+                <td class=\"value\">Direct Sales</td>
             </tr>\n<tr>
-                <td class=\"title\">_Snapshot [EOP-2]</td>
-                <td class=\"value\">10.00</td>
-            </tr>\n<tr>
-                <td class=\"title\"># of Open Opps.</td>
-                <td class=\"value\">20</td>
-            </tr>\n<tr>
-                <td class=\"title\">Remaining Quota</td>
-                <td class=\"value\">$30.00</td>
+                <td class=\"title\">category</td>
+                <td class=\"value\">300</td>
             </tr></table>`;
 
-            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            const tooltipFn = generateTooltipTreemapFn(viewByAttribute, stackByAttribute);
             expect(tooltipFn(point)).toEqual(expectedResult);
         });
 
         it('should generate valid tooltip for 1 measure, view by and stack by', () => {
-            const measures = [measureGroup.items[0], measureGroup.items[1], measureGroup.items[2]];
+            const dataSet = fixtures.treemapWithMetricViewByAndStackByAttribute;
+            const [, viewByAttribute, stackByAttribute] = getMVSTreemap(dataSet);
             const expectedResult =
-                `<table class=\"tt-values\"><tr>
-                <td class=\"title\">Sales Rep</td>
-                <td class=\"value\">point name</td>
+            `<table class=\"tt-values\"><tr>
+                <td class=\"title\">Department</td>
+                <td class=\"value\">Direct Sales</td>
             </tr>\n<tr>
-                <td class=\"title\">_Snapshot [EOP-2]</td>
-                <td class=\"value\">10.00</td>
+                <td class=\"title\">Region</td>
+                <td class=\"value\">West Coast</td>
             </tr>\n<tr>
-                <td class=\"title\"># of Open Opps.</td>
-                <td class=\"value\">20</td>
-            </tr>\n<tr>
-                <td class=\"title\">Remaining Quota</td>
-                <td class=\"value\">$30.00</td>
+                <td class=\"title\">serie name</td>
+                <td class=\"value\">300</td>
             </tr></table>`;
 
-            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
-            expect(tooltipFn(point)).toEqual(expectedResult);
-        });
-
-        it('should generate valid tooltip for 2 measures and stack by', () => {
-            const measures = [measureGroup.items[0], measureGroup.items[1], measureGroup.items[2]];
-            const expectedResult =
-                `<table class=\"tt-values\"><tr>
-                <td class=\"title\">Sales Rep</td>
-                <td class=\"value\">point name</td>
-            </tr>\n<tr>
-                <td class=\"title\">_Snapshot [EOP-2]</td>
-                <td class=\"value\">10.00</td>
-            </tr>\n<tr>
-                <td class=\"title\"># of Open Opps.</td>
-                <td class=\"value\">20</td>
-            </tr>\n<tr>
-                <td class=\"title\">Remaining Quota</td>
-                <td class=\"value\">$30.00</td>
-            </tr></table>`;
-
-            const tooltipFn = generateTooltipXYFn(measures, stackByAttribute);
+            const tooltipFn = generateTooltipTreemapFn(viewByAttribute, stackByAttribute);
             expect(tooltipFn(point)).toEqual(expectedResult);
         });
     });
@@ -2007,8 +2305,11 @@ describe('chartOptionsBuilder', () => {
                 { type: 'pie' }
             );
             const treemapOptions = generateChartOptions(
-                fixtures.barChartWithViewByAttribute,
-                { type: 'treemap' }
+                fixtures.treemapWithMetricAndViewByAttribute,
+                {
+                    type: 'treemap',
+                    mdObject: fixtures.treemapWithMetricAndViewByAttribute.mdObject
+                }
             );
 
             it('should assign stacking normal', () => {
@@ -2030,6 +2331,7 @@ describe('chartOptionsBuilder', () => {
                 const mVS = getMVS(fixtures.barChartWithStackByAndViewByAttributes);
                 const viewByAttribute = mVS[1];
                 const pointData = {
+                    x: 0,
                     y: 1,
                     format: '# ###',
                     name: 'point',
@@ -2039,10 +2341,12 @@ describe('chartOptionsBuilder', () => {
                     }
                 };
 
-                const expectedTooltip = generateTooltipFn(viewByAttribute, 'column')(pointData);
+                let expectedTooltip = generateTooltipFn(viewByAttribute, 'column')(pointData);
 
                 const pieChartTooltip = pieChartOptions.actions.tooltip(pointData);
                 expect(pieChartTooltip).toBe(expectedTooltip);
+
+                expectedTooltip = generateTooltipTreemapFn(viewByAttribute, null)(pointData);
 
                 const treemapTooltip = treemapOptions.actions.tooltip(pointData);
                 expect(treemapTooltip).toBe(expectedTooltip);
@@ -2076,14 +2380,15 @@ describe('chartOptionsBuilder', () => {
                     category: 'category',
                     series: {
                         name: 'series'
-                    }
+                    },
+                    value: 2
                 };
 
                 const expectedPieChartTooltip = generateTooltipFn(null, 'pie')(pointData);
                 const pieChartTooltip = pieChartOptions.actions.tooltip(pointData);
                 expect(pieChartTooltip).toBe(expectedPieChartTooltip);
 
-                const expectedTreemapTooltip = generateTooltipFn(null, 'treemap')(pointData);
+                const expectedTreemapTooltip = generateTooltipTreemapFn(null, null)(pointData);
                 const treemapTooltip = treemapOptions.actions.tooltip(pointData);
                 expect(treemapTooltip).toBe(expectedTreemapTooltip);
             });
