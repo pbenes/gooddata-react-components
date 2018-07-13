@@ -465,6 +465,7 @@ function gradientPreviousGroup(solidColorLeafs: any[]): any[] {
 function getRootPoint(
     rootName: string,
     index: number,
+    format: string,
     colorPalette: string[]
 ) {
     return {
@@ -472,7 +473,8 @@ function getRootPoint(
         name: rootName,
         color: colorPalette[index],
         showInLegend: true,
-        legendIndex: index
+        legendIndex: index,
+        format
     };
 }
 
@@ -480,17 +482,20 @@ function getLeafPoint(
     stackByAttribute: any,
     parentIndex: number,
     seriesIndex: number,
+    yIndex: number,
     data: any,
+    format: string,
     colorPalette: string[]
 ) {
     return {
         name: stackByAttribute.items[seriesIndex].attributeHeaderItem.name,
         parent: `id_${parentIndex}`,
         value: parseValue(data),
-        x: seriesIndex,
-        y: seriesIndex,
+        x: parentIndex,
+        y: yIndex,
         showInLegend: false,
-        color: colorPalette[parentIndex]
+        color: colorPalette[parentIndex],
+        format
     };
 }
 
@@ -500,6 +505,7 @@ function isLastSerie(seriesIndex: number, dataLength: number) {
 
 export function getTreemapStackedSeriesDataWithViewBy(
     executionResultData: Execution.DataValue[][],
+    measureGroup: Execution.IMeasureGroupHeader['measureGroupHeader'],
     viewByAttribute: any,
     stackByAttribute: any,
     colorPalette: string[]
@@ -507,10 +513,12 @@ export function getTreemapStackedSeriesDataWithViewBy(
     const roots: any = [];
     const leafs: any = [];
     let rootId = -1;
+    let yIndex = 0;
     let uncoloredLeafs: any = [];
     let lastRootName = '';
 
     const dataLength = executionResultData.length;
+    const format = unwrap(measureGroup.items[0]).format; // this configuration has only one measure
 
     executionResultData.forEach((seriesItems: string[], seriesIndex: number) => {
         const currentRootName = viewByAttribute.items[seriesIndex].attributeHeaderItem.name;
@@ -519,13 +527,16 @@ export function getTreemapStackedSeriesDataWithViewBy(
             // store previous group leafs
             leafs.push(...gradientPreviousGroup(uncoloredLeafs));
             rootId++;
+            yIndex = 0;
             lastRootName = currentRootName;
             uncoloredLeafs = [];
             // create parent for pasted leafs
-            roots.push(getRootPoint(lastRootName, rootId, colorPalette));
+            roots.push(getRootPoint(lastRootName, rootId, format, colorPalette));
         }
         // create leafs which will be colored at the end of group
-        uncoloredLeafs.push(getLeafPoint(stackByAttribute, rootId, seriesIndex, seriesItems[0], colorPalette));
+        uncoloredLeafs.push(
+            getLeafPoint(stackByAttribute, rootId, seriesIndex, yIndex++, seriesItems[0], format, colorPalette)
+        );
 
         if (isLastSerie(seriesIndex, dataLength)) {
             // store last group leafs
@@ -548,6 +559,7 @@ export function getTreemapStackedSeriesDataWithMeasures(
         data.push({
             id: `id_${index}`,
             name: measureGroupItem.measureHeaderItem.name,
+            format: measureGroupItem.measureHeaderItem.format,
             color: colorPalette[index],
             showInLegend: true,
             legendIndex: index
@@ -562,6 +574,7 @@ export function getTreemapStackedSeriesDataWithMeasures(
             unsortedLeafs.push({
                 name: stackByAttribute.items[seriesItemIndex].attributeHeaderItem.name,
                 parent: `id_${seriesIndex}`,
+                format: unwrap(measureGroup.items[seriesIndex]).format,
                 value: parseValue(seriesItem),
                 x: seriesIndex,
                 y: seriesItemIndex,
@@ -590,6 +603,7 @@ export function getTreemapStackedSeries(
     if (viewByAttribute) {
         data = getTreemapStackedSeriesDataWithViewBy(
             executionResultData,
+            measureGroup,
             viewByAttribute,
             stackByAttribute,
             colorPalette
@@ -1226,7 +1240,7 @@ export function getHeatMapDataClasses(series: any = [], colorPalette: string[]):
     return dataClasses;
 }
 
-function getTreemapAttributes(
+export function getTreemapAttributes(
     dimensions: Execution.IResultDimension[],
     attributeHeaderItems: Execution.IResultHeaderItem[][][],
     mdObject: VisualizationObject.IVisualizationObjectContent

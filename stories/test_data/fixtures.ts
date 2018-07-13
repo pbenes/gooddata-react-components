@@ -175,6 +175,51 @@ export const tableWithSorting: any = {
     executionResult: require('../test_data/table_with_sort_result.json').executionResult
 };
 
+export const treemapWithMetricAndViewByAttributeMd: any = {
+    mdObject: require('../test_data/treemap_with_metric_and_view_by_attribute_md.json')
+};
+
+export const treemapWithMetricAndViewByAttribute: any = {
+    executionRequest: require('../test_data/treemap_with_metric_and_view_by_attribute_request.json').execution,
+    executionResponse:
+        require('../test_data/treemap_with_metric_and_view_by_attribute_response.json').executionResponse,
+    executionResult: require('../test_data/treemap_with_metric_and_view_by_attribute_result.json').executionResult,
+    ...treemapWithMetricAndViewByAttributeMd
+};
+
+export const treemapWithMetricAndStackByAttributeMd: any = {
+    mdObject: require('../test_data/treemap_with_metric_and_stack_by_attribute_md.json')
+};
+
+export const treemapWithMetricAndStackByAttribute: any = {
+    ...treemapWithMetricAndViewByAttribute, // execution is the same
+    ...treemapWithMetricAndStackByAttributeMd
+};
+
+export const treemapWithMetricViewByAndStackByAttributeMd: any = {
+    mdObject: require('../test_data/treemap_with_metric_view_by_and_stack_by_attribute_md.json')
+};
+
+export const treemapWithMetricViewByAndStackByAttribute: any = {
+    executionRequest: require('../test_data/treemap_with_metric_view_by_and_stack_by_attribute_request.json').execution,
+    executionResponse:
+        require('../test_data/treemap_with_metric_view_by_and_stack_by_attribute_response.json').executionResponse,
+    executionResult: require('../test_data/treemap_with_metric_view_by_and_stack_by_attribute_result.json').executionResult, // tslint:disable-line:max-line-length
+    ...treemapWithMetricViewByAndStackByAttributeMd
+};
+
+export const treemapWithTwoMetricsAndStackByAttributeMd: any = {
+    mdObject: require('../test_data/treemap_with_two_metrics_and_stack_by_attribute_md.json')
+};
+
+export const treemapWithTwoMetricsAndStackByAttribute: any = {
+    executionRequest: require('../test_data/treemap_with_two_metrics_and_stack_by_attribute_request.json').execution,
+    executionResponse:
+        require('../test_data/treemap_with_two_metrics_and_stack_by_attribute_response.json').executionResponse,
+    executionResult: require('../test_data/treemap_with_two_metrics_and_stack_by_attribute_result.json').executionResult,  // tslint:disable-line:max-line-length
+    ...treemapWithTwoMetricsAndStackByAttributeMd
+};
+
 export function barChartWithNTimes3MetricsAndViewByAttribute(n = 1) {
     let dataSet: any = immutableSet(
         barChartWith3MetricsAndViewByAttribute,
@@ -273,5 +318,9 @@ export default {
     comboWithTwoMeasuresAndViewByAttribute,
     comboWithTwoMeasuresAndViewByAttributeMdObject,
     scatterWithNulls,
-    tableWithSorting
+    tableWithSorting,
+    treemapWithMetricAndViewByAttribute,
+    treemapWithMetricAndStackByAttribute,
+    treemapWithMetricViewByAndStackByAttribute,
+    treemapWithTwoMetricsAndStackByAttribute
 };
