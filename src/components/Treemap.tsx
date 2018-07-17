@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { omit } from 'lodash';
 import { Subtract } from 'utility-types';
-import { VisualizationObject, AFM } from '@gooddata/typings';
+import { VisualizationObject } from '@gooddata/typings';
 
 import { Treemap as AfmTreemap } from './afm/Treemap';
 import { ICommonChartProps } from './core/base/BaseChart';
@@ -16,7 +16,6 @@ export interface ITreemapBucketProps {
     viewBy?: VisualizationObject.IVisualizationAttribute;
     segmentBy?: VisualizationObject.IVisualizationAttribute;
     filters?: VisualizationObject.VisualizationObjectFilter[];
-    sortBy?: AFM.SortItem[]; // TODO would it be removed? if not dont forget to test
 }
 
 export interface ITreemapProps extends ICommonChartProps, ITreemapBucketProps {
@@ -59,7 +58,7 @@ export function Treemap(props: ITreemapProps): JSX.Element {
             {...newProps}
             projectId={props.projectId}
             afm={convertBucketsToAFM(buckets, props.filters)}
-            resultSpec={getResultSpec(buckets, props.sortBy, getTreemapDimensionsFromBuckets)}
+            resultSpec={getResultSpec(buckets, undefined, getTreemapDimensionsFromBuckets)}
         />
     );
 }

@@ -53,19 +53,21 @@ export function getLegendItems(chartOptions: any) {
 }
 
 export default function getLegend(legendConfig: any = {}, chartOptions: any) {
+    let defaultLegendConfigByType = {};
     const rightLegendCharts = [VisualizationTypes.SCATTER, VisualizationTypes.TREEMAP, VisualizationTypes.BUBBLE];
 
     if (isOneOfTypes(chartOptions.type, rightLegendCharts)) {
-        set(legendConfig, 'position', 'right');
+        set(defaultLegendConfigByType, 'position', 'right');
 
         // TODO: Remove after bubble will have own legend configuration
         if (isBubbleChart(chartOptions.type)) {
-            set(legendConfig, 'enabled', true);
+            set(defaultLegendConfigByType, 'enabled', true);
         }
     }
 
     const baseConfig = {
         ...DEFAULT_LEGEND_CONFIG,
+        ...defaultLegendConfigByType,
         ...legendConfig
     };
 

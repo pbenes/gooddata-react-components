@@ -1183,11 +1183,39 @@ function assignYAxes(series: any, yAxes: IAxis[]) {
     return series;
 }
 
+export function getDefaultTreemapAttributes(
+    dimensions: Execution.IResultDimension[],
+    attributeHeaderItems: Execution.IResultHeaderItem[][][]
+): any {
+    let viewByAttribute = findAttributeInDimension(
+        dimensions[STACK_BY_DIMENSION_INDEX],
+        attributeHeaderItems[STACK_BY_DIMENSION_INDEX]
+    );
+    let stackByAttribute = findAttributeInDimension(
+        dimensions[STACK_BY_DIMENSION_INDEX],
+        attributeHeaderItems[STACK_BY_DIMENSION_INDEX],
+        1
+    );
+    if (!viewByAttribute) {
+        viewByAttribute = findAttributeInDimension(
+            dimensions[VIEW_BY_DIMENSION_INDEX],
+            attributeHeaderItems[VIEW_BY_DIMENSION_INDEX]
+        );
+    }
+    return {
+        viewByAttribute,
+        stackByAttribute
+    }
+}
+
 export function getTreemapAttributes(
     dimensions: Execution.IResultDimension[],
     attributeHeaderItems: Execution.IResultHeaderItem[][][],
     mdObject: VisualizationObject.IVisualizationObjectContent
 ): any {
+    if(!mdObject) { // without mdObject cant distinguish 1M 1Vb 0Sb and 1M 0Vb 1Sb
+        return getDefaultTreemapAttributes(dimensions, attributeHeaderItems);
+    }
     if (isBucketEmpty(mdObject, SEGMENT)) {
         if (isBucketEmpty(mdObject, VIEW)) {
             return {
