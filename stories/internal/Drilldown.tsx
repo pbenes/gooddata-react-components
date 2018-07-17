@@ -222,6 +222,25 @@ storiesOf('Internal/Drilldown', module)
             )
         );
     })
+    .add('Stacked bar chart drillable by stack by attribute', () => {
+        const dataSet = fixtures.barChartWithStackByAndViewByAttributes;
+        return screenshotWrap(
+            wrap(
+                <Visualization
+                    {...defaultColumnChartProps}
+                    drillableItems={[
+                        {
+                            uri: dataSet.executionRequest
+                                .afm.attributes[0].displayForm.uri
+                        }
+                    ]}
+                    {...dataSet}
+                />,
+                500,
+                '100%'
+            )
+        );
+    })
     .add('Stacked bar chart drillable by view by attribute value', () => {
         const dataSet = fixtures.barChartWithStackByAndViewByAttributes;
         return screenshotWrap(
@@ -524,4 +543,61 @@ storiesOf('Internal/Drilldown', module)
                 }
             </div>
         );
-    });
+    })
+    .add('Treemap with onFiredDrillEvent', () => {
+    const dataSet = {
+        ...fixtures.treemapWithMetricViewByAndStackByAttribute
+    };
+    return screenshotWrap(
+        <div>
+            <p>
+                Treemap with drilling on measure
+                </p>
+            {
+                wrap(
+                    <Visualization
+                        onFiredDrillEvent={action('onFiredDrillEvent')}
+                        config={{
+                            type: 'treemap',
+                            mdObject: dataSet.mdObject
+                        }}
+                        onDataTooLarge={noop}
+                        onNegativeValues={noop}
+                        {...dataSet}
+                        drillableItems={[
+                            {
+                                uri: dataSet.executionRequest.afm.measures[0].definition.measure.item.uri
+                            }
+                        ]}
+                    />,
+                    500,
+                    '100%'
+                )
+            }
+            <p>
+                Treemap with drilling on attribute and logging to console
+                </p>
+            {
+                wrap(
+                    <Visualization
+                        onFiredDrillEvent={onFiredDrillEvent}
+                        config={{
+                            type: 'treemap',
+                            mdObject: dataSet.mdObject
+                        }}
+                        onDataTooLarge={noop}
+                        onNegativeValues={noop}
+                        {...dataSet}
+                        drillableItems={[
+                            {
+                                uri: dataSet.executionRequest.afm.attributes[0].displayForm.uri
+                            }
+                        ]}
+                    />,
+                    500,
+                    '100%'
+                )
+            }
+        </div>
+    );
+});

@@ -341,7 +341,7 @@ export function generateDefaultDimensionsForPointsCharts(afm: AFM.IAfm): AFM.IDi
     ];
 }
 
-// for PieChart, DonutChart, Treemap
+// for PieChart, DonutChart
 export const generateDefaultDimensionsForRoundChart = (afm: AFM.IAfm): AFM.IDimension[] => {
     if ((afm.attributes || []).length === 0) {
         return [

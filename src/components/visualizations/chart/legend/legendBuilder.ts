@@ -77,14 +77,15 @@ export function getLegendItems(chartOptions: any) {
 }
 
 export default function getLegend(legendConfig: any = {}, chartOptions: any) {
+    const defaultLegendConfigByType = {};
     const rightLegendCharts = [VisualizationTypes.SCATTER, VisualizationTypes.TREEMAP, VisualizationTypes.BUBBLE];
 
     if (isOneOfTypes(chartOptions.type, rightLegendCharts)) {
-        set(legendConfig, 'position', 'right');
+        set(defaultLegendConfigByType, 'position', 'right');
 
         // TODO: Remove after bubble will have own legend configuration
         if (isBubbleChart(chartOptions.type)) {
-            set(legendConfig, 'enabled', true);
+            set(defaultLegendConfigByType, 'enabled', true);
         }
     } else if (isHeatMap(chartOptions.type)) {
         set(legendConfig, 'position', 'top');
@@ -92,6 +93,7 @@ export default function getLegend(legendConfig: any = {}, chartOptions: any) {
 
     const baseConfig = {
         ...DEFAULT_LEGEND_CONFIG,
+        ...defaultLegendConfigByType,
         ...legendConfig
     };
 
