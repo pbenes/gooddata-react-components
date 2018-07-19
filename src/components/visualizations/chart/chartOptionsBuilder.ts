@@ -469,7 +469,6 @@ function getLeafPoint(
     stackByAttribute: any,
     parentIndex: number,
     seriesIndex: number,
-    yIndex: number,
     data: any,
     format: string,
     colorPalette: string[]
@@ -478,8 +477,8 @@ function getLeafPoint(
         name: stackByAttribute.items[seriesIndex].attributeHeaderItem.name,
         parent: `${parentIndex}`,
         value: parseValue(data),
-        x: parentIndex,
-        y: yIndex,
+        x: seriesIndex,
+        y: seriesIndex,
         showInLegend: false,
         color: colorPalette[parentIndex],
         format
@@ -500,7 +499,6 @@ export function getTreemapStackedSeriesDataWithViewBy(
     const roots: any = [];
     const leafs: any = [];
     let rootId = -1;
-    let yIndex = 0;
     let uncoloredLeafs: any = [];
     let lastRoot: Execution.IResultAttributeHeaderItem['attributeHeaderItem'] = null;
 
@@ -514,7 +512,6 @@ export function getTreemapStackedSeriesDataWithViewBy(
             // store previous group leafs
             leafs.push(...gradientPreviousGroup(uncoloredLeafs));
             rootId++;
-            yIndex = 0;
             lastRoot = currentRoot;
             uncoloredLeafs = [];
             // create parent for pasted leafs
@@ -524,7 +521,7 @@ export function getTreemapStackedSeriesDataWithViewBy(
         }
         // create leafs which will be colored at the end of group
         uncoloredLeafs.push(
-            getLeafPoint(stackByAttribute, rootId, seriesIndex, yIndex++, seriesItems[0], format, colorPalette)
+            getLeafPoint(stackByAttribute, rootId, seriesIndex, seriesItems[0], format, colorPalette)
         );
 
         if (isLastSerie(seriesIndex, dataLength)) {
@@ -614,7 +611,8 @@ export function getTreemapStackedSeries(
         name: seriesName,
         legendType: 'point',
         showInLegend: true,
-        data
+        data,
+        turboThreshold: 0
     }];
 }
 
