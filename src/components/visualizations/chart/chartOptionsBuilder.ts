@@ -6,6 +6,7 @@ import * as Highcharts from 'highcharts';
 
 import range = require('lodash/range');
 import get = require('lodash/get');
+import isEqual = require('lodash/isEqual');
 import includes = require('lodash/includes');
 import isEmpty = require('lodash/isEmpty');
 import compact = require('lodash/compact');
@@ -516,22 +517,24 @@ export function getTreemapStackedSeriesDataWithViewBy(
     let rootId = -1;
     let yIndex = 0;
     let uncoloredLeafs: any = [];
-    let lastRootName = '';
+    let lastRoot: Execution.IResultAttributeHeaderItem['attributeHeaderItem'] = null;
 
     const dataLength = executionResultData.length;
     const format = unwrap(measureGroup.items[0]).format; // this configuration has only one measure
 
     executionResultData.forEach((seriesItems: string[], seriesIndex: number) => {
-        const currentRootName = viewByAttribute.items[seriesIndex].attributeHeaderItem.name;
+        const currentRoot = viewByAttribute.items[seriesIndex].attributeHeaderItem;
 
-        if (currentRootName !== lastRootName) {
+        if (!isEqual(currentRoot, lastRoot)) {
             // store previous group leafs
             leafs.push(...gradientPreviousGroup(uncoloredLeafs));
             rootId++;
             yIndex = 0;
-            lastRootName = currentRootName;
+            lastRoot = currentRoot;
             uncoloredLeafs = [];
             // create parent for pasted leafs
+            const lastRootName: string =
+                get<Execution.IResultAttributeHeaderItem['attributeHeaderItem'], string>(lastRoot, 'name');
             roots.push(getRootPoint(lastRootName, rootId, format, colorPalette));
         }
         // create leafs which will be colored at the end of group
