@@ -545,13 +545,16 @@ storiesOf('Internal/Drilldown', module)
         );
     })
     .add('Treemap with onFiredDrillEvent', () => {
+    const dataSetWithManyMeasure = {
+        ...fixtures.treemapWithTwoMetricsAndStackByAttribute
+    };
     const dataSet = {
         ...fixtures.treemapWithMetricViewByAndStackByAttribute
     };
     return screenshotWrap(
         <div>
             <p>
-                Treemap with drilling on measure
+                Treemap with drilling on one measure from two
                 </p>
             {
                 wrap(
@@ -559,14 +562,14 @@ storiesOf('Internal/Drilldown', module)
                         onFiredDrillEvent={action('onFiredDrillEvent')}
                         config={{
                             type: 'treemap',
-                            mdObject: dataSet.mdObject
+                            mdObject: dataSetWithManyMeasure.mdObject
                         }}
                         onDataTooLarge={noop}
                         onNegativeValues={noop}
-                        {...dataSet}
+                        {...dataSetWithManyMeasure}
                         drillableItems={[
                             {
-                                uri: dataSet.executionRequest.afm.measures[0].definition.measure.item.uri
+                                uri: dataSetWithManyMeasure.executionRequest.afm.measures[0].definition.measure.item.uri
                             }
                         ]}
                     />,
@@ -575,7 +578,7 @@ storiesOf('Internal/Drilldown', module)
                 )
             }
             <p>
-                Treemap with drilling on attribute and logging to console
+                Treemap with drilling on view by attribute and logging to console
                 </p>
             {
                 wrap(
@@ -591,6 +594,31 @@ storiesOf('Internal/Drilldown', module)
                         drillableItems={[
                             {
                                 uri: dataSet.executionRequest.afm.attributes[0].displayForm.uri
+                            }
+                        ]}
+                    />,
+                    500,
+                    '100%'
+                )
+            }
+            <p>
+                Treemap with drilling on segment by attribute element and logging to console
+                </p>
+            {
+                wrap(
+                    <Visualization
+                        onFiredDrillEvent={onFiredDrillEvent}
+                        config={{
+                            type: 'treemap',
+                            mdObject: dataSet.mdObject
+                        }}
+                        onDataTooLarge={noop}
+                        onNegativeValues={noop}
+                        {...dataSet}
+                        drillableItems={[
+                            {
+                                uri: dataSet.executionResult
+                                    .headerItems[STACK_BY_DIMENSION_INDEX][1][0].attributeHeaderItem.uri
                             }
                         ]}
                     />,

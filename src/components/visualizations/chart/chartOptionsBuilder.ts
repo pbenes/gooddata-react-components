@@ -246,6 +246,7 @@ export interface IPointData {
     color?: string;
     legendIndex?: number;
     id?: string;
+    parent?: string;
 }
 
 export interface IPoint {
@@ -919,10 +920,14 @@ export function getDrillableSeries(
                 if (pointData.id !== undefined) { // not leaf -> can't be drillable
                     return pointData;
                 }
-                measures = get(measureGroup, 'items', []).slice(0, 1).map(unwrap);
+                let measureIndex = 0;
+                if (!viewByAttribute) {
+                    measureIndex = parseInt(pointData.parent.split('_')[1]);
+                }
+                measures = [unwrap(measureGroup.items[measureIndex])];
             } else {
             // measureIndex is usually seriesIndex,
-            // except for stack by attribute and metricOnly pie or treemap chart it is looped-around pointIndex instead
+            // except for stack by attribute and metricOnly pie or donut chart it is looped-around pointIndex instead
             // Looping around the end of items array only works when measureGroup is the last header on it's dimension
             // We do not support setups with measureGroup before attributeHeaders
                 const measureIndex = !stackByAttribute && !isMultiMeasureWithOnlyMeasures
