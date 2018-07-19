@@ -192,6 +192,245 @@ module.exports = {
                     }
                 }
             }
+        },
+        {
+            _description: 'Treemap with sorted values', // once mock-js will support multi-sorting this can be removed
+            execution: {
+                execution: {
+                    afm: {
+                        measures: [{
+                            localIdentifier: 'm1',
+                            definition: {
+                                measure: {
+                                    item: {
+                                        uri: '/gdc/md/storybook/obj/1'
+                                    }
+                                }
+                            }
+                        }],
+                        attributes: [{
+                            localIdentifier: 'a1',
+                            displayForm: {
+                                uri: '/gdc/md/storybook/obj/4.df'
+                            }
+                        }, {
+                            localIdentifier: 'a2',
+                            displayForm: {
+                                uri: '/gdc/md/storybook/obj/5.df'
+                            }
+                        }]
+                    },
+                    resultSpec: {
+                        dimensions: [{
+                            itemIdentifiers: ['a1', 'a2']
+                        }, {
+                            itemIdentifiers: ['measureGroup']
+                        }],
+                        sorts: [
+                            {
+                                attributeSortItem: {
+                                    attributeIdentifier: 'a1',
+                                    direction: 'asc'
+                                }
+                            },
+                            {
+                                measureSortItem: {
+                                    direction: 'desc',
+                                    locators: [
+                                        {
+                                            measureLocatorItem: {
+                                                measureIdentifier: "m1"
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            executionResult: {
+                executionResult: {
+                    data: [
+                        ['666'],
+                        ['356'],
+                        ['110'],
+                        ['435'],
+                        ['260'],
+                        ['120'],
+                        ['956'],
+                        ['530'],
+                        ['314'],
+                        ['236'],
+                        ['180'],
+                        ['60']
+                    ],
+                    headerItems: [
+                        [
+                            [
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=1",
+                                        "name": "Pink"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=1",
+                                        "name": "Pink"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=1",
+                                        "name": "Pink"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=3",
+                                        "name": "Purple"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=3",
+                                        "name": "Purple"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=3",
+                                        "name": "Purple"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=2",
+                                        "name": "Red"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=2",
+                                        "name": "Red"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=2",
+                                        "name": "Red"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=4",
+                                        "name": "Salmon"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=4",
+                                        "name": "Salmon"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/4/elements?id=4",
+                                        "name": "Salmon"
+                                    }
+                                }
+                            ],
+                            [{
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=1",
+                                        "name": "low"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=2",
+                                        "name": "medium"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=3",
+                                        "name": "high"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=1",
+                                        "name": "low"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=2",
+                                        "name": "medium"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=3",
+                                        "name": "high"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=1",
+                                        "name": "low"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=2",
+                                        "name": "medium"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=3",
+                                        "name": "high"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=1",
+                                        "name": "low"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=2",
+                                        "name": "medium"
+                                    }
+                                },
+                                {
+                                    "attributeHeaderItem": {
+                                        "uri": "/gdc/md/storybook/obj/5/elements?id=3",
+                                        "name": "high"
+                                    }
+                                }
+                            ]
+                        ],
+                        [
+                            [{
+                                measureHeaderItem: {
+                                    name: 'Amount',
+                                    order: 0
+                                }
+                            }]
+                        ]
+                    ],
+                    paging: {
+                        count: [12, 1],
+                        offset: [0, 0],
+                        total: [12, 1]
+                    }
+                }
+            }
         }
     ],
     visualizationClasses: [{

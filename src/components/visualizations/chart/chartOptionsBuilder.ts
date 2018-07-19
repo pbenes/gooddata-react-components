@@ -68,8 +68,7 @@ const attributeChartSupportedTypes = [
     VisualizationTypes.DONUT,
     VisualizationTypes.FUNNEL,
     VisualizationTypes.SCATTER,
-    VisualizationTypes.BUBBLE,
-    VisualizationTypes.TREEMAP
+    VisualizationTypes.BUBBLE
 ];
 
 // charts sorted by default by measure value
@@ -167,19 +166,6 @@ export function isAttributeColorPalette(type: string, afm: AFM.IAfm, stackByAttr
     return stackByAttribute || (attributeChartSupported && afm.attributes && afm.attributes.length > 0);
 }
 
-function getTreemapColorPalette(
-    colorPalette: string[] = DEFAULT_COLOR_PALETTE,
-    measureGroup: Execution.IMeasureGroupHeader['measureGroupHeader'],
-    viewByAttribute: any,
-    afm: AFM.IAfm
-): string[] {
-    if (viewByAttribute) {
-        const itemsCount = viewByAttribute.items.length;
-        return range(itemsCount).map(itemIndex => colorPalette[itemIndex % colorPalette.length]);
-    }
-    return getColorPaletteByMeasureGroup(colorPalette, measureGroup, afm);
-}
-
 function getColorPaletteByMeasureGroup(
     colorPalette: string[] = DEFAULT_COLOR_PALETTE,
     measureGroup: Execution.IMeasureGroupHeader['measureGroupHeader'],
@@ -207,6 +193,19 @@ function getColorPaletteByMeasureGroup(
         }
         return color;
     });
+}
+
+function getTreemapColorPalette(
+    colorPalette: string[] = DEFAULT_COLOR_PALETTE,
+    measureGroup: Execution.IMeasureGroupHeader['measureGroupHeader'],
+    viewByAttribute: any,
+    afm: AFM.IAfm
+): string[] {
+    if (viewByAttribute) {
+        const itemsCount = viewByAttribute.items.length;
+        return range(itemsCount).map(itemIndex => colorPalette[itemIndex % colorPalette.length]);
+    }
+    return getColorPaletteByMeasureGroup(colorPalette, measureGroup, afm);
 }
 
 export function getColorPalette(
@@ -457,7 +456,7 @@ function getRootPoint(
     colorPalette: string[]
 ) {
     return {
-        id: `id_${index}`,
+        id: `${index}`,
         name: rootName,
         color: colorPalette[index],
         showInLegend: true,
@@ -477,7 +476,7 @@ function getLeafPoint(
 ) {
     return {
         name: stackByAttribute.items[seriesIndex].attributeHeaderItem.name,
-        parent: `id_${parentIndex}`,
+        parent: `${parentIndex}`,
         value: parseValue(data),
         x: parentIndex,
         y: yIndex,
@@ -547,7 +546,7 @@ export function getTreemapStackedSeriesDataWithMeasures(
 
     measureGroup.items.reduce((data: any[], measureGroupItem: any, index: number) => {
         data.push({
-            id: `id_${index}`,
+            id: `${index}`,
             name: measureGroupItem.measureHeaderItem.name,
             format: measureGroupItem.measureHeaderItem.format,
             color: colorPalette[index],
@@ -563,7 +562,7 @@ export function getTreemapStackedSeriesDataWithMeasures(
         seriesItems.forEach((seriesItem: string, seriesItemIndex: number) => {
             unsortedLeafs.push({
                 name: stackByAttribute.items[seriesItemIndex].attributeHeaderItem.name,
-                parent: `id_${seriesIndex}`,
+                parent: `${seriesIndex}`,
                 format: unwrap(measureGroup.items[seriesIndex]).format,
                 value: parseValue(seriesItem),
                 x: seriesIndex,
@@ -931,7 +930,7 @@ export function getDrillableSeries(
                 }
                 let measureIndex = 0;
                 if (!viewByAttribute) {
-                    measureIndex = parseInt(pointData.parent.split('_')[1]);
+                    measureIndex = parseInt(pointData.parent, 10);
                 }
                 measures = [unwrap(measureGroup.items[measureIndex])];
             } else {
@@ -1205,7 +1204,7 @@ export function getDefaultTreemapAttributes(
         dimensions[STACK_BY_DIMENSION_INDEX],
         attributeHeaderItems[STACK_BY_DIMENSION_INDEX]
     );
-    let stackByAttribute = findAttributeInDimension(
+    const stackByAttribute = findAttributeInDimension(
         dimensions[STACK_BY_DIMENSION_INDEX],
         attributeHeaderItems[STACK_BY_DIMENSION_INDEX],
         1
@@ -1219,7 +1218,7 @@ export function getDefaultTreemapAttributes(
     return {
         viewByAttribute,
         stackByAttribute
-    }
+    };
 }
 
 export function getTreemapAttributes(
@@ -1227,7 +1226,7 @@ export function getTreemapAttributes(
     attributeHeaderItems: Execution.IResultHeaderItem[][][],
     mdObject: VisualizationObject.IVisualizationObjectContent
 ): any {
-    if(!mdObject) { // without mdObject cant distinguish 1M 1Vb 0Sb and 1M 0Vb 1Sb
+    if (!mdObject) { // without mdObject cant distinguish 1M 1Vb 0Sb and 1M 0Vb 1Sb
         return getDefaultTreemapAttributes(dimensions, attributeHeaderItems);
     }
     if (isBucketEmpty(mdObject, SEGMENT)) {
