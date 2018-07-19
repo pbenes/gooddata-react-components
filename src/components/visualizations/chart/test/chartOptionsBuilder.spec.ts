@@ -1167,7 +1167,7 @@ describe('chartOptionsBuilder', () => {
                     expect(seriesData[0].data.length).toBe(3); // parent + 2 leafs
 
                     expect(seriesData[0].data[0]).toMatchObject({
-                        id: 'id_0',
+                        id: '0',
                         name: 'Amount',
                         color: DEFAULT_COLOR_PALETTE[0],
                         showInLegend: true,
@@ -1176,7 +1176,7 @@ describe('chartOptionsBuilder', () => {
                     });
 
                     expect(seriesData[0].data[1]).toMatchObject({
-                        parent: 'id_0',
+                        parent: '0',
                         x: 0,
                         y: 0,
                         value: 80406324.96,
@@ -1187,7 +1187,7 @@ describe('chartOptionsBuilder', () => {
                     });
 
                     expect(seriesData[0].data[2]).toMatchObject({
-                        parent: 'id_0',
+                        parent: '0',
                         x: 0,
                         y: 1,
                         value: 36219131.58,
@@ -1225,7 +1225,7 @@ describe('chartOptionsBuilder', () => {
                     expect(seriesData[0].data.length).toBe(6); // 2 parents + 2 * 2 leafs
 
                     expect(seriesData[0].data[0]).toMatchObject({
-                        id: 'id_0',
+                        id: '0',
                         name: 'Direct Sales',
                         color: DEFAULT_COLOR_PALETTE[0],
                         showInLegend: true,
@@ -1233,7 +1233,7 @@ describe('chartOptionsBuilder', () => {
                         format: '#,##0.00'
                     });
                     expect(seriesData[0].data[1]).toMatchObject({
-                        id: 'id_1',
+                        id: '1',
                         name: 'Inside Sales',
                         color: DEFAULT_COLOR_PALETTE[1],
                         showInLegend: true,
@@ -1242,7 +1242,7 @@ describe('chartOptionsBuilder', () => {
                     });
 
                     expect(seriesData[0].data[2]).toMatchObject({
-                        parent: 'id_0',
+                        parent: '0',
                         x: 0,
                         y: 0,
                         value: 58427629.5,
@@ -1253,8 +1253,8 @@ describe('chartOptionsBuilder', () => {
                     });
 
                     expect(seriesData[0].data[3]).toMatchObject({
-                        parent: 'id_0',
-                        x: 0,
+                        parent: '0',
+                        x: 1,
                         y: 1,
                         value: 21978695.46,
                         color: getLighterColor(DEFAULT_COLOR_PALETTE[0], 0.4),
@@ -1264,9 +1264,9 @@ describe('chartOptionsBuilder', () => {
                     });
 
                     expect(seriesData[0].data[4]).toMatchObject({
-                        parent: 'id_1',
-                        x: 1,
-                        y: 0,
+                        parent: '1',
+                        x: 2,
+                        y: 2,
                         value: 30180730.62,
                         color: DEFAULT_COLOR_PALETTE[1],
                         format: '#,##0.00',
@@ -1275,9 +1275,9 @@ describe('chartOptionsBuilder', () => {
                     });
 
                     expect(seriesData[0].data[5]).toMatchObject({
-                        parent: 'id_1',
-                        x: 1,
-                        y: 1,
+                        parent: '1',
+                        x: 3,
+                        y: 3,
                         value: 6038400.96,
                         color: getLighterColor(DEFAULT_COLOR_PALETTE[1], 0.4),
                         format: '#,##0.00',
@@ -1313,7 +1313,7 @@ describe('chartOptionsBuilder', () => {
                     expect(seriesData[0].data.length).toBe(6); // 2 parents + 2 * 2 leafs
 
                     expect(seriesData[0].data[0]).toMatchObject({
-                        id: 'id_0',
+                        id: '0',
                         name: 'Amount',
                         color: DEFAULT_COLOR_PALETTE[0],
                         showInLegend: true,
@@ -1321,7 +1321,7 @@ describe('chartOptionsBuilder', () => {
                         format: '#,##0.00'
                     });
                     expect(seriesData[0].data[1]).toMatchObject({
-                        id: 'id_1',
+                        id: '1',
                         name: '# of Open Opps.',
                         color: DEFAULT_COLOR_PALETTE[1],
                         showInLegend: true,
@@ -1330,7 +1330,7 @@ describe('chartOptionsBuilder', () => {
                     });
 
                     expect(seriesData[0].data[2]).toMatchObject({
-                        parent: 'id_0',
+                        parent: '0',
                         x: 0,
                         y: 0,
                         value: 58427629.5,
@@ -1341,7 +1341,7 @@ describe('chartOptionsBuilder', () => {
                     });
 
                     expect(seriesData[0].data[3]).toMatchObject({
-                        parent: 'id_0',
+                        parent: '0',
                         x: 0,
                         y: 1,
                         value: 21978695.46,
@@ -1352,7 +1352,7 @@ describe('chartOptionsBuilder', () => {
                     });
 
                     expect(seriesData[0].data[4]).toMatchObject({
-                        parent: 'id_1',
+                        parent: '1',
                         x: 1,
                         y: 1,
                         value: 30180730.62,
@@ -1363,7 +1363,7 @@ describe('chartOptionsBuilder', () => {
                     });
 
                     expect(seriesData[0].data[5]).toMatchObject({
-                        parent: 'id_1',
+                        parent: '1',
                         x: 1,
                         y: 0,
                         value: 6038400.96,

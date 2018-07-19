@@ -5,6 +5,7 @@ import * as invariant from 'invariant';
 import {
     DEFAULT_SERIES_LIMIT,
     DEFAULT_CATEGORIES_LIMIT,
+    DEFAULT_DATA_POINTS_LIMIT,
     getCommonConfiguration
 } from './highcharts/commonConfiguration';
 
@@ -59,6 +60,8 @@ export function getHighchartsOptions(chartOptions: any, drillConfig: any) {
 export function isDataOfReasonableSize(chartData: any, limits: IChartLimits) {
     const seriesLimit = get(limits, 'series', DEFAULT_SERIES_LIMIT);
     const categoriesLimit = get(limits, 'categories', DEFAULT_CATEGORIES_LIMIT);
+    const dataPointsLimit = get(limits, 'dataPoints', DEFAULT_DATA_POINTS_LIMIT);
     return chartData.series.length <= seriesLimit &&
-        chartData.categories.length <= categoriesLimit;
+        chartData.categories.length <= categoriesLimit &&
+        chartData.series.every((serie: any) => serie.data.length <= dataPointsLimit);
 }
