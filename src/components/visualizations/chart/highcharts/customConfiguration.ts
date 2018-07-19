@@ -366,12 +366,14 @@ function isMultiLevelTreemap(data: any) {
     return !!get(data, 'series.0.data.0.id'); // first data point is parent with some id
 }
 
-function getTreemapLabelsConfiguration(data: any) {
+function getTreemapLabelsConfiguration(data: any, style: any) {
     const smallLabelInCenter = {
         dataLabels: {
             enabled: true,
             padding: 2,
-            formatter: level2LabelsFormatter
+            formatter: level2LabelsFormatter,
+            allowOverlap: false,
+            style
         }
     };
     if (isMultiLevelTreemap(data)) {
@@ -384,9 +386,11 @@ function getTreemapLabelsConfiguration(data: any) {
                     verticalAlign: 'top',
                     padding: 5,
                     style: {
+                        ...style,
                         fontSize: '14px'
                     },
-                    formatter: level1LabelsFormatter
+                    formatter: level1LabelsFormatter,
+                    allowOverlap: false
                 }
             }, {
                 level: 2,
@@ -415,7 +419,7 @@ function getLabelsConfiguration(chartOptions: any) {
         data: any;
         type: string;
     } = chartOptions;
-    const style = stacking ? {
+    const style = stacking || isTreemap(type) ? {
         color: '#ffffff',
         textShadow: '0 0 1px #000000'
     } : {
@@ -423,7 +427,7 @@ function getLabelsConfiguration(chartOptions: any) {
         textShadow: 'none'
     };
 
-    const drilldown = stacking ? {
+    const drilldown = stacking || isTreemap(type) ? {
         activeDataLabelStyle: {
             color: '#ffffff'
         }
@@ -435,7 +439,7 @@ function getLabelsConfiguration(chartOptions: any) {
 
     let multiLevelProp = {};
     if (isTreemap(type)) {
-        multiLevelProp = getTreemapLabelsConfiguration(data);
+        multiLevelProp = getTreemapLabelsConfiguration(data, style);
     }
 
     return {

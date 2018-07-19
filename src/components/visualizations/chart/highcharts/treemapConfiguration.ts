@@ -14,7 +14,16 @@ const TREEMAP_TEMPLATE: any = {
             },
             showInLegend: true,
             borderColor: 'white',
-            layoutAlgorithm: 'squarified'
+            layoutAlgorithm: 'squarified',
+            point: {
+                events: {
+                    mouseOver() { // from Highcharts 5.0.0 cursor can be set by using 'className' for individual data items
+                        if (this.drilldown) {
+                            this.graphic.element.style.cursor = 'pointer';
+                        }
+                    }
+                }
+            }
         }
     },
     legend: {
