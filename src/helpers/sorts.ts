@@ -1,3 +1,4 @@
+import get = require('lodash/get');
 import { AFM } from '@gooddata/typings';
 
 import { ASC, DESC } from '../constants/sort';
@@ -54,8 +55,8 @@ function getAllMeasuresSorts(afm: AFM.IAfm): AFM.SortItem[] {
 }
 
 export function getDefaultTreemapSort(afm: AFM.IAfm, resultSpec: AFM.IResultSpec): AFM.SortItem[] {
-    const viewByAttributeIdentifier = resultSpec.dimensions[0].itemIdentifiers[0];
-    const stackByAttributeIdentifier = resultSpec.dimensions[0].itemIdentifiers[1];
+    const viewByAttributeIdentifier = get<string>(resultSpec, 'dimensions.0.itemIdentifiers.0');
+    const stackByAttributeIdentifier = get<string>(resultSpec, 'dimensions.0.itemIdentifiers.1');
 
     if (viewByAttributeIdentifier && stackByAttributeIdentifier) {
         return [...getAttributeSortItems(
