@@ -53,7 +53,7 @@ export function getLegendItems(chartOptions: any) {
 }
 
 export default function getLegend(legendConfig: any = {}, chartOptions: any) {
-    let defaultLegendConfigByType = {};
+    const defaultLegendConfigByType = {};
     const rightLegendCharts = [VisualizationTypes.SCATTER, VisualizationTypes.TREEMAP, VisualizationTypes.BUBBLE];
 
     if (isOneOfTypes(chartOptions.type, rightLegendCharts)) {
@@ -67,8 +67,8 @@ export default function getLegend(legendConfig: any = {}, chartOptions: any) {
 
     const baseConfig = {
         ...DEFAULT_LEGEND_CONFIG,
-        ...defaultLegendConfigByType,
-        ...legendConfig
+        ...legendConfig,
+        ...defaultLegendConfigByType // TODO: swipe these two lines once default legend logic is moved to the sdk
     };
 
     return {
