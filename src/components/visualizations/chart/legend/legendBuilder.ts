@@ -93,8 +93,8 @@ export default function getLegend(legendConfig: any = {}, chartOptions: any) {
 
     const baseConfig = {
         ...DEFAULT_LEGEND_CONFIG,
-        ...defaultLegendConfigByType,
-        ...legendConfig
+        ...legendConfig,
+        ...defaultLegendConfigByType // TODO: swipe these two lines once default legend logic is moved to the sdk
     };
 
     return {
