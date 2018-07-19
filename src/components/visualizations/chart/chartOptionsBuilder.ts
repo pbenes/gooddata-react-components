@@ -454,8 +454,14 @@ export function getBubbleChartSeries(
     });
 }
 
+function getColorStep(valuesCount: number): number {
+    const MAX_COLOR_BRIGHTNESS = 0.8;
+    return MAX_COLOR_BRIGHTNESS / valuesCount;
+
+}
+
 function gradientPreviousGroup(solidColorLeafs: any[]): any[] {
-    const colorChange = 0.8 / solidColorLeafs.length;
+    const colorChange = getColorStep(solidColorLeafs.length);
     return solidColorLeafs.map((leaf: any, index: number) =>
         ({
             ...leaf,
@@ -572,7 +578,7 @@ export function getTreemapStackedSeriesDataWithMeasures(
     }, data);
 
     executionResultData.forEach((seriesItems: string[], seriesIndex: number) => {
-        const colorChange = 0.8 / seriesItems.length;
+        const colorChange = getColorStep(seriesItems.length);
         const unsortedLeafs: any[] = [];
         seriesItems.forEach((seriesItem: string, seriesItemIndex: number) => {
             unsortedLeafs.push({
