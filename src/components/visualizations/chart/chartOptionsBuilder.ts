@@ -42,7 +42,7 @@ import { VIEW_BY_DIMENSION_INDEX, STACK_BY_DIMENSION_INDEX, PIE_CHART_LIMIT } fr
 import { VisualizationTypes, VisType } from '../../../constants/visualizationTypes';
 import { MEASURES, SECONDARY_MEASURES, TERTIARY_MEASURES, VIEW, SEGMENT } from '../../../constants/bucketNames';
 
-import { DEFAULT_CATEGORIES_LIMIT } from './highcharts/commonConfiguration';
+import { DEFAULT_SERIES_LIMIT, DEFAULT_CATEGORIES_LIMIT } from './highcharts/commonConfiguration';
 import { getComboChartOptions } from './chartOptions/comboChartOptions';
 import { IDrillableItem } from '../../../interfaces/DrillEvents';
 
@@ -131,25 +131,44 @@ export function isNegativeValueIncluded(series: ISeriesItem[]) {
         ));
 }
 
-export function getAdjustedLimits(type: string, limits: IChartLimits): IChartLimits {
-    const smallerLimits: IChartLimits = {
-        series: 1, // pie charts/donuts/... can have just one series
-        categories: Math.min(limits.categories || DEFAULT_CATEGORIES_LIMIT, PIE_CHART_LIMIT)
-    };
-
-    return isOneOfTypes(type, [VisualizationTypes.PIE, VisualizationTypes.DONUT, VisualizationTypes.FUNNEL]) ?
-        smallerLimits : limits;
+function getChartLimits(type: string): IChartLimits {
+    switch (type) {
+        case VisualizationTypes.SCATTER:
+            return {
+                series: DEFAULT_SERIES_LIMIT,
+                categories: DEFAULT_SERIES_LIMIT
+            };
+        case VisualizationTypes.PIE:
+        case VisualizationTypes.DONUT:
+        case VisualizationTypes.FUNNEL:
+            return {
+                series: 1,
+                categories: PIE_CHART_LIMIT
+            };
+        case VisualizationTypes.TREEMAP:
+            return {
+                series: DEFAULT_SERIES_LIMIT,
+                categories: DEFAULT_CATEGORIES_LIMIT,
+                dataPoints: 30000
+            };
+        default:
+            return {
+                series: DEFAULT_SERIES_LIMIT,
+                categories: DEFAULT_CATEGORIES_LIMIT
+            };
+    }
 }
 
 export function cannotShowNegativeValues(type: string) {
     return isOneOfTypes(type, unsupportedNegativeValuesTypes);
 }
 
-export function validateData(limits: IChartLimits = {}, chartOptions: any) {
+export function validateData(limits: IChartLimits, chartOptions: any) {
     const { type } = chartOptions;
+    const finalLimits = limits || getChartLimits(type);
 
     return {
-        dataTooLarge: !isDataOfReasonableSize(chartOptions.data, getAdjustedLimits(type, limits)),
+        dataTooLarge: !isDataOfReasonableSize(chartOptions.data, finalLimits),
         hasNegativeValue: cannotShowNegativeValues(type)
             && isNegativeValueIncluded(chartOptions.data.series)
     };

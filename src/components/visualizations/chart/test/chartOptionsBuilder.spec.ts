@@ -145,108 +145,112 @@ describe('chartOptionsBuilder', () => {
     });
 
     describe('validateData', () => {
-        it('should be able to validate successfuly', () => {
-            const chartOptions = barChartWithStackByAndViewByAttributesOptions;
-            const validationResult = validateData({}, chartOptions);
+        describe('user supplied limits', () => {
+            it('should validate with "dataTooLarge: true" against series limit', () => {
+                const validationResult = validateData({
+                    series: 1
+                }, barChartWith3MetricsAndViewByAttributeOptions);
 
-            expect(
-                validationResult
-            ).toEqual({
-                dataTooLarge: false,
-                hasNegativeValue: false
-            });
-        });
-        it('should validate with "dataTooLarge: true" against series limit', () => {
-            const validationResult = validateData({
-                series: 1
-            }, barChartWith3MetricsAndViewByAttributeOptions);
-
-            expect(
-                validationResult
-            ).toEqual({
-                dataTooLarge: true,
-                hasNegativeValue: false
-            });
-        });
-        it('should validate with "dataTooLarge: true" against categories limit', () => {
-            const validationResult = validateData({
-                categories: 1
-            }, barChartWith3MetricsAndViewByAttributeOptions);
-
-            expect(
-                validationResult
-            ).toEqual({
-                dataTooLarge: true,
-                hasNegativeValue: false
-            });
-        });
-
-        it('should validate with "dataTooLarge: true" against default chart categories limit ' +
-            `of ${DEFAULT_CATEGORIES_LIMIT}`, () => {
-            const chartOptions = generateChartOptions(fixtures.barChartWith3MetricsAndViewByAttribute);
-            chartOptions.data.categories = range(DEFAULT_CATEGORIES_LIMIT + 1);
-
-            const validationResult = validateData({}, chartOptions);
-
-            expect(
-                validationResult
-            ).toEqual({
-                dataTooLarge: true,
-                hasNegativeValue: false
-            });
-        });
-
-        it('should validate with "dataTooLarge: true" against default pie chart series limit of 1', () => {
-            const chartOptions = generateChartOptions(fixtures.barChartWith3MetricsAndViewByAttribute,
-                {
-                    type: 'pie'
+                expect(
+                    validationResult
+                ).toEqual({
+                    dataTooLarge: true,
+                    hasNegativeValue: false
                 });
-            const validationResult = validateData({}, chartOptions);
-
-            expect(
-                validationResult
-            ).toEqual({
-                dataTooLarge: true,
-                hasNegativeValue: false
             });
-        });
+            it('should validate with "dataTooLarge: true" against categories limit', () => {
+                const validationResult = validateData({
+                    categories: 1
+                }, barChartWith3MetricsAndViewByAttributeOptions);
 
-        it('should validate with "dataTooLarge: true" against default' +
-            `pie chart categories limit of ${PIE_CHART_LIMIT}`, () => {
-            const chartOptions = generateChartOptions(fixtures.pieChartWithMetricsOnly,
-                {
-                    type: 'pie'
+                expect(
+                    validationResult
+                ).toEqual({
+                    dataTooLarge: true,
+                    hasNegativeValue: false
                 });
-            chartOptions.data.categories = range(PIE_CHART_LIMIT + 1);
-            const validationResult = validateData({}, chartOptions);
-
-            expect(
-                validationResult
-            ).toEqual({
-                dataTooLarge: true,
-                hasNegativeValue: false
             });
         });
-        it('should validate with "hasNegativeValue: true" for pie chart if its series contains a negative value',
-            () => {
-            const chartOptions = pieChartOptionsWithNegativeValue;
-            const validationResult = validateData({}, chartOptions);
 
-            expect(
-                validationResult
-            ).toEqual({
-                dataTooLarge: false,
-                hasNegativeValue: true
+        describe('default limits', () => {
+            it('should be able to validate successfuly', () => {
+                const chartOptions = barChartWithStackByAndViewByAttributesOptions;
+                const validationResult = validateData(undefined, chartOptions);
+
+                expect(
+                    validationResult
+                ).toEqual({
+                    dataTooLarge: false,
+                    hasNegativeValue: false
+                });
             });
-        });
-        it('should validate with "hasNegativeValue: true" for treemap if its series contains a negative value',
-            () => {
-                const validationResult = validateData({}, treemapOptionsWithNegativeValue);
-                expect(validationResult).toEqual({
+            it('should validate with "dataTooLarge: true" against default chart categories limit ' +
+                `of ${DEFAULT_CATEGORIES_LIMIT}`, () => {
+                const chartOptions = generateChartOptions(fixtures.barChartWith3MetricsAndViewByAttribute);
+                chartOptions.data.categories = range(DEFAULT_CATEGORIES_LIMIT + 1);
+
+                const validationResult = validateData(undefined, chartOptions);
+
+                expect(
+                    validationResult
+                ).toEqual({
+                    dataTooLarge: true,
+                    hasNegativeValue: false
+                });
+            });
+
+            it('should validate with "dataTooLarge: true" against default pie chart series limit of 1', () => {
+                const chartOptions = generateChartOptions(fixtures.barChartWith3MetricsAndViewByAttribute,
+                    {
+                        type: 'pie'
+                    });
+                const validationResult = validateData(undefined, chartOptions);
+
+                expect(
+                    validationResult
+                ).toEqual({
+                    dataTooLarge: true,
+                    hasNegativeValue: false
+                });
+            });
+
+            it('should validate with "dataTooLarge: true" against default' +
+                `pie chart categories limit of ${PIE_CHART_LIMIT}`, () => {
+                const chartOptions = generateChartOptions(fixtures.pieChartWithMetricsOnly,
+                    {
+                        type: 'pie'
+                    });
+                chartOptions.data.categories = range(PIE_CHART_LIMIT + 1);
+                const validationResult = validateData(undefined, chartOptions);
+
+                expect(
+                    validationResult
+                ).toEqual({
+                    dataTooLarge: true,
+                    hasNegativeValue: false
+                });
+            });
+            it('should validate with "hasNegativeValue: true" for pie chart if its series contains a negative value',
+                () => {
+                const chartOptions = pieChartOptionsWithNegativeValue;
+                const validationResult = validateData(undefined, chartOptions);
+
+                expect(
+                    validationResult
+                ).toEqual({
                     dataTooLarge: false,
                     hasNegativeValue: true
                 });
             });
+            it('should validate with "hasNegativeValue: true" for treemap if its series contains a negative value',
+                () => {
+                    const validationResult = validateData(undefined, treemapOptionsWithNegativeValue);
+                    expect(validationResult).toEqual({
+                        dataTooLarge: false,
+                        hasNegativeValue: true
+                    });
+                });
+        });
     });
 
     describe('isPopMeasure', () => {
