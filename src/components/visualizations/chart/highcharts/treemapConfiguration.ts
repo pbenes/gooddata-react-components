@@ -17,7 +17,8 @@ const TREEMAP_TEMPLATE: any = {
             layoutAlgorithm: 'squarified',
             point: {
                 events: {
-                    mouseOver() { // from Highcharts 5.0.0 cursor can be set by using 'className' for individual data items
+                    // from Highcharts 5.0.0 cursor can be set by using 'className' for individual data items
+                    mouseOver() {
                         if (this.drilldown) {
                             this.graphic.element.style.cursor = 'pointer';
                         }
