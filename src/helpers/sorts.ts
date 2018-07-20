@@ -50,8 +50,7 @@ function getAttributeSortItems(
 function getAllMeasuresSorts(afm: AFM.IAfm): AFM.SortItem[] {
     return (afm.measures || []).reduce((sortItems: AFM.SortItem[], measure: AFM.IMeasure) => {
         return [...sortItems, ...getMeasureSortItems(measure.localIdentifier, DESC)];
-    }
-        , []);
+    }, []);
 }
 
 export function getDefaultTreemapSort(afm: AFM.IAfm, resultSpec: AFM.IResultSpec): AFM.SortItem[] {
@@ -59,12 +58,14 @@ export function getDefaultTreemapSort(afm: AFM.IAfm, resultSpec: AFM.IResultSpec
     const stackByAttributeIdentifier = get<string>(resultSpec, 'dimensions.0.itemIdentifiers.1');
 
     if (viewByAttributeIdentifier && stackByAttributeIdentifier) {
-        return [...getAttributeSortItems(
-            viewByAttributeIdentifier,
-            ASC,
-            false
-        ),
-        ...getAllMeasuresSorts(afm)];
+        return [
+            ...getAttributeSortItems(
+                viewByAttributeIdentifier,
+                ASC,
+                false
+            ),
+            ...getAllMeasuresSorts(afm)
+        ];
     }
 
     return [];
