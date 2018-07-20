@@ -4,7 +4,7 @@ import { Treemap } from '@gooddata/react-components';
 
 import '@gooddata/react-components/styles/css/main.css';
 
-import { numberOfChecksIdentifier, menuCategoryAttributeDFIdentifier, locationCityDisplayFormIdentifier, projectId } from '../utils/fixtures';
+import { numberOfChecksIdentifier, locationCityDisplayFormIdentifier, locationStateDisplayFormIdentifier, projectId } from '../utils/fixtures';
 
 export class TreeMapExample extends Component {
     onLoadingChanged(...params) {
@@ -33,6 +33,15 @@ export class TreeMapExample extends Component {
             }
         };
 
+        const locationState = {
+            visualizationAttribute: {
+                displayForm: {
+                    identifier: locationStateDisplayFormIdentifier
+                },
+                localIdentifier: 'label.restaurantlocation.locationstate'
+            }
+        };
+
         const locationCity = {
             visualizationAttribute: {
                 displayForm: {
@@ -42,22 +51,13 @@ export class TreeMapExample extends Component {
             }
         };
 
-        const menuCategory = {
-            visualizationAttribute: {
-                displayForm: {
-                    identifier: menuCategoryAttributeDFIdentifier
-                },
-                localIdentifier: 'menu_category'
-            }
-        };
-
         return (
             <div style={{ height: 300 }} className="s-tree-map">
                 <Treemap
                     projectId={projectId}
                     measures={[numberOfChecks]}
-                    viewBy={locationCity}
-                    segmentBy={menuCategory}
+                    viewBy={locationState}
+                    segmentBy={locationCity}
                     onLoadingChanged={this.onLoadingChanged}
                     onError={this.onError}
                 />
