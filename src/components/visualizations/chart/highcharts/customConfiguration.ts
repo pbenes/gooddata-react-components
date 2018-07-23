@@ -362,11 +362,7 @@ function getTooltipConfiguration(chartOptions: any) {
     } : {};
 }
 
-function isMultiLevelTreemap(data: any) {
-    return !!get(data, 'series.0.data.0.id'); // first data point is parent with some id
-}
-
-function getTreemapLabelsConfiguration(data: any, style: any) {
+function getTreemapLabelsConfiguration(isMultiLevel: boolean, style: any) {
     const smallLabelInCenter = {
         dataLabels: {
             enabled: true,
@@ -376,7 +372,7 @@ function getTreemapLabelsConfiguration(data: any, style: any) {
             style
         }
     };
-    if (isMultiLevelTreemap(data)) {
+    if (isMultiLevel) {
         return {
             levels: [{
                 level: 1,
@@ -411,12 +407,10 @@ function getLabelsConfiguration(chartOptions: any) {
     const {
         stacking,
         yAxes = [],
-        data,
         type
     }: {
         stacking: boolean;
         yAxes: IAxis[];
-        data: any;
         type: string;
     } = chartOptions;
     const style = stacking || isTreemap(type) ? {
@@ -439,7 +433,7 @@ function getLabelsConfiguration(chartOptions: any) {
 
     let multiLevelProp = {};
     if (isTreemap(type)) {
-        multiLevelProp = getTreemapLabelsConfiguration(data, style);
+        multiLevelProp = getTreemapLabelsConfiguration(!!stacking, style);
     }
 
     return {
@@ -645,11 +639,12 @@ function getHoverStyles({ type }: any, config: any) {
                     ...series,
                     data: series.data.map((dataItemOrig: any) => {
                         const dataItem = cloneDeep(dataItemOrig);
+                        const drilldown = get(dataItem, 'drilldown');
 
-                        set(dataItem, 'states.hover.brightness', dataItem.drilldown ?
+                        set(dataItem, 'states.hover.brightness', drilldown ?
                             HOVER_BRIGHTNESS : MINIMUM_HC_SAFE_BRIGHTNESS);
 
-                        if (!dataItem.drilldown) {
+                        if (!drilldown) {
                             set(dataItem, 'halo.size', 0); // see plugins/pointHalo.js
                         }
 
