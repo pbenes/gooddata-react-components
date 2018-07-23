@@ -431,11 +431,6 @@ function getLabelsConfiguration(chartOptions: any) {
         defaultFormat: get(axis, 'format')
     }));
 
-    let multiLevelProp = {};
-    if (isTreemap(type)) {
-        multiLevelProp = getTreemapLabelsConfiguration(!!stacking, style);
-    }
-
     return {
         drilldown,
         plotOptions: {
@@ -459,7 +454,7 @@ function getLabelsConfiguration(chartOptions: any) {
                 }
             },
             treemap: {
-                ...multiLevelProp
+                ...getTreemapLabelsConfiguration(!!stacking, style)
             }
         },
         yAxis
