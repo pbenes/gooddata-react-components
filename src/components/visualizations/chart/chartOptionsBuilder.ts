@@ -1588,6 +1588,9 @@ export function getChartOptions(
 
     const { xAxisProps, yAxisProps } = getChartProperties(config, type);
 
+    const tooltipFn = isTreemap(type) ? generateTooltipTreemapFn(viewByAttribute, stackByAttribute) :
+        generateTooltipFn(viewByAttribute, type);
+
     const chartOptions = {
         type,
         stacking,
@@ -1601,7 +1604,7 @@ export function getChartOptions(
             categories
         },
         actions: {
-            tooltip: generateTooltipFn(viewByAttribute, type)
+            tooltip: tooltipFn
         },
         grid: {
             enabled: gridEnabled
@@ -1609,10 +1612,6 @@ export function getChartOptions(
         xAxisProps,
         yAxisProps
     };
-
-    if (isTreemap(type)) {
-        chartOptions.actions.tooltip = generateTooltipTreemapFn(viewByAttribute, stackByAttribute);
-    }
 
     return chartOptions;
 }
