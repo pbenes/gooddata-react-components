@@ -8,7 +8,8 @@ import {
     isScatterPlot,
     isOneOfTypes,
     isBubbleChart,
-    isHeatMap
+    isHeatMap,
+    isTreemap
 } from '../../utils/common';
 import { VisualizationTypes } from '../../../../constants/visualizationTypes';
 
@@ -19,23 +20,31 @@ export const DEFAULT_LEGEND_CONFIG = {
 
 export function shouldLegendBeEnabled(chartOptions: any) {
     const seriesLength = get(chartOptions, 'data.series.length');
-    const { type, stacking, hasStackByAttribute } = chartOptions;
+    const { type, stacking, hasStackByAttribute, hasViewByAttribute } = chartOptions;
     // More than one measure or stackedBy more than one category
     const hasMoreThanOneSeries = seriesLength > 1;
     const isAreaChartWithOneSerie = isAreaChart(type) && !hasMoreThanOneSeries && !hasStackByAttribute;
-    const isStacked = !isAreaChartWithOneSerie && Boolean(stacking);
+    const isStacked = !isAreaChartWithOneSerie && !isTreemap(type) && Boolean(stacking);
 
-    const sliceTypes = [VisualizationTypes.PIE, VisualizationTypes.DONUT, VisualizationTypes.TREEMAP];
+    const sliceTypes = [VisualizationTypes.PIE, VisualizationTypes.DONUT];
     const isSliceChartWithMoreThanOneCategory = isOneOfTypes(type, sliceTypes) &&
         chartOptions.data.series[0].data.length > 1;
 
     const isScatterPlotWithAttribute = isScatterPlot(type) && chartOptions.data.series[0].name;
+    const isTreemapWithViewByAttribute = isTreemap(type) && hasViewByAttribute;
+    const isTreemapWithManyMeasures =
+        isTreemap(type) &&
+        hasStackByAttribute &&
+        !hasViewByAttribute &&
+        chartOptions.data.categories.length > 1;
 
     return hasMoreThanOneSeries
         || isSliceChartWithMoreThanOneCategory
         || isStacked
         || isScatterPlotWithAttribute
-        || isHeatMap(type);
+        || isHeatMap(type)
+        || isTreemapWithViewByAttribute
+        || isTreemapWithManyMeasures;
 }
 
 export function getLegendItems(chartOptions: any) {

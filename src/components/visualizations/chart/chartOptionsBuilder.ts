@@ -110,6 +110,7 @@ export interface IChartOptions {
     type?: string;
     stacking?: any;
     hasStackByAttribute?: boolean;
+    hasViewByAttribute?: boolean;
     legendLayout?: string;
     colorPalette?: string[];
     dualAxis?: boolean;
@@ -1612,6 +1613,7 @@ export function getChartOptions(
         type,
         stacking,
         hasStackByAttribute: Boolean(stackByAttribute),
+        hasViewByAttribute: Boolean(viewByAttribute),
         legendLayout: config.legendLayout || 'horizontal',
         colorPalette,
         xAxes,

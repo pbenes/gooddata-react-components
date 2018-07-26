@@ -195,6 +195,14 @@ export const treemapWithMetricAndViewByAttribute: any = {
     ...treemapWithMetricAndViewByAttributeMd
 };
 
+export const treemapWithMetricAndViewByAndOnlyOneElement: any = {
+    executionRequest: require('../test_data/treemap_with_metric_and_view_by_attribute_request.json').execution,
+    executionResponse:
+        require('../test_data/treemap_with_metric_and_view_by_attribute_response.json').executionResponse,
+    executionResult: require('../test_data/treemap_with_metric_and_view_by_and_only_one_element_result.json').executionResult,  // tslint:disable-line:max-line-length
+    ...treemapWithMetricAndViewByAttributeMd
+};
+
 export const treemapWithMetricAndStackByAttributeMd: any = {
     mdObject: require('../test_data/treemap_with_metric_and_stack_by_attribute_md.json')
 };
@@ -376,5 +384,6 @@ export default {
     treemapWithMetricAndViewByAttribute,
     treemapWithMetricAndStackByAttribute,
     treemapWithMetricViewByAndStackByAttribute,
-    treemapWithTwoMetricsAndStackByAttribute
+    treemapWithTwoMetricsAndStackByAttribute,
+    treemapWithMetricAndViewByAndOnlyOneElement
 };
