@@ -52,6 +52,28 @@ describe('shouldLegendBeEnabled', () => {
         expect(shouldLegendBeEnabled(chartOptions)).toBe(true);
     });
 
+    it('should return true if the treemap has many measures', () => {
+        const dataSet = fixtures.treemapWithThreeMetrics;
+        const chartOptions = generateChartOptions(
+            dataSet,
+            {
+                type: 'treemap',
+                mdObject: dataSet.mdObject
+            });
+        expect(shouldLegendBeEnabled(chartOptions)).toBe(true);
+    });
+
+    it('should return false if the treemap has only one measures', () => {
+        const dataSet = fixtures.treemapWithOneMetric;
+        const chartOptions = generateChartOptions(
+            dataSet,
+            {
+                type: 'treemap',
+                mdObject: dataSet.mdObject
+            });
+        expect(shouldLegendBeEnabled(chartOptions)).toBe(false);
+    });
+
     it('should return true if the treemap has view by and has only one view by item', () => {
         const dataSet = fixtures.treemapWithMetricAndViewByAndOnlyOneElement;
         const chartOptions = generateChartOptions(

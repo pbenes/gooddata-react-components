@@ -32,11 +32,7 @@ export function shouldLegendBeEnabled(chartOptions: any) {
 
     const isScatterPlotWithAttribute = isScatterPlot(type) && chartOptions.data.series[0].name;
     const isTreemapWithViewByAttribute = isTreemap(type) && hasViewByAttribute;
-    const isTreemapWithManyMeasures =
-        isTreemap(type) &&
-        hasStackByAttribute &&
-        !hasViewByAttribute &&
-        chartOptions.data.categories.length > 1;
+    const isTreemapWithManyCategories = isTreemap(type) && chartOptions.data.categories.length > 1;
 
     return hasMoreThanOneSeries
         || isSliceChartWithMoreThanOneCategory
@@ -44,7 +40,7 @@ export function shouldLegendBeEnabled(chartOptions: any) {
         || isScatterPlotWithAttribute
         || isHeatMap(type)
         || isTreemapWithViewByAttribute
-        || isTreemapWithManyMeasures;
+        || isTreemapWithManyCategories;
 }
 
 export function getLegendItems(chartOptions: any) {

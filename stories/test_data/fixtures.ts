@@ -236,6 +236,30 @@ export const treemapWithTwoMetricsAndStackByAttribute: any = {
     ...treemapWithTwoMetricsAndStackByAttributeMd
 };
 
+export const treemapWithThreeMetricsMd: any = {
+    mdObject: require('../test_data/treemap_with_three_metrics_md.json')
+};
+
+export const treemapWithThreeMetrics: any = {
+    executionRequest: require('../test_data/treemap_with_three_metrics_request.json').execution,
+    executionResponse:
+        require('../test_data/treemap_with_three_metrics_response.json').executionResponse,
+    executionResult: require('../test_data/treemap_with_three_metrics_result.json').executionResult,  // tslint:disable-line:max-line-length
+    ...treemapWithThreeMetricsMd
+};
+
+export const treemapWithOneMetricMd: any = {
+    mdObject: require('../test_data/treemap_with_one_metric_md.json')
+};
+
+export const treemapWithOneMetric: any = {
+    executionRequest: require('../test_data/treemap_with_one_metric_request.json').execution,
+    executionResponse:
+        require('../test_data/treemap_with_one_metric_response.json').executionResponse,
+    executionResult: require('../test_data/treemap_with_one_metric_result.json').executionResult,  // tslint:disable-line:max-line-length
+    ...treemapWithOneMetricMd
+};
+
 export function barChartWithNTimes3MetricsAndViewByAttribute(n = 1) {
     let dataSet: any = immutableSet(
         barChartWith3MetricsAndViewByAttribute,
@@ -385,5 +409,7 @@ export default {
     treemapWithMetricAndStackByAttribute,
     treemapWithMetricViewByAndStackByAttribute,
     treemapWithTwoMetricsAndStackByAttribute,
-    treemapWithMetricAndViewByAndOnlyOneElement
+    treemapWithMetricAndViewByAndOnlyOneElement,
+    treemapWithThreeMetrics,
+    treemapWithOneMetric
 };
