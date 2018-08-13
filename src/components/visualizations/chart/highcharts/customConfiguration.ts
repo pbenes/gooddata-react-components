@@ -414,6 +414,10 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
         yAxes: IAxis[];
         type: string;
     } = chartOptions;
+
+    const labelsVisible = get(config, 'dataLabels.visible');
+    console.log(labelsVisible);
+
     const style = stacking || isTreemap(type) ? {
         color: '#ffffff',
         textShadow: '0 0 1px #000000'
@@ -782,7 +786,8 @@ export function getCustomizedConfiguration(chartOptions: IChartOptions, chartCon
         getDataConfiguration,
         getTooltipConfiguration,
         getHoverStyles,
-        getGridConfiguration
+        getGridConfiguration,
+        getLabelsConfiguration
     ];
 
     const commonData = configurators.reduce((config: any, configurator: any) => {
