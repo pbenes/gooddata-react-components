@@ -17,6 +17,7 @@ import {
     MEASURE_3
 } from '../data/componentProps';
 import { GERMAN_SEPARATORS } from '../data/numberFormat';
+import { DATA_LABELS_VISIBLE_CONFIG, DATA_LABELS_HIDDEN_CONFIG } from '../data/configProps';
 
 const wrapperStyle = { width: 600, height: 300 };
 
@@ -129,6 +130,40 @@ storiesOf('Core components/Treemap', module)
                     config={GERMAN_SEPARATORS}
                     onError={onErrorHandler}
                 />
+            </div>
+        )
+    )).add('with data labels explicitly driven', () => (
+        screenshotWrap(
+            <div>
+                <div style={wrapperStyle}>
+                    <Treemap
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        viewBy={ATTRIBUTE_1}
+                        segmentBy={ATTRIBUTE_2}
+                        onError={onErrorHandler}
+                    />
+                </div>
+                <div style={wrapperStyle}>
+                    <Treemap
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        viewBy={ATTRIBUTE_1}
+                        segmentBy={ATTRIBUTE_2}
+                        onError={onErrorHandler}
+                        config={DATA_LABELS_VISIBLE_CONFIG}
+                    />
+                </div>
+                <div style={wrapperStyle}>
+                    <Treemap
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        viewBy={ATTRIBUTE_1}
+                        segmentBy={ATTRIBUTE_2}
+                        onError={onErrorHandler}
+                        config={DATA_LABELS_HIDDEN_CONFIG}
+                    />
+                </div>
             </div>
         )
     ));
