@@ -1,5 +1,5 @@
 // (C) 2007-2018 GoodData Corporation
-import { getChartType, getDataLabelsUserVisibility } from '../../helpers';
+import { getChartType, getDataLabelsGdcVisible } from '../../helpers';
 import { VisualizationTypes } from '../../../../../../constants/visualizationTypes';
 import autohideColumnLabels from './autohideColumnLabels';
 import autohideBarLabels from './autohideBarLabels';
@@ -9,9 +9,9 @@ const autohideLabels = (Highcharts: any) => {
     Highcharts.wrap(Highcharts.Chart.prototype, 'hideOverlappingLabels', function(proceed: any, labels: any) {
         const chart = this;
         const chartType = getChartType(this);
-        const dataLabelsUserVisibility = getDataLabelsUserVisibility(this);
+        const dataLabelsUserVisibility = getDataLabelsGdcVisible(this);
 
-        if (dataLabelsUserVisibility === undefined) {
+        if (dataLabelsUserVisibility === 'auto') {
             if (chartType === VisualizationTypes.COLUMN) {
                 autohideColumnLabels(chart);
                 return;

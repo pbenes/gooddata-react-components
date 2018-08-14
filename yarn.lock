@@ -118,9 +118,9 @@
     js-cookie "^2.1.4"
     lodash "^4.17.4"
 
-"@gooddata/mock-js@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@gooddata/mock-js/-/mock-js-1.4.0.tgz#3b05d90d8f4753195800c17edebffd535a33eb2a"
+"@gooddata/mock-js@1.4.0-bertold8-ONE-3152-2018-08-14T11-39-51-508Z":
+  version "1.4.0-bertold8-ONE-3152-2018-08-14T11-39-51-508Z"
+  resolved "https://registry.yarnpkg.com/@gooddata/mock-js/-/mock-js-1.4.0-bertold8-ONE-3152-2018-08-14T11-39-51-508Z.tgz#bf04a0ec7035d907c8815fe25c7451de6a052e82"
   dependencies:
     "@gooddata/typings" "2.3.0"
     "@types/seedrandom" "2.4.27"

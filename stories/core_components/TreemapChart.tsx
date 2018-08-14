@@ -131,4 +131,46 @@ storiesOf('Core components/Treemap', module)
                 />
             </div>
         )
+    )).add('with data labels explicitly driven', () => (
+        screenshotWrap(
+            <div>
+                <div style={wrapperStyle}>
+                    <Treemap
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        viewBy={ATTRIBUTE_1}
+                        segmentBy={ATTRIBUTE_2}
+                        onError={onErrorHandler}
+                    />
+                </div>
+                <div style={wrapperStyle}>
+                    <Treemap
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        viewBy={ATTRIBUTE_1}
+                        segmentBy={ATTRIBUTE_2}
+                        onError={onErrorHandler}
+                        config={{
+                            dataLabels: {
+                                visible: true
+                            }
+                        }}
+                    />
+                </div>
+                <div style={wrapperStyle}>
+                    <Treemap
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        viewBy={ATTRIBUTE_1}
+                        segmentBy={ATTRIBUTE_2}
+                        onError={onErrorHandler}
+                        config={{
+                            dataLabels: {
+                                visible: false
+                            }
+                        }}
+                    />
+                </div>
+            </div>
+        )
     ));

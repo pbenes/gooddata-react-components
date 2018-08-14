@@ -120,7 +120,7 @@ storiesOf('Core components/BarChart', module)
                 />
             </div>
         )
-    )).add('with dataLabels explicitly off', () => (
+    )).add('with dataLabels explicitly hidden', () => (
         screenshotWrap(
             <div style={wrapperStyle}>
                 <BarChart

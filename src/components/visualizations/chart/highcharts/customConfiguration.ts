@@ -16,7 +16,7 @@ import { IChartConfig } from '../Chart';
 
 import * as numberJS from '@gooddata/numberjs';
 import { VisualizationTypes } from '../../../../constants/visualizationTypes';
-import { IDataLabelsVisibility } from '../../../../interfaces/Config';
+import { IDataLabelsVisibile } from '../../../../interfaces/Config';
 import { HOVER_BRIGHTNESS, MINIMUM_HC_SAFE_BRIGHTNESS } from './commonConfiguration';
 import { getLighterColor } from '../../utils/color';
 import {
@@ -364,14 +364,17 @@ function getTooltipConfiguration(chartOptions: IChartOptions) {
     } : {};
 }
 
-function getTreemapLabelsConfiguration(isMultiLevel: boolean, style: any, config?: IChartConfig) {
+function getTreemapLabelsConfiguration(
+    isMultiLevel: boolean, style: any, config?: IChartConfig, labelsConfig?: object
+) {
     const smallLabelInCenter = {
         dataLabels: {
             enabled: true,
             padding: 2,
             formatter: partial(level2LabelsFormatter, config),
             allowOverlap: false,
-            style
+            style,
+            ...labelsConfig
         }
     };
     if (isMultiLevel) {
@@ -388,7 +391,8 @@ function getTreemapLabelsConfiguration(isMultiLevel: boolean, style: any, config
                         fontSize: '14px'
                     },
                     formatter: partial(level1LabelsFormatter, config),
-                    allowOverlap: false
+                    allowOverlap: false,
+                    ...labelsConfig
                 }
             }, {
                 level: 2,
@@ -405,21 +409,19 @@ function getTreemapLabelsConfiguration(isMultiLevel: boolean, style: any, config
     }
 }
 
-function getLabelsVisibilityConfig(visibility: IDataLabelsVisibility): object { // TODO
+function getLabelsVisibilityConfig(visible: IDataLabelsVisibile): object { // TODO
     const visibleLabelsConfig = {
-        enabled: true,
-        allowOverlap: true,
-        gdcUserVisible: true
+        enabled: visible,
+        allowOverlap: visible
     };
 
     const hiddenLabelsConfig = {
-        enabled: false,
-        gdcUserVisible: false
+        enabled: visible
     };
 
-    if (visibility === true) {
+    if (visible === true) {
         return visibleLabelsConfig;
-    } else if (visibility === false) {
+    } else if (visible === false) {
         return hiddenLabelsConfig;
     }
     return {};
@@ -436,7 +438,7 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
         type: string;
     } = chartOptions;
 
-    const labelsVisible: IDataLabelsVisibility = get<IDataLabelsVisibility>(config, 'dataLabels.visible');
+    const labelsVisible: IDataLabelsVisibile = get<IDataLabelsVisibile>(config, 'dataLabels.visible');
 
     const labelsConfig = getLabelsVisibilityConfig(labelsVisible);
 
@@ -461,6 +463,11 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
     return {
         drilldown,
         plotOptions: {
+            gdcOptions: {
+                dataLabels: {
+                    visible: labelsVisible
+                }
+            },
             bar: {
                 dataLabels: {
                     formatter: partial(labelFormatter, config),
@@ -485,8 +492,7 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
                 }
             },
             treemap: {
-                ...getTreemapLabelsConfiguration(!!stacking, style, config),
-                ...labelsConfig
+                ...getTreemapLabelsConfiguration(!!stacking, style, config, labelsConfig)
             }
         },
         yAxis
