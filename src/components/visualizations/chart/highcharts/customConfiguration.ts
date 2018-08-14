@@ -325,6 +325,14 @@ function level2LabelsFormatter(config?: IChartConfig) {
     return `${get(this, 'point.name')} (${formatLabel(get(this, 'point.value'), get(this, 'point.format'), config)})`;
 }
 
+function labelFormatterBubble(config?: IChartConfig) {
+    const value = get<number>(this, 'point.z');
+    if (isNaN(value)) {
+        return null;
+    }
+    return formatLabel(value, get(this, 'point.format'), config);
+}
+
 // check whether series contains only positive values, not consider nulls
 function hasOnlyPositiveValues(series: any, x: any) {
     return every(series, (seriesItem: any) => {
@@ -513,6 +521,15 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
             scatter: {
                 dataLabels: {
                     formatter: partial(labelFormatter, config),
+                    style,
+                    ...labelsConfig
+                }
+            },
+            bubble: {
+                dataLabels: {
+                    formatter: partial(labelFormatterBubble, config),
+                    enabled: true,
+                    allowOverlap: false,
                     style,
                     ...labelsConfig
                 }

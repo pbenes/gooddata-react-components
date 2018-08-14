@@ -35,6 +35,9 @@ export const isIntersecting = (o1: any, o2: any) =>
 export function isLabelOverlappingItsShape(point: any) {
     const { dataLabel, shapeArgs } = point;
     if (dataLabel && shapeArgs) { // shapeArgs for point hidden by legend is undefined
+        if (shapeArgs.width === undefined) {
+            return dataLabel.width > (shapeArgs.r * 2) || dataLabel.height > (shapeArgs.r * 2);
+        }
         return dataLabel.width > shapeArgs.width || dataLabel.height > shapeArgs.height;
     }
     return false;

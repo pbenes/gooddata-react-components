@@ -22,7 +22,8 @@ const autohideLabels = (Highcharts: any) => {
             }
             if (
                 chartType === VisualizationTypes.TREEMAP ||
-                chartType === VisualizationTypes.HEATMAP
+                chartType === VisualizationTypes.HEATMAP ||
+                chartType === VisualizationTypes.BUBBLE
             ) {
                 autohideLabelsOverlappingItsShape(chart);
                 return;
