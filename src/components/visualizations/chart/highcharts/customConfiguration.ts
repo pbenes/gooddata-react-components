@@ -16,6 +16,7 @@ import { IChartConfig } from '../Chart';
 
 import * as numberJS from '@gooddata/numberjs';
 import { VisualizationTypes } from '../../../../constants/visualizationTypes';
+import { IDataLabelsVisibility } from '../../../../interfaces/Config';
 import { HOVER_BRIGHTNESS, MINIMUM_HC_SAFE_BRIGHTNESS } from './commonConfiguration';
 import { getLighterColor } from '../../utils/color';
 import {
@@ -404,6 +405,26 @@ function getTreemapLabelsConfiguration(isMultiLevel: boolean, style: any, config
     }
 }
 
+function getLabelsVisibilityConfig(visibility: IDataLabelsVisibility): object { // TODO
+    const visibleLabelsConfig = {
+        enabled: true,
+        allowOverlap: true,
+        gdcUserVisible: true
+    };
+
+    const hiddenLabelsConfig = {
+        enabled: false,
+        gdcUserVisible: false
+    };
+
+    if (visibility === true) {
+        return visibleLabelsConfig;
+    } else if (visibility === false) {
+        return hiddenLabelsConfig;
+    }
+    return {};
+}
+
 function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfig) {
     const {
         stacking,
@@ -415,8 +436,9 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
         type: string;
     } = chartOptions;
 
-    const labelsVisible = get(config, 'dataLabels.visible');
-    console.log(labelsVisible);
+    const labelsVisible: IDataLabelsVisibility = get<IDataLabelsVisibility>(config, 'dataLabels.visible');
+
+    const labelsConfig = getLabelsVisibilityConfig(labelsVisible);
 
     const style = stacking || isTreemap(type) ? {
         color: '#ffffff',
@@ -443,24 +465,28 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
                 dataLabels: {
                     formatter: partial(labelFormatter, config),
                     style,
-                    allowOverlap: false
+                    allowOverlap: false,
+                    ...labelsConfig
                 }
             },
             column: {
                 dataLabels: {
                     formatter: partial(labelFormatter, config),
                     style,
-                    allowOverlap: false
+                    allowOverlap: false,
+                    ...labelsConfig
                 }
             },
             heatmap: {
                 dataLabels: {
                     formatter: labelFormatterHeatmap,
-                    config
+                    config,
+                    ...labelsConfig
                 }
             },
             treemap: {
-                ...getTreemapLabelsConfiguration(!!stacking, style, config)
+                ...getTreemapLabelsConfiguration(!!stacking, style, config),
+                ...labelsConfig
             }
         },
         yAxis

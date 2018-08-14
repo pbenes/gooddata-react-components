@@ -45,6 +45,8 @@ export const getVisibleSeries = (chart: any) => chart.series && chart.series.fil
 export const getHiddenSeries = (chart: any) => chart.series && chart.series.filter((s: any) => !s.visible);
 export const getDataPoints = (series: ISeriesItem[]) => flatten(unzip(map(series, (s: any) => s.points)));
 export const getChartType = (chart: any) => get(chart, 'options.chart.type');
+export const getDataLabelsUserVisibility = (chart: any) =>
+    get(chart, `options.plotOptions.${getChartType(chart)}.dataLabels.gdcUserVisible`);
 export const isStacked = (chart: any) => {
     const chartType = getChartType(chart);
     if (get(chart, `userOptions.plotOptions.${chartType}.stacking`, false) &&
