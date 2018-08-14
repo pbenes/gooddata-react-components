@@ -493,6 +493,29 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
             },
             treemap: {
                 ...getTreemapLabelsConfiguration(!!stacking, style, config, labelsConfig)
+            },
+            line: {
+                dataLabels: {
+                    formatter: partial(labelFormatter, config),
+                    style,
+                    allowOverlap: false,
+                    ...labelsConfig
+                }
+            },
+            area: {
+                dataLabels: {
+                    formatter: partial(labelFormatter, config),
+                    style,
+                    allowOverlap: false,
+                    ...labelsConfig
+                }
+            },
+            scatter: {
+                dataLabels: {
+                    formatter: partial(labelFormatter, config),
+                    style,
+                    ...labelsConfig
+                }
             }
         },
         yAxis

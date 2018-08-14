@@ -17,6 +17,7 @@ import {
     MEASURE_3
 } from '../data/componentProps';
 import { GERMAN_SEPARATORS } from '../data/numberFormat';
+import { DATA_LABELS_VISIBLE_CONFIG, DATA_LABELS_HIDDEN_CONFIG } from '../data/configProps';
 
 const wrapperStyle = { width: 600, height: 300 };
 
@@ -150,11 +151,7 @@ storiesOf('Core components/Treemap', module)
                         viewBy={ATTRIBUTE_1}
                         segmentBy={ATTRIBUTE_2}
                         onError={onErrorHandler}
-                        config={{
-                            dataLabels: {
-                                visible: true
-                            }
-                        }}
+                        config={DATA_LABELS_VISIBLE_CONFIG}
                     />
                 </div>
                 <div style={wrapperStyle}>
@@ -164,11 +161,7 @@ storiesOf('Core components/Treemap', module)
                         viewBy={ATTRIBUTE_1}
                         segmentBy={ATTRIBUTE_2}
                         onError={onErrorHandler}
-                        config={{
-                            dataLabels: {
-                                visible: false
-                            }
-                        }}
+                        config={DATA_LABELS_HIDDEN_CONFIG}
                     />
                 </div>
             </div>
