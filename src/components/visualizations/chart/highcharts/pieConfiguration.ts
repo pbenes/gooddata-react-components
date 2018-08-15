@@ -3,7 +3,17 @@ import cloneDeep = require('lodash/cloneDeep');
 
 const PIE_TEMPLATE = {
     chart: {
-        type: 'pie'
+        type: 'pie',
+        events: {
+            load() {
+                this.series[0].update({
+                    dataLabels: {
+                        distance: -(this.series[0].points[0].shapeArgs.r / 3)
+                    }
+                });
+            }
+        }
+
     },
     plotOptions: {
         pie: {

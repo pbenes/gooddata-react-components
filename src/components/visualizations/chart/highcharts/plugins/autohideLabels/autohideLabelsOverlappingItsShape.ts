@@ -1,10 +1,10 @@
 // (C) 2007-2018 GoodData Corporation
 import {
-    getVisibleSeries,
     getDataPoints,
+    getVisibleSeries,
     hideDataLabel,
-    isLabelOverlappingItsShape,
     intersectsParentLabel,
+    isLabelOverlappingItsShape,
     showDataLabel
 } from '../../helpers';
 

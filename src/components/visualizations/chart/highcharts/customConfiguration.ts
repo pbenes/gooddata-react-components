@@ -25,8 +25,7 @@ import {
     isOneOfTypes,
     isAreaChart,
     isRotationInRange,
-    isTreemap,
-    isDonutChart
+    isTreemap
 } from '../../utils/common';
 import { shouldFollowPointer } from '../../../visualizations/chart/highcharts/helpers';
 
@@ -334,6 +333,10 @@ function labelFormatterBubble(config?: IChartConfig) {
     return formatLabel(value, get(this, 'point.format'), config);
 }
 
+function labelFormatterScatter() {
+    return escapeAngleBrackets(this.key);
+}
+
 // check whether series contains only positive values, not consider nulls
 function hasOnlyPositiveValues(series: any, x: any) {
     return every(series, (seriesItem: any) => {
@@ -444,6 +447,31 @@ const whiteDataLabelTypes = [
     VisualizationTypes.BUBBLE
 ];
 
+function getLabelStyle(chartOptions: any) {
+    const {
+        stacking,
+        type
+    }: {
+        stacking: boolean;
+        type: string;
+    } = chartOptions;
+
+    const WHITE_LABEL = {
+        color: '#ffffff',
+        textShadow: '0 0 1px #000000'
+    };
+
+    const BLACK_LABEL = {
+        color: '#000000',
+        textShadow: 'none'
+    };
+
+    if (isAreaChart(type)) {
+        return BLACK_LABEL;
+    }
+    return (stacking || isOneOfTypes(type, whiteDataLabelTypes)) ? WHITE_LABEL : BLACK_LABEL;
+}
+
 function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfig) {
     const {
         stacking,
@@ -459,13 +487,7 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
 
     const labelsConfig = getLabelsVisibilityConfig(labelsVisible);
 
-    const style = stacking || isOneOfTypes(type, whiteDataLabelTypes) ? {
-        color: '#ffffff',
-        textShadow: '0 0 1px #000000'
-    } : {
-        color: '#000000',
-        textShadow: 'none'
-    };
+    const style = getLabelStyle(chartOptions);
 
     const drilldown = stacking || isTreemap(type) ? {
         activeDataLabelStyle: {
@@ -477,6 +499,13 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
         defaultFormat: get(axis, 'format')
     }));
 
+    const DEFAULT_LABELS_CONFIG = {
+        formatter: partial(labelFormatter, config),
+        style,
+        allowOverlap: false,
+        ...labelsConfig
+    };
+
     return {
         drilldown,
         plotOptions: {
@@ -486,12 +515,7 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
                 }
             },
             bar: {
-                dataLabels: {
-                    formatter: partial(labelFormatter, config),
-                    style,
-                    allowOverlap: false,
-                    ...labelsConfig
-                }
+                dataLabels: DEFAULT_LABELS_CONFIG
             },
             column: {
                 dataLabels: {
@@ -512,46 +536,28 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
                 ...getTreemapLabelsConfiguration(!!stacking, style, config, labelsConfig)
             },
             line: {
-                dataLabels: {
-                    formatter: partial(labelFormatter, config),
-                    style,
-                    allowOverlap: false,
-                    ...labelsConfig
-                }
+                dataLabels: DEFAULT_LABELS_CONFIG
             },
             area: {
-                dataLabels: {
-                    formatter: partial(labelFormatter, config),
-                    style,
-                    allowOverlap: false,
-                    ...labelsConfig
-                }
+                dataLabels: DEFAULT_LABELS_CONFIG
             },
             scatter: {
                 dataLabels: {
-                    formatter: partial(labelFormatter, config),
-                    style,
-                    ...labelsConfig
+                    ...DEFAULT_LABELS_CONFIG,
+                    formatter: partial(labelFormatterScatter, config)
                 }
             },
             bubble: {
                 dataLabels: {
-                    formatter: partial(labelFormatterBubble, config),
                     enabled: true,
-                    allowOverlap: false,
-                    style,
-                    ...labelsConfig
+                    ...DEFAULT_LABELS_CONFIG,
+                    formatter: partial(labelFormatterBubble, config)
                 }
             },
             pie: {
                 dataLabels: {
-                    formatter: partial(labelFormatter, config),
-                    enabled: true,
-                    verticalAlign: 'top',
-                    distance: isDonutChart(type) ? -20 : -30, // TODO no magic numbers
-                    allowOverlap: false,
-                    style,
-                    ...labelsConfig
+                    ...DEFAULT_LABELS_CONFIG,
+                    verticalAlign: 'middle'
                 }
             }
         },
