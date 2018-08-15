@@ -25,7 +25,8 @@ import {
     isOneOfTypes,
     isAreaChart,
     isRotationInRange,
-    isTreemap
+    isTreemap,
+    isDonutChart
 } from '../../utils/common';
 import { shouldFollowPointer } from '../../../visualizations/chart/highcharts/helpers';
 
@@ -435,6 +436,14 @@ function getLabelsVisibilityConfig(visible: IDataLabelsVisibile): object { // TO
     return {};
 }
 
+// types with label inside sections have white labels
+const whiteDataLabelTypes = [
+    VisualizationTypes.PIE,
+    VisualizationTypes.DONUT,
+    VisualizationTypes.TREEMAP,
+    VisualizationTypes.BUBBLE
+];
+
 function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfig) {
     const {
         stacking,
@@ -450,7 +459,7 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
 
     const labelsConfig = getLabelsVisibilityConfig(labelsVisible);
 
-    const style = stacking || isTreemap(type) ? {
+    const style = stacking || isOneOfTypes(type, whiteDataLabelTypes) ? {
         color: '#ffffff',
         textShadow: '0 0 1px #000000'
     } : {
@@ -529,6 +538,17 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
                 dataLabels: {
                     formatter: partial(labelFormatterBubble, config),
                     enabled: true,
+                    allowOverlap: false,
+                    style,
+                    ...labelsConfig
+                }
+            },
+            pie: {
+                dataLabels: {
+                    formatter: partial(labelFormatter, config),
+                    enabled: true,
+                    verticalAlign: 'top',
+                    distance: isDonutChart(type) ? -20 : -30, // TODO no magic numbers
                     allowOverlap: false,
                     style,
                     ...labelsConfig
