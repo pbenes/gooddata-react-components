@@ -3,6 +3,7 @@ import { getChartType, getDataLabelsGdcVisible } from '../../helpers';
 import { VisualizationTypes } from '../../../../../../constants/visualizationTypes';
 import autohideColumnLabels from './autohideColumnLabels';
 import autohideBarLabels from './autohideBarLabels';
+import autohidePieLabels from './autohidePieLabels';
 import autohideLabelsOverlappingItsShape from './autohideLabelsOverlappingItsShape';
 
 const autohideLabels = (Highcharts: any) => {
@@ -12,21 +13,22 @@ const autohideLabels = (Highcharts: any) => {
         const dataLabelsUserVisibility = getDataLabelsGdcVisible(this);
 
         if (dataLabelsUserVisibility === 'auto') {
-            if (chartType === VisualizationTypes.COLUMN) {
-                autohideColumnLabels(chart);
-                return;
-            }
-            if (chartType === VisualizationTypes.BAR) {
-                autohideBarLabels(chart);
-                return;
-            }
-            if (
-                chartType === VisualizationTypes.TREEMAP ||
-                chartType === VisualizationTypes.HEATMAP ||
-                chartType === VisualizationTypes.BUBBLE
-            ) {
-                autohideLabelsOverlappingItsShape(chart);
-                return;
+            switch (chartType) {
+                case VisualizationTypes.COLUMN:
+                    autohideColumnLabels(chart);
+                    return;
+                case VisualizationTypes.BAR:
+                    autohideBarLabels(chart);
+                    return;
+                case VisualizationTypes.PIE:
+                case VisualizationTypes.DONUT:
+                    autohidePieLabels(chart);
+                    return;
+                case VisualizationTypes.TREEMAP:
+                case VisualizationTypes.HEATMAP:
+                case VisualizationTypes.BUBBLE:
+                    autohideLabelsOverlappingItsShape(chart);
+                    return;
             }
         }
 
