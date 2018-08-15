@@ -422,21 +422,24 @@ function getTreemapLabelsConfiguration(
 }
 
 function getLabelsVisibilityConfig(visible: IDataLabelsVisibile): object { // TODO
-    const visibleLabelsConfig = {
-        enabled: visible,
-        allowOverlap: visible
-    };
-
-    const hiddenLabelsConfig = {
-        enabled: visible
-    };
-
-    if (visible === true) {
-        return visibleLabelsConfig;
-    } else if (visible === false) {
-        return hiddenLabelsConfig;
+    switch (visible) {
+        case 'auto':
+            return {
+                enabled: true,
+                allowOverlap: false
+            };
+        case true:
+            return {
+                enabled: true,
+                allowOverlap: true
+            };
+        case false:
+            return {
+                enabled: false
+            };
+        default: // keep decision on each chart for `undefined`
+            return {};
     }
-    return {};
 }
 
 // types with label inside sections have white labels
