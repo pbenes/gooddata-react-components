@@ -13,7 +13,6 @@ const PIE_TEMPLATE = {
                 });
             }
         }
-
     },
     plotOptions: {
         pie: {

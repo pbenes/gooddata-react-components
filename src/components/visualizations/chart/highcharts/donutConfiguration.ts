@@ -4,6 +4,17 @@ import { getPieConfiguration } from './pieConfiguration';
 
 export function getDonutConfiguration() {
     return merge({}, getPieConfiguration(), {
+        chart: {
+            events: {
+                load() {
+                    this.series[0].update({
+                        dataLabels: {
+                            distance: -(this.series[0].points[0].shapeArgs.r * 0.25)
+                        }
+                    });
+                }
+            }
+        },
         plotOptions: {
             pie: {
                 innerSize: '50%'
