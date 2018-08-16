@@ -552,7 +552,6 @@ function getLabelsConfiguration(chartOptions: any, {}: any, config?: IChartConfi
             },
             bubble: {
                 dataLabels: {
-                    enabled: true,
                     ...DEFAULT_LABELS_CONFIG,
                     formatter: partial(labelFormatterBubble, config)
                 }

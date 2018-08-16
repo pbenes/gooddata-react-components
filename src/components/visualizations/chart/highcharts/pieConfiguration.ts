@@ -1,5 +1,6 @@
 // (C) 2007-2018 GoodData Corporation
 import cloneDeep = require('lodash/cloneDeep');
+import get = require('lodash/get');
 
 const PIE_TEMPLATE = {
     chart: {
@@ -8,7 +9,7 @@ const PIE_TEMPLATE = {
             load() {
                 this.series[0].update({
                     dataLabels: {
-                        distance: -(this.series[0].points[0].shapeArgs.r / 3)
+                        distance: -(get(this, 'series.0.points.0.shapeArgs.r', 30) / 3)
                     }
                 });
             }
