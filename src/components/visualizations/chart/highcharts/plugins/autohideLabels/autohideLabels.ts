@@ -2,7 +2,8 @@
 import {
     getChartType,
     getDataLabelsGdcVisible,
-    minimizeDataLabel
+    minimizeDataLabel,
+    hideDataLabel
 } from '../../helpers';
 import { VisualizationTypes } from '../../../../../../constants/visualizationTypes';
 import autohideColumnLabels from './autohideColumnLabels';
@@ -33,7 +34,11 @@ const autohideLabels = (Highcharts: any) => {
                     autohideLabelsOverlappingItsShape(chart);
                     return;
                 case VisualizationTypes.BUBBLE:
-                    autohideLabelsOverlappingItsShape(chart, minimizeDataLabel);
+                    autohideLabelsOverlappingItsShape(chart, (point) => {
+                        // only hide is not enough for combination with default label collision detection
+                        minimizeDataLabel(point);
+                        hideDataLabel(point);
+                    });
                     proceed.call(this, labels);
                     return;
             }
