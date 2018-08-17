@@ -69,6 +69,14 @@ export const areLabelsStacked = (chart: any) =>
 
 export const hasDataLabel = (point: any) => point.dataLabel;
 
+export const minimizeDataLabel = (point: any) => {
+    const { dataLabel } = point;
+    if (dataLabel) {
+        dataLabel.width = 0;
+        dataLabel.height = 0;
+    }
+};
+
 export const hideDataLabel = (point: any) => {
     const { dataLabel } = point;
     if (dataLabel) {

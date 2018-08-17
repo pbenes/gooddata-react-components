@@ -1,5 +1,9 @@
 // (C) 2007-2018 GoodData Corporation
-import { getChartType, getDataLabelsGdcVisible } from '../../helpers';
+import {
+    getChartType,
+    getDataLabelsGdcVisible,
+    minimizeDataLabel
+} from '../../helpers';
 import { VisualizationTypes } from '../../../../../../constants/visualizationTypes';
 import autohideColumnLabels from './autohideColumnLabels';
 import autohideBarLabels from './autohideBarLabels';
@@ -26,8 +30,11 @@ const autohideLabels = (Highcharts: any) => {
                     return;
                 case VisualizationTypes.TREEMAP:
                 case VisualizationTypes.HEATMAP:
-                case VisualizationTypes.BUBBLE:
                     autohideLabelsOverlappingItsShape(chart);
+                    return;
+                case VisualizationTypes.BUBBLE:
+                    autohideLabelsOverlappingItsShape(chart, minimizeDataLabel);
+                    proceed.call(this, labels);
                     return;
             }
         }

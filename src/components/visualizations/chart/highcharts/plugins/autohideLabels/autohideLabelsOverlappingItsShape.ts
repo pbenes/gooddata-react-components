@@ -2,23 +2,27 @@
 import {
     getDataPoints,
     getVisibleSeries,
-    hideDataLabel,
     intersectsParentLabel,
     isLabelOverlappingItsShape,
+    hideDataLabel,
     showDataLabel
 } from '../../helpers';
 
-const autohideLabelsOverlappingItsShape = (chart: any) => {
+function autohideLabelsOverlappingItsShape(
+    chart: any,
+    hideFunction: (point: any) => void = hideDataLabel,
+    showFunction: (point: any) => void = showDataLabel
+) {
     const visibleSeries = getVisibleSeries(chart);
     const visiblePoints = getDataPoints(visibleSeries);
 
     visiblePoints.forEach((point: any) => {
         if (isLabelOverlappingItsShape(point) || intersectsParentLabel(point, visiblePoints)) {
-            hideDataLabel(point);
+            hideFunction(point);
         } else {
-            showDataLabel(point);
+            showFunction(point);
         }
     });
-};
+}
 
 export default autohideLabelsOverlappingItsShape;
