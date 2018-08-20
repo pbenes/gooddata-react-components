@@ -7,10 +7,16 @@ import { onErrorHandler } from '../mocks';
 import {
     ATTRIBUTE_1,
     ATTRIBUTE_2,
+    ATTRIBUTE_3,
     MEASURE_1,
     ATTRIBUTE_1_WITH_ALIAS
 } from '../data/componentProps';
 import { GERMAN_SEPARATORS } from '../data/numberFormat';
+import {
+    DATA_LABELS_VISIBLE_CONFIG,
+    DATA_LABELS_HIDDEN_CONFIG,
+    DATA_LABELS_AUTO_CONFIG
+} from '../data/configProps';
 
 const wrapperStyle = { width: 800, height: 400 };
 
@@ -116,6 +122,54 @@ storiesOf('Core components/Heatmap', module)
                     LoadingComponent={null}
                     ErrorComponent={null}
                 />
+            </div>
+        )
+    )).add('data labels config', () => (
+        screenshotWrap(
+            <div>
+                <div className="storybook-title">default = auto</div>
+                <div style={wrapperStyle}>
+                    <Heatmap
+                        projectId="storybook"
+                        measure={MEASURE_1}
+                        segmentBy={ATTRIBUTE_1}
+                        trendBy={ATTRIBUTE_3}
+                        onError={onErrorHandler}
+                    />
+                </div>
+                <div className="storybook-title">auto</div>
+                <div style={wrapperStyle}>
+                    <Heatmap
+                        projectId="storybook"
+                        measure={MEASURE_1}
+                        segmentBy={ATTRIBUTE_1}
+                        trendBy={ATTRIBUTE_3}
+                        onError={onErrorHandler}
+                        config={DATA_LABELS_AUTO_CONFIG}
+                    />
+                </div>
+                <div className="storybook-title">show</div>
+                <div style={wrapperStyle}>
+                    <Heatmap
+                        projectId="storybook"
+                        measure={MEASURE_1}
+                        segmentBy={ATTRIBUTE_1}
+                        trendBy={ATTRIBUTE_3}
+                        onError={onErrorHandler}
+                        config={DATA_LABELS_VISIBLE_CONFIG}
+                    />
+                </div>
+                <div className="storybook-title">hide</div>
+                <div style={wrapperStyle}>
+                    <Heatmap
+                        projectId="storybook"
+                        measure={MEASURE_1}
+                        segmentBy={ATTRIBUTE_1}
+                        trendBy={ATTRIBUTE_3}
+                        onError={onErrorHandler}
+                        config={DATA_LABELS_HIDDEN_CONFIG}
+                    />
+                </div>
             </div>
         )
     ));

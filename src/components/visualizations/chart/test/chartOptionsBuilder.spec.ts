@@ -2999,7 +2999,6 @@ describe('chartOptionsBuilder', () => {
                             { x: 1, y: 1, value: 30180730.62, drilldown: false }
                         ],
                         dataLabels: {
-                            enabled: true,
                             formatGD: '#,##0.00'
                         },
                         legendIndex: 0,

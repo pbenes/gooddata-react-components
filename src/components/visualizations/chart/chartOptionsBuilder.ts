@@ -418,9 +418,7 @@ export interface ISeriesItemConfig {
 
 export function getHeatmapSeries(
     executionResultData: Execution.DataValue[][],
-    measureGroup: Execution.IMeasureGroupHeader['measureGroupHeader'],
-    viewByAttribute: any,
-    stackByAttribute: any
+    measureGroup: Execution.IMeasureGroupHeader['measureGroupHeader']
 ) {
     const data = [] as any;
     executionResultData.forEach((rowItem: any, rowItemIndex: number) => {
@@ -435,8 +433,6 @@ export function getHeatmapSeries(
         turboThreshold: 0,
         yAxis: 0,
         dataLabels: {
-            enabled: ((!viewByAttribute || (viewByAttribute.items.length <= 6)) &&
-                        (!stackByAttribute || (stackByAttribute.items.length <= 20))),
             formatGD: unwrap(measureGroup.items[0]).format
         },
         legendIndex: 0
@@ -715,7 +711,7 @@ export function getSeries(
     colorPalette: string[]
 ): any {
     if (isHeatmap(type)) {
-        return getHeatmapSeries(executionResultData, measureGroup, viewByAttribute, stackByAttribute);
+        return getHeatmapSeries(executionResultData, measureGroup);
     } else if (isScatterPlot(type)) {
         return getScatterPlotSeries(executionResultData, stackByAttribute, mdObject, colorPalette);
     } else if (isBubbleChart(type)) {

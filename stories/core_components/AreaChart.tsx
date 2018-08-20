@@ -6,6 +6,7 @@ import { AreaChart } from '../../src/index';
 import { onErrorHandler } from '../mocks';
 import { ATTRIBUTE_1,
     ATTRIBUTE_2,
+    ATTRIBUTE_3,
     MEASURE_1,
     MEASURE_2,
     MEASURE_2_SORT_ITEM,
@@ -13,7 +14,11 @@ import { ATTRIBUTE_1,
     ATTRIBUTE_1_SORT_ITEM
 } from '../data/componentProps';
 import { GERMAN_SEPARATORS } from '../data/numberFormat';
-import { DATA_LABELS_VISIBLE_CONFIG, DATA_LABELS_HIDDEN_CONFIG } from '../data/configProps';
+import {
+    DATA_LABELS_VISIBLE_CONFIG,
+    DATA_LABELS_HIDDEN_CONFIG,
+    DATA_LABELS_AUTO_CONFIG
+} from '../data/configProps';
 
 const wrapperStyle = { width: 800, height: 400 };
 
@@ -175,15 +180,27 @@ storiesOf('Core components/AreaChart', module)
     )).add('data labels config', () => (
         screenshotWrap(
             <div>
+                <div className="storybook-title">default = hidden</div>
+                <div style={wrapperStyle}>
+                    <AreaChart
+                        projectId="storybook"
+                        measures={[MEASURE_1, MEASURE_2]}
+                        viewBy={[ATTRIBUTE_3]}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                    />
+                </div>
                 <div className="storybook-title">auto</div>
                 <div style={wrapperStyle}>
                     <AreaChart
                         projectId="storybook"
                         measures={[MEASURE_1, MEASURE_2]}
-                        viewBy={[ATTRIBUTE_1]}
+                        viewBy={[ATTRIBUTE_3]}
                         onError={onErrorHandler}
                         LoadingComponent={null}
                         ErrorComponent={null}
+                        config={DATA_LABELS_AUTO_CONFIG}
                     />
                 </div>
                 <div className="storybook-title">show</div>
@@ -191,7 +208,7 @@ storiesOf('Core components/AreaChart', module)
                     <AreaChart
                         projectId="storybook"
                         measures={[MEASURE_1, MEASURE_2]}
-                        viewBy={[ATTRIBUTE_1]}
+                        viewBy={[ATTRIBUTE_3]}
                         onError={onErrorHandler}
                         LoadingComponent={null}
                         ErrorComponent={null}
@@ -203,7 +220,7 @@ storiesOf('Core components/AreaChart', module)
                     <AreaChart
                         projectId="storybook"
                         measures={[MEASURE_1, MEASURE_2]}
-                        viewBy={[ATTRIBUTE_1]}
+                        viewBy={[ATTRIBUTE_3]}
                         onError={onErrorHandler}
                         LoadingComponent={null}
                         ErrorComponent={null}
