@@ -421,7 +421,7 @@ function getTreemapLabelsConfiguration(
     }
 }
 
-function getLabelsVisibilityConfig(visible: IDataLabelsVisibile): object { // TODO
+function getLabelsVisibilityConfig(visible: IDataLabelsVisibile): any {
     switch (visible) {
         case 'auto':
             return {
