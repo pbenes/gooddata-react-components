@@ -135,7 +135,7 @@ storiesOf('Core components/BubbleChart', module)
                     />
                 </div>
                 <div className="storybook-title">hide</div>
-                <div style={wrapperStyle}>
+                <div style={wrapperStyle} className="screenshot-final">
                     <BubbleChart
                         projectId="storybook"
                         xAxisMeasure={MEASURE_1}

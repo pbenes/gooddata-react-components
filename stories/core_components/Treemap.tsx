@@ -172,7 +172,7 @@ storiesOf('Core components/Treemap', module)
                     />
                 </div>
                 <div className="storybook-title">hide</div>
-                <div style={wrapperStyle}>
+                <div style={wrapperStyle} className="screenshot-final">
                     <Treemap
                         projectId="storybook"
                         measures={[MEASURE_1]}

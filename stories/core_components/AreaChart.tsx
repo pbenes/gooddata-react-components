@@ -216,7 +216,7 @@ storiesOf('Core components/AreaChart', module)
                     />
                 </div>
                 <div className="storybook-title">hide</div>
-                <div style={wrapperStyle}>
+                <div style={wrapperStyle} className="screenshot-final">
                     <AreaChart
                         projectId="storybook"
                         measures={[MEASURE_1, MEASURE_2]}

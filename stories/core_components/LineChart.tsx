@@ -164,7 +164,7 @@ storiesOf('Core components/LineChart', module)
                     />
                 </div>
                 <div className="storybook-title">hide</div>
-                <div style={wrapperStyle}>
+                <div style={wrapperStyle} className="screenshot-final">
                     <LineChart
                         projectId="storybook"
                         measures={[MEASURE_1, MEASURE_2]}

@@ -143,7 +143,7 @@ storiesOf('Core components/ScatterPlot', module)
                     />
                 </div>
                 <div className="storybook-title">hide</div>
-                <div style={wrapperStyle}>
+                <div style={wrapperStyle} className="screenshot-final">
                     <ScatterPlot
                         projectId="storybook"
                         xAxisMeasure={MEASURE_1}

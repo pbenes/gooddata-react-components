@@ -131,7 +131,7 @@ storiesOf('Core components/DonutChart', module)
                     />
                 </div>
                 <div className="storybook-title">hide</div>
-                <div style={wrapperStyle}>
+                <div style={wrapperStyle} className="screenshot-final">
                     <DonutChart
                         projectId="storybook"
                         measures={[MEASURE_1]}

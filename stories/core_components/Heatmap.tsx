@@ -19,6 +19,7 @@ import {
 } from '../data/configProps';
 
 const wrapperStyle = { width: 800, height: 400 };
+const wrapperWiderStyle = { width: 1000, height: 400 };
 
 storiesOf('Core components/Heatmap', module)
     .add('metric row column', () => (
@@ -128,7 +129,7 @@ storiesOf('Core components/Heatmap', module)
         screenshotWrap(
             <div>
                 <div className="storybook-title">default = auto</div>
-                <div style={wrapperStyle}>
+                <div style={wrapperWiderStyle}>
                     <Heatmap
                         projectId="storybook"
                         measure={MEASURE_1}
@@ -138,7 +139,7 @@ storiesOf('Core components/Heatmap', module)
                     />
                 </div>
                 <div className="storybook-title">auto</div>
-                <div style={wrapperStyle}>
+                <div style={wrapperWiderStyle}>
                     <Heatmap
                         projectId="storybook"
                         measure={MEASURE_1}
@@ -149,7 +150,7 @@ storiesOf('Core components/Heatmap', module)
                     />
                 </div>
                 <div className="storybook-title">show</div>
-                <div style={wrapperStyle}>
+                <div style={wrapperWiderStyle}>
                     <Heatmap
                         projectId="storybook"
                         measure={MEASURE_1}
@@ -160,7 +161,7 @@ storiesOf('Core components/Heatmap', module)
                     />
                 </div>
                 <div className="storybook-title">hide</div>
-                <div style={wrapperStyle}>
+                <div style={wrapperWiderStyle} className="screenshot-final">
                     <Heatmap
                         projectId="storybook"
                         measure={MEASURE_1}
