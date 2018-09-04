@@ -40,7 +40,7 @@ const WrappedTable: React.ComponentClass<ITableVisualizationProps> = withIntl(
 
 describe('Table', () => {
     function renderTable(customProps: Partial<ITableVisualizationProps> = {}):
-        ReactWrapper<ITableVisualizationProps & InjectedIntlProps, ITableVisualizationState> {
+        ReactWrapper<ITableVisualizationProps & InjectedIntlProps, any> {
         const props: ITableVisualizationProps = {
             containerWidth: 600,
             containerHeight: 400,

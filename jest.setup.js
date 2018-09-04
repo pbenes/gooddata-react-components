@@ -1,5 +1,9 @@
+const raf = require('raf');
+
 const enzyme = require('enzyme');
-const Adapter = require('enzyme-adapter-react-15');
+const Adapter = require('enzyme-adapter-react-16');
+
+raf.polyfill();
 
 enzyme.configure({ adapter: new Adapter() });
 

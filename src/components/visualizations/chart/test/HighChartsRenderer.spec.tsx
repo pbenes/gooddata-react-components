@@ -323,7 +323,7 @@ describe('HighChartsRenderer', () => {
             };
 
             const wrapper = shallow(createComponent(customComponentProps({ responsive: true, documentObj })));
-            expect(wrapper.state().showFluidLegend).toBeTruthy();
+            expect(wrapper.state('showFluidLegend')).toBeTruthy();
         });
 
         it('should render StaticLegend on desktop', () => {
@@ -334,7 +334,7 @@ describe('HighChartsRenderer', () => {
             };
 
             const wrapper = shallow(createComponent(customComponentProps({ responsive: true, documentObj })));
-            expect(wrapper.state().showFluidLegend).toBeFalsy();
+            expect(wrapper.state('showFluidLegend')).toBeFalsy();
         });
     });
 
@@ -365,8 +365,8 @@ describe('HighChartsRenderer', () => {
 
         it('should reset legend if legend props change', () => {
             const wrapper = mount(createComponent(rendererProps));
-            const { props } = wrapper.instance();
-            const getLegendItems = () => wrapper.instance().state.legendItemsEnabled;
+            const props = wrapper.props();
+            const getLegendItems = () => wrapper.state('legendItemsEnabled');
 
             const legendItemsEnabledState = getLegendItems();
 
@@ -395,8 +395,8 @@ describe('HighChartsRenderer', () => {
 
         it('should not reset legend if props change but legend items stay the same', () => {
             const wrapper = mount(createComponent(rendererProps));
-            const { props } = wrapper.instance();
-            const getLegendItems = () => wrapper.instance().state.legendItemsEnabled;
+            const props = wrapper.props();
+            const getLegendItems = () => wrapper.state('legendItemsEnabled');
 
             const legendItemsEnabledState = getLegendItems();
 

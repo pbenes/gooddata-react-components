@@ -1,5 +1,6 @@
 import {
-    getChartOptions
+    getChartOptions,
+    IChartOptions
 } from '../chartOptionsBuilder';
 
 import * as fixtures from '../../../../../stories/test_data/fixtures';
@@ -12,7 +13,7 @@ export function generateChartOptions(
         stacking: false
     },
     drillableItems: IDrillableItem[] = []
-) {
+): IChartOptions {
     const {
         executionRequest: { afm, resultSpec },
         executionResponse: { dimensions },
