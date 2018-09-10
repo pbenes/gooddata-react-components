@@ -111,9 +111,9 @@
     qs "6.5.1"
     rxjs "^5.5.6"
 
-"@gooddata/goodstrap@56.1.4-zdenek.vidensky-pb-react16-2018-09-05T06-45-34-848Z":
-  version "56.1.4-zdenek.vidensky-pb-react16-2018-09-05T06-45-34-848Z"
-  resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-56.1.4-zdenek.vidensky-pb-react16-2018-09-05T06-45-34-848Z.tgz#2b9e569c2c063d00e383d541d32e8ebd1e4c5e68"
+"@gooddata/goodstrap@56.1.4-pbenes-pb-react16-2018-09-10T06-48-24-891Z":
+  version "56.1.4-pbenes-pb-react16-2018-09-10T06-48-24-891Z"
+  resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-56.1.4-pbenes-pb-react16-2018-09-10T06-48-24-891Z.tgz#59e7b399ca6693377e854e2dfe6e8480dbb427e5"
   dependencies:
     "@gooddata/js-utils" "^2.0.0"
     classnames "2.2.5"
@@ -136,7 +136,7 @@
     react-native-listener "1.0.2"
     react-portal "4.1.5"
     react-responsive "3.0.0"
-    react-textarea-autosize "7.0.0"
+    react-textarea-autosize "7.0.4"
     react-transition-group "1.2.1"
     rxjs "^5.5.6"
 
@@ -9281,9 +9281,9 @@ react-test-renderer@16.4.2, react-test-renderer@^16.0.0-0:
     prop-types "^15.6.0"
     react-is "^16.4.2"
 
-react-textarea-autosize@7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-7.0.0.tgz#e4c1867f5a5ad6b1aaa1c82057da09cd58537c6a"
+react-textarea-autosize@7.0.4:
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-7.0.4.tgz#4e4be649b544a88713e7b5043f76950f35d3d503"
   dependencies:
     prop-types "^15.6.0"
 

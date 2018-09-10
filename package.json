@@ -94,7 +94,7 @@
   },
   "dependencies": {
     "@gooddata/gooddata-js": "8.0.0",
-    "@gooddata/goodstrap": "56.1.4-zdenek.vidensky-pb-react16-2018-09-05T06-45-34-848Z",
+    "@gooddata/goodstrap": "56.1.4-pbenes-pb-react16-2018-09-10T06-48-24-891Z",
     "@gooddata/js-utils": "^2.0.1",
     "@gooddata/numberjs": "^3.1.2",
     "@gooddata/typings": "2.3.1",
