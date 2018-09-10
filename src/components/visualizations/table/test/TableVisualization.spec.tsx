@@ -3,7 +3,7 @@ import * as React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { Table } from 'fixed-data-table-2';
 // tslint:disable-next-line:no-implicit-dependencies
-import * as Portal from 'react-portal';
+import { Portal } from 'react-portal';
 import { AFM } from '@gooddata/typings';
 import { testUtils } from '@gooddata/js-utils';
 import 'jest';
