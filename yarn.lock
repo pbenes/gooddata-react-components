@@ -112,9 +112,9 @@
     qs "6.5.1"
     rxjs "^5.5.6"
 
-"@gooddata/goodstrap@57.3.0-zdenek.vidensky-custom-picker-2018-11-12T07-35-52-215Z":
-  version "57.3.0-zdenek.vidensky-custom-picker-2018-11-12T07-35-52-215Z"
-  resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-57.3.0-zdenek.vidensky-custom-picker-2018-11-12T07-35-52-215Z.tgz#df8a4f146904d278a0f55b374dfeb3d6ea67f6ff"
+"@gooddata/goodstrap@57.3.0-zdenek.vidensky-custom-picker-2018-11-13T12-29-28-664Z":
+  version "57.3.0-zdenek.vidensky-custom-picker-2018-11-13T12-29-28-664Z"
+  resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-57.3.0-zdenek.vidensky-custom-picker-2018-11-13T12-29-28-664Z.tgz#34f56ae54f5b6e92d9c1639d35b3d7a6621ca5b1"
   dependencies:
     "@gooddata/js-utils" "^2.0.0"
     classnames "2.2.5"
@@ -129,7 +129,6 @@
     moment "2.18.1"
     moment-timezone "0.5.11"
     prop-types "15.6.0"
-    react-color "2.14.1"
     react-day-picker "7.0.7"
     react-dnd "5.0.0"
     react-document-title "2.0.3"
@@ -7019,10 +7018,6 @@ lodash@^3.10.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.1:
-  version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-
 lodash@^4.14.0, lodash@^4.17.0, lodash@^4.17.3, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
@@ -7160,10 +7155,6 @@ matchmediaquery@^0.2.1:
   resolved "https://registry.yarnpkg.com/matchmediaquery/-/matchmediaquery-0.2.1.tgz#223c7005793de03e47ce92b13285a72c44ada2cf"
   dependencies:
     css-mediaquery "^0.1.2"
-
-material-colors@^1.2.1:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/material-colors/-/material-colors-1.2.6.tgz#6d1958871126992ceecc72f4bcc4d8f010865f46"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
@@ -8994,16 +8985,6 @@ react-async-script@^0.9.1:
   dependencies:
     prop-types ">=15.5.0"
 
-react-color@2.14.1:
-  version "2.14.1"
-  resolved "https://registry.yarnpkg.com/react-color/-/react-color-2.14.1.tgz#db8ad4f45d81e74896fc2e1c99508927c6d084e0"
-  dependencies:
-    lodash "^4.0.1"
-    material-colors "^1.2.1"
-    prop-types "^15.5.10"
-    reactcss "^1.2.0"
-    tinycolor2 "^1.4.1"
-
 react-datepicker@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-1.1.0.tgz#af3892384fb6d1dcafc30b48e81cc7fb976806f4"
@@ -9350,12 +9331,6 @@ react@16.5.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
-
-reactcss@^1.2.0:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/reactcss/-/reactcss-1.2.3.tgz#c00013875e557b1cf0dfd9a368a1c3dab3b548dd"
-  dependencies:
-    lodash "^4.0.1"
 
 read-chunk@^1.0.1:
   version "1.0.1"
@@ -10997,7 +10972,7 @@ tiny-emitter@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.0.2.tgz#82d27468aca5ade8e5fd1e6d22b57dd43ebdfb7c"
 
-tinycolor2@1.4.1, tinycolor2@^1.1.2, tinycolor2@^1.4.1:
+tinycolor2@1.4.1, tinycolor2@^1.1.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
 
