@@ -112,9 +112,9 @@
     qs "6.5.1"
     rxjs "^5.5.6"
 
-"@gooddata/goodstrap@57.3.0-zdenek.vidensky-custom-picker-2018-11-13T12-29-28-664Z":
-  version "57.3.0-zdenek.vidensky-custom-picker-2018-11-13T12-29-28-664Z"
-  resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-57.3.0-zdenek.vidensky-custom-picker-2018-11-13T12-29-28-664Z.tgz#34f56ae54f5b6e92d9c1639d35b3d7a6621ca5b1"
+"@gooddata/goodstrap@57.3.0-peterlacko-custom-picker-2018-11-14T13-08-29-312Z":
+  version "57.3.0-peterlacko-custom-picker-2018-11-14T13-08-29-312Z"
+  resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-57.3.0-peterlacko-custom-picker-2018-11-14T13-08-29-312Z.tgz#ac758b1d3229e9e91b0a26f78f67b90bac45979c"
   dependencies:
     "@gooddata/js-utils" "^2.0.0"
     classnames "2.2.5"
