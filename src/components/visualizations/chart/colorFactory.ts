@@ -416,7 +416,7 @@ export class PointsChartColorStrategy extends AttributeColorStrategy {
         colorMapping: IColorMapping[],
         measureGroup: MeasureGroupType
     ): IColorAssignment[] {
-        const measureHeaderItem = measureGroup.items[0] ? measureGroup.items[0] : measureGroup.items[1];
+        const measureHeaderItem = measureGroup.items[0];
         const measureColorMapping = getColorFromMapping(measureHeaderItem, colorMapping);
         const color: IColorItem = measureColorMapping
             ? measureColorMapping : { type: 'guid', value: colorPalette[0].guid };
