@@ -2,11 +2,11 @@
 import { Execution } from '@gooddata/typings';
 import { IMappingHeader } from '../interfaces/Config';
 
-function isAttributeHeader(headerItem: IMappingHeader): headerItem is Execution.IResultAttributeHeaderItem {
+export function isAttributeHeader(headerItem: IMappingHeader): headerItem is Execution.IResultAttributeHeaderItem {
     return (headerItem as Execution.IResultAttributeHeaderItem).attributeHeaderItem !== undefined;
 }
 
-function isMeasureHeader(headerItem: IMappingHeader): headerItem is Execution.IMeasureHeaderItem {
+export function isMeasureHeader(headerItem: IMappingHeader): headerItem is Execution.IMeasureHeaderItem {
     return (headerItem as Execution.IMeasureHeaderItem).measureHeaderItem !== undefined;
 }
 

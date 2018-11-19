@@ -1,6 +1,7 @@
 // (C) 2007-2018 GoodData Corporation
 import { AFM, Execution } from '@gooddata/typings';
 import range = require('lodash/range');
+import uniqBy = require('lodash/uniqBy');
 
 import {
     DEFAULT_COLOR_PALETTE,
@@ -255,10 +256,13 @@ function getAttributeColorMapping(
         colorMapping: IColorMapping[]
     ): IColorAssignment[] {
     let currentColorPaletteIndex = 0;
-    return attribute.items.map((headerItem: any) => {
+    const uniqItems: Execution.IResultAttributeHeaderItem[]
+        = uniqBy<any, Execution.IResultAttributeHeaderItem>(attribute.items, 'attributeHeaderItem.uri');
+
+    return uniqItems.map((headerItem) => {
         const mappedColor = getColorFromMapping(headerItem, colorMapping);
 
-        const color = mappedColor ? mappedColor
+        const color: IColorItem = mappedColor ? mappedColor
             : {
                 type: 'guid',
                 value: colorPalette[currentColorPaletteIndex % colorPalette.length].guid
@@ -321,7 +325,9 @@ export class HeatmapColorStrategy extends ColorStrategy {
                     value: colorPalette[0].guid
                 }
             }];
-        } else {
+        }
+
+        if (!colorAssignment) {
             colorAssignment = [{
                 headerItem,
                 color: {

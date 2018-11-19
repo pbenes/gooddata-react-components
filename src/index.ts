@@ -59,6 +59,7 @@ import { RuntimeError } from './errors/RuntimeError';
 import { IMeasureTitleProps, IArithmeticMeasureTitleProps } from './interfaces/MeasureTitle';
 import { OverTimeComparisonType, OverTimeComparisonTypes } from './interfaces/OverTimeComparison';
 import { getColorByGuid } from './components/visualizations/chart/colorFactory';
+import * as PredicateUtils from './helpers/predicatesFactory';
 
 /**
  * CoreComponents
@@ -136,5 +137,6 @@ export {
     OverTimeComparisonTypes,
     SortsHelper,
     ChartConfiguration,
-    gdUtils
+    gdUtils,
+    PredicateUtils
 };
