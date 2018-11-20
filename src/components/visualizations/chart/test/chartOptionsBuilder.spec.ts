@@ -1194,7 +1194,7 @@ describe('chartOptionsBuilder', () => {
                 expect(series).toEqual(expectedSeries);
             });
 
-            it('should handle null in result', () => {
+            it.only('should handle null in result', () => {
                 const executionResultData = [
                     [null, 2, 3],
                     [4, null, 6],

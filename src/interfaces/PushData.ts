@@ -10,7 +10,7 @@ export interface IPushData {
     };
     propertiesMeta?: any;
     colors?: {
-        colorMapping: IColorAssignment[];
+        colorAssignments: IColorAssignment[];
         colorPalette: IColorPalette;
     };
 }

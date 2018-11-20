@@ -250,7 +250,7 @@ export class MeasureColorStrategy extends ColorStrategy {
     }
 }
 
-function getAttributeColorMapping(
+function getAtributeColorAssignment(
         attribute: any,
         colorPalette: IColorPalette,
         colorMapping: IColorMapping[]
@@ -286,7 +286,7 @@ export class AttributeColorStrategy extends ColorStrategy {
         _afm: AFM.IAfm
     ): { fullColorAssignment: IColorAssignment[] } {
         const attribute = stackByAttribute ? stackByAttribute : viewByAttribute;
-        const colorAssignment = getAttributeColorMapping(attribute, colorPalette, colorMapping);
+        const colorAssignment = getAtributeColorAssignment(attribute, colorPalette, colorMapping);
         return {
             fullColorAssignment: colorAssignment
         };
@@ -396,7 +396,7 @@ export class TreemapColorStrategy extends MeasureColorStrategy {
     ): { fullColorAssignment: IColorAssignment[], outputColorAssignment: IColorAssignment[] } {
         let colorAssignment: IColorAssignment[];
         if (viewByAttribute) {
-            colorAssignment = getAttributeColorMapping(viewByAttribute, colorPalette, colorMapping);
+            colorAssignment = getAtributeColorAssignment(viewByAttribute, colorPalette, colorMapping);
         } else {
             const result = super.createColorAssignment(
                 colorPalette,
