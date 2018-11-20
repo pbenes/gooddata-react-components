@@ -58,7 +58,7 @@ import ChartTransformation from './components/visualizations/chart/ChartTransfor
 import { RuntimeError } from './errors/RuntimeError';
 import { IMeasureTitleProps, IArithmeticMeasureTitleProps } from './interfaces/MeasureTitle';
 import { OverTimeComparisonType, OverTimeComparisonTypes } from './interfaces/OverTimeComparison';
-import { getColorByGuid } from './components/visualizations/chart/colorFactory';
+import { getColorByGuid } from './components/visualizations/utils/color';
 import * as PredicateUtils from './helpers/predicatesFactory';
 
 /**
