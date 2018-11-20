@@ -18,7 +18,7 @@ import { ErrorStates, ErrorCodes } from './constants/errorStates';
 import { VisualizationTypes, ChartType } from './constants/visualizationTypes';
 import { Execute } from './execution/Execute';
 import { IDrillableItem } from './interfaces/DrillEvents';
-import { IPushData } from './interfaces/PushData';
+import { IPushData, IColorsData } from './interfaces/PushData';
 import { AttributeFilter } from './components/filters/AttributeFilter/AttributeFilter';
 import { AttributeElements } from './components/filters/AttributeFilter/AttributeElements';
 import * as PropTypes from './proptypes/index';
@@ -108,6 +108,7 @@ export {
     IColorPalette,
     IColorPaletteItem,
     IPushData,
+    IColorsData,
     isEmptyResult,
     Kpi,
     LoadingComponent,
