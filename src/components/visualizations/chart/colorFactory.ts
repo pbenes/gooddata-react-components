@@ -45,7 +45,7 @@ export interface IColorStrategy {
     getFullColorAssignment(): IColorAssignment[];
 }
 
-interface ICreateColorAssignmentReturnValue {
+export interface ICreateColorAssignmentReturnValue {
     fullColorAssignment: IColorAssignment[];
     outputColorAssignment?: IColorAssignment[];
 }
