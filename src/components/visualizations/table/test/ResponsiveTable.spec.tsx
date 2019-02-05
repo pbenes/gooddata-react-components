@@ -81,6 +81,42 @@ describe('Responsive Table', () => {
         });
     });
 
+    describe('expand for large container', () => {
+        const largeNumberOfRows = range(0, 4000).map(() => TABLE_ROWS_1A_2M[0]);
+        const BASE_NUMBER_OF_ROWS = 10;
+        it('should show more rows if large container height given', () => {
+            const largeContainerData: ITableData = {
+                ...TABLE_DATA,
+                containerHeight: 500,
+                rows: largeNumberOfRows
+            };
+            const wrapper = renderTable(largeContainerData);
+
+            expect(wrapper.find(Table).prop('rows').length).toEqual(15);
+        });
+
+        it('should show only base rows when container too small', () => {
+            const largeContainerData: ITableData = {
+                ...TABLE_DATA,
+                containerHeight: 100,
+                rows: largeNumberOfRows
+            };
+            const wrapper = renderTable(largeContainerData);
+
+            expect(wrapper.find(Table).prop('rows').length).toEqual(BASE_NUMBER_OF_ROWS);
+        });
+
+        it('should not show more rows if container height not given', () => {
+            const largeContainerData: ITableData = {
+                ...TABLE_DATA,
+                rows: largeNumberOfRows
+            };
+            const wrapper = renderTable(largeContainerData);
+
+            expect(wrapper.find(Table).prop('rows').length).toEqual(BASE_NUMBER_OF_ROWS);
+        });
+    });
+
     describe('page', () => {
         it('should set new page when it is sent in props', () => {
             const wrapper: ReactWrapper<IResponsiveTableProps, IResponsiveTableState> = renderTable(TABLE_DATA);

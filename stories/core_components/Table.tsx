@@ -10,6 +10,7 @@ import {
     ATTRIBUTE_1,
     ATTRIBUTE_1_WITH_ALIAS,
     ATTRIBUTE_2,
+    ATTRIBUTE_COUNTRY,
     MEASURE_1,
     MEASURE_1_WITH_ALIAS,
     MEASURE_2,
@@ -192,6 +193,60 @@ storiesOf('Core components/Table', module)
                     LoadingComponent={null}
                     ErrorComponent={null}
                 />
+            </div>
+        )
+    ))
+    .add('pagination', () => (
+        screenshotWrap(
+            <div>
+                <div style={{ width: 600, height: 100 }}>
+                    <Table
+                        environment="dashboards"
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        attributes={[ATTRIBUTE_COUNTRY]}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                        height={100}
+                    />
+                </div>
+                <div style={{ width: 600, height: 200 }}>
+                    <Table
+                        environment="dashboards"
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        attributes={[ATTRIBUTE_COUNTRY]}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                        height={200}
+                    />
+                </div>
+                <div style={{ width: 600, height: 400 }}>
+                    <Table
+                        environment="dashboards"
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        attributes={[ATTRIBUTE_COUNTRY]}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                        height={400}
+                    />
+                </div>
+                <div style={{ width: 600, height: 800 }}>
+                    <Table
+                        environment="dashboards"
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        attributes={[ATTRIBUTE_COUNTRY]}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                        height={800}
+                    />
+                </div>
             </div>
         )
     ))
