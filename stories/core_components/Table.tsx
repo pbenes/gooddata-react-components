@@ -16,6 +16,7 @@ import {
     MEASURE_2,
     TOTAL_M1_A1,
     TOTAL_M2_A1,
+    TOTAL_M1_ACOUNTRY,
     ATTRIBUTE_1_SORT_ITEM,
     MEASURE_2_SORT_ITEM,
     MEASURE_2_WITH_FORMAT,
@@ -196,7 +197,7 @@ storiesOf('Core components/Table', module)
             </div>
         )
     ))
-    .add('pagination', () => (
+    .add('with supplied height of container', () => (
         screenshotWrap(
             <div>
                 <div style={{ width: 600, height: 100 }}>
@@ -241,6 +242,64 @@ storiesOf('Core components/Table', module)
                         projectId="storybook"
                         measures={[MEASURE_1]}
                         attributes={[ATTRIBUTE_COUNTRY]}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                        height={800}
+                    />
+                </div>
+            </div>
+        )
+    ))
+    .add('with table totals and supplied height of container', () => (
+        screenshotWrap(
+            <div>
+                <div style={{ width: 600, height: 100 }}>
+                    <Table
+                        environment="dashboards"
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        attributes={[ATTRIBUTE_COUNTRY]}
+                        totals={[TOTAL_M1_ACOUNTRY]}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                        height={100}
+                    />
+                </div>
+                <div style={{ width: 600, height: 200 }}>
+                    <Table
+                        environment="dashboards"
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        attributes={[ATTRIBUTE_COUNTRY]}
+                        totals={[TOTAL_M1_ACOUNTRY]}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                        height={200}
+                    />
+                </div>
+                <div style={{ width: 600, height: 400 }}>
+                    <Table
+                        environment="dashboards"
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        attributes={[ATTRIBUTE_COUNTRY]}
+                        totals={[TOTAL_M1_ACOUNTRY]}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                        height={400}
+                    />
+                </div>
+                <div style={{ width: 600, height: 800 }}>
+                    <Table
+                        environment="dashboards"
+                        projectId="storybook"
+                        measures={[MEASURE_1]}
+                        attributes={[ATTRIBUTE_COUNTRY]}
+                        totals={[TOTAL_M1_ACOUNTRY]}
                         onError={onErrorHandler}
                         LoadingComponent={null}
                         ErrorComponent={null}
