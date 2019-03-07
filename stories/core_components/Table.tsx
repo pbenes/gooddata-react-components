@@ -16,7 +16,8 @@ import {
     MEASURE_2,
     TOTAL_M1_A1,
     TOTAL_M2_A1,
-    TOTAL_M1_ACOUNTRY,
+    TOTAL_M1_ACOUNTRY_AVG,
+    TOTAL_M1_ACOUNTRY_SUM,
     ATTRIBUTE_1_SORT_ITEM,
     MEASURE_2_SORT_ITEM,
     MEASURE_2_WITH_FORMAT,
@@ -260,7 +261,7 @@ storiesOf('Core components/Table', module)
                         projectId="storybook"
                         measures={[MEASURE_1]}
                         attributes={[ATTRIBUTE_COUNTRY]}
-                        totals={[TOTAL_M1_ACOUNTRY]}
+                        totals={[TOTAL_M1_ACOUNTRY_AVG, TOTAL_M1_ACOUNTRY_SUM]}
                         onError={onErrorHandler}
                         LoadingComponent={null}
                         ErrorComponent={null}
@@ -273,7 +274,7 @@ storiesOf('Core components/Table', module)
                         projectId="storybook"
                         measures={[MEASURE_1]}
                         attributes={[ATTRIBUTE_COUNTRY]}
-                        totals={[TOTAL_M1_ACOUNTRY]}
+                        totals={[TOTAL_M1_ACOUNTRY_AVG, TOTAL_M1_ACOUNTRY_SUM]}
                         onError={onErrorHandler}
                         LoadingComponent={null}
                         ErrorComponent={null}
@@ -286,7 +287,7 @@ storiesOf('Core components/Table', module)
                         projectId="storybook"
                         measures={[MEASURE_1]}
                         attributes={[ATTRIBUTE_COUNTRY]}
-                        totals={[TOTAL_M1_ACOUNTRY]}
+                        totals={[TOTAL_M1_ACOUNTRY_AVG, TOTAL_M1_ACOUNTRY_SUM]}
                         onError={onErrorHandler}
                         LoadingComponent={null}
                         ErrorComponent={null}
@@ -299,7 +300,7 @@ storiesOf('Core components/Table', module)
                         projectId="storybook"
                         measures={[MEASURE_1]}
                         attributes={[ATTRIBUTE_COUNTRY]}
-                        totals={[TOTAL_M1_ACOUNTRY]}
+                        totals={[TOTAL_M1_ACOUNTRY_AVG, TOTAL_M1_ACOUNTRY_SUM]}
                         onError={onErrorHandler}
                         LoadingComponent={null}
                         ErrorComponent={null}

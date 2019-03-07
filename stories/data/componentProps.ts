@@ -95,9 +95,15 @@ export const TOTAL_M1_A1: VisualizationObject.IVisualizationTotal = {
     attributeIdentifier: ATTRIBUTE_1.visualizationAttribute.localIdentifier
 };
 
-export const TOTAL_M1_ACOUNTRY: VisualizationObject.IVisualizationTotal = {
+export const TOTAL_M1_ACOUNTRY_SUM: VisualizationObject.IVisualizationTotal = {
     measureIdentifier: MEASURE_1.measure.localIdentifier,
     type: 'sum',
+    attributeIdentifier: ATTRIBUTE_COUNTRY.visualizationAttribute.localIdentifier
+};
+
+export const TOTAL_M1_ACOUNTRY_AVG: VisualizationObject.IVisualizationTotal = {
+    measureIdentifier: MEASURE_1.measure.localIdentifier,
+    type: 'avg',
     attributeIdentifier: ATTRIBUTE_COUNTRY.visualizationAttribute.localIdentifier
 };
 
