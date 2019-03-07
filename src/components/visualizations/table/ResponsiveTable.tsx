@@ -80,7 +80,7 @@ export class ResponsiveTable extends React.Component<IResponsiveTableProps, IRes
             rows: props.rows.slice(0, this.getRowCount(this.getPage())),
             containerHeight: this.getContainerHeight(),
             containerMaxHeight: this.getContainerMaxHeight(),
-            hasHiddenRows: !this.isMoreButtonDisabled(),
+            hasHiddenRows: this.hasHiddenRows(),
             sortInTooltip: isTouchDevice
         };
 
@@ -177,5 +177,9 @@ export class ResponsiveTable extends React.Component<IResponsiveTableProps, IRes
 
     private isLessButtonVisible(): boolean {
         return this.state.pageOffset > 0;
+    }
+
+    private hasHiddenRows(): boolean {
+        return !this.isMoreButtonDisabled() && !this.props.containerHeight;
     }
 }
