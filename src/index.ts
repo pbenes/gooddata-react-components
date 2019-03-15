@@ -141,5 +141,29 @@ export {
     ColorUtils,
     IHeaderPredicate,
     HeaderPredicateFactory,
-    MappingHeader
+    MappingHeader,
+    Internal: {
+        // this is the same as what is exported in https://github.com/gooddata/gdc-app-components/blob/master/src/index.ts#L27-L47
+        ErrorStates,
+        MeasureTitleHelper,
+        DerivedMeasureTitleSuffixFactory,
+        ArithmeticMeasureTitleFactory,
+        IMeasureTitleProps,
+        IArithmeticMeasureTitleProps,
+        PropTypes,
+        VisualizationGenericAD,
+        VisualizationGenericDash,
+        OverTimeComparisonType,
+        OverTimeComparisonTypes,
+        IColorPalette,
+        IColorPaletteItem,
+        Axis,
+        VisualizationTypes,
+        IHeaderPredicate,
+        HeaderPredicateFactory,
+        DrillablePredicatesUtils,
+        IDrillableItem,
+        RuntimeError,
+        VisEvents
+    }
 };
