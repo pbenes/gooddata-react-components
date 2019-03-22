@@ -3,7 +3,7 @@ import * as React from "react";
 import * as CustomEvent from "custom-event";
 import { InjectedIntl } from "react-intl";
 import { DropdownBody } from "@gooddata/goodstrap/lib/Dropdown/Dropdown";
-import { ChartConfiguration } from "../../index";
+import { ChartConfiguration } from "../../../../../index";
 import { IColorItem } from "@gooddata/gooddata-js";
 
 import { ColoredItem } from "./ColoredItem";

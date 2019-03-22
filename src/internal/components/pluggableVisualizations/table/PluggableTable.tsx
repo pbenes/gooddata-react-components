@@ -7,7 +7,6 @@ import isEmpty = require("lodash/isEmpty");
 import isNil = require("lodash/isNil");
 
 import * as React from "react";
-import * as Measure from "react-measure";
 import { render, unmountComponentAtNode } from "react-dom";
 import { InjectedIntl } from "react-intl";
 import { AFM, VisualizationObject } from "@gooddata/typings";
@@ -202,35 +201,31 @@ export class PluggableTable extends AbstractPluggableVisualization {
 
             if (isNil(height)) {
                 render(
-                    <Measure client={true}>
-                        {({ measureRef, contentRect }: any) => {
-                            const usedHeight = Math.floor(contentRect.client.height);
-                            return (
-                                <div className="table-resizer" ref={measureRef}>
-                                    <Table
-                                        projectId={this.projectId}
-                                        environment={this.environment}
-                                        drillableItems={drillableItems}
-                                        config={config}
-                                        totals={totals}
-                                        totalsEditAllowed={totalsEditAllowed}
-                                        stickyHeaderOffset={stickyHeaderOffset}
-                                        height={usedHeight}
-                                        locale={locale}
-                                        dataSource={dataSource}
-                                        resultSpec={resultSpecWithTotals}
-                                        afterRender={afterRender}
-                                        onLoadingChanged={onLoadingChanged}
-                                        pushData={pushData}
-                                        onError={onError}
-                                        onExportReady={this.onExportReady}
-                                        LoadingComponent={null}
-                                        ErrorComponent={null}
-                                    />
-                                </div>
-                            );
-                        }}
-                    </Measure>,
+                    // TODO: measure
+                    <div>
+                        <div className="table-resizer">
+                            <Table
+                                projectId={this.projectId}
+                                environment={this.environment}
+                                drillableItems={drillableItems}
+                                config={config}
+                                totals={totals}
+                                totalsEditAllowed={totalsEditAllowed}
+                                stickyHeaderOffset={stickyHeaderOffset}
+                                height={400}
+                                locale={locale}
+                                dataSource={dataSource}
+                                resultSpec={resultSpecWithTotals}
+                                afterRender={afterRender}
+                                onLoadingChanged={onLoadingChanged}
+                                pushData={pushData}
+                                onError={onError}
+                                onExportReady={this.onExportReady}
+                                LoadingComponent={null}
+                                ErrorComponent={null}
+                            />
+                        </div>
+                    </div>,
                     document.querySelector(this.element),
                 );
 

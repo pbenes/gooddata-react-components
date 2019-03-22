@@ -1,6 +1,5 @@
 // (C) 2007-2019 GoodData Corporation
 import * as React from "react";
-import * as Measure from 'react-measure'
 import { SDK, DataLayer } from "@gooddata/gooddata-js";
 import isEqual = require("lodash/isEqual");
 import noop = require("lodash/noop");
@@ -469,18 +468,13 @@ function getDataSourceFingerprint(afm: AFM.IAfm, mdObject: VisualizationObject.I
 
 export const VisualizationGenericAD = (props: IVisualizationGenericADProps) => {
     return (
-        <Measure margin={false}>
-            {({ contentRect }) => {
-                return (
-                    <div>
-                        <VisualizationGenericADPure
-                            {...props}
-                            containerHeight={Math.floor(contentRect.client.height)}
-                            containerWidth={Math.floor(contentRect.client.width)}
-                        />
-                    </div>
-                );
-            }}
-        </Measure>
+        // TODO: unify versions of react-measure
+        <div>
+            <VisualizationGenericADPure
+                {...props}
+                containerHeight={400}
+                containerWidth={400}
+            />
+        </div>
     );
 };

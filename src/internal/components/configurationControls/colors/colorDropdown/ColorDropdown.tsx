@@ -2,7 +2,7 @@
 import * as React from "react";
 import { InjectedIntl } from "react-intl";
 import ColorPicker from "@gooddata/goodstrap/lib/ColorPicker/ColorPicker";
-import { ChartConfiguration } from "../../../../index";
+import { ChartConfiguration } from "../../../../../index";
 import { TypeGuards, IColor, IColorItem } from "@gooddata/gooddata-js";
 import * as uuid from "uuid";
 import ColorOverlay, { DropdownVersionType } from "./ColorOverlay";

@@ -6,7 +6,6 @@ import flatMap = require("lodash/flatMap");
 import isNil = require("lodash/isNil");
 
 import * as React from "react";
-import Measure from "react-measure";
 import { render, unmountComponentAtNode } from "react-dom";
 import { InjectedIntl } from "react-intl";
 import { AFM, VisualizationObject } from "@gooddata/typings";
@@ -524,26 +523,12 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
             if (this.environment === "dashboards") {
                 if (isNil(height)) {
                     render(
-                        <Measure client={true}>
-                            {({ measureRef, contentRect }: any) => {
-                                const usedHeight = Math.floor(contentRect.client.height || 0);
-                                const pivotWrapperStyle = {
-                                    height: "100%",
-                                    textAlign: "left",
-                                };
-
-                                return (
-                                    <div
-                                        ref={measureRef}
-                                        style={pivotWrapperStyle}
-                                        className="gd-table-dashboard-wrapper"
-                                    >
-                                        <PivotTable {...pivotTableProps} height={usedHeight} />
-                                    </div>
-                                );
-                            }}
-                        </Measure>,
-                        document.querySelector(this.element),
+                        <div
+                            className="gd-table-dashboard-wrapper"
+                        >
+                            <PivotTable {...pivotTableProps} height={400} />
+                        </div>,
+                        document.querySelector(this.element)
                     );
 
                     return;

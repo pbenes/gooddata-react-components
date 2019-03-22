@@ -199,7 +199,7 @@ export function getDateFilter(filtersBucket: IFilters) {
     const dateFiltersInclEmpty = flatMap<IFiltersBucketItem, IBucketFilter>(
         filtersBucket.items,
         filterItem => {
-            const filters = get<IFiltersBucketItem, "filters", IBucketFilter[]>(filterItem, "filters", []);
+            const filters = get<IFiltersBucketItem, IBucketFilter[]>(filterItem, "filters", []);
             return filters.find(isDate);
         },
     );
@@ -383,7 +383,7 @@ export function getUniqueAttributes(buckets: IBucket[]) {
 }
 
 export function getMeasuresFromMdObject(mdObject: VisualizationObject.IVisualizationObjectContent) {
-    return get(mdObject, "buckets").reduce((acc, bucket) => {
+    return get<any>(mdObject, "buckets").reduce((acc: any, bucket: any) => {
         const measureDefinition = get(bucket, "items", [] as any).filter((item: any) =>
             has(item, "measure.definition.measureDefinition"),
         );

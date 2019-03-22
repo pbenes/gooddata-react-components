@@ -137,7 +137,7 @@ export function setBaseChartUiConfigRecommendations(
     // Recommendations
     if (visualizationType === VisualizationTypes.COLUMN) {
         const newReferencePoint = cloneDeep(referencePoint);
-        const buckets = get(newReferencePoint, BUCKETS);
+        const buckets = get<any>(newReferencePoint, BUCKETS);
 
         const percentEnabled = percentRecommendationEnabled(buckets);
         const comparisonAndTrending = comparisonAndTrendingRecommendationEnabled(buckets);

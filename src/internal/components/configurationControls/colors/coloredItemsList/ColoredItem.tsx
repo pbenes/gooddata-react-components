@@ -1,7 +1,7 @@
 // (C) 2007-2019 GoodData Corporation
 import * as React from "react";
 import { InjectedIntl } from "react-intl";
-import { ChartConfiguration, MappingHeader } from "../../index";
+import { ChartConfiguration, MappingHeader } from "../../../../../index";
 import { IColorItem } from "@gooddata/gooddata-js";
 import ColoredItemContent from "./ColoredItemContent";
 import ColorDropdown from "../colorDropdown/ColorDropdown";

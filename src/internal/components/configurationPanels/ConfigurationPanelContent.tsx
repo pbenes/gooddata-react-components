@@ -2,7 +2,7 @@
 import * as React from "react";
 import { InjectedIntl } from "react-intl";
 import noop = require("lodash/noop");
-import { ChartType } from "../../index";
+import { ChartType } from "../../../index";
 import { VisualizationObject } from "@gooddata/typings";
 
 import { IntlWrapper, DEFAULT_LOCALE } from "../../utils/intlProvider";

@@ -18,7 +18,7 @@ export function hasAttribute(mdObject: VisualizationObject.IVisualizationObjectC
 export function hasTertiaryMeasures(mdObject: VisualizationObject.IVisualizationObjectContent): boolean {
     return mdObject.buckets
         .filter(bucket => [BucketNames.TERTIARY_MEASURES].indexOf(get(bucket, "localIdentifier")) >= 0)
-        .some(bucket => get(bucket, "items").length > 0);
+        .some(bucket => get<any>(bucket, "items").length > 0);
 }
 
 export function isStacked(mdObject: VisualizationObject.IVisualizationObjectContent): boolean {
@@ -29,7 +29,7 @@ export function isStacked(mdObject: VisualizationObject.IVisualizationObjectCont
                 bucket =>
                     [BucketNames.STACK, BucketNames.SEGMENT].indexOf(get(bucket, "localIdentifier")) >= 0,
             )
-            .some(bucket => get(bucket, "items").length > 0)
+            .some(bucket => get<any>(bucket, "items").length > 0)
     );
 }
 

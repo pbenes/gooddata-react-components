@@ -2,7 +2,7 @@
 import * as React from "react";
 import get = require("lodash/get");
 import includes = require("lodash/includes");
-import { BucketNames } from "../../index";
+import { BucketNames } from "../../../index";
 import Bubble from "@gooddata/goodstrap/lib/Bubble/Bubble";
 import BubbleHoverTrigger from "@gooddata/goodstrap/lib/Bubble/BubbleHoverTrigger";
 import * as classNames from "classnames";
@@ -90,7 +90,7 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
         const props = this.props;
         const gridEnabled = get(props, "properties.controls.grid.enabled", true);
         const axisType = includes(DUAL_AXES_SUPPORTED_CHARTS, props.type)
-            ? get(props, "axis") || AXIS.PRIMARY
+            ? get(props, "axis") as any || AXIS.PRIMARY
             : AXIS.PRIMARY;
         const configurations = this.getAxesConfiguration(axisType);
         const axes: IAxisProperties[] = configurations.map((axis: any) => {
@@ -121,7 +121,7 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
                     bucket =>
                         [BucketNames.VIEW, BucketNames.TREND].indexOf(get(bucket, "localIdentifier")) >= 0,
                 )
-                .some(bucket => get(bucket, "items").length > 0)
+                .some(bucket => get<any>(bucket, "items").length > 0)
         );
     }
 

@@ -1,6 +1,6 @@
 // (C) 2007-2019 GoodData Corporation
 import get = require("lodash/get");
-import { BucketNames } from "../../index";
+import { BucketNames } from "../../../index";
 import { PluggableBaseChart } from "./baseChart/PluggableBaseChart";
 import { AXIS } from "../../constants/axis";
 import {

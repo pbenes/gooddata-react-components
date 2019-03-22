@@ -174,7 +174,7 @@ export function getSortIdentifiers(item: AFM.SortItem): string[] {
         });
     }
     if (AFM.isAttributeSortItem(item)) {
-        const attribute = get(item, "attributeSortItem.attributeIdentifier");
+        const attribute = get<any>(item, "attributeSortItem.attributeIdentifier");
         if (attribute) {
             return [attribute];
         }

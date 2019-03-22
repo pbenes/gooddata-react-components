@@ -24,7 +24,7 @@ export default class DataLabelsControl extends React.Component<IDataLabelsContro
     };
     public render() {
         const { pushData, properties, intl, isDisabled, showDisabledMessage, defaultValue } = this.props;
-        const dataLabels = get(properties, "controls.dataLabels.visible", defaultValue);
+        const dataLabels = get<any>(properties, "controls.dataLabels.visible", defaultValue);
 
         return (
             <div className="s-data-labels-config">

@@ -1,6 +1,6 @@
 // (C) 2007-2018 GoodData Corporation
 import * as React from 'react';
-import { omit } from 'lodash';
+import omit = require('lodash/omit');
 import { Subtract } from 'utility-types';
 import { VisualizationObject, AFM } from '@gooddata/typings';
 

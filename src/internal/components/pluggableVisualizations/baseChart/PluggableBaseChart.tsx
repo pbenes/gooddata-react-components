@@ -429,7 +429,7 @@ export class PluggableBaseChart extends AbstractPluggableVisualization {
     }
 
     private onError(error: RuntimeError) {
-        const onError = get(this.callbacks, "onError");
+        const onError = get<any>(this.callbacks, "onError");
 
         if (onError) {
             onError(error);
@@ -460,7 +460,7 @@ export class PluggableBaseChart extends AbstractPluggableVisualization {
     }
 
     private onLoadingChanged(loadingState: VisEvents.ILoadingState) {
-        const onLoadingChanged = get(this.callbacks, "onLoadingChanged");
+        const onLoadingChanged = get<any>(this.callbacks, "onLoadingChanged");
 
         if (onLoadingChanged) {
             onLoadingChanged(loadingState);

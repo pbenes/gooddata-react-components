@@ -30,9 +30,9 @@ export function maxInputValidateAndPushData(
     defaultState: IMinMaxControlState,
 ) {
     const { basePath } = props;
-    const maxValue = get(data, `properties.controls.${basePath}.max`);
-    const incorrectMinValue = get(state, "minScale.incorrectValue", "");
-    const correctMinValue = get(props, `properties.controls.${basePath}.min`, "");
+    const maxValue = get<any>(data, `properties.controls.${basePath}.max`);
+    const incorrectMinValue = get<any>(state, "minScale.incorrectValue", "");
+    const correctMinValue = get<any>(props, `properties.controls.${basePath}.min`, "");
 
     const incorrectMinInvalid = isValueMinusOrEmpty(incorrectMinValue);
     const minNumberValue = incorrectMinInvalid
@@ -88,8 +88,8 @@ export function minInputValidateAndPushData(
     defaultState: IMinMaxControlState,
 ) {
     const { basePath } = props;
-    const minValue = get(data, `properties.controls.${basePath}.min`);
-    const incorrectMaxValue = get(state, "maxScale.incorrectValue", "");
+    const minValue = get<any>(data, `properties.controls.${basePath}.min`);
+    const incorrectMaxValue = get<any>(state, "maxScale.incorrectValue", "");
     const correctMaxValue = get(props, `properties.controls.${basePath}.max`, "");
 
     const incorrectMaxInvalid = isValueMinusOrEmpty(incorrectMaxValue);
