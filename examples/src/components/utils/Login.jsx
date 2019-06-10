@@ -123,7 +123,7 @@ export const LoginFormUncontrolled = props => {
                         Sign in
                     </button>
                     <Link
-                        className="button button-link"
+                        className="button gd-button-link"
                         to={{
                             pathname: "/registration",
                         }}

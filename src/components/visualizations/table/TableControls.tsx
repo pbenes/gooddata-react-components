@@ -58,7 +58,7 @@ export class TableControlsClass extends React.Component<ITableControlsProps & In
 
         return (
             <Button
-                className="button-small button-link-dimmed"
+                className="button-small gd-button-link-dimmed"
                 onClick={this.props.onLess}
                 value={label}
                 title={label}

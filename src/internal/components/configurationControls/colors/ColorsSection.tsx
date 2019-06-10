@@ -79,7 +79,7 @@ export default class ColorsSection extends React.Component<IColorsSectionProps> 
             <div className={classes}>
                 <Button
                     value={getTranslation("properties.colors.reset-colors", this.props.intl)}
-                    className="button-link s-reset-colors-button"
+                    className="gd-button-link s-reset-colors-button"
                     onClick={this.onResetColors}
                     disabled={isDisabled}
                 />
