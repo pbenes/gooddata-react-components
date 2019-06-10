@@ -680,7 +680,7 @@ $gdc-goodstrap-basepath: "~@gooddata/goodstrap/lib/";
             }
         }
 
-        .button.button-primary {
+        .button.gd-button-primary {
             &.button-sort-asc {
                 // refactor
                 // stylelint-disable-next-line max-nesting-depth

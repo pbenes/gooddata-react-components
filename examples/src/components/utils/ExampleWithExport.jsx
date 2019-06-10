@@ -117,16 +117,16 @@ export class ExampleWithExport extends React.Component {
             <div style={{ height: 367 }}>
                 {this.props.children(this.onExportReady)}
                 <div style={{ marginTop: 15 }}>
-                    <button className="button button-secondary" onClick={this.exportToCSV}>
+                    <button className="button gd-button-secondary" onClick={this.exportToCSV}>
                         Export CSV
                     </button>
-                    <button className="button button-secondary" onClick={this.exportToXLSX}>
+                    <button className="button gd-button-secondary" onClick={this.exportToXLSX}>
                         Export XLSX
                     </button>
-                    <button className="button button-secondary" onClick={this.exportWithCustomName}>
+                    <button className="button gd-button-secondary" onClick={this.exportWithCustomName}>
                         Export with custom name CustomName
                     </button>
-                    <button className="button button-secondary" onClick={this.exportWithDialog}>
+                    <button className="button gd-button-secondary" onClick={this.exportWithDialog}>
                         Export using Export Dialog
                     </button>
                 </div>

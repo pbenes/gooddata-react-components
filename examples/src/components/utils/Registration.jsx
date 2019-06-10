@@ -223,7 +223,7 @@ export const RegistrationForm = props => {
             <div className="form-actions">
                 <button
                     disabled={isSubmitting}
-                    className={`button button-primary button-important${isSubmitting ? " disabled" : ""}`}
+                    className={`button gd-button-primary button-important${isSubmitting ? " disabled" : ""}`}
                     tabIndex="-1"
                     type="submit"
                 >

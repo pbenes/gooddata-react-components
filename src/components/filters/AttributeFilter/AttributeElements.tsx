@@ -62,7 +62,7 @@ const defaultChildren = ({ validElements, loadMore, isLoading, error }: IAttribu
                 to your React components.
             </p>
             <button
-                className="button button-secondary"
+                className="button gd-button-secondary"
                 onClick={loadMore as any}
                 disabled={isLoading || offset + count === total}
             >
