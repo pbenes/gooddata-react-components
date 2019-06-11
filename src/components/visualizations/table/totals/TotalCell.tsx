@@ -200,7 +200,7 @@ export class TotalCellPure extends React.Component<ITotalCellProps & InjectedInt
                         <span
                             className={classNames(
                                 "gd-button-link",
-                                "button-icon-only",
+                                "gd-button-icon-only",
                                 "icon-circle-cross",
                                 "indigo-totals-disable-column-button",
                                 "s-disable-total-column",
@@ -217,7 +217,7 @@ export class TotalCellPure extends React.Component<ITotalCellProps & InjectedInt
                 <span
                     className={classNames(
                         "gd-button-link",
-                        "button-icon-only",
+                        "gd-button-icon-only",
                         "icon-circle-plus",
                         "indigo-totals-enable-column-button",
                         "s-enable-total-column",
