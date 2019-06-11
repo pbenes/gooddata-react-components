@@ -57,7 +57,7 @@ export class TableSortBubbleContentClass extends React.Component<
         const buttonClasses = classNames(
             "button",
             "gd-button-primary",
-            "button-small",
+            "gd-button-small",
             "icon-dropdown",
             "icon-right",
             {
