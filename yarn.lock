@@ -1145,16 +1145,17 @@
     rxjs "^5.5.6"
     uuid "3.2.1"
 
-"@gooddata/goodstrap@60.7.0-pbenes-pb-cssconfl-2019-06-11T11-20-58-595Z":
-  version "60.7.0-pbenes-pb-cssconfl-2019-06-11T11-20-58-595Z"
-  resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-60.7.0-pbenes-pb-cssconfl-2019-06-11T11-20-58-595Z.tgz#ee3c42726d7e3549f09a4d3667a31db4e6fa19df"
-  integrity sha512-LkQ8h2rSPSZPnlRbJjuDUJhuKkIQtGq37DRZ9qV+UA2gZgvfY6aTGqk1eWYVYbMiiZ6ju+QVLOHnz3O9bBIlBA==
+"@gooddata/goodstrap@60.7.0-pbenes-pb-cssconfl-2019-06-11T13-46-55-776Z":
+  version "60.7.0-pbenes-pb-cssconfl-2019-06-11T13-46-55-776Z"
+  resolved "https://registry.yarnpkg.com/@gooddata/goodstrap/-/goodstrap-60.7.0-pbenes-pb-cssconfl-2019-06-11T13-46-55-776Z.tgz#94596d6db69341700bdfdbe98f9e8fb13e2a5f4e"
+  integrity sha512-wTSdGU/i+VUfZS8unc4i4Ew0mp2oAqqL1T7CHoOU7Ja4Na7RzYiBl3GVAW3B+KmW820b13132/YSoJOAEmO4ow==
   dependencies:
     "@gooddata/js-utils" "^3.4.0"
     classnames "^2.2.6"
     custom-event "^1.0.1"
     element-closest-polyfill "^1.0.0"
     fixed-data-table-2 "^0.7.17"
+    foundation-sites "^5.5.3"
     immutable "^3.8.1"
     invariant "^2.2.2"
     kefir "^3.7.1"
@@ -7045,6 +7046,11 @@ formik@^0.11.11:
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
+
+foundation-sites@^5.5.3:
+  version "5.5.3"
+  resolved "https://registry.yarnpkg.com/foundation-sites/-/foundation-sites-5.5.3.tgz#6556eb2b31cde3b226630116bd215d95d056c0a7"
+  integrity sha1-ZVbrKzHN47ImYwEWvSFdldBWwKc=
 
 fragment-cache@^0.2.1:
   version "0.2.1"
