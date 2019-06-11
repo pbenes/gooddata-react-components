@@ -114,7 +114,7 @@ export const LoginFormUncontrolled = props => {
                 <div className="gd-input buttons">
                     <button
                         type="submit"
-                        className={`button gd-button-primary button-important submit-button s-login-submit${
+                        className={`button gd-button-primary gd-button-important submit-button s-login-submit${
                             isSubmitting || isLoading ? " disabled" : ""
                         }`}
                         disabled={isSubmitting || isLoading}

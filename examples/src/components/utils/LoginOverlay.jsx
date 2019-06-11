@@ -139,7 +139,7 @@ class LoginOverlay extends React.Component {
                         <div className="gd-input" style={{ margin: "5px 0", textAlign: "center" }}>
                             <button
                                 type="submit"
-                                className="button gd-button-primary button-important submit-button s-login-submit"
+                                className="button gd-button-primary gd-button-important submit-button s-login-submit"
                             >
                                 Sign in
                             </button>
