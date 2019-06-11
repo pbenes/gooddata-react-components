@@ -55,7 +55,7 @@ export class TableSortBubbleContentClass extends React.Component<
         const { activeSortDir } = this.props;
         const isDisabled = dir === activeSortDir;
         const buttonClasses = classNames(
-            "button",
+            "gd-button",
             "gd-button-primary",
             "gd-button-small",
             "icon-dropdown",

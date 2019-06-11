@@ -45,7 +45,7 @@ describe("LegendSection render", () => {
         const node = wrapper.find(LegendPositionControl);
 
         expect(node.length).toBe(1);
-        expect(node.find(".button.disabled").length).toBe(1);
+        expect(node.find(".gd-button.disabled").length).toBe(1);
     });
 
     it(
@@ -64,7 +64,7 @@ describe("LegendSection render", () => {
             const node = wrapper.find(LegendPositionControl);
 
             expect(node.length).toBe(1);
-            expect(node.find(".button.disabled").length).toBe(1);
+            expect(node.find(".gd-button.disabled").length).toBe(1);
         },
     );
 
@@ -83,7 +83,7 @@ describe("LegendSection render", () => {
 
             const node = wrapper.find(LegendPositionControl);
             expect(node.length).toBe(1);
-            expect(node.find(".button").hasClass("disabled")).toBe(false);
+            expect(node.find(".gd-button").hasClass("disabled")).toBe(false);
         },
     );
 
@@ -102,6 +102,6 @@ describe("LegendSection render", () => {
 
         const node = wrapper.find(LegendPositionControl);
         expect(node.length).toBe(1);
-        expect(node.find(".button").hasClass("disabled")).toBe(true);
+        expect(node.find(".gd-button").hasClass("disabled")).toBe(true);
     });
 });

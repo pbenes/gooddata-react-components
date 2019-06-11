@@ -168,7 +168,7 @@ export class DynamicSortingExample extends Component {
                         return (
                             <button
                                 key={sortOptionItem.key}
-                                className={`sorting-option button gd-button-secondary s-${sortOptionItem.key} ${
+                                className={`sorting-option gd-button gd-button-secondary s-${sortOptionItem.key} ${
                                     sortOption.key === sortOptionItem.key ? " is-active" : ""
                                 }`}
                                 onClick={this.onSortOptionChange(sortOptionItem)}
@@ -181,7 +181,7 @@ export class DynamicSortingExample extends Component {
                 <div className="sorting-options">
                     <span className="sorting-label">Direction</span>
                     <button
-                        className={`sorting-option button gd-button-secondary s-ascending${
+                        className={`sorting-option gd-button gd-button-secondary s-ascending${
                             isAsc ? " is-active" : ""
                         }`}
                         onClick={this.onDirectionChange("asc")}
@@ -189,7 +189,7 @@ export class DynamicSortingExample extends Component {
                         Ascending
                     </button>
                     <button
-                        className={`sorting-option button gd-button-secondary s-descending${
+                        className={`sorting-option gd-button gd-button-secondary s-descending${
                             isDesc ? " is-active" : ""
                         }`}
                         onClick={this.onDirectionChange("desc")}
