@@ -103,7 +103,7 @@
   },
   "dependencies": {
     "@gooddata/gooddata-js": "11.12.0",
-    "@gooddata/goodstrap": "60.7.0-pbenes-pb-cssconfl-2019-06-12T07-08-09-432Z",
+    "@gooddata/goodstrap": "60.7.0-pbenes-pb-cssconfl-2019-06-12T07-39-32-730Z",
     "@gooddata/js-utils": "3.4.0",
     "@gooddata/numberjs": "^3.1.2",
     "@gooddata/typings": "^2.13.2",
