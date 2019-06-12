@@ -168,9 +168,9 @@ export class DynamicSortingExample extends Component {
                         return (
                             <button
                                 key={sortOptionItem.key}
-                                className={`sorting-option gd-button gd-button-secondary s-${sortOptionItem.key} ${
-                                    sortOption.key === sortOptionItem.key ? " is-active" : ""
-                                }`}
+                                className={`sorting-option gd-button gd-button-secondary s-${
+                                    sortOptionItem.key
+                                } ${sortOption.key === sortOptionItem.key ? " is-active" : ""}`}
                                 onClick={this.onSortOptionChange(sortOptionItem)}
                             >
                                 {sortOptionItem.label}
