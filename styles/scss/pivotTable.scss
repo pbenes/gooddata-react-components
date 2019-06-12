@@ -232,204 +232,204 @@ $header-cell-resize-width: 20px;
             border-top: none;
         }
     }
+}
 
-    .gd-pivot-table-header {
-        display: flex;
-        position: relative;
-        margin: 0 -11px 1px;
-        flex-direction: row;
-        min-height: 29px;
-        line-height: 28px;
+.gd-pivot-table-header {
+    display: flex;
+    position: relative;
+    margin: 0 -11px 1px;
+    flex-direction: row;
+    min-height: 29px;
+    line-height: 28px;
 
-        .ag-header-group-cell-with-group & {
-            line-height: 26px;
-        }
-
-        &-label {
-            display: flex;
-            flex: 1 1 auto;
-            flex-direction: row;
-            padding: 0 11px;
-            overflow: hidden;
-            justify-content: flex-start;
-            align-items: flex-end;
-
-            &--right {
-                justify-content: flex-end;
-            }
-
-            &--center {
-                justify-content: center;
-            }
-
-            &--clickable {
-                cursor: pointer;
-            }
-
-            &-text {
-                flex: 0 1 auto;
-                white-space: nowrap;
-                position: relative;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            > span {
-                flex: 0 1 auto;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-        }
-
-        &-next-sort {
-            min-width: 12px;
-        }
-
-        &--numeric {
-            flex-direction: row-reverse;
-        }
-
-        &--numeric &-label {
-            &-text {
-                text-align: right;
-                flex: 1 1 auto;
-            }
-        }
-
-        &--numeric &-sort {
-            flex: 0 0 auto;
-        }
-
-        &--numeric &-next-sort {
-            flex: 0 0 auto;
-        }
-
-        &-sort {
-            flex: 1 0 auto;
-        }
-
-        &-menu {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex: 0 0 auto;
-            overflow: hidden;
-            border-top: 2px solid transparent;
-            background-color: $gd-color-highlight-dimmed;
-            opacity: 0;
-            transition: width 200ms, opacity 100ms;
-            cursor: pointer;
-
-            &:hover {
-                background-color: darken($gd-color-highlight-dimmed, 3%);
-            }
-
-            .menu-icon {
-                width: 16px;
-                height: 16px;
-                background-image: url("~@gooddata/goodstrap/lib/core/styles/icons/menu-burger.svg");
-            }
-
-            &--hide {
-                width: 0;
-                opacity: 0;
-            }
-
-            &--show {
-                width: 32px;
-                opacity: 1;
-            }
-
-            &--open {
-                &,
-                .ag-header-cell-sortable & {
-                    &,
-                    &:hover {
-                        border-color: $button-normal-border-color;
-                        background-color: $button-normal-hover-bg;
-                    }
-
-                    &:active {
-                        border-color: $button-normal-active-border-color;
-
-                        @include gradient-linear(
-                            $button-normal-active-gradient-top,
-                            $button-normal-active-gradient-bottom
-                        );
-                    }
-                }
-            }
-        }
-
-        &-arrow-up,
-        &-arrow-down {
-            display: inline-block;
-            flex: 0 0 auto;
-            margin-left: 4px;
-            line-height: 16px;
-            font-size: 12px;
-            font-weight: normal;
-
-            &::before {
-                content: "\E60D";
-                position: relative;
-                top: 1px;
-                display: inherit;
-                font-family: Indigo;
-                font-size: 10px;
-                vertical-align: bottom;
-            }
-        }
-
-        &-arrow-up::before {
-            top: -2px;
-            transform: rotate(180deg);
-        }
+    .ag-header-group-cell-with-group & {
+        line-height: 26px;
     }
 
-    .gd-aggregation-menu-item {
-        .gd-list-item-header:before {
-            display: block;
-            content: "";
-            position: absolute;
-            width: 12px;
-            height: 11px;
-            left: 10px;
-            top: 13px;
-            background-image: url("~@gooddata/goodstrap/lib/core/styles/icons/rows.svg");
+    &-label {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: row;
+        padding: 0 11px;
+        overflow: hidden;
+        justify-content: flex-start;
+        align-items: flex-end;
+
+        &--right {
+            justify-content: flex-end;
         }
 
-        .gd-list-item.gd-menu-item {
-            padding: 0;
-            cursor: default;
-
-            &::before {
-                z-index: 1;
-            }
-
-            .gd-aggregation-menu-item-inner {
-                padding: 4px 30px;
-                flex: auto;
-                cursor: pointer;
-                position: relative;
-                z-index: 2;
-            }
-
-            &.is-submenu .gd-aggregation-menu-item-inner {
-                padding-right: 0;
-                margin-right: 30px;
-            }
+        &--center {
+            justify-content: center;
         }
 
-        .gd-aggregation-submenu .gd-aggregation-menu-item-inner {
-            max-width: 190px;
+        &--clickable {
+            cursor: pointer;
+        }
+
+        &-text {
+            flex: 0 1 auto;
+            white-space: nowrap;
+            position: relative;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .gd-menuPosition-wrapper:hover .gd-list-item.gd-menu-item.is-submenu {
-            color: $is-focused-color;
-            background: $is-focused-background;
+        > span {
+            flex: 0 1 auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
+    }
+
+    &-next-sort {
+        min-width: 12px;
+    }
+
+    &--numeric {
+        flex-direction: row-reverse;
+    }
+
+    &--numeric &-label {
+        &-text {
+            text-align: right;
+            flex: 1 1 auto;
+        }
+    }
+
+    &--numeric &-sort {
+        flex: 0 0 auto;
+    }
+
+    &--numeric &-next-sort {
+        flex: 0 0 auto;
+    }
+
+    &-sort {
+        flex: 1 0 auto;
+    }
+
+    &-menu {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        overflow: hidden;
+        border-top: 2px solid transparent;
+        background-color: $gd-color-highlight-dimmed;
+        opacity: 0;
+        transition: width 200ms, opacity 100ms;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($gd-color-highlight-dimmed, 3%);
+        }
+
+        .menu-icon {
+            width: 16px;
+            height: 16px;
+            background-image: url("~@gooddata/goodstrap/lib/core/styles/icons/menu-burger.svg");
+        }
+
+        &--hide {
+            width: 0;
+            opacity: 0;
+        }
+
+        &--show {
+            width: 32px;
+            opacity: 1;
+        }
+
+        &--open {
+            &,
+            .ag-header-cell-sortable & {
+                &,
+                &:hover {
+                    border-color: $button-normal-border-color;
+                    background-color: $button-normal-hover-bg;
+                }
+
+                &:active {
+                    border-color: $button-normal-active-border-color;
+
+                    @include gradient-linear(
+                        $button-normal-active-gradient-top,
+                        $button-normal-active-gradient-bottom
+                    );
+                }
+            }
+        }
+    }
+
+    &-arrow-up,
+    &-arrow-down {
+        display: inline-block;
+        flex: 0 0 auto;
+        margin-left: 4px;
+        line-height: 16px;
+        font-size: 12px;
+        font-weight: normal;
+
+        &::before {
+            content: "\E60D";
+            position: relative;
+            top: 1px;
+            display: inherit;
+            font-family: Indigo;
+            font-size: 10px;
+            vertical-align: bottom;
+        }
+    }
+
+    &-arrow-up::before {
+        top: -2px;
+        transform: rotate(180deg);
+    }
+}
+
+.gd-aggregation-menu-item {
+    .gd-list-item-header:before {
+        display: block;
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 11px;
+        left: 10px;
+        top: 13px;
+        background-image: url("~@gooddata/goodstrap/lib/core/styles/icons/rows.svg");
+    }
+
+    .gd-list-item.gd-menu-item {
+        padding: 0;
+        cursor: default;
+
+        &::before {
+            z-index: 1;
+        }
+
+        .gd-aggregation-menu-item-inner {
+            padding: 4px 30px;
+            flex: auto;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        &.is-submenu .gd-aggregation-menu-item-inner {
+            padding-right: 0;
+            margin-right: 30px;
+        }
+    }
+
+    .gd-aggregation-submenu .gd-aggregation-menu-item-inner {
+        max-width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .gd-menuPosition-wrapper:hover .gd-list-item.gd-menu-item.is-submenu {
+        color: $is-focused-color;
+        background: $is-focused-background;
     }
 }
