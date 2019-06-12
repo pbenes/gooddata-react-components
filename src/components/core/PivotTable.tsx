@@ -242,7 +242,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             </div>
         ) : null;
 
-        const style = {
+        const style: React.CSSProperties = {
             height: desiredHeight || "100%",
             position: "relative",
             overflow: "hidden",
