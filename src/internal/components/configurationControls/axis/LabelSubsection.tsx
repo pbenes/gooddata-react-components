@@ -23,7 +23,6 @@ class LabelSubsection extends React.PureComponent<ILabelSubsection & InjectedInt
             <ConfigSubsection
                 title="properties.axis.labels"
                 valuePath={`${this.props.axis}.labelsEnabled`}
-                intl={this.props.intl}
                 properties={this.props.properties}
                 pushData={this.props.pushData}
                 canBeToggled={true}

@@ -42,13 +42,13 @@ class MinMaxControl extends React.Component<IMinMaxControlProps & InjectedIntlPr
     }
 
     private renderMinMaxSection() {
-        const { properties, intl, basePath, isDisabled } = this.props;
+        const { properties, basePath, isDisabled } = this.props;
         const axisScaleMin = get(this.props, `properties.controls.${basePath}.min`, "");
         const axisScaleMax = get(this.props, `properties.controls.${basePath}.max`, "");
         const axisVisible = get(this.props, `properties.controls.${basePath}.visible`, true);
 
         return (
-            <ConfigSubsection title="properties.axis.scale" intl={intl}>
+            <ConfigSubsection title="properties.axis.scale">
                 <InputControl
                     valuePath={`${basePath}.min`}
                     labelText="properties.axis.min"
