@@ -37,7 +37,6 @@ export default class HeatMapConfigurationPanel extends ConfigurationPanelContent
                         id="xaxis_section"
                         title="properties.xaxis.title"
                         valuePath="xaxis.visible"
-                        intl={intl}
                         canBeToggled={true}
                         toggledOn={xAxisVisible}
                         toggleDisabled={xAxisDisabled}
@@ -59,7 +58,6 @@ export default class HeatMapConfigurationPanel extends ConfigurationPanelContent
                         id="yaxis_section"
                         title="properties.yaxis.title"
                         valuePath="yaxis.visible"
-                        intl={intl}
                         canBeToggled={true}
                         toggledOn={yAxisVisible}
                         toggleDisabled={yAxisDisabled}
@@ -81,7 +79,6 @@ export default class HeatMapConfigurationPanel extends ConfigurationPanelContent
                     <ConfigSection
                         id="canvas_section"
                         title="properties.canvas.title"
-                        intl={intl}
                         propertiesMeta={propertiesMeta}
                         properties={properties}
                         pushData={pushData}

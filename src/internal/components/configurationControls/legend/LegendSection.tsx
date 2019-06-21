@@ -15,7 +15,7 @@ export interface ILegendSection {
 
 class LegendSection extends React.PureComponent<ILegendSection & InjectedIntlProps, {}> {
     public render() {
-        const { controlsDisabled, properties, intl, pushData } = this.props;
+        const { controlsDisabled, properties, pushData } = this.props;
 
         const legendEnabled = get(this.props, "properties.controls.legend.enabled", true);
         const legendPosition = get(this.props, "properties.controls.legend.position", "auto");
@@ -30,7 +30,6 @@ class LegendSection extends React.PureComponent<ILegendSection & InjectedIntlPro
                 id="legend_section"
                 valuePath="legend.enabled"
                 title="properties.legend.title"
-                intl={intl}
                 propertiesMeta={this.props.propertiesMeta}
                 properties={properties}
                 canBeToggled={true}

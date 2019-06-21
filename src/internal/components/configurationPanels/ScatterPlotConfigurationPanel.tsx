@@ -42,7 +42,6 @@ export default class ScatterPlotConfigurationPanel extends ConfigurationPanelCon
                         id="xaxis_section"
                         title="properties.xaxis.title"
                         valuePath="xaxis.visible"
-                        intl={intl}
                         canBeToggled={true}
                         toggledOn={xAxisVisible}
                         toggleDisabled={controlsDisabled}
@@ -64,7 +63,6 @@ export default class ScatterPlotConfigurationPanel extends ConfigurationPanelCon
                         id="yaxis_section"
                         title="properties.yaxis.title"
                         valuePath="yaxis.visible"
-                        intl={intl}
                         canBeToggled={true}
                         toggledOn={yAxisVisible}
                         toggleDisabled={controlsDisabled}
@@ -85,7 +83,6 @@ export default class ScatterPlotConfigurationPanel extends ConfigurationPanelCon
                     <ConfigSection
                         id="canvas_section"
                         title="properties.canvas.title"
-                        intl={intl}
                         propertiesMeta={propertiesMeta}
                         properties={properties}
                         pushData={pushData}

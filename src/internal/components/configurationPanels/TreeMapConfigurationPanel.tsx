@@ -28,7 +28,6 @@ export default class TreeMapConfigurationPanel extends ConfigurationPanelContent
                     <ConfigSection
                         id="canvas_section"
                         title="properties.canvas.title"
-                        intl={intl}
                         propertiesMeta={propertiesMeta}
                         properties={properties}
                         pushData={pushData}

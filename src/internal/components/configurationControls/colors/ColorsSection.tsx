@@ -36,7 +36,6 @@ class ColorsSection extends React.Component<IColorsSectionProps & InjectedIntlPr
         return (
             <ConfigSection
                 title="properties.colors"
-                intl={intl}
                 pushData={pushData}
                 propertiesMeta={propertiesMeta}
                 id="colors_section"

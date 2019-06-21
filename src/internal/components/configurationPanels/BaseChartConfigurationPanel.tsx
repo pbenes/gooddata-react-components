@@ -34,7 +34,6 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
             <ConfigSection
                 id="canvas_section"
                 title="properties.canvas.title"
-                intl={intl}
                 propertiesMeta={propertiesMeta}
                 properties={properties}
                 pushData={pushData}
@@ -140,7 +139,6 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
                 id={`${axis.name}_section`}
                 title={axis.title}
                 subtitle={axis.subtitle}
-                intl={intl}
                 valuePath={`${axis.name}.visible`}
                 canBeToggled={true}
                 toggledOn={axis.visible}

@@ -1,6 +1,6 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
-import { InjectedIntl } from "react-intl";
+import { injectIntl, InjectedIntlProps } from "react-intl";
 import * as classNames from "classnames";
 import noop = require("lodash/noop");
 import get = require("lodash/get");
@@ -16,7 +16,6 @@ export interface IConfigSectionProps {
     canBeToggled?: boolean;
     toggleDisabled?: boolean;
     toggledOn?: boolean;
-    intl?: InjectedIntl;
     propertiesMeta: any;
     properties?: any;
     title: string;
@@ -30,13 +29,12 @@ export interface IConfigSectionState {
     collapsed: boolean;
 }
 
-export default class ConfigSection extends React.Component<IConfigSectionProps, IConfigSectionState> {
+class ConfigSection extends React.Component<IConfigSectionProps & InjectedIntlProps, IConfigSectionState> {
     public static defaultProps = {
         collapsed: true,
         canBeToggled: false,
         toggleDisabled: false,
         toggledOn: true,
-        intl: noop,
         disabled: false,
         pushData: noop,
         showDisabledMessage: false,
@@ -44,7 +42,7 @@ export default class ConfigSection extends React.Component<IConfigSectionProps, 
         properties: {},
     };
 
-    constructor(props: IConfigSectionProps) {
+    constructor(props: IConfigSectionProps & InjectedIntlProps) {
         super(props);
 
         this.toggleCollapsed = this.toggleCollapsed.bind(this);
@@ -57,7 +55,7 @@ export default class ConfigSection extends React.Component<IConfigSectionProps, 
         };
     }
 
-    public componentWillReceiveProps(nextProps: IConfigSectionProps) {
+    public componentWillReceiveProps(nextProps: IConfigSectionProps & InjectedIntlProps) {
         const collapsed = get(nextProps, `propertiesMeta.${this.props.id}.collapsed`, true);
         this.setState({ collapsed });
     }
@@ -152,3 +150,5 @@ export default class ConfigSection extends React.Component<IConfigSectionProps, 
         }
     }
 }
+
+export default injectIntl(ConfigSection);
