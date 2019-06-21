@@ -28,7 +28,7 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
     protected renderCanvasSection() {
         const { gridEnabled } = this.getControlProperties();
 
-        const { properties, propertiesMeta, intl, pushData } = this.props;
+        const { properties, propertiesMeta, pushData } = this.props;
         const controlsDisabled = this.isControlDisabled();
         return (
             <ConfigSection
@@ -46,7 +46,6 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
                 <CheckboxControl
                     valuePath="grid.enabled"
                     labelText="properties.canvas.gridline"
-                    intl={intl}
                     properties={properties}
                     checked={gridEnabled}
                     disabled={controlsDisabled}

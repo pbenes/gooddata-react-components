@@ -44,7 +44,6 @@ class LineChartBasedConfigurationPanel extends BaseChartConfigurationPanel {
                         <CheckboxControl
                             valuePath="grid.enabled"
                             labelText="properties.canvas.gridline"
-                            intl={intl}
                             properties={properties}
                             checked={gridEnabled}
                             disabled={controlsDisabled}

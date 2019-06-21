@@ -95,7 +95,6 @@ export default class ScatterPlotConfigurationPanel extends ConfigurationPanelCon
                         <CheckboxControl
                             valuePath="grid.enabled"
                             labelText="properties.canvas.gridline"
-                            intl={intl}
                             properties={properties}
                             checked={gridEnabled}
                             disabled={controlsDisabled}
