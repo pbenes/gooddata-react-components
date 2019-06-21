@@ -6,7 +6,7 @@ import { DropdownBody } from "@gooddata/goodstrap/lib/Dropdown/Dropdown";
 import * as ChartConfiguration from "../../../../../interfaces/Config";
 import { IColorItem } from "@gooddata/gooddata-js";
 
-import { ColoredItem } from "./ColoredItem";
+import ColoredItem from "./ColoredItem";
 import { getSearchedItems } from "../../../../utils/colors";
 import { IColoredItem } from "../../../../interfaces/Colors";
 
@@ -66,7 +66,6 @@ class ColoredItemsList extends React.PureComponent<IColoredItemsListProps, IColo
                             onSelect={this.onSelect}
                             showCustomPicker={this.props.showCustomPicker}
                             disabled={this.props.disabled}
-                            intl={this.props.intl}
                         />
                     }
                     className="gd-colored-items-list"
