@@ -40,7 +40,6 @@ class ColoredItem extends React.PureComponent<IColoredItemProps & InjectedIntlPr
                 colorPalette={this.props.colorPalette}
                 onColorSelected={this.onColorSelected}
                 showCustomPicker={this.props.showCustomPicker}
-                intl={this.props.intl}
             >
                 <ColoredItemContent text={text} color={coloredItem.color} />
             </ColorDropdown>
