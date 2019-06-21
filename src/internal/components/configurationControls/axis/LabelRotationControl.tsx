@@ -28,7 +28,6 @@ export default class LabelRotationControl extends React.PureComponent<ILabelRota
                 value={axisRotation}
                 valuePath={`${this.props.axis}.rotation`}
                 labelText="properties.axis.rotation"
-                intl={this.props.intl}
                 disabled={isDisabled}
                 showDisabledMessage={!this.props.configPanelDisabled && isDisabled}
                 properties={this.props.properties}

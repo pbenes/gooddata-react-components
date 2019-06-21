@@ -32,7 +32,6 @@ export default class DataLabelsControl extends React.Component<IDataLabelsContro
                     value={dataLabels}
                     valuePath="dataLabels.visible"
                     labelText="properties.canvas.dataLabels"
-                    intl={intl}
                     disabled={isDisabled}
                     properties={properties}
                     pushData={pushData}

@@ -43,7 +43,6 @@ class LegendSection extends React.PureComponent<ILegendSection & InjectedIntlPro
                     disabled={legendPositionControlDisabled}
                     value={legendPosition}
                     showDisabledMessage={showDisabledMessage}
-                    intl={intl}
                     properties={properties}
                     pushData={pushData}
                 />
