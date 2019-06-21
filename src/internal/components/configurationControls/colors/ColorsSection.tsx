@@ -31,7 +31,7 @@ export const COLOR_MAPPING_CHANGED = "COLOR_MAPPING_CHANGED";
 
 class ColorsSection extends React.Component<IColorsSectionProps & InjectedIntlProps> {
     public render() {
-        const { intl, pushData, propertiesMeta } = this.props;
+        const { pushData, propertiesMeta } = this.props;
 
         return (
             <ConfigSection
