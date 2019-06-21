@@ -101,7 +101,7 @@ export default class ColorDropdown extends React.PureComponent<IColorDropdownPro
                     onColorSelected={this.onColorSelected}
                 />
                 {this.props.showCustomPicker && (
-                    <CustomColorButton onClick={this.onCustomColorButtonClick} intl={this.props.intl} />
+                    <CustomColorButton onClick={this.onCustomColorButtonClick} />
                 )}
             </div>
         );
