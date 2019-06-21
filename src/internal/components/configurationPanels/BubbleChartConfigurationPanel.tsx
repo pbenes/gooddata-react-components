@@ -46,7 +46,6 @@ export default class BubbleChartConfigurationPanel extends ConfigurationPanelCon
                             disabled={controlsDisabled}
                             configPanelDisabled={controlsDisabled}
                             axis={"xaxis"}
-                            intl={intl}
                             properties={properties}
                             pushData={pushData}
                         />
@@ -67,7 +66,6 @@ export default class BubbleChartConfigurationPanel extends ConfigurationPanelCon
                             disabled={controlsDisabled}
                             configPanelDisabled={controlsDisabled}
                             axis={"yaxis"}
-                            intl={intl}
                             properties={properties}
                             pushData={pushData}
                         />

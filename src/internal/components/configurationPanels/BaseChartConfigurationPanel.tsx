@@ -131,7 +131,6 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
     ) {
         const controlsDisabled = this.isControlDisabled();
         const isViewedBy = this.isViewedBy();
-        const { intl } = this.props;
 
         return axes.map(axis => (
             <ConfigSection
@@ -151,7 +150,6 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
                     disabled={controlsDisabled || (!axis.primary && !isViewedBy)}
                     configPanelDisabled={controlsDisabled}
                     axis={axis.name}
-                    intl={intl}
                     properties={properties}
                     pushData={this.props.pushData}
                 />

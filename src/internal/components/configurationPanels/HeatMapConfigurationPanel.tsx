@@ -49,7 +49,6 @@ export default class HeatMapConfigurationPanel extends ConfigurationPanelContent
                             disabled={xAxisDisabled}
                             configPanelDisabled={controlsDisabled}
                             axis={"xaxis"}
-                            intl={intl}
                             properties={properties}
                             pushData={pushData}
                         />
@@ -70,7 +69,6 @@ export default class HeatMapConfigurationPanel extends ConfigurationPanelContent
                             disabled={yAxisDisabled}
                             configPanelDisabled={controlsDisabled}
                             axis={"yaxis"}
-                            intl={intl}
                             properties={properties}
                             pushData={pushData}
                         />

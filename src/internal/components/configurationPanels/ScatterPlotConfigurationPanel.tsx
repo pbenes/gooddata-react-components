@@ -53,7 +53,6 @@ export default class ScatterPlotConfigurationPanel extends ConfigurationPanelCon
                             disabled={controlsDisabled}
                             configPanelDisabled={controlsDisabled}
                             axis={"xaxis"}
-                            intl={intl}
                             properties={properties}
                             pushData={pushData}
                         />
@@ -74,7 +73,6 @@ export default class ScatterPlotConfigurationPanel extends ConfigurationPanelCon
                             disabled={controlsDisabled}
                             configPanelDisabled={controlsDisabled}
                             axis={"yaxis"}
-                            intl={intl}
                             properties={properties}
                             pushData={pushData}
                         />
