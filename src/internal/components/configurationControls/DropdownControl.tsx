@@ -50,7 +50,7 @@ class DropdownControl extends React.PureComponent<IDropdownControlProps & Inject
         const selectedItem = this.getSelectedItem(value) || {};
 
         return (
-            <DisabledBubbleMessage showDisabledMessage={showDisabledMessage} intl={intl}>
+            <DisabledBubbleMessage showDisabledMessage={showDisabledMessage}>
                 <div className="adi-properties-dropdown-container">
                     <span className="input-label-text">{getTranslation(labelText, intl)}</span>
                     <label className="adi-bucket-inputfield gd-input gd-input-small">

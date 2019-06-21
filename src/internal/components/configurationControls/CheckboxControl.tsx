@@ -35,7 +35,7 @@ export default class CheckboxControl extends React.Component<ICheckboxControlPro
     public render() {
         const { checked, disabled, labelText, showDisabledMessage, intl } = this.props;
         return (
-            <DisabledBubbleMessage showDisabledMessage={showDisabledMessage} intl={intl}>
+            <DisabledBubbleMessage showDisabledMessage={showDisabledMessage}>
                 <label className="input-checkbox-label">
                     <input
                         checked={checked}

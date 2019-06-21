@@ -60,13 +60,12 @@ export default class ConfigSubsection extends React.Component<
 
     private renderToggleSwitch() {
         if (this.props.canBeToggled) {
-            const { toggledOn, toggleDisabled, showDisabledMessage, intl } = this.props;
+            const { toggledOn, toggleDisabled, showDisabledMessage } = this.props;
 
             return (
                 <DisabledBubbleMessage
                     className="input-checkbox-toggle"
                     showDisabledMessage={showDisabledMessage}
-                    intl={intl}
                 >
                     <label className="s-checkbox-toggle-label">
                         <input

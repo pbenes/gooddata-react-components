@@ -82,13 +82,12 @@ export default class ConfigSection extends React.Component<IConfigSectionProps, 
 
     private renderToggleSwitch() {
         if (this.props.canBeToggled) {
-            const { toggledOn, toggleDisabled, showDisabledMessage, intl } = this.props;
+            const { toggledOn, toggleDisabled, showDisabledMessage } = this.props;
 
             return (
                 <DisabledBubbleMessage
                     className="adi-bucket-item-toggle"
                     showDisabledMessage={showDisabledMessage}
-                    intl={intl}
                 >
                     <label className={this.getToggleLabelClassNames()}>
                         <input
