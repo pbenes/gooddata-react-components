@@ -159,13 +159,12 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
     }
 
     protected renderMinMax(basePath: string) {
-        const { pushData, properties, intl, propertiesMeta } = this.props;
+        const { pushData, properties, propertiesMeta } = this.props;
         return (
             <MinMaxControl
                 isDisabled={this.isControlDisabled()}
                 basePath={basePath}
                 pushData={pushData}
-                intl={intl}
                 properties={properties}
                 propertiesMeta={propertiesMeta}
             />
