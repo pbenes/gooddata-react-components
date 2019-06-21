@@ -2,12 +2,15 @@
 import * as React from "react";
 import { shallow } from "enzyme";
 import noop = require("lodash/noop");
-import InputControl, { IInputControlProps } from "../InputControl";
+import { InputControl, IInputControlProps } from "../InputControl";
+import { createIntlMock } from "../../../../components/visualizations/utils/intlUtils";
 
 describe("InputControl", () => {
+    const intlMock = createIntlMock();
     const defaultProps = {
         valuePath: "valuePath",
         properties: {},
+        intl: intlMock,
         propertiesMeta: {},
         pushData: noop,
     };

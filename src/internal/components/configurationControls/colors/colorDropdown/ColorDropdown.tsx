@@ -1,7 +1,7 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
 import ColorPicker from "@gooddata/goodstrap/lib/ColorPicker/ColorPicker";
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { InjectedIntlProps, injectIntl } from "react-intl";
 import { TypeGuards, IColor, IColorItem } from "@gooddata/gooddata-js";
 import * as uuid from "uuid";
 import ColorOverlay, { DropdownVersionType } from "./ColorOverlay";
@@ -37,7 +37,10 @@ const COLOR_FOR_UNKNOWN_ITEM: IColor = {
     b: 0,
 };
 
-class ColorDropdown extends React.PureComponent<IColorDropdownProps & InjectedIntlProps, IColorDropdownState> {
+class ColorDropdown extends React.PureComponent<
+    IColorDropdownProps & InjectedIntlProps,
+    IColorDropdownState
+> {
     private id: string;
 
     constructor(props: IColorDropdownProps & InjectedIntlProps) {
@@ -99,9 +102,7 @@ class ColorDropdown extends React.PureComponent<IColorDropdownProps & InjectedIn
                     colorPalette={this.props.colorPalette}
                     onColorSelected={this.onColorSelected}
                 />
-                {this.props.showCustomPicker && (
-                    <CustomColorButton onClick={this.onCustomColorButtonClick} />
-                )}
+                {this.props.showCustomPicker && <CustomColorButton onClick={this.onCustomColorButtonClick} />}
             </div>
         );
     }

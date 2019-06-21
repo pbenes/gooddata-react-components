@@ -6,7 +6,6 @@ import { IntlProvider } from "react-intl";
 import * as ChartConfiguration from "../../../../../interfaces/Config";
 import { IColorItem } from "@gooddata/gooddata-js";
 
-import { createInternalIntl } from "../../../../utils/internalIntlProvider";
 import ColoredItemsList from "../coloredItemsList/ColoredItemsList";
 import ColorsSection, { IColorsSectionProps, COLOR_MAPPING_CHANGED } from "../ColorsSection";
 import { IColorConfiguration } from "../../../../interfaces/Colors";
@@ -45,7 +44,6 @@ const defaultProps: IColorsSectionProps = {
     hasMeasures: true,
     colors,
     isLoading: false,
-    intl: createInternalIntl(),
 };
 
 function createComponent(customProps: Partial<IColorsSectionProps> = {}) {

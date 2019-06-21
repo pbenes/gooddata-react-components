@@ -33,7 +33,10 @@ export interface IInputControlState {
 
 const MAX_NUMBER_LENGTH = 15;
 
-class InputControl extends React.Component<IInputControlProps & InjectedIntlProps, IInputControlState> {
+export class InputControl extends React.Component<
+    IInputControlProps & InjectedIntlProps,
+    IInputControlState
+> {
     public static defaultProps = {
         value: "",
         type: "text",

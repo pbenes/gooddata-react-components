@@ -1,6 +1,6 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from "react-intl";
 import get = require("lodash/get");
 import includes = require("lodash/includes");
 import * as BucketNames from "../../../constants/bucketNames";

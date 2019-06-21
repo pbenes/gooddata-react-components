@@ -3,7 +3,6 @@ import * as React from "react";
 import { mount } from "enzyme";
 import LegendSection, { ILegendSection } from "../LegendSection";
 import LegendPositionControl from "../LegendPositionControl";
-import { createInternalIntl } from "../../../../utils/internalIntlProvider";
 import noop = require("lodash/noop");
 import cloneDeep = require("lodash/cloneDeep");
 import set = require("lodash/set");
@@ -13,7 +12,6 @@ const defaultProps: ILegendSection = {
     controlsDisabled: true,
     properties: {},
     propertiesMeta: {},
-    intl: createInternalIntl(),
     pushData: noop,
 };
 
