@@ -1,5 +1,6 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
+import { injectIntl } from "react-intl";
 import Bubble from "@gooddata/goodstrap/lib/Bubble/Bubble";
 import BubbleHoverTrigger from "@gooddata/goodstrap/lib/Bubble/BubbleHoverTrigger";
 import ConfigSection from "../configurationControls/ConfigSection";
@@ -14,7 +15,7 @@ import {
 } from "../../constants/bubble";
 import BaseChartConfigurationPanel from "./BaseChartConfigurationPanel";
 
-export default class LineChartBasedConfigurationPanel extends BaseChartConfigurationPanel {
+class LineChartBasedConfigurationPanel extends BaseChartConfigurationPanel {
     protected renderConfigurationPanel() {
         const { gridEnabled, axes } = this.getControlProperties();
 
@@ -64,3 +65,5 @@ export default class LineChartBasedConfigurationPanel extends BaseChartConfigura
         );
     }
 }
+
+export default injectIntl(LineChartBasedConfigurationPanel);

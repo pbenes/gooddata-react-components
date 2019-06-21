@@ -1,6 +1,6 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
-import { InjectedIntl } from "react-intl";
+import { InjectedIntlProps, InjectedIntl } from "react-intl";
 import noop = require("lodash/noop");
 import { ChartType } from "../../../constants/visualizationTypes";
 import { VisualizationObject } from "@gooddata/typings";
@@ -18,8 +18,8 @@ export interface IConfigurationPanelContentProps {
     references?: IReferences;
     propertiesMeta?: any;
     colors?: IColorConfiguration;
-    intl?: InjectedIntl;
     locale: string;
+    intl?: InjectedIntl;
     type?: ChartType;
     isError?: boolean;
     isLoading?: boolean;
@@ -30,7 +30,7 @@ export interface IConfigurationPanelContentProps {
 }
 
 export default abstract class ConfigurationPanelContent extends React.PureComponent<
-    IConfigurationPanelContentProps
+    IConfigurationPanelContentProps & InjectedIntlProps
 > {
     public static defaultProps: IConfigurationPanelContentProps = {
         properties: null,
@@ -70,7 +70,6 @@ export default abstract class ConfigurationPanelContent extends React.PureCompon
         const {
             properties,
             propertiesMeta,
-            intl,
             pushData,
             colors,
             featureFlags,
@@ -88,7 +87,6 @@ export default abstract class ConfigurationPanelContent extends React.PureCompon
                 references={references}
                 colors={colors}
                 controlsDisabled={controlsDisabled}
-                intl={intl}
                 pushData={pushData}
                 hasMeasures={hasMeasures(mdObject)}
                 showCustomPicker={featureFlags.enableCustomColorPicker as boolean}
@@ -98,7 +96,7 @@ export default abstract class ConfigurationPanelContent extends React.PureCompon
     }
 
     protected renderLegendSection() {
-        const { properties, propertiesMeta, intl, pushData } = this.props;
+        const { properties, propertiesMeta, pushData } = this.props;
         const controlsDisabled = this.isControlDisabled();
 
         return (
@@ -106,7 +104,6 @@ export default abstract class ConfigurationPanelContent extends React.PureCompon
                 properties={properties}
                 propertiesMeta={propertiesMeta}
                 controlsDisabled={controlsDisabled}
-                intl={intl}
                 pushData={pushData}
             />
         );

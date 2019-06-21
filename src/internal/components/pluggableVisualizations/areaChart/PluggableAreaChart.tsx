@@ -135,7 +135,6 @@ export class PluggableAreaChart extends PluggableBaseChart {
                     propertiesMeta={this.propertiesMeta}
                     mdObject={this.mdObject}
                     references={this.references}
-                    intl={this.intl}
                     pushData={this.handlePushData}
                     type={this.type}
                     isError={this.isError}
