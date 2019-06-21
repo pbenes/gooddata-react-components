@@ -53,7 +53,6 @@ class MinMaxControl extends React.Component<IMinMaxControlProps & InjectedIntlPr
                     valuePath={`${basePath}.min`}
                     labelText="properties.axis.min"
                     placeholder="properties.auto_placeholder"
-                    intl={intl}
                     type="number"
                     hasWarning={this.minScaleHasWarning()}
                     value={
@@ -71,7 +70,6 @@ class MinMaxControl extends React.Component<IMinMaxControlProps & InjectedIntlPr
                     valuePath={`${basePath}.max`}
                     labelText="properties.axis.max"
                     placeholder="properties.auto_placeholder"
-                    intl={intl}
                     type="number"
                     hasWarning={this.maxScaleHasWarning()}
                     value={
