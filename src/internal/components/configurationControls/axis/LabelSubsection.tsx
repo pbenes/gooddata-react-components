@@ -34,7 +34,6 @@ class LabelSubsection extends React.PureComponent<ILabelSubsection & InjectedInt
                     disabled={this.props.disabled}
                     configPanelDisabled={this.props.configPanelDisabled}
                     axis={this.props.axis}
-                    intl={this.props.intl}
                     properties={this.props.properties}
                     pushData={this.props.pushData}
                 />
