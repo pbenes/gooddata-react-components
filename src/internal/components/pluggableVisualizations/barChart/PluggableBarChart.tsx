@@ -33,6 +33,7 @@ export class PluggableBarChart extends PluggableColumnBarCharts {
         if (document.querySelector(this.configPanelElement)) {
             render(
                 <BarChartConfigurationPanel
+                    locale={this.locale}
                     colors={this.colors}
                     references={this.references}
                     properties={this.visualizationProperties}

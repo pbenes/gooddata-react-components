@@ -11,6 +11,7 @@ import { IColorConfiguration } from "../../interfaces/Colors";
 import ColorsSection from "../configurationControls/colors/ColorsSection";
 import LegendSection from "../configurationControls/legend/LegendSection";
 import { InternalIntlWrapper } from "../../utils/internalIntlProvider";
+import { DEFAULT_LOCALE } from '../../../constants/localization';
 
 export interface IConfigurationPanelContentProps {
     properties?: IVisualizationProperties;
@@ -18,6 +19,7 @@ export interface IConfigurationPanelContentProps {
     propertiesMeta?: any;
     colors?: IColorConfiguration;
     intl?: InjectedIntl;
+    locale: string;
     type?: ChartType;
     isError?: boolean;
     isLoading?: boolean;
@@ -35,6 +37,7 @@ export default abstract class ConfigurationPanelContent extends React.PureCompon
         references: null,
         propertiesMeta: null,
         colors: null,
+        locale: DEFAULT_LOCALE,
         intl: null,
         isError: false,
         isLoading: false,
@@ -49,7 +52,9 @@ export default abstract class ConfigurationPanelContent extends React.PureCompon
     public render() {
         return (
             <div key={`config-${this.props.type}`}>
-                <InternalIntlWrapper>{this.renderConfigurationPanel()}</InternalIntlWrapper>
+                <InternalIntlWrapper locale={this.props.locale}>
+                    {this.renderConfigurationPanel()}
+                </InternalIntlWrapper>
             </div>
         );
     }

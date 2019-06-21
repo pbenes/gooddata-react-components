@@ -129,6 +129,7 @@ export class PluggableAreaChart extends PluggableBaseChart {
         if (document.querySelector(this.configPanelElement)) {
             render(
                 <LineChartBasedConfigurationPanel
+                    locale={this.locale}
                     colors={this.colors}
                     properties={this.visualizationProperties}
                     propertiesMeta={this.propertiesMeta}
