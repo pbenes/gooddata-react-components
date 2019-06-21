@@ -1,5 +1,6 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
+import { FormattedMessage } from 'react-intl';
 import get = require("lodash/get");
 import includes = require("lodash/includes");
 import * as BucketNames from "../../../constants/bucketNames";
@@ -12,7 +13,6 @@ import ConfigurationPanelContent from "./ConfigurationPanelContent";
 import ConfigSection from "../configurationControls/ConfigSection";
 import CheckboxControl from "../configurationControls/CheckboxControl";
 import DataLabelsControl from "../configurationControls/DataLabelsControl";
-import { getTranslation } from "../../utils/translations";
 import {
     SHOW_DELAY_DEFAULT,
     HIDE_DELAY_DEFAULT,
@@ -58,7 +58,7 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
     protected renderConfigurationPanel() {
         const { axes } = this.getControlProperties();
 
-        const { properties, propertiesMeta, intl } = this.props;
+        const { properties, propertiesMeta } = this.props;
 
         return (
             <BubbleHoverTrigger showDelay={SHOW_DELAY_DEFAULT} hideDelay={HIDE_DELAY_DEFAULT}>
@@ -73,7 +73,7 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
                     arrowOffsets={{ "tc bc": [BUBBLE_ARROW_OFFSET_X, BUBBLE_ARROW_OFFSET_Y] }}
                     alignPoints={[{ align: "tc bc" }]}
                 >
-                    {getTranslation("properties.config.not_applicable", intl)}
+                    <FormattedMessage id="properties.config.not_applicable" />
                 </Bubble>
             </BubbleHoverTrigger>
         );

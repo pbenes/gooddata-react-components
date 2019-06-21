@@ -1,6 +1,5 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
-import { InjectedIntlProps, InjectedIntl } from "react-intl";
 import noop = require("lodash/noop");
 import { ChartType } from "../../../constants/visualizationTypes";
 import { VisualizationObject } from "@gooddata/typings";
@@ -19,7 +18,6 @@ export interface IConfigurationPanelContentProps {
     propertiesMeta?: any;
     colors?: IColorConfiguration;
     locale: string;
-    intl?: InjectedIntl;
     type?: ChartType;
     isError?: boolean;
     isLoading?: boolean;
@@ -30,7 +28,7 @@ export interface IConfigurationPanelContentProps {
 }
 
 export default abstract class ConfigurationPanelContent extends React.PureComponent<
-    IConfigurationPanelContentProps & InjectedIntlProps
+    IConfigurationPanelContentProps
 > {
     public static defaultProps: IConfigurationPanelContentProps = {
         properties: null,
@@ -38,7 +36,6 @@ export default abstract class ConfigurationPanelContent extends React.PureCompon
         propertiesMeta: null,
         colors: null,
         locale: DEFAULT_LOCALE,
-        intl: null,
         isError: false,
         isLoading: false,
         mdObject: null,

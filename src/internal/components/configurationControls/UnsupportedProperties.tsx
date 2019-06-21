@@ -1,14 +1,13 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { FormattedMessage } from 'react-intl';
 import * as classNames from "classnames";
-import { getTranslation } from "../../utils/translations";
 
-class UnsupportedProperties extends React.Component<InjectedIntlProps> {
+export default class UnsupportedProperties extends React.Component {
     public render() {
         return (
             <div className={this.getClassNames()}>
-                {getTranslation("properties.unsupported", this.props.intl)}
+                <FormattedMessage id="properties.unsupported" />
             </div>
         );
     }
@@ -17,5 +16,3 @@ class UnsupportedProperties extends React.Component<InjectedIntlProps> {
         return classNames("adi-unsupported-configuration", "s-properties-unsupported");
     }
 }
-
-export default injectIntl(UnsupportedProperties);

@@ -106,7 +106,6 @@ export class PluggableHeatmap extends PluggableBaseChart {
                     propertiesMeta={this.propertiesMeta}
                     mdObject={this.mdObject}
                     colors={this.colors}
-                    intl={this.intl}
                     pushData={this.handlePushData}
                     type={this.type}
                     isError={this.isError}

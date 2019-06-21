@@ -273,7 +273,6 @@ export class PluggableTable extends AbstractPluggableVisualization {
             render(
                 <UnsupportedConfigurationPanel
                     locale={this.locale}
-                    intl={this.intl}
                     pushData={this.callbacks.pushData}
                     properties={properties}
                 />,

@@ -1,13 +1,13 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
 import * as classNames from "classnames";
+import { FormattedMessage } from 'react-intl';
 import Bubble from "@gooddata/goodstrap/lib/Bubble/Bubble";
 import BubbleHoverTrigger from "@gooddata/goodstrap/lib/Bubble/BubbleHoverTrigger";
 
 import ConfigurationPanelContent from "./ConfigurationPanelContent";
 import ConfigSection from "../configurationControls/ConfigSection";
 import DataLabelsControl from "../configurationControls/DataLabelsControl";
-import { getTranslation } from "../../utils/translations";
 import {
     SHOW_DELAY_DEFAULT,
     HIDE_DELAY_DEFAULT,
@@ -17,7 +17,7 @@ import {
 
 export default class PieChartConfigurationPanel extends ConfigurationPanelContent {
     protected renderConfigurationPanel() {
-        const { propertiesMeta, properties, intl, pushData } = this.props;
+        const { propertiesMeta, properties, pushData } = this.props;
         const controlsDisabled = this.isControlDisabled();
 
         return (
@@ -45,7 +45,7 @@ export default class PieChartConfigurationPanel extends ConfigurationPanelConten
                     arrowOffsets={{ "tc bc": [BUBBLE_ARROW_OFFSET_X, BUBBLE_ARROW_OFFSET_Y] }}
                     alignPoints={[{ align: "tc bc" }]}
                 >
-                    {getTranslation("properties.config.not_applicable", intl)}
+                    <FormattedMessage id="properties.config.not_applicable" />
                 </Bubble>
             </BubbleHoverTrigger>
         );

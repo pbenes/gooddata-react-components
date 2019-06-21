@@ -113,7 +113,6 @@ export class PluggableTreemap extends PluggableBaseChart {
                     properties={this.visualizationProperties}
                     propertiesMeta={this.propertiesMeta}
                     mdObject={this.mdObject}
-                    intl={this.intl}
                     colors={this.colors}
                     pushData={this.handlePushData}
                     type={this.type}

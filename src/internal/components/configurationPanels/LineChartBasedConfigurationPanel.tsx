@@ -1,12 +1,11 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
-import { injectIntl } from "react-intl";
+import { FormattedMessage } from 'react-intl';
 import Bubble from "@gooddata/goodstrap/lib/Bubble/Bubble";
 import BubbleHoverTrigger from "@gooddata/goodstrap/lib/Bubble/BubbleHoverTrigger";
 import ConfigSection from "../configurationControls/ConfigSection";
 import CheckboxControl from "../configurationControls/CheckboxControl";
 import DataLabelsControl from "../configurationControls/DataLabelsControl";
-import { getTranslation } from "../../utils/translations";
 import {
     SHOW_DELAY_DEFAULT,
     HIDE_DELAY_DEFAULT,
@@ -15,11 +14,11 @@ import {
 } from "../../constants/bubble";
 import BaseChartConfigurationPanel from "./BaseChartConfigurationPanel";
 
-class LineChartBasedConfigurationPanel extends BaseChartConfigurationPanel {
+export default class LineChartBasedConfigurationPanel extends BaseChartConfigurationPanel {
     protected renderConfigurationPanel() {
         const { gridEnabled, axes } = this.getControlProperties();
 
-        const { properties, propertiesMeta, intl, pushData } = this.props;
+        const { properties, propertiesMeta, pushData } = this.props;
         const controlsDisabled = this.isControlDisabled();
 
         return (
@@ -56,11 +55,9 @@ class LineChartBasedConfigurationPanel extends BaseChartConfigurationPanel {
                     arrowOffsets={{ "tc bc": [BUBBLE_ARROW_OFFSET_X, BUBBLE_ARROW_OFFSET_Y] }}
                     alignPoints={[{ align: "tc bc" }]}
                 >
-                    {getTranslation("properties.config.not_applicable", intl)}
+                    <FormattedMessage id="properties.config.not_applicable" />
                 </Bubble>
             </BubbleHoverTrigger>
         );
     }
 }
-
-export default injectIntl(LineChartBasedConfigurationPanel);

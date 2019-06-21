@@ -1,5 +1,6 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
+import { FormattedMessage } from 'react-intl';
 import get = require("lodash/get");
 import Bubble from "@gooddata/goodstrap/lib/Bubble/Bubble";
 import BubbleHoverTrigger from "@gooddata/goodstrap/lib/Bubble/BubbleHoverTrigger";
@@ -12,7 +13,6 @@ import ConfigSection from "../configurationControls/ConfigSection";
 import DataLabelsControl from "../configurationControls/DataLabelsControl";
 import CheckboxControl from "../configurationControls/CheckboxControl";
 import { getMeasuresFromMdObject } from "../../utils/bucketHelper";
-import { getTranslation } from "../../utils/translations";
 import { hasAttribute } from "../../utils/mdObjectHelper";
 import {
     SHOW_DELAY_DEFAULT,
@@ -31,7 +31,7 @@ export default class ScatterPlotConfigurationPanel extends ConfigurationPanelCon
     protected renderConfigurationPanel() {
         const { xAxisVisible, gridEnabled, yAxisVisible } = this.getControlProperties();
 
-        const { propertiesMeta, properties, intl, pushData } = this.props;
+        const { propertiesMeta, properties, pushData } = this.props;
         const controlsDisabled = this.isControlDisabled();
 
         return (
@@ -107,7 +107,7 @@ export default class ScatterPlotConfigurationPanel extends ConfigurationPanelCon
                     arrowOffsets={{ "tc bc": [BUBBLE_ARROW_OFFSET_X, BUBBLE_ARROW_OFFSET_Y] }}
                     alignPoints={[{ align: "tc bc" }]}
                 >
-                    {getTranslation("properties.config.not_applicable", intl)}
+                    <FormattedMessage id="properties.config.not_applicable" />
                 </Bubble>
             </BubbleHoverTrigger>
         );

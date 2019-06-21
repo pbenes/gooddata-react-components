@@ -1,6 +1,7 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
 import get = require("lodash/get");
+import { FormattedMessage } from 'react-intl';
 import Bubble from "@gooddata/goodstrap/lib/Bubble/Bubble";
 import BubbleHoverTrigger from "@gooddata/goodstrap/lib/Bubble/BubbleHoverTrigger";
 import * as classNames from "classnames";
@@ -10,7 +11,6 @@ import LabelSubsection from "../configurationControls/axis/LabelSubsection";
 import ConfigSection from "../configurationControls/ConfigSection";
 import DataLabelsControl from "../configurationControls/DataLabelsControl";
 import CheckboxControl from "../configurationControls/CheckboxControl";
-import { getTranslation } from "../../utils/translations";
 import MinMaxControl from "../configurationControls//MinMaxControl";
 import { hasTertiaryMeasures } from "../../utils/mdObjectHelper";
 import {
@@ -24,7 +24,7 @@ export default class BubbleChartConfigurationPanel extends ConfigurationPanelCon
     protected renderConfigurationPanel() {
         const { xAxisVisible, yAxisVisible, gridEnabled } = this.getControlProperties();
 
-        const { propertiesMeta, properties, intl, pushData } = this.props;
+        const { propertiesMeta, properties, pushData } = this.props;
         const controlsDisabled = this.isControlDisabled();
 
         return (
@@ -101,7 +101,7 @@ export default class BubbleChartConfigurationPanel extends ConfigurationPanelCon
                     arrowOffsets={{ "tc bc": [BUBBLE_ARROW_OFFSET_X, BUBBLE_ARROW_OFFSET_Y] }}
                     alignPoints={[{ align: "tc bc" }]}
                 >
-                    {getTranslation("properties.config.not_applicable", intl)}
+                    <FormattedMessage id="properties.config.not_applicable" />
                 </Bubble>
             </BubbleHoverTrigger>
         );

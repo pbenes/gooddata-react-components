@@ -183,7 +183,6 @@ export class PluggableHeadline extends AbstractPluggableVisualization {
             render(
                 <UnsupportedConfigurationPanel
                     locale={this.locale}
-                    intl={this.intl}
                     pushData={this.callbacks.pushData}
                     properties={getSupportedProperties(properties, this.supportedPropertiesList)}
                 />,

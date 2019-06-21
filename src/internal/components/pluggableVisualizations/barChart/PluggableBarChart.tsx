@@ -39,7 +39,6 @@ export class PluggableBarChart extends PluggableColumnBarCharts {
                     properties={this.visualizationProperties}
                     propertiesMeta={this.propertiesMeta}
                     mdObject={this.mdObject}
-                    intl={this.intl}
                     pushData={this.handlePushData}
                     type={this.type}
                     isError={this.isError}

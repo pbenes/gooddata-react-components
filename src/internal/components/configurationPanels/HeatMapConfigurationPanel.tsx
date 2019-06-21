@@ -1,5 +1,6 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
+import { FormattedMessage } from 'react-intl';
 import Bubble from "@gooddata/goodstrap/lib/Bubble/Bubble";
 import BubbleHoverTrigger from "@gooddata/goodstrap/lib/Bubble/BubbleHoverTrigger";
 import { VisualizationObject } from "@gooddata/typings";
@@ -9,7 +10,6 @@ import * as classNames from "classnames";
 import ConfigurationPanelContent from "./ConfigurationPanelContent";
 import ConfigSection from "../configurationControls/ConfigSection";
 import DataLabelsControl from "../configurationControls/DataLabelsControl";
-import { getTranslation } from "../../utils/translations";
 import {
     SHOW_DELAY_DEFAULT,
     HIDE_DELAY_DEFAULT,
@@ -22,7 +22,7 @@ import { noRowsAndHasOneMeasure, noColumnsAndHasOneMeasure } from "../../utils/b
 
 export default class HeatMapConfigurationPanel extends ConfigurationPanelContent {
     protected renderConfigurationPanel() {
-        const { propertiesMeta, properties, intl, pushData } = this.props;
+        const { propertiesMeta, properties, pushData } = this.props;
         const { xAxisVisible, yAxisVisible } = this.getControlProperties();
 
         const controlsDisabled = this.isControlDisabled();
@@ -94,7 +94,7 @@ export default class HeatMapConfigurationPanel extends ConfigurationPanelContent
                     arrowOffsets={{ "tc bc": [BUBBLE_ARROW_OFFSET_X, BUBBLE_ARROW_OFFSET_Y] }}
                     alignPoints={[{ align: "tc bc" }]}
                 >
-                    {getTranslation("properties.config.not_applicable", intl)}
+                    <FormattedMessage id="properties.config.not_applicable" />
                 </Bubble>
             </BubbleHoverTrigger>
         );
