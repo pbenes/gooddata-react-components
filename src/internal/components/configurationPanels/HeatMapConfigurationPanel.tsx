@@ -84,7 +84,6 @@ export default class HeatMapConfigurationPanel extends ConfigurationPanelContent
                         <DataLabelsControl
                             pushData={pushData}
                             properties={properties}
-                            intl={intl}
                             isDisabled={controlsDisabled}
                             defaultValue="auto"
                         />

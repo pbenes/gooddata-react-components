@@ -38,7 +38,6 @@ class LineChartBasedConfigurationPanel extends BaseChartConfigurationPanel {
                         <DataLabelsControl
                             pushData={pushData}
                             properties={properties}
-                            intl={intl}
                             isDisabled={controlsDisabled}
                             defaultValue={false}
                         />

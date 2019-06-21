@@ -88,7 +88,6 @@ export default class ScatterPlotConfigurationPanel extends ConfigurationPanelCon
                         <DataLabelsControl
                             pushData={pushData}
                             properties={properties}
-                            intl={intl}
                             isDisabled={this.areDataLabelsDisabled()}
                             defaultValue={false}
                             showDisabledMessage={this.isDataLabelsWarningShown()}

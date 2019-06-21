@@ -41,7 +41,6 @@ export default class BaseChartConfigurationPanel extends ConfigurationPanelConte
                 <DataLabelsControl
                     pushData={pushData}
                     properties={properties}
-                    intl={intl}
                     isDisabled={controlsDisabled}
                 />
                 <CheckboxControl

@@ -35,7 +35,6 @@ export default class TreeMapConfigurationPanel extends ConfigurationPanelContent
                         <DataLabelsControl
                             pushData={pushData}
                             properties={properties}
-                            intl={intl}
                             isDisabled={controlsDisabled}
                             defaultValue="auto"
                         />
