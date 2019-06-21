@@ -293,7 +293,6 @@ describe("PluggableBaseChart", () => {
         // compare without intl and pushData
         expect({
             ...renderArguments.props,
-            intl: null,
             pushData: noop,
         }).toEqual(expectedConfigPanelElement.props);
     });
