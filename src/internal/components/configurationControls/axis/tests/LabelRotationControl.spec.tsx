@@ -4,8 +4,8 @@ import { mount } from "enzyme";
 import noop = require("lodash/noop");
 import cloneDeep = require("lodash/cloneDeep");
 import set = require("lodash/set");
-import { IntlProvider } from "react-intl";
 
+import { InternalIntlWrapper } from '../../../../utils/internalIntlProvider';
 import LabelRotationControl, { ILabelRotationControl } from "../LabelRotationControl";
 import DropdownControl from "../../DropdownControl";
 
@@ -20,9 +20,9 @@ const defaultProps: ILabelRotationControl = {
 function createComponent(customProps: Partial<ILabelRotationControl> = {}) {
     const props: ILabelRotationControl = { ...cloneDeep(defaultProps), ...customProps };
     return mount<ILabelRotationControl, null>(
-        <IntlProvider locale="en">
+        <InternalIntlWrapper>
             <LabelRotationControl {...props} />
-        </IntlProvider>,
+        </InternalIntlWrapper>,
     );
 }
 
