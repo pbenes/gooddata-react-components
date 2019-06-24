@@ -4,10 +4,10 @@ import { mount } from "enzyme";
 import noop = require("lodash/noop");
 import cloneDeep = require("lodash/cloneDeep");
 import set = require("lodash/set");
-import { IntlProvider } from "react-intl";
 import LabelSubsection, { ILabelSubsection } from "../LabelSubsection";
 import LabelRotationControl from "../LabelRotationControl";
 import ConfigSubsection from "../../../configurationControls/ConfigSubsection";
+import { InternalIntlWrapper } from '../../../../utils/internalIntlProvider';
 
 const defaultProps: ILabelSubsection = {
     disabled: true,
@@ -20,9 +20,9 @@ const defaultProps: ILabelSubsection = {
 function createComponent(customProps: Partial<ILabelSubsection> = {}) {
     const props: ILabelSubsection = { ...cloneDeep(defaultProps), ...customProps };
     return mount<ILabelSubsection, null>(
-        <IntlProvider locale="en">
+        <InternalIntlWrapper>
             <LabelSubsection {...props} />
-        </IntlProvider>,
+        </InternalIntlWrapper>,
     );
 }
 
