@@ -2,6 +2,7 @@
 import * as React from "react";
 import { mount } from "enzyme";
 import ConfigSubsection, { IConfigSubsectionProps } from "../ConfigSubsection";
+import DisabledBubbleMessage from '../../DisabledBubbleMessage';
 import { InternalIntlWrapper } from '../../../utils/internalIntlProvider';
 
 describe("ConfigSubsection", () => {
@@ -41,7 +42,7 @@ describe("ConfigSubsection", () => {
         it('should render toggle switch when property "canBeToggled" is set on true', () => {
             const wrapper = createComponent({ canBeToggled: true });
 
-            expect(wrapper.find(".input-checkbox-toggle").length).toBe(1);
+            expect(wrapper.find(DisabledBubbleMessage).hasClass('input-checkbox-toggle')).toBe(true);
             expect(wrapper.find(".s-checkbox-toggle").props().disabled).toBeFalsy();
         });
 
