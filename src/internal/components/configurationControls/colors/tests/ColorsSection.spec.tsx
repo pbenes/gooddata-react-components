@@ -2,13 +2,13 @@
 import * as React from "react";
 import { mount } from "enzyme";
 import { noop, cloneDeep } from "lodash";
-import { IntlProvider } from "react-intl";
 import * as ChartConfiguration from "../../../../../interfaces/Config";
 import { IColorItem } from "@gooddata/gooddata-js";
 
 import ColoredItemsList from "../coloredItemsList/ColoredItemsList";
 import ColorsSection, { IColorsSectionProps, COLOR_MAPPING_CHANGED } from "../ColorsSection";
 import { IColorConfiguration } from "../../../../interfaces/Colors";
+import { InternalIntlWrapper } from '../../../../utils/internalIntlProvider';
 
 const colors: IColorConfiguration = {
     colorPalette: ChartConfiguration.DEFAULT_COLOR_PALETTE,
@@ -49,9 +49,9 @@ const defaultProps: IColorsSectionProps = {
 function createComponent(customProps: Partial<IColorsSectionProps> = {}) {
     const props: IColorsSectionProps = { ...cloneDeep(defaultProps), ...customProps };
     return mount<IColorsSectionProps>(
-        <IntlProvider locale="en-US">
+        <InternalIntlWrapper>
             <ColorsSection {...props} />
-        </IntlProvider>,
+        </InternalIntlWrapper>,
     );
 }
 
