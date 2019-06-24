@@ -3,7 +3,7 @@ import * as React from "react";
 import { shallow } from "enzyme";
 import noop = require("lodash/noop");
 import { InputControl, IInputControlProps } from "../InputControl";
-import { createInternalIntl } from '../../../utils/internalIntlProvider';
+import { createInternalIntl } from "../../../utils/internalIntlProvider";
 
 describe("InputControl", () => {
     const defaultProps = {
@@ -12,8 +12,8 @@ describe("InputControl", () => {
         intl: createInternalIntl(),
         propertiesMeta: {},
         pushData: noop,
-        placeholder: 'properties.auto_placeholder',
-        labelText: 'properties.canvas.gridline' // pick something what exists in the dictionary
+        placeholder: "properties.auto_placeholder",
+        labelText: "properties.canvas.gridline", // pick something what exists in the dictionary
     };
 
     function createComponent(customProps: Partial<IInputControlProps> = {}) {

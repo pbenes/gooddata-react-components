@@ -20,7 +20,7 @@ describe("CheckboxControl", () => {
         return mount(
             <InternalIntlWrapper>
                 <CheckboxControl {...props} />
-            </InternalIntlWrapper>
+            </InternalIntlWrapper>,
         );
     }
 

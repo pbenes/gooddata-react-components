@@ -4,7 +4,7 @@ import { mount } from "enzyme";
 import noop = require("lodash/noop");
 import Dropdown from "@gooddata/goodstrap/lib/Dropdown/Dropdown";
 import DropdownControl, { IDropdownControlProps } from "../DropdownControl";
-import { InternalIntlWrapper } from '../../../utils/internalIntlProvider';
+import { InternalIntlWrapper } from "../../../utils/internalIntlProvider";
 
 describe("DropdownControl", () => {
     const defaultProps = {
@@ -16,7 +16,11 @@ describe("DropdownControl", () => {
 
     function createComponent(customProps: Partial<IDropdownControlProps> = {}) {
         const props = { ...defaultProps, ...customProps };
-        return mount(<InternalIntlWrapper><DropdownControl {...props} /></InternalIntlWrapper>);
+        return mount(
+            <InternalIntlWrapper>
+                <DropdownControl {...props} />
+            </InternalIntlWrapper>,
+        );
     }
 
     it("should render dropdown control", () => {

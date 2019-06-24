@@ -8,7 +8,7 @@ import { IColorItem } from "@gooddata/gooddata-js";
 import ColoredItemsList from "../coloredItemsList/ColoredItemsList";
 import ColorsSection, { IColorsSectionProps, COLOR_MAPPING_CHANGED } from "../ColorsSection";
 import { IColorConfiguration } from "../../../../interfaces/Colors";
-import { InternalIntlWrapper } from '../../../../utils/internalIntlProvider';
+import { InternalIntlWrapper } from "../../../../utils/internalIntlProvider";
 
 const colors: IColorConfiguration = {
     colorPalette: ChartConfiguration.DEFAULT_COLOR_PALETTE,

@@ -5,7 +5,7 @@ import noop = require("lodash/noop");
 import cloneDeep = require("lodash/cloneDeep");
 import set = require("lodash/set");
 
-import { InternalIntlWrapper } from '../../../../utils/internalIntlProvider';
+import { InternalIntlWrapper } from "../../../../utils/internalIntlProvider";
 import LabelRotationControl, { ILabelRotationControl } from "../LabelRotationControl";
 import DropdownControl from "../../DropdownControl";
 

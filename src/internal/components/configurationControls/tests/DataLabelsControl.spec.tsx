@@ -14,7 +14,11 @@ describe("DataLabelsControl", () => {
 
     function createComponent(customProps: Partial<IDataLabelsControlProps> = {}) {
         const props = { ...defaultProps, ...customProps };
-        return mount(<InternalIntlWrapper><DataLabelsControl {...props} /></InternalIntlWrapper>);
+        return mount(
+            <InternalIntlWrapper>
+                <DataLabelsControl {...props} />
+            </InternalIntlWrapper>,
+        );
     }
 
     describe("Rendering", () => {

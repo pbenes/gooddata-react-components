@@ -7,7 +7,7 @@ import set = require("lodash/set");
 import LabelSubsection, { ILabelSubsection } from "../LabelSubsection";
 import LabelRotationControl from "../LabelRotationControl";
 import ConfigSubsection from "../../../configurationControls/ConfigSubsection";
-import { InternalIntlWrapper } from '../../../../utils/internalIntlProvider';
+import { InternalIntlWrapper } from "../../../../utils/internalIntlProvider";
 
 const defaultProps: ILabelSubsection = {
     disabled: true,

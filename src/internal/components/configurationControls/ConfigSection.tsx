@@ -29,7 +29,10 @@ export interface IConfigSectionState {
     collapsed: boolean;
 }
 
-export class ConfigSection extends React.Component<IConfigSectionProps & InjectedIntlProps, IConfigSectionState> {
+export class ConfigSection extends React.Component<
+    IConfigSectionProps & InjectedIntlProps,
+    IConfigSectionState
+> {
     public static defaultProps = {
         collapsed: true,
         canBeToggled: false,

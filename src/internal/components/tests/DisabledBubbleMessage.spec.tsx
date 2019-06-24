@@ -3,13 +3,13 @@ import * as React from "react";
 import { shallow } from "enzyme";
 
 import { DisabledBubbleMessage } from "../DisabledBubbleMessage";
-import { createInternalIntl } from '../../utils/internalIntlProvider';
+import { createInternalIntl } from "../../utils/internalIntlProvider";
 
 function createComponent(showDisabledMessage: boolean = true) {
     return shallow(
-        <DisabledBubbleMessage intl={ createInternalIntl() } showDisabledMessage={showDisabledMessage}>
+        <DisabledBubbleMessage intl={createInternalIntl()} showDisabledMessage={showDisabledMessage}>
             <div className={"bubble-trigger"}>{"Foo"}</div>
-        </DisabledBubbleMessage>
+        </DisabledBubbleMessage>,
     );
 }
 

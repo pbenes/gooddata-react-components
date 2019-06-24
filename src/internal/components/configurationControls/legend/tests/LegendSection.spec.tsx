@@ -3,7 +3,7 @@ import * as React from "react";
 import { mount } from "enzyme";
 import LegendSection, { ILegendSection } from "../LegendSection";
 import LegendPositionControl from "../LegendPositionControl";
-import { InternalIntlWrapper } from '../../../../utils/internalIntlProvider';
+import { InternalIntlWrapper } from "../../../../utils/internalIntlProvider";
 import noop = require("lodash/noop");
 import cloneDeep = require("lodash/cloneDeep");
 import set = require("lodash/set");
@@ -20,7 +20,7 @@ function createComponent(customProps: Partial<ILegendSection> = {}) {
     return mount(
         <InternalIntlWrapper>
             <LegendSection {...props} />
-        </InternalIntlWrapper>
+        </InternalIntlWrapper>,
     );
 }
 
