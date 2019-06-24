@@ -11,7 +11,7 @@ export interface IBubbleMessageProps {
     className?: string;
 }
 
-class DisabledBubbleMessage extends React.PureComponent<IBubbleMessageProps & InjectedIntlProps> {
+export class DisabledBubbleMessage extends React.PureComponent<IBubbleMessageProps & InjectedIntlProps> {
     public render() {
         const { className, children, intl } = this.props;
         return (

@@ -1,17 +1,15 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
-import { mount } from "enzyme";
+import { shallow } from "enzyme";
 
-import DisabledBubbleMessage from "../DisabledBubbleMessage";
-import { InternalIntlWrapper } from '../../utils/internalIntlProvider';
+import { DisabledBubbleMessage } from "../DisabledBubbleMessage";
+import { createInternalIntl } from '../../utils/internalIntlProvider';
 
 function createComponent(showDisabledMessage: boolean = true) {
-    return mount(
-        <InternalIntlWrapper>
-            <DisabledBubbleMessage showDisabledMessage={showDisabledMessage}>
-                <div className={"bubble-trigger"}>{"Foo"}</div>
-            </DisabledBubbleMessage>
-        </InternalIntlWrapper>
+    return shallow(
+        <DisabledBubbleMessage intl={ createInternalIntl() } showDisabledMessage={showDisabledMessage}>
+            <div className={"bubble-trigger"}>{"Foo"}</div>
+        </DisabledBubbleMessage>
     );
 }
 
@@ -23,6 +21,8 @@ describe("DisabledBubbleMessage", () => {
 
     it("should create Bubble component with invisible class", () => {
         const wrapper = createComponent(false);
+
+        console.log(wrapper.debug());
         expect(wrapper.find(".bubble-primary.invisible").length).toBe(1);
     });
 });
