@@ -21,8 +21,6 @@ describe("DisabledBubbleMessage", () => {
 
     it("should create Bubble component with invisible class", () => {
         const wrapper = createComponent(false);
-
-        console.log(wrapper.debug());
         expect(wrapper.find(".bubble-primary.invisible").length).toBe(1);
     });
 });
