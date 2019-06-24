@@ -3,10 +3,10 @@ import * as React from "react";
 import { mount } from "enzyme";
 import LegendSection, { ILegendSection } from "../LegendSection";
 import LegendPositionControl from "../LegendPositionControl";
+import { InternalIntlWrapper } from '../../../../utils/internalIntlProvider';
 import noop = require("lodash/noop");
 import cloneDeep = require("lodash/cloneDeep");
 import set = require("lodash/set");
-import { IntlProvider } from "react-intl";
 
 const defaultProps: ILegendSection = {
     controlsDisabled: true,
@@ -17,10 +17,10 @@ const defaultProps: ILegendSection = {
 
 function createComponent(customProps: Partial<ILegendSection> = {}) {
     const props: ILegendSection = { ...cloneDeep(defaultProps), ...customProps };
-    return mount<ILegendSection, null>(
-        <IntlProvider locale="en">
+    return mount(
+        <InternalIntlWrapper>
             <LegendSection {...props} />
-        </IntlProvider>,
+        </InternalIntlWrapper>
     );
 }
 

@@ -1,6 +1,5 @@
 // (C) 2019 GoodData Corporation
 import * as React from "react";
-import { injectIntl, InjectedIntlProps } from "react-intl";
 import ConfigSection from "../ConfigSection";
 import LegendPositionControl from "./LegendPositionControl";
 import { IVisualizationProperties } from "../../../interfaces/Visualization";
@@ -13,7 +12,7 @@ export interface ILegendSection {
     pushData: (data: any) => any;
 }
 
-export class LegendSection extends React.PureComponent<ILegendSection & InjectedIntlProps, {}> {
+export class LegendSection extends React.PureComponent<ILegendSection, {}> {
     public render() {
         const { controlsDisabled, properties, pushData } = this.props;
 
@@ -50,4 +49,4 @@ export class LegendSection extends React.PureComponent<ILegendSection & Injected
     }
 }
 
-export default injectIntl(LegendSection);
+export default LegendSection;
