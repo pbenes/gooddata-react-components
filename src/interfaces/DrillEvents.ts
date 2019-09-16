@@ -41,6 +41,7 @@ export type IDrillEventCallback = (event: IDrillEvent) => void | boolean;
 export interface IDrillEventIntersectionElement {
     id: string;
     title: string;
+    uri?: string;
     header?: {
         uri: string;
         identifier: string;
