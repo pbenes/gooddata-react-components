@@ -13,7 +13,7 @@ import {
 import {
     IDrillEvent,
     IDrillEventContextGroup,
-    IDrillEventIntersectionElement,
+    //    IDrillEventIntersectionElement,
     IDrillEventContextTable,
     IDrillPoint,
     IHighchartsPointObject,
@@ -229,23 +229,23 @@ export function cellClick(drillConfig: IDrillConfig, event: ICellDrillEvent, tar
 }
 
 // TODO: this may be used in final transform
-export function createDrillIntersectionElement(
-    id: string,
-    title: string,
-    uri?: string,
-    identifier?: string,
-): IDrillEventIntersectionElement {
-    const element: IDrillEventIntersectionElement = {
-        id: id || "",
-        title: title || "",
-    };
-
-    if (uri || identifier) {
-        //        element.header = {
-        //            uri: uri || "",
-        //            identifier: identifier || "",
-        //        };
-    }
-
-    return element;
-}
+// export function createDrillIntersectionElement(
+//     id: string,
+//     title: string,
+//     uri?: string,
+//     identifier?: string,
+// ): IDrillEventIntersectionElement {
+//     const element: IDrillEventIntersectionElement = {
+//         id: id || "",
+//         title: title || "",
+//     };
+//
+//     if (uri || identifier) {
+//         //        element.header = {
+//         //            uri: uri || "",
+//         //            identifier: identifier || "",
+//         //        };
+//     }
+//
+//     return element;
+// }

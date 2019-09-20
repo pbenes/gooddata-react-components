@@ -40,15 +40,7 @@ export type IDrillEventCallback = (event: IDrillEvent) => void | boolean;
 
 // Intersection element
 export interface IDrillEventIntersectionElement {
-    // header?: any;
-    header?: IMappingHeader;
-
-    masterMeasureQualifier?: any;
-
-    // todo: remove below
-    id?: any;
-    uri?: any;
-    title?: any;
+    header: IMappingHeader;
 }
 
 // Drill context for tables
