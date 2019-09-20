@@ -1,18 +1,19 @@
 // (C) 2007-2019 GoodData Corporation
 
-import { AFM, Execution } from "@gooddata/typings";
-import { getMasterMeasureObjQualifier } from "../../../helpers/afmHelper";
+// import { AFM, Execution } from "@gooddata/typings";
+import { Execution } from "@gooddata/typings";
+// import { getMasterMeasureObjQualifier } from "../../../helpers/afmHelper";
 import {
-    getMappingHeaderIdentifier,
-    getMappingHeaderLocalIdentifier,
-    getMappingHeaderName,
+    //     getMappingHeaderIdentifier,
+    //     getMappingHeaderLocalIdentifier,
+    //     getMappingHeaderName,
     getMappingHeaderUri,
 } from "../../../helpers/mappingHeader";
 import get = require("lodash/get");
 import { IDrillEventIntersectionElement } from "../../../interfaces/DrillEvents";
 import { IMappingHeader, isMappingHeaderAttributeItem } from "../../../interfaces/MappingHeader";
-import { getAttributeElementIdFromAttributeElementUri } from "../../visualizations/utils/common";
-import { createDrillIntersectionElement } from "../../visualizations/utils/drilldownEventing";
+// import { getAttributeElementIdFromAttributeElementUri } from "../../visualizations/utils/common";
+// import { createDrillIntersectionElement } from "../../visualizations/utils/drilldownEventing";
 import { getIdsFromUri } from "./agGridUtils";
 import { COLUMN_ATTRIBUTE_COLUMN, MEASURE_COLUMN, ROW_ATTRIBUTE_COLUMN } from "./agGridConst";
 import { ColDef } from "ag-grid-community";
@@ -45,7 +46,7 @@ export const getDrillRowData = (leafColumnDefs: ColDef[], rowData: { [key: strin
 
 export const getDrillIntersection = (
     drillItems: IMappingHeader[],
-    afm: AFM.IAfm,
+    //    afm: AFM.IAfm,
 ): IDrillEventIntersectionElement[] => {
     // Drilling needs refactoring: all '' should be replaced by null (breaking change)
     // intersection consists of
@@ -54,27 +55,32 @@ export const getDrillIntersection = (
     //     0..n column attribute and column attribute values
     return drillItems.map((drillItem: IMappingHeader) => {
         if (isMappingHeaderAttributeItem(drillItem)) {
-            const id = getAttributeElementIdFromAttributeElementUri(drillItem.attributeHeaderItem.uri);
-            return createDrillIntersectionElement(
-                id,
-                getMappingHeaderName(drillItem),
-                getMappingHeaderUri(drillItem),
-                "",
-            );
+            return {
+                header: drillItem,
+            };
+
+            //            const id = getAttributeElementIdFromAttributeElementUri(drillItem.attributeHeaderItem.uri);
+            //            return createDrillIntersectionElement(
+            //                id,
+            //                getMappingHeaderName(drillItem),
+            //                getMappingHeaderUri(drillItem),
+            //                "",
+            //            );
         }
 
-        const headerLocalIdentifier = getMappingHeaderLocalIdentifier(drillItem);
-        const headerIdentifier = getMappingHeaderIdentifier(drillItem) || "";
-        const uriAndIdentifier = headerLocalIdentifier
-            ? getMasterMeasureObjQualifier(afm, headerLocalIdentifier)
-            : null;
-
-        const headerUri = getMappingHeaderUri(drillItem) || "";
-        const uri = (uriAndIdentifier && uriAndIdentifier.uri) || headerUri;
-        const identifier = (uriAndIdentifier && uriAndIdentifier.identifier) || headerIdentifier;
-        const id = headerLocalIdentifier || headerIdentifier;
-
-        return createDrillIntersectionElement(id, getMappingHeaderName(drillItem), uri, identifier);
+        return { header: drillItem };
+        //        const headerLocalIdentifier = getMappingHeaderLocalIdentifier(drillItem);
+        //        const headerIdentifier = getMappingHeaderIdentifier(drillItem) || "";
+        //        const uriAndIdentifier = headerLocalIdentifier
+        //            ? getMasterMeasureObjQualifier(afm, headerLocalIdentifier)
+        //            : null;
+        //
+        //        const headerUri = getMappingHeaderUri(drillItem) || "";
+        //        const uri = (uriAndIdentifier && uriAndIdentifier.uri) || headerUri;
+        //        const identifier = (uriAndIdentifier && uriAndIdentifier.identifier) || headerIdentifier;
+        //        const id = headerLocalIdentifier || headerIdentifier;
+        //
+        //        return createDrillIntersectionElement(id, getMappingHeaderName(drillItem), uri, identifier);
     });
 };
 

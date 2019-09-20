@@ -124,7 +124,7 @@ describe("assignDrillItemsAndType", () => {
 });
 
 describe("getDrillIntersection", () => {
-    const afm = pivotTableWithColumnAndRowAttributes.executionRequest.afm;
+    //    const afm = pivotTableWithColumnAndRowAttributes.executionRequest.afm;
     const { columnDefs, rowData } = executionToAGGridAdapter(
         {
             executionResponse: pivotTableWithColumnAndRowAttributes.executionResponse,
@@ -136,7 +136,8 @@ describe("getDrillIntersection", () => {
     it("should return intersection of row attribute and row attribute value for row header cell", async () => {
         const rowColDef = columnDefs[0]; // row header
         const drillItems = [...rowColDef.drillItems, rowData[0].headerItemMap[rowColDef.field]];
-        const intersection = getDrillIntersection(drillItems, afm);
+        //        const intersection = getDrillIntersection(drillItems, afm);
+        const intersection = getDrillIntersection(drillItems);
         expect(intersection).toEqual([
             {
                 header: {
@@ -159,7 +160,8 @@ describe("getDrillIntersection", () => {
 
     it("should return intersection of all column header attributes and values and a measure for column header cell", async () => {
         const colDef = getTreeLeaves(columnDefs)[3]; // column leaf header
-        const intersection = getDrillIntersection(colDef.drillItems, afm);
+        const intersection = getDrillIntersection(colDef.drillItems);
+        // const intersection = getDrillIntersection(colDef.drillItems, afm);
         expect(intersection).toEqual([
             {
                 header: {
@@ -215,7 +217,8 @@ describe("getDrillIntersection", () => {
                 },
             },
         ];
-        const intersection = getDrillIntersection(drillItems, afm);
+        //        const intersection = getDrillIntersection(drillItems, afm);
+        const intersection = getDrillIntersection(drillItems);
         expect(intersection).toEqual([
             {
                 id: "am1",

@@ -1,6 +1,7 @@
 // (C) 2007-2019 GoodData Corporation
 import { AFM } from "@gooddata/typings";
 import Highcharts from "../components/visualizations/chart/highcharts/highchartsEntryPoint";
+import { IMappingHeader } from "./MappingHeader";
 import {
     ChartElementType,
     ChartType,
@@ -39,12 +40,15 @@ export type IDrillEventCallback = (event: IDrillEvent) => void | boolean;
 
 // Intersection element
 export interface IDrillEventIntersectionElement {
-    id: string;
-    title: string;
-    header?: {
-        uri: string;
-        identifier: string;
-    };
+    // header?: any;
+    header?: IMappingHeader;
+
+    masterMeasureQualifier?: any;
+
+    // todo: remove below
+    id?: any;
+    uri?: any;
+    title?: any;
 }
 
 // Drill context for tables

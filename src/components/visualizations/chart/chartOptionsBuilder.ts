@@ -33,7 +33,7 @@ import {
 } from "../../../helpers/executionResultHelper";
 import { unwrap } from "../../../helpers/utils";
 import { isBucketEmpty } from "../../../helpers/mdObjBucketHelper";
-import { getMasterMeasureObjQualifier } from "../../../helpers/afmHelper";
+// import { getMasterMeasureObjQualifier } from "../../../helpers/afmHelper";
 import { isSomeHeaderPredicateMatched } from "../../../helpers/headerPredicate";
 
 import {
@@ -54,7 +54,6 @@ import { IMappingHeader } from "../../../interfaces/MappingHeader";
 import { getLighterColor, GRAY, WHITE, TRANSPARENT } from "../utils/color";
 
 import {
-    getAttributeElementIdFromAttributeElementUri,
     isAreaChart,
     isBarChart,
     isBubbleChart,
@@ -67,7 +66,6 @@ import {
     parseValue,
     stringifyChartTypes,
 } from "../utils/common";
-import { createDrillIntersectionElement } from "../utils/drilldownEventing";
 import {
     canComboChartBeStackedInPercent,
     getComboChartSeries,
@@ -974,36 +972,30 @@ export function isLegacyAttributeHeader(header: ILegacyHeader): header is ILegac
     return (header as ILegacyAttributeHeader).attribute !== undefined;
 }
 
-function mapDrillIntersectionElement(header: ILegacyHeader, afm: AFM.IAfm): IDrillEventIntersectionElement {
-    const { name, localIdentifier } = header;
+// function mapDrillIntersectionElement(header: IMappingHeader, afm: AFM.IAfm): IDrillEventIntersectionElement {
+function mapDrillIntersectionElement(header: IMappingHeader): IDrillEventIntersectionElement {
+    // const { localIdentifier } = header;
 
-    if (isLegacyAttributeHeader(header)) {
-        const { attribute, uri } = header;
+    //    if (isLegacyAttributeHeader(header)) {
+    //        return {
+    //            header
+    //        };
+    //    }
 
-        return createDrillIntersectionElement(
-            getAttributeElementIdFromAttributeElementUri(uri),
-            name,
-            attribute.uri,
-            attribute.identifier,
-        );
-    }
-
-    const masterMeasureQualifier = getMasterMeasureObjQualifier(afm, localIdentifier);
-    const uri = masterMeasureQualifier.uri || header.uri;
-    const identifier = masterMeasureQualifier.identifier || header.identifier;
-
-    return createDrillIntersectionElement(localIdentifier, name, uri, identifier);
+    // const masterMeasureQualifier = getMasterMeasureObjQualifier(afm, localIdentifier);
+    return { header };
 }
 
 export function getDrillIntersection(
     stackByItem: any,
     viewByItems: any[],
     measures: any[],
-    afm: AFM.IAfm,
+    // afm: AFM.IAfm,
 ): IDrillEventIntersectionElement[] {
     const headers = without([...measures, ...viewByItems, stackByItem], null);
 
-    return headers.map(header => mapDrillIntersectionElement(header, afm));
+    return headers.map(header => mapDrillIntersectionElement(header));
+    // return headers.map(header => mapDrillIntersectionElement(header, afm));
 }
 
 function getViewBy(viewByAttribute: IUnwrappedAttributeHeadersWithItems, viewByIndex: number) {
@@ -1109,13 +1101,13 @@ export function getDrillableSeries(
                 );
 
                 const {
-                    viewByItem: viewByChildItem,
+                    //                    viewByItem: viewByChildItem,
                     viewByItemHeader: viewByChildItemHeader,
                     viewByAttributeHeader: viewByChildAttributeHeader,
                 } = getViewBy(viewByChildAttribute, viewByIndex);
 
                 const {
-                    viewByItem: viewByParentItem,
+                    //                    viewByItem: viewByParentItem,
                     viewByItemHeader: viewByParentItemHeader,
                     viewByAttributeHeader: viewByParentdAttributeHeader,
                 } = getViewBy(viewByParentAttribute, viewByIndex);
@@ -1148,13 +1140,14 @@ export function getDrillableSeries(
                 };
 
                 if (drilldown) {
-                    const measures = measureHeaders.map(unwrap);
+                    // const measures = measureHeaders.map(unwrap);
+                    const measures = measureHeaders;
 
                     drillableProps.drillIntersection = getDrillIntersection(
                         stackByItem,
-                        [viewByChildItem, viewByParentItem],
+                        [viewByChildItemHeader, viewByParentItemHeader],
                         measures,
-                        afm,
+                        //                  afm,
                     );
                     isSeriesDrillable = true;
                 }

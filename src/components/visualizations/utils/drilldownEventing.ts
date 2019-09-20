@@ -228,6 +228,7 @@ export function cellClick(drillConfig: IDrillConfig, event: ICellDrillEvent, tar
     fireEvent(onFiredDrillEvent, data, target);
 }
 
+// TODO: this may be used in final transform
 export function createDrillIntersectionElement(
     id: string,
     title: string,
@@ -240,10 +241,10 @@ export function createDrillIntersectionElement(
     };
 
     if (uri || identifier) {
-        element.header = {
-            uri: uri || "",
-            identifier: identifier || "",
-        };
+        //        element.header = {
+        //            uri: uri || "",
+        //            identifier: identifier || "",
+        //        };
     }
 
     return element;

@@ -5,17 +5,17 @@ import get = require("lodash/get");
 import has = require("lodash/has");
 import isEmpty = require("lodash/isEmpty");
 import zip = require("lodash/zip");
-import {
-    getMappingHeaderIdentifier,
-    getMappingHeaderLocalIdentifier,
-    getMappingHeaderName,
-    getMappingHeaderUri,
-} from "../../../../helpers/mappingHeader";
+// import {
+//     getMappingHeaderIdentifier,
+//     getMappingHeaderLocalIdentifier,
+//     getMappingHeaderName,
+//     getMappingHeaderUri,
+// } from "../../../../helpers/mappingHeader";
 import { IDrillEventIntersectionElement } from "../../../../interfaces/DrillEvents";
 import {
     IMappingHeader,
-    isMappingHeaderAttribute,
-    isMappingHeaderMeasureItem,
+    //    isMappingHeaderAttribute,
+    //    isMappingHeaderMeasureItem,
 } from "../../../../interfaces/MappingHeader";
 import {
     IAttributeCell,
@@ -27,8 +27,8 @@ import {
 } from "../../../../interfaces/Table";
 import { IIndexedTotalItem, ITotalWithData } from "../../../../interfaces/Totals";
 import { getAttributeElementIdFromAttributeElementUri } from "../../utils/common";
-import { getMasterMeasureObjQualifier } from "../../../../helpers/afmHelper";
-import { createDrillIntersectionElement } from "../../utils/drilldownEventing";
+// import { getMasterMeasureObjQualifier } from "../../../../helpers/afmHelper";
+// import { createDrillIntersectionElement } from "../../utils/drilldownEventing";
 import { AVAILABLE_TOTALS } from "../totals/utils";
 
 export function getHeaders(executionResponse: Execution.IExecutionResponse): IMappingHeader[] {
@@ -169,35 +169,37 @@ export function validateTableProportions(headers: IMappingHeader[], rows: TableR
 }
 
 export function getIntersectionForDrilling(
-    afm: AFM.IAfm,
+    {  }: AFM.IAfm,
     header: IMappingHeader,
 ): IDrillEventIntersectionElement {
-    if (isMappingHeaderAttribute(header)) {
-        return createDrillIntersectionElement(
-            getMappingHeaderIdentifier(header),
-            getMappingHeaderName(header),
-            getMappingHeaderUri(header),
-            getMappingHeaderIdentifier(header),
-        );
-    }
-
-    if (isMappingHeaderMeasureItem(header)) {
-        const masterMeasureQualifier = getMasterMeasureObjQualifier(
-            afm,
-            getMappingHeaderLocalIdentifier(header),
-        );
-        const uri = masterMeasureQualifier.uri || getMappingHeaderUri(header);
-        const identifier = masterMeasureQualifier.identifier || getMappingHeaderIdentifier(header);
-
-        return createDrillIntersectionElement(
-            getMappingHeaderLocalIdentifier(header),
-            getMappingHeaderName(header),
-            uri,
-            identifier,
-        );
-    }
-
-    throw new Error(`Unknown mapping header type ${Object.keys(header)}`);
+    // console.log(afm);
+    return { header };
+    //    if (isMappingHeaderAttribute(header)) {
+    //        return createDrillIntersectionElement(
+    //            getMappingHeaderIdentifier(header),
+    //            getMappingHeaderName(header),
+    //            getMappingHeaderUri(header),
+    //            getMappingHeaderIdentifier(header),
+    //        );
+    //    }
+    //
+    //    if (isMappingHeaderMeasureItem(header)) {
+    //        const masterMeasureQualifier = getMasterMeasureObjQualifier(
+    //            afm,
+    //            getMappingHeaderLocalIdentifier(header),
+    //        );
+    //        const uri = masterMeasureQualifier.uri || getMappingHeaderUri(header);
+    //        const identifier = masterMeasureQualifier.identifier || getMappingHeaderIdentifier(header);
+    //
+    //        return createDrillIntersectionElement(
+    //            getMappingHeaderLocalIdentifier(header),
+    //            getMappingHeaderName(header),
+    //            uri,
+    //            identifier,
+    //        );
+    //    }
+    //
+    //    throw new Error(`Unknown mapping header type ${Object.keys(header)}`);
 }
 
 export function getBackwardCompatibleRowForDrilling(row: TableRow): TableRowForDrilling {

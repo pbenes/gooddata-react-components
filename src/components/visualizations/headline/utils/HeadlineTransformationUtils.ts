@@ -17,7 +17,7 @@ import {
 } from "../../../../interfaces/DrillEvents";
 import { VisualizationTypes, HeadlineElementType } from "../../../../constants/visualizationTypes";
 import { IHeadlineData, IHeadlineDataItem } from "../../../../interfaces/Headlines";
-import { createDrillIntersectionElement } from "../../utils/drilldownEventing";
+// import { createDrillIntersectionElement } from "../../utils/drilldownEventing";
 
 export interface IHeadlineExecutionData {
     measureHeaderItem: Execution.IMeasureHeaderItem["measureHeaderItem"];
@@ -213,17 +213,20 @@ export function buildDrillEventData(
         throw new Error("The metric ids has not been found in execution request!");
     }
 
-    const intersectionElement = createDrillIntersectionElement(
-        measureHeaderItem.localIdentifier,
-        measureHeaderItem.name,
-        masterMeasureQualifier.uri,
-        masterMeasureQualifier.identifier,
-    );
+    const intersectionElement = {
+        header: measureHeaderItem,
+    };
+    //    const intersectionElement = createDrillIntersectionElement(
+    //        measureHeaderItem.localIdentifier,
+    //        measureHeaderItem.name,
+    //        masterMeasureQualifier.uri,
+    //        masterMeasureQualifier.identifier,
+    //    );
     const drillContext: IDrillEventContextHeadline = {
         type: VisualizationTypes.HEADLINE,
         element: itemContext.element,
         value: itemContext.value,
-        intersection: [intersectionElement],
+        intersection: [intersectionElement as any], // TODO: what?
     };
 
     return {

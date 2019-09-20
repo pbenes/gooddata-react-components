@@ -500,7 +500,8 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         const leafColumnDefs = getTreeLeaves(columnDefs);
         const columnIndex = leafColumnDefs.findIndex(gridHeader => gridHeader.field === colDef.field);
         const row = getDrillRowData(leafColumnDefs, cellEvent.data);
-        const intersection = getDrillIntersection(drillItems, afm);
+        const intersection = getDrillIntersection(drillItems);
+        // const intersection = getDrillIntersection(drillItems, afm);
 
         const drillContext: IDrillEventContextTable = {
             type: VisualizationTypes.TABLE,
