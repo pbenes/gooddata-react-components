@@ -516,6 +516,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             drillContext,
         };
 
+        // TODO: convert drillEvent to legacy one so that onFiredDrilleEvent can process it
         if (onFiredDrillEvent(drillEvent)) {
             // This is needed for /analyze/embedded/ drilling with post message
             // tslint:disable-next-line:max-line-length

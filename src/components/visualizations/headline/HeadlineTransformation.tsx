@@ -5,7 +5,7 @@ import { InjectedIntlProps, injectIntl } from "react-intl";
 import noop = require("lodash/noop");
 import { convertDrillableItemsToPredicates } from "../../../helpers/headerPredicate";
 import { IChartConfig } from "../../../interfaces/Config";
-import { IDrillableItem, IDrillEventCallbackExtended } from "../../../interfaces/DrillEvents";
+import { IDrillableItem, IDrillEventCallback } from "../../../interfaces/DrillEvents";
 import { IHeaderPredicate } from "../../../interfaces/HeaderPredicate";
 import Headline, { IHeadlineFiredDrillEventItemContext } from "./Headline";
 import {
@@ -23,7 +23,7 @@ export interface IHeadlineTransformationProps {
     drillableItems?: Array<IDrillableItem | IHeaderPredicate>;
     config?: IChartConfig;
 
-    onFiredDrillEvent?: IDrillEventCallbackExtended;
+    onFiredDrillEvent?: IDrillEventCallback;
     onAfterRender?: () => void;
 }
 
@@ -79,6 +79,7 @@ class HeadlineTransformation extends React.Component<IHeadlineTransformationProp
         const { onFiredDrillEvent, executionRequest, executionResponse } = this.props;
         const drillEventData = buildDrillEventData(item, executionRequest, executionResponse);
 
+        // TODO: convert drillEventData to legacy format so that onFiredDrillEvent can be called with original
         fireDrillEvent(onFiredDrillEvent, drillEventData, target);
     }
 }
