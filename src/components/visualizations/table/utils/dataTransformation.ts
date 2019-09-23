@@ -11,7 +11,7 @@ import zip = require("lodash/zip");
 //     getMappingHeaderName,
 //     getMappingHeaderUri,
 // } from "../../../../helpers/mappingHeader";
-import { IDrillEventIntersectionElement } from "../../../../interfaces/DrillEvents";
+import { IDrillEventIntersectionElementExtended } from "../../../../interfaces/DrillEvents";
 import {
     IMappingHeader,
     //    isMappingHeaderAttribute,
@@ -171,7 +171,7 @@ export function validateTableProportions(headers: IMappingHeader[], rows: TableR
 export function getIntersectionForDrilling(
     {  }: AFM.IAfm,
     header: IMappingHeader,
-): IDrillEventIntersectionElement {
+): IDrillEventIntersectionElementExtended {
     // console.log(afm);
     return { header };
     //    if (isMappingHeaderAttribute(header)) {

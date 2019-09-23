@@ -48,7 +48,7 @@ import {
     ISeriesItemConfig,
     ICategory,
 } from "../../../interfaces/Config";
-import { IDrillEventIntersectionElement } from "../../../interfaces/DrillEvents";
+import { IDrillEventIntersectionElementElementExtended } from "../../../interfaces/DrillEvents";
 import { IHeaderPredicate } from "../../../interfaces/HeaderPredicate";
 import { IMappingHeader } from "../../../interfaces/MappingHeader";
 import { getLighterColor, GRAY, WHITE, TRANSPARENT } from "../utils/color";
@@ -973,7 +973,7 @@ export function isLegacyAttributeHeader(header: ILegacyHeader): header is ILegac
 }
 
 // function mapDrillIntersectionElement(header: IMappingHeader, afm: AFM.IAfm): IDrillEventIntersectionElement {
-function mapDrillIntersectionElement(header: IMappingHeader): IDrillEventIntersectionElement {
+function mapDrillIntersectionElement(header: IMappingHeader): IDrillEventIntersectionElementExtended {
     // const { localIdentifier } = header;
 
     //    if (isLegacyAttributeHeader(header)) {
@@ -991,7 +991,7 @@ export function getDrillIntersection(
     viewByItems: any[],
     measures: any[],
     // afm: AFM.IAfm,
-): IDrillEventIntersectionElement[] {
+): IDrillEventIntersectionElementExtnded[] {
     const headers = without([...measures, ...viewByItems, stackByItem], null);
 
     return headers.map(header => mapDrillIntersectionElement(header));

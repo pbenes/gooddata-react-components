@@ -32,7 +32,7 @@ import {
     getMeasureCellStyle,
 } from "../../helpers/tableCell";
 
-import { IDrillEvent, IDrillEventContextTable } from "../../interfaces/DrillEvents";
+import { IDrillEventExtended, IDrillEventContextTableExtended } from "../../interfaces/DrillEvents";
 import { IHeaderPredicate } from "../../interfaces/HeaderPredicate";
 import { IMappingHeader } from "../../interfaces/MappingHeader";
 import { IMenuAggregationClickConfig, IPivotTableConfig } from "../../interfaces/PivotTable";
@@ -503,7 +503,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         const intersection = getDrillIntersection(drillItems);
         // const intersection = getDrillIntersection(drillItems, afm);
 
-        const drillContext: IDrillEventContextTable = {
+        const drillContext: IDrillEventContextTableExtended = {
             type: VisualizationTypes.TABLE,
             element: "cell",
             columnIndex,
@@ -511,7 +511,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             row,
             intersection,
         };
-        const drillEvent: IDrillEvent = {
+        const drillEvent: IDrillEventExtended = {
             executionContext: afm,
             drillContext,
         };

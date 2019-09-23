@@ -11,9 +11,9 @@ import { getMasterMeasureObjQualifier } from "../../../../helpers/afmHelper";
 import { isSomeHeaderPredicateMatched } from "../../../../helpers/headerPredicate";
 import { IHeaderPredicate } from "../../../../interfaces/HeaderPredicate";
 import {
-    IDrillEvent,
+    IDrillEventExtended,
     IDrillEventCallback,
-    IDrillEventContextHeadline,
+    IDrillEventContextHeadlineExtended,
 } from "../../../../interfaces/DrillEvents";
 import { VisualizationTypes, HeadlineElementType } from "../../../../constants/visualizationTypes";
 import { IHeadlineData, IHeadlineDataItem } from "../../../../interfaces/Headlines";
@@ -199,7 +199,7 @@ export function buildDrillEventData(
     itemContext: IHeadlineDrillItemContext,
     executionRequest: AFM.IExecution["execution"],
     executionResponse: Execution.IExecutionResponse,
-): IDrillEvent {
+): IDrillEventExtended {
     const measureHeaderItem = findMeasureHeaderItem(itemContext.localIdentifier, executionResponse);
     if (!measureHeaderItem) {
         throw new Error("The metric uri has not been found in execution response!");
@@ -244,7 +244,7 @@ export function buildDrillEventData(
  */
 export function fireDrillEvent(
     drillEventFunction: IDrillEventCallback,
-    drillEventData: IDrillEvent,
+    drillEventData: IDrillEventExtended,
     target: EventTarget,
 ) {
     const shouldDispatchPostMessage = drillEventFunction && drillEventFunction(drillEventData);
