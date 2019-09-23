@@ -12,7 +12,7 @@ import {
 } from "../../../constants/visualizationTypes";
 import {
     IDrillEventExtended,
-    IDrillEventContextGroup,
+    IDrillEventContextGroupExtended,
     //    IDrillEventIntersectionElement,
     IDrillEventContextTableExtended,
     IDrillPointExtended,
@@ -66,7 +66,7 @@ function fireEvent(onFiredDrillEvent: OnFiredDrillEvent, data: any, target: Even
 function composeDrillContextGroup(
     points: IHighchartsPointObjectExtended[],
     chartType: ChartType,
-): IDrillEventContextGroup {
+): IDrillEventContextGroupExtended {
     const sanitizedPoints = sanitizeContextPoints(chartType, points);
     const contextPoints: IDrillPointExtended[] = sanitizedPoints.map(
         (point: IHighchartsPointObjectExtended) => {

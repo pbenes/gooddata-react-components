@@ -10,7 +10,7 @@ import {
     getMappingHeaderUri,
 } from "../../../helpers/mappingHeader";
 import get = require("lodash/get");
-import { IDrillEventIntersectionElement } from "../../../interfaces/DrillEvents";
+import { IDrillEventIntersectionElementExtended } from "../../../interfaces/DrillEvents";
 import { IMappingHeader, isMappingHeaderAttributeItem } from "../../../interfaces/MappingHeader";
 // import { getAttributeElementIdFromAttributeElementUri } from "../../visualizations/utils/common";
 // import { createDrillIntersectionElement } from "../../visualizations/utils/drilldownEventing";
@@ -47,7 +47,7 @@ export const getDrillRowData = (leafColumnDefs: ColDef[], rowData: { [key: strin
 export const getDrillIntersection = (
     drillItems: IMappingHeader[],
     //    afm: AFM.IAfm,
-): IDrillEventIntersectionElement[] => {
+): IDrillEventIntersectionElementExtended[] => {
     // Drilling needs refactoring: all '' should be replaced by null (breaking change)
     // intersection consists of
     //     0..1 measure

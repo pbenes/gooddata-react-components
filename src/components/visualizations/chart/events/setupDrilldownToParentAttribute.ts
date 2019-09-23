@@ -9,12 +9,12 @@ import {
     IDrillConfig,
     IHighchartsCategoriesTree,
     IHighchartsParentTick,
-    IHighchartsPointObject,
+    IHighchartsPointObjectExtended,
 } from "../../../../interfaces/DrillEvents";
 
-function getDDPointsInParentTick(axis: any, tick: IHighchartsParentTick): IHighchartsPointObject[] {
+function getDDPointsInParentTick(axis: any, tick: IHighchartsParentTick): IHighchartsPointObjectExtended[] {
     const { startAt, leaves } = tick;
-    const ddPoints: IHighchartsPointObject[] = []; // drilldown points
+    const ddPoints: IHighchartsPointObjectExtended[] = []; // drilldown points
 
     for (let i = startAt; i < startAt + leaves; i++) {
         ddPoints.push(...axis.getDDPoints(i));
@@ -28,7 +28,7 @@ function setParentTickDrillable(
     target: EventTarget,
     chartType: ChartType,
     tick: IHighchartsParentTick,
-    ddPoints: IHighchartsPointObject[],
+    ddPoints: IHighchartsPointObjectExtended[],
 ) {
     // copy behavior 'Tick.prototype.drillable' from 'highcharts/module/drilldown.js'
     const label = tick.label;

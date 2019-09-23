@@ -12,7 +12,7 @@ import { isSomeHeaderPredicateMatched } from "../../../../helpers/headerPredicat
 import { IHeaderPredicate } from "../../../../interfaces/HeaderPredicate";
 import {
     IDrillEventExtended,
-    IDrillEventCallback,
+    IDrillEventCallbackExtended,
     IDrillEventContextHeadlineExtended,
 } from "../../../../interfaces/DrillEvents";
 import { VisualizationTypes, HeadlineElementType } from "../../../../constants/visualizationTypes";
@@ -222,7 +222,7 @@ export function buildDrillEventData(
     //        masterMeasureQualifier.uri,
     //        masterMeasureQualifier.identifier,
     //    );
-    const drillContext: IDrillEventContextHeadline = {
+    const drillContext: IDrillEventContextHeadlineExtended = {
         type: VisualizationTypes.HEADLINE,
         element: itemContext.element,
         value: itemContext.value,
@@ -243,7 +243,7 @@ export function buildDrillEventData(
  * @param target - The target where the built event must be dispatched.
  */
 export function fireDrillEvent(
-    drillEventFunction: IDrillEventCallback,
+    drillEventFunction: IDrillEventCallbackExtended,
     drillEventData: IDrillEventExtended,
     target: EventTarget,
 ) {

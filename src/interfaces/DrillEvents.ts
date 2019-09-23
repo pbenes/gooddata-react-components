@@ -36,7 +36,7 @@ export function isDrillableItemIdentifier(item: IDrillableItem): item is IDrilla
     return (item as IDrillableItemIdentifier).identifier !== undefined;
 }
 
-export type IDrillEventCallback = (event: IDrillEventExtended) => void | boolean;
+export type IDrillEventCallbackExtended = (event: IDrillEventExtended) => void | boolean;
 
 // Intersection element
 export interface IDrillEventIntersectionElementExtended {
@@ -83,7 +83,7 @@ export interface IDrillPointExtended {
 
 // Drill context for chart element group (multiple series + click on axis value)
 // where every point has own intersection
-export interface IDrillEventContextGroup {
+export interface IDrillEventContextGroupExtended {
     type: ChartType;
     element: ChartElementType;
     points: IDrillPointExtended[];

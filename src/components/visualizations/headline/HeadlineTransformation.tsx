@@ -5,7 +5,7 @@ import { InjectedIntlProps, injectIntl } from "react-intl";
 import noop = require("lodash/noop");
 import { convertDrillableItemsToPredicates } from "../../../helpers/headerPredicate";
 import { IChartConfig } from "../../../interfaces/Config";
-import { IDrillableItem, IDrillEventCallback } from "../../../interfaces/DrillEvents";
+import { IDrillableItem, IDrillEventCallbackExtended } from "../../../interfaces/DrillEvents";
 import { IHeaderPredicate } from "../../../interfaces/HeaderPredicate";
 import Headline, { IHeadlineFiredDrillEventItemContext } from "./Headline";
 import {
@@ -23,7 +23,7 @@ export interface IHeadlineTransformationProps {
     drillableItems?: Array<IDrillableItem | IHeaderPredicate>;
     config?: IChartConfig;
 
-    onFiredDrillEvent?: IDrillEventCallback;
+    onFiredDrillEvent?: IDrillEventCallbackExtended;
     onAfterRender?: () => void;
 }
 
