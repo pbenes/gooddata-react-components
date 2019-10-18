@@ -1,5 +1,6 @@
 // (C) 2007-2019 GoodData Corporation
 import * as React from "react";
+import { VisualizationInput } from "@gooddata/typings";
 import noop = require("lodash/noop");
 import { storiesOf } from "@storybook/react";
 import { action, decorateAction } from "@storybook/addon-actions";
@@ -29,7 +30,7 @@ import {
     EXECUTION_RESULT_AM,
     TABLE_HEADERS_AM,
 } from "../../src/components/visualizations/table/fixtures/arithmericMeasures";
-import { PivotTable } from "../../src";
+import { Model, PivotTable } from "../../src";
 import { ATTRIBUTE_1, MEASURE_1, MEASURE_2, MEASURE_AM_1_2 } from "../data/componentProps";
 import HeadlineTransformation from "../../src/components/visualizations/headline/HeadlineTransformation";
 import {
@@ -557,6 +558,48 @@ storiesOf("Internal/Drilldown", module)
             </div>,
         ),
     )
+    .add("Pivot table with subtotal and drillable measure", () => {
+        const measures = [
+            Model.measure("/gdc/md/aiugpog6irti75nk93qc1wd1t2wl3xfs/obj/1144").localIdentifier("m1"),
+            Model.measure("/gdc/md/aiugpog6irti75nk93qc1wd1t2wl3xfs/obj/1145").localIdentifier("m2"),
+        ];
+
+        const attributes = [
+            Model.attribute("/gdc/md/aiugpog6irti75nk93qc1wd1t2wl3xfs/obj/1024").localIdentifier("a1"),
+            Model.attribute("/gdc/md/aiugpog6irti75nk93qc1wd1t2wl3xfs/obj/1027").localIdentifier("a2"),
+        ];
+
+        const totals: VisualizationInput.ITotal[] = [
+            {
+                measureIdentifier: "m1",
+                type: "sum",
+                attributeIdentifier: "a1",
+            },
+            {
+                measureIdentifier: "m2",
+                type: "sum",
+                attributeIdentifier: "a2",
+            },
+        ];
+
+        return screenshotWrap(
+            <div style={{ width: 600, height: 300 }}>
+                <PivotTable
+                    projectId="storybook"
+                    measures={measures}
+                    rows={attributes}
+                    totals={totals}
+                    drillableItems={[
+                        headerPredicateFactory.localIdentifierMatch(
+                            "26cc9aa4d9af4fb48582d42966de5893", // mocked response localidentifier
+                        ),
+                    ]}
+                    LoadingComponent={null}
+                    ErrorComponent={null}
+                />
+            </div>,
+        );
+    })
     .add("Combo chart with onFiredDrillEvent", () => {
         const dataSet = {
             ...fixtures.comboWithTwoMeasuresAndViewByAttribute,
