@@ -243,6 +243,11 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             if (agGridDataSourceUpdateNeeded) {
                 this.updateAGGridDataSource();
             }
+
+            if (!isEqual(this.props.drillableItems, prevProps.drillableItems)) {
+                this.forceRerender();
+                return;
+            }
         });
 
         if (this.isAgGridRerenderNeeded(this.props, prevProps)) {
@@ -356,7 +361,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             // drillable items need fresh execution because drillable context for row attribute is kept in rowData
             // It could be refactored to assign drillability without execution,
             // but it would suffer a significant performance hit
-            "drillableItems",
+            // "drillableItems",
         ];
 
         const dataSourceInvalidatingPropChanged = dataSourceInvalidatingPropNames.some(
