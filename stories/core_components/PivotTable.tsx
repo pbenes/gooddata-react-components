@@ -1,4 +1,4 @@
-// (C) 2007-2018 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -10,6 +10,7 @@ import { GERMAN_SEPARATORS } from "../data/numberFormat";
 import {
     ATTRIBUTE_1,
     ATTRIBUTE_1_WITH_ALIAS,
+    ATTRIBUTE_PYRAMID,
     ATTRIBUTE_2,
     ATTRIBUTE_3,
     MEASURE_1,
@@ -42,6 +43,21 @@ storiesOf("Core components/PivotTable", module)
                     projectId="storybook"
                     measures={[MEASURE_1, MEASURE_2]}
                     rows={[ATTRIBUTE_1]}
+                    onError={onErrorHandler}
+                    LoadingComponent={null}
+                    ErrorComponent={null}
+                />
+            </div>,
+        ),
+    )
+    .add("two measures, one attribute with pyramid", () =>
+        screenshotWrap(
+            <div style={wrapperStyle} className="s-table">
+                <PivotTable
+                    projectId="storybook"
+                    measures={[MEASURE_1, MEASURE_2]}
+                    rows={[ATTRIBUTE_PYRAMID]}
+                    columns={[ATTRIBUTE_COUNTRY]}
                     onError={onErrorHandler}
                     LoadingComponent={null}
                     ErrorComponent={null}
