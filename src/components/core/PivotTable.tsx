@@ -1,4 +1,4 @@
-// (C) 2007-2019 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 import { AFM, Execution, VisualizationObject } from "@gooddata/typings";
 import {
     BodyScrollEvent,
@@ -7,6 +7,9 @@ import {
     GridReadyEvent,
     IDatasource,
     SortChangedEvent,
+    GridColumnsChangedEvent,
+    AgGridEvent,
+    ModelUpdatedEvent,
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { CellClassParams } from "ag-grid-community/dist/lib/entities/colDef";
@@ -164,6 +167,8 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
 
     private watchingIntervalId: number | null;
     private watchingTimeoutId: number | null;
+    private ignoreVirtualColumnsChanged: boolean = false;
+    private autoresizeColumnsAfterSortChanged: boolean = false;
 
     constructor(props: IPivotTableInnerProps) {
         super(props);
@@ -420,16 +425,40 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         }
     }
 
+    private autoresizeColumns = (event: AgGridEvent) => {
+        const autoWidthColumnIds: string[] = [];
+        event.columnApi.getAllColumns().reduce((autoWidthColumnIds: string[], column: any) => {
+            if (!column.width) {
+                autoWidthColumnIds.push(column.colId);
+            }
+            return autoWidthColumnIds;
+        }, autoWidthColumnIds);
+        event.columnApi.autoSizeColumns(autoWidthColumnIds);
+    };
+
     //
     // event handlers
     //
 
     private onGridReady = (params: GridReadyEvent) => {
+        console.log("onGridReady");
         this.gridApi = params.api;
         this.setGridDataSource();
 
         if (this.props.groupRows) {
             initializeStickyRow(this.gridApi);
+        }
+    };
+
+    private onGridColumnsChanged = (event: GridColumnsChangedEvent) => {
+        console.log("gridColumnsChanged");
+        this.autoresizeColumns(event); // handles initial render
+    };
+
+    private onVirtualColumnsChanged = (event: GridColumnsChangedEvent) => {
+        console.log("onVirtualColumnsChanged");
+        if (!this.ignoreVirtualColumnsChanged) {
+            this.autoresizeColumns(event); // handles horizontal scrolling
         }
     };
 
@@ -466,10 +495,18 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             this.stopWatchingTableRendered,
             WATCHING_TABLE_RENDERED_MAX_TIME,
         );
+        console.log("onFirstDataRendered");
     };
 
-    private onModelUpdated = () => {
+    private onModelUpdated = (event: ModelUpdatedEvent) => {
         this.updateStickyRow();
+        console.log("onModelUpdated");
+        // handles change of model after sort change only
+        // without this condition it would cause change of column width during vertical scrolling
+        if (this.autoresizeColumnsAfterSortChanged) {
+            this.autoresizeColumnsAfterSortChanged = false;
+            this.autoresizeColumns(event);
+        }
     };
 
     private getAttributeHeader(colId: string, columnDefs: IGridHeader[]): Execution.IAttributeHeader {
@@ -622,8 +659,10 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
 
     private columnResized = (columnEvent: ColumnResizedEvent) => {
         if (!columnEvent.finished) {
+            this.ignoreVirtualColumnsChanged = true;
             return; // only update the height once the user is done setting the column size
         }
+        this.ignoreVirtualColumnsChanged = false;
         this.updateDesiredHeight(this.state.execution.executionResult);
     };
 
@@ -662,6 +701,9 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         });
 
         this.updateGrouping();
+        console.log("sort changed");
+        this.autoresizeColumnsAfterSortChanged = true;
+        // this.autoresizeColumns(event); // calling autoresize here is too soon
     };
 
     private onBodyScroll = (event: BodyScrollEvent) => {
@@ -738,8 +780,11 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             maxConcurrentDatasourceRequests: 1,
             infiniteInitialRowCount: pageSize,
             maxBlocksInCache: 10,
+            // suppressColumnVirtualisation: true, // TODO INE when turned on, it solves issues with horizontal scrollbar jumping
             onGridReady: this.onGridReady,
             onFirstDataRendered: this.onFirstDataRendered,
+            onGridColumnsChanged: this.onGridColumnsChanged,
+            onVirtualColumnsChanged: this.onVirtualColumnsChanged,
             onModelUpdated: this.onModelUpdated,
             onBodyScroll: this.onBodyScroll,
 
@@ -811,6 +856,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             // Custom CSS classes
             rowClass: "gd-table-row",
             rowHeight: DEFAULT_ROW_HEIGHT,
+            autoSizePadding: 0,
         };
     };
 
