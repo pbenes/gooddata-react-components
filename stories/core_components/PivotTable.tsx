@@ -80,6 +80,23 @@ storiesOf("Core components/PivotTable", module)
             </div>,
         ),
     )
+    .add("two measures, many columns, first with pyramid", () =>
+        screenshotWrap(
+            <div>
+                <div style={wrapperStyle} className="s-table">
+                    <PivotTable
+                        projectId="storybook"
+                        measures={[MEASURE_1, MEASURE_2]}
+                        rows={[ATTRIBUTE_PYRAMID]}
+                        columns={[ATTRIBUTE_COUNTRY, ATTRIBUTE_1]}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                    />
+                </div>
+            </div>,
+        ),
+    )
     .add("renamed measure and renamed attribute", () =>
         screenshotWrap(
             <div style={wrapperStyle} className="s-table">
