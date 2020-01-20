@@ -1,4 +1,4 @@
-// (C) 2007-2019 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 import { VisualizationObject, AFM, Execution } from "@gooddata/typings";
 import { IColumnTotal } from "../../src/components/core/pivotTable/AggregationsMenu";
 import {
@@ -116,6 +116,10 @@ export const ATTRIBUTE_1_WITH_ALIAS: VisualizationObject.IVisualizationAttribute
         alias: "My attribute alias",
     },
 };
+
+export const ATTRIBUTE_PYRAMID: VisualizationObject.IVisualizationAttribute = attribute(
+    "/gdc/md/storybook/obj/7.df",
+).localIdentifier("a7");
 
 export const ATTRIBUTE_2: VisualizationObject.IVisualizationAttribute = attribute(
     "/gdc/md/storybook/obj/5.df",

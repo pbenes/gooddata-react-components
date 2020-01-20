@@ -287,6 +287,10 @@ const getBaseProjectSchema = (title, identifier) => {
                         'rep19',
                         'rep20'
                     ]
+                }, {
+                    identifier: '7',
+                    title: 'Pyramid',
+                    elements: Array(5000).fill().map((_item, i) => `p-${'x'.repeat(Math.ceil(i/50))}`)
                 }
             ],
             dateDataSets: [{

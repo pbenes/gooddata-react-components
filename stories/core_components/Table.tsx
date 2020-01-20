@@ -1,4 +1,4 @@
-// (C) 2007-2018 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -9,6 +9,7 @@ import { onErrorHandler } from "../mocks";
 import {
     ATTRIBUTE_1,
     ATTRIBUTE_1_WITH_ALIAS,
+    ATTRIBUTE_PYRAMID,
     ATTRIBUTE_2,
     ATTRIBUTE_COUNTRY,
     MEASURE_1,
