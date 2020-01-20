@@ -121,6 +121,10 @@ export const ATTRIBUTE_PYRAMID: VisualizationObject.IVisualizationAttribute = at
     "/gdc/md/storybook/obj/7.df",
 ).localIdentifier("a7");
 
+export const ATTRIBUTE_SMALL: VisualizationObject.IVisualizationAttribute = attribute(
+    "/gdc/md/storybook/obj/8.df",
+).localIdentifier("a8");
+
 export const ATTRIBUTE_2: VisualizationObject.IVisualizationAttribute = attribute(
     "/gdc/md/storybook/obj/5.df",
 ).localIdentifier("a2");

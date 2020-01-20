@@ -11,6 +11,7 @@ import {
     ATTRIBUTE_1,
     ATTRIBUTE_1_WITH_ALIAS,
     ATTRIBUTE_PYRAMID,
+    ATTRIBUTE_SMALL,
     ATTRIBUTE_2,
     ATTRIBUTE_3,
     MEASURE_1,
@@ -58,6 +59,20 @@ storiesOf("Core components/PivotTable", module)
                     measures={[MEASURE_1, MEASURE_2]}
                     rows={[ATTRIBUTE_PYRAMID]}
                     columns={[ATTRIBUTE_COUNTRY]}
+                    onError={onErrorHandler}
+                    LoadingComponent={null}
+                    ErrorComponent={null}
+                />
+            </div>,
+        ),
+    )
+    .add("two measures, many attributes, with pyramid on last column", () =>
+        screenshotWrap(
+            <div style={{ width: 400, height: 300 }} className="s-table">
+                <PivotTable
+                    projectId="storybook"
+                    measures={[MEASURE_1, MEASURE_2]}
+                    rows={[ATTRIBUTE_1, ATTRIBUTE_2, ATTRIBUTE_SMALL, ATTRIBUTE_PYRAMID]}
                     onError={onErrorHandler}
                     LoadingComponent={null}
                     ErrorComponent={null}
