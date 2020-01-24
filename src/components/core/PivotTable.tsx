@@ -289,6 +289,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
                 >
                     {tableLoadingOverlay}
                     <AgGridReact
+                        // debug={true}
                         {...gridOptions}
                         // To force Ag grid rerender because AFAIK there is no way
                         // to tell Ag grid header cell to rerender
@@ -379,6 +380,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     }
 
     private updateAGGridDataSource(): void {
+        console.log("updateAGGridDataSource");
         this.createAGGridDataSource();
         this.setGridDataSource();
     }
@@ -403,6 +405,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             }
             this.updateDesiredHeight(execution.executionResult);
             this.props.onDataSourceUpdateSuccess();
+            console.log("onSuccess");
         };
 
         this.agGridDataSource = createAgGridDataSource(
@@ -427,12 +430,18 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
 
     private autoresizeColumns = (event: AgGridEvent) => {
         const autoWidthColumnIds: string[] = [];
-        event.columnApi.getAllColumns().reduce((autoWidthColumnIds: string[], column: any) => {
-            if (!column.width) {
-                autoWidthColumnIds.push(column.colId);
-            }
-            return autoWidthColumnIds;
-        }, autoWidthColumnIds);
+        // getAllDisplayedVirtualColumns together with debounce had issue with last column during horizontal scrolling
+        // needs to be compared with getAll(Displayed)Columns + debounce what is more effective
+        event.columnApi
+            .getAllDisplayedVirtualColumns()
+            .reduce((autoWidthColumnIds: string[], column: any) => {
+                if (!column.width) {
+                    autoWidthColumnIds.push(column.colId);
+                }
+                return autoWidthColumnIds;
+            }, autoWidthColumnIds);
+        console.log("autosizing");
+        // do some diff of ids from previous run?
         event.columnApi.autoSizeColumns(autoWidthColumnIds);
     };
 
@@ -450,16 +459,23 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         }
     };
 
-    private onGridColumnsChanged = (event: GridColumnsChangedEvent) => {
+    private onGridColumnsChanged = (_event: GridColumnsChangedEvent) => {
         console.log("gridColumnsChanged");
-        this.autoresizeColumns(event); // handles initial render
     };
 
     private onVirtualColumnsChanged = (event: GridColumnsChangedEvent) => {
-        console.log("onVirtualColumnsChanged");
+        console.log("onVirtualColumnsChanged with ignore: ", this.ignoreVirtualColumnsChanged);
         if (!this.ignoreVirtualColumnsChanged) {
             this.autoresizeColumns(event); // handles horizontal scrolling
         }
+    };
+
+    private rowDataChanged = () => {
+        console.log("rowDataChanged");
+    };
+
+    private onColumnEverythingChanged = () => {
+        console.log("onColumnEverythingChanged");
     };
 
     private startWatchingTableRendered = () => {
@@ -500,13 +516,14 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
 
     private onModelUpdated = (event: ModelUpdatedEvent) => {
         this.updateStickyRow();
-        console.log("onModelUpdated");
+        console.log("onModelUpdated, ", this.autoresizeColumnsAfterSortChanged);
+        this.autoresizeColumns(event);
         // handles change of model after sort change only
         // without this condition it would cause change of column width during vertical scrolling
-        if (this.autoresizeColumnsAfterSortChanged) {
-            this.autoresizeColumnsAfterSortChanged = false;
-            this.autoresizeColumns(event);
-        }
+        // if (this.autoresizeColumnsAfterSortChanged) {
+        //     this.autoresizeColumnsAfterSortChanged = false;
+        //     this.autoresizeColumns(event);
+        // }
     };
 
     private getAttributeHeader(colId: string, columnDefs: IGridHeader[]): Execution.IAttributeHeader {
@@ -787,6 +804,9 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             onVirtualColumnsChanged: this.onVirtualColumnsChanged,
             onModelUpdated: this.onModelUpdated,
             onBodyScroll: this.onBodyScroll,
+            onRowDataChanged: this.rowDataChanged,
+            // animationQueueEmpty: this.animationQueueEmpty,
+            onColumnEverythingChanged: this.onColumnEverythingChanged,
 
             // this provides persistent row selection (if enabled)
             getRowNodeId,
@@ -856,7 +876,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             // Custom CSS classes
             rowClass: "gd-table-row",
             rowHeight: DEFAULT_ROW_HEIGHT,
-            autoSizePadding: 0,
+            autoSizePadding: 10,
         };
     };
 
