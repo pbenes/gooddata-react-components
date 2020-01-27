@@ -10,6 +10,7 @@ import {
     GridColumnsChangedEvent,
     AgGridEvent,
     ModelUpdatedEvent,
+    Column,
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { CellClassParams } from "ag-grid-community/dist/lib/entities/colDef";
@@ -105,6 +106,8 @@ import get = require("lodash/get");
 import isEqual = require("lodash/isEqual");
 import noop = require("lodash/noop");
 import sumBy = require("lodash/sumBy");
+import debounce = require("lodash/debounce");
+import difference = require("lodash/difference");
 
 import { getDrillIntersection } from "../visualizations/utils/drilldownEventing";
 
@@ -189,6 +192,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         this.gridApi = null;
 
         this.setGroupingProvider(props.groupRows);
+        this.autoresizeColumns = debounce(this.autoresizeColumns, 50); // long timeout causes jumping of columns when scrolling from right to left
     }
 
     public componentWillMount() {
@@ -428,21 +432,28 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         }
     }
 
+    private getColumnIdsToAutoresize = (columns: Column[]): string[] =>
+        columns.filter((column: any) => !column.width).map((column: Column) => column.getColId());
+
     private autoresizeColumns = (event: AgGridEvent) => {
-        const autoWidthColumnIds: string[] = [];
-        // getAllDisplayedVirtualColumns together with debounce had issue with last column during horizontal scrolling
+        let autoWidthColumnIds: string[] = [];
+        // getAllDisplayedVirtualColumns together with debounce has issue with jumping of columns when scrolling from right to the left
         // needs to be compared with getAll(Displayed)Columns + debounce what is more effective
-        event.columnApi
-            .getAllDisplayedVirtualColumns()
-            .reduce((autoWidthColumnIds: string[], column: any) => {
-                if (!column.width) {
-                    autoWidthColumnIds.push(column.colId);
-                }
-                return autoWidthColumnIds;
-            }, autoWidthColumnIds);
-        console.log("autosizing");
+        let displayedVirtualColumns = event.columnApi.getAllDisplayedVirtualColumns();
+        autoWidthColumnIds = this.getColumnIdsToAutoresize(displayedVirtualColumns);
+        console.log("autosizing: ", autoWidthColumnIds, displayedVirtualColumns);
         // do some diff of ids from previous run?
         event.columnApi.autoSizeColumns(autoWidthColumnIds);
+        // handle newly shown columns if some
+        let displayedVirtualColumnsAfterResize = event.columnApi.getAllDisplayedVirtualColumns();
+        while (displayedVirtualColumnsAfterResize > displayedVirtualColumns) {
+            const newColumns = difference(displayedVirtualColumnsAfterResize, displayedVirtualColumns);
+            autoWidthColumnIds = this.getColumnIdsToAutoresize(newColumns);
+            displayedVirtualColumns = displayedVirtualColumnsAfterResize;
+            console.log("autoresize recursion: ", autoWidthColumnIds, newColumns);
+            event.columnApi.autoSizeColumns(autoWidthColumnIds);
+            displayedVirtualColumnsAfterResize = event.columnApi.getAllDisplayedVirtualColumns();
+        }
     };
 
     //
