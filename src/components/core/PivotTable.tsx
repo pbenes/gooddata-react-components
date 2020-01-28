@@ -106,7 +106,7 @@ import get = require("lodash/get");
 import isEqual = require("lodash/isEqual");
 import noop = require("lodash/noop");
 import sumBy = require("lodash/sumBy");
-import debounce = require("lodash/debounce");
+// import debounce = require("lodash/debounce");
 import difference = require("lodash/difference");
 
 import { getDrillIntersection } from "../visualizations/utils/drilldownEventing";
@@ -130,6 +130,7 @@ export interface IPivotTableState {
     agGridRerenderNumber: number;
     desiredHeight: number | undefined;
     sortedByFirstAttribute: boolean;
+    resized: boolean;
 }
 
 export type IPivotTableInnerProps = IPivotTableProps &
@@ -171,7 +172,8 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     private watchingIntervalId: number | null;
     private watchingTimeoutId: number | null;
     private ignoreVirtualColumnsChanged: boolean = false;
-    private autoresizeColumnsAfterSortChanged: boolean = false;
+    // private autoresizeColumnsAfterSortChanged: boolean = false;
+    private autoresizeDone = false;
 
     constructor(props: IPivotTableInnerProps) {
         super(props);
@@ -186,13 +188,14 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             desiredHeight: props.config.maxHeight,
 
             sortedByFirstAttribute: true,
+            resized: false, // props.resize === initial ? false : true, TODO: odpodminkovat sirky sloupcu 200? co je v developu
         };
 
         this.agGridDataSource = null;
         this.gridApi = null;
 
         this.setGroupingProvider(props.groupRows);
-        this.autoresizeColumns = debounce(this.autoresizeColumns, 50); // long timeout causes jumping of columns when scrolling from right to left
+        // this.autoresizeColumns = debounce(this.autoresizeColumns, 50); // long timeout causes jumping of columns when scrolling from right to left
     }
 
     public componentWillMount() {
@@ -264,14 +267,15 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         const gridOptions = this.createGridOptions();
 
         // columnDefs are loaded with first page request. Show overlay loading before first page is available.
-        const tableLoadingOverlay = this.isTableHidden() ? (
+        const tableLoadingOverlay = !this.state.resized ? (
             <div
                 style={{
                     position: "absolute",
                     left: 0,
+                    bottom: 0,
                     right: 0,
                     top: 0,
-                    bottom: 0,
+                    background: "white",
                 }}
             >
                 <LoadingComponent />
@@ -291,7 +295,6 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
                     style={style}
                     ref={this.setContainerRef}
                 >
-                    {tableLoadingOverlay}
                     <AgGridReact
                         // debug={true}
                         {...gridOptions}
@@ -302,6 +305,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
                             this.state.agGridRerenderNumber,
                         )}
                     />
+                    {tableLoadingOverlay}
                 </div>
             </div>
         );
@@ -436,6 +440,10 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         columns.filter((column: any) => !column.width).map((column: Column) => column.getColId());
 
     private autoresizeColumns = (event: AgGridEvent) => {
+        if (this.state.resized) {
+            return;
+        }
+
         let autoWidthColumnIds: string[] = [];
         // getAllDisplayedVirtualColumns together with debounce has issue with jumping of columns when scrolling from right to the left
         // needs to be compared with getAll(Displayed)Columns + debounce what is more effective
@@ -454,6 +462,10 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             event.columnApi.autoSizeColumns(autoWidthColumnIds);
             displayedVirtualColumnsAfterResize = event.columnApi.getAllDisplayedVirtualColumns();
         }
+
+        this.setState({
+            resized: true,
+        });
     };
 
     //
@@ -474,11 +486,11 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         console.log("gridColumnsChanged");
     };
 
-    private onVirtualColumnsChanged = (event: GridColumnsChangedEvent) => {
+    private onVirtualColumnsChanged = (_event: GridColumnsChangedEvent) => {
         console.log("onVirtualColumnsChanged with ignore: ", this.ignoreVirtualColumnsChanged);
-        if (!this.ignoreVirtualColumnsChanged) {
-            this.autoresizeColumns(event); // handles horizontal scrolling
-        }
+        //        if (!this.ignoreVirtualColumnsChanged) {
+        //            this.autoresizeColumns(event); // handles horizontal scrolling
+        //        }
     };
 
     private rowDataChanged = () => {
@@ -527,8 +539,9 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
 
     private onModelUpdated = (event: ModelUpdatedEvent) => {
         this.updateStickyRow();
-        console.log("onModelUpdated, ", this.autoresizeColumnsAfterSortChanged);
-        this.autoresizeColumns(event);
+        if (this.state.execution) {
+            this.autoresizeColumns(event);
+        }
         // handles change of model after sort change only
         // without this condition it would cause change of column width during vertical scrolling
         // if (this.autoresizeColumnsAfterSortChanged) {
@@ -730,7 +743,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
 
         this.updateGrouping();
         console.log("sort changed");
-        this.autoresizeColumnsAfterSortChanged = true;
+        // this.autoresizeColumnsAfterSortChanged = true;
         // this.autoresizeColumns(event); // calling autoresize here is too soon
     };
 
