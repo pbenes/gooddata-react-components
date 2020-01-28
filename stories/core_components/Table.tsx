@@ -9,7 +9,6 @@ import { onErrorHandler } from "../mocks";
 import {
     ATTRIBUTE_1,
     ATTRIBUTE_1_WITH_ALIAS,
-    ATTRIBUTE_PYRAMID,
     ATTRIBUTE_2,
     ATTRIBUTE_COUNTRY,
     MEASURE_1,
