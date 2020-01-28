@@ -173,7 +173,6 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     private watchingTimeoutId: number | null;
     private ignoreVirtualColumnsChanged: boolean = false;
     // private autoresizeColumnsAfterSortChanged: boolean = false;
-    private autoresizeDone = false;
 
     constructor(props: IPivotTableInnerProps) {
         super(props);
