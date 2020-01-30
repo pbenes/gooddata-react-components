@@ -172,6 +172,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     private watchingIntervalId: number | null;
     private watchingTimeoutId: number | null;
     private ignoreVirtualColumnsChanged: boolean = false;
+    private w: any = 0;
     // private autoresizeColumnsAfterSortChanged: boolean = false;
 
     constructor(props: IPivotTableInnerProps) {
@@ -222,6 +223,12 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     }
 
     public componentDidUpdate(prevProps: IPivotTableInnerProps, prevState: IPivotTableState) {
+        console.log("didUpdate");
+        if (this.w === 0 && this.containerRef) {
+            this.w = this.containerRef.clientWidth;
+        }
+        const wupdated = this.containerRef ? this.containerRef.clientWidth : 0;
+        console.log("w", this.w, wupdated);
         const prevPropsTotals = TotalsUtils.getColumnTotalsFromResultSpec(prevProps.resultSpec);
         const currentPropsTotals = TotalsUtils.getColumnTotalsFromResultSpec(this.props.resultSpec);
         const totalsPropsChanged = !isEqual(prevPropsTotals, currentPropsTotals);
@@ -438,8 +445,8 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     private getColumnIdsToAutoresize = (columns: Column[]): string[] =>
         columns.filter((column: any) => !column.width).map((column: Column) => column.getColId());
 
-    private autoresizeColumns = (event: AgGridEvent) => {
-        if (this.state.resized) {
+    private autoresizeColumns = (event: AgGridEvent, force: boolean = false) => {
+        if (this.state.resized && !force) {
             return;
         }
 
@@ -485,11 +492,14 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         console.log("gridColumnsChanged");
     };
 
-    private onVirtualColumnsChanged = (_event: GridColumnsChangedEvent) => {
+    private onVirtualColumnsChanged = (event: GridColumnsChangedEvent) => {
         console.log("onVirtualColumnsChanged with ignore: ", this.ignoreVirtualColumnsChanged);
-        //        if (!this.ignoreVirtualColumnsChanged) {
-        //            this.autoresizeColumns(event); // handles horizontal scrolling
-        //        }
+        const wupdated = this.containerRef ? this.containerRef.clientWidth : 0;
+        if (this.w !== wupdated) {
+            this.w = wupdated;
+            console.log("autoresize called");
+            this.autoresizeColumns(event, true); // handles horizontal scrolling
+        }
     };
 
     private rowDataChanged = () => {
@@ -537,6 +547,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     };
 
     private onModelUpdated = (event: ModelUpdatedEvent) => {
+        console.log("modelUpdated");
         this.updateStickyRow();
         if (this.state.execution) {
             this.autoresizeColumns(event);
