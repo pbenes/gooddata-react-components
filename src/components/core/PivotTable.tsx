@@ -4,6 +4,7 @@ import {
     BodyScrollEvent,
     ColumnResizedEvent,
     GridApi,
+    ColumnApi,
     GridReadyEvent,
     IDatasource,
     SortChangedEvent,
@@ -438,33 +439,35 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     private getColumnIdsToAutoresize = (columns: Column[]): string[] =>
         columns.filter((column: any) => !column.width).map((column: Column) => column.getColId());
 
-    private autoresizeColumns = (event: AgGridEvent) => {
-        if (this.state.resized) {
-            return;
-        }
-
-        let autoWidthColumnIds: string[] = [];
+    private autoresizeVisibleColumns = (columnApi: ColumnApi, previouslyResizedColumnIds: string[]) => {
         // getAllDisplayedVirtualColumns together with debounce has issue with jumping of columns when scrolling from right to the left
         // needs to be compared with getAll(Displayed)Columns + debounce what is more effective
-        let displayedVirtualColumns = event.columnApi.getAllDisplayedVirtualColumns();
-        autoWidthColumnIds = this.getColumnIdsToAutoresize(displayedVirtualColumns);
+        // let displayedVirtualColumns = event.columnApi.getAllDisplayedVirtualColumns();
+        const displayedVirtualColumns = columnApi.getAllDisplayedVirtualColumns();
+        const autoWidthColumnIds: string[] = this.getColumnIdsToAutoresize(displayedVirtualColumns);
+        if (previouslyResizedColumnIds.length >= autoWidthColumnIds.length) {
+            console.log("autosizing DONE");
+            this.setState({
+                resized: true,
+            });
+            return;
+        }
         console.log("autosizing: ", autoWidthColumnIds, displayedVirtualColumns);
         // do some diff of ids from previous run?
-        event.columnApi.autoSizeColumns(autoWidthColumnIds);
-        // handle newly shown columns if some
-        let displayedVirtualColumnsAfterResize = event.columnApi.getAllDisplayedVirtualColumns();
-        while (displayedVirtualColumnsAfterResize > displayedVirtualColumns) {
-            const newColumns = difference(displayedVirtualColumnsAfterResize, displayedVirtualColumns);
-            autoWidthColumnIds = this.getColumnIdsToAutoresize(newColumns);
-            displayedVirtualColumns = displayedVirtualColumnsAfterResize;
-            console.log("autoresize recursion: ", autoWidthColumnIds, newColumns);
-            event.columnApi.autoSizeColumns(autoWidthColumnIds);
-            displayedVirtualColumnsAfterResize = event.columnApi.getAllDisplayedVirtualColumns();
-        }
+        columnApi.autoSizeColumns(autoWidthColumnIds);
+        setTimeout(() => {
+            this.autoresizeVisibleColumns(columnApi, autoWidthColumnIds);
+        }, 100);
+    };
 
-        this.setState({
-            resized: true,
-        });
+    private autoresizeColumns = (event: AgGridEvent) => {
+        console.log(event.api.paginationIsLastPageFound());
+        console.log(event.api.getInfinitePageState());
+        console.log(event.api.getVirtualPageState());
+        if (event.api.getInfinitePageState()[0].pageStatus !== "loaded") {
+            return;
+        }
+        this.autoresizeVisibleColumns(event.columnApi, []);
     };
 
     //
