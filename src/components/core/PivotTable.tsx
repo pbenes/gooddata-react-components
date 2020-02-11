@@ -130,7 +130,7 @@ export interface IPivotTableState {
     agGridRerenderNumber: number;
     desiredHeight: number | undefined;
     sortedByFirstAttribute: boolean;
-    resized: boolean;
+    resized: number;
 }
 
 export type IPivotTableInnerProps = IPivotTableProps &
@@ -188,7 +188,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             desiredHeight: props.config.maxHeight,
 
             sortedByFirstAttribute: true,
-            resized: false, // props.resize === initial ? false : true, TODO: odpodminkovat sirky sloupcu 200? co je v developu
+            resized: 0, // props.resize === initial ? false : true, TODO: odpodminkovat sirky sloupcu 200? co je v developu
         };
 
         this.agGridDataSource = null;
@@ -273,20 +273,21 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         const gridOptions = this.createGridOptions();
 
         // columnDefs are loaded with first page request. Show overlay loading before first page is available.
-        const tableLoadingOverlay = !this.state.resized ? (
-            <div
-                style={{
-                    position: "absolute",
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    top: 0,
-                    background: "white",
-                }}
-            >
-                <LoadingComponent />
-            </div>
-        ) : null;
+        const tableLoadingOverlay =
+            this.state.resized < 2 ? (
+                <div
+                    style={{
+                        position: "absolute",
+                        left: 0,
+                        top: 0,
+                        bottom: 0,
+                        right: 0,
+                        background: "white",
+                    }}
+                >
+                    <LoadingComponent />
+                </div>
+            ) : null;
 
         const style: React.CSSProperties = {
             height: desiredHeight || "100%",
@@ -446,16 +447,21 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         columns.filter((column: any) => !column.width).map((column: Column) => column.getColId());
 
     private autoresizeColumns = (event: AgGridEvent, force: boolean = false) => {
-        if (this.state.resized && !force) {
+        if (this.state.resized > 1 && !force) {
             return;
         }
+
+        const updatedNumber = this.state.resized + 1;
+        this.setState({
+            resized: updatedNumber,
+        });
 
         let autoWidthColumnIds: string[] = [];
         // getAllDisplayedVirtualColumns together with debounce has issue with jumping of columns when scrolling from right to the left
         // needs to be compared with getAll(Displayed)Columns + debounce what is more effective
         let displayedVirtualColumns = event.columnApi.getAllDisplayedVirtualColumns();
         autoWidthColumnIds = this.getColumnIdsToAutoresize(displayedVirtualColumns);
-        console.log("autosizing: ", autoWidthColumnIds, displayedVirtualColumns);
+        console.log("autosizing: ", JSON.stringify(autoWidthColumnIds), displayedVirtualColumns);
         // do some diff of ids from previous run?
         event.columnApi.autoSizeColumns(autoWidthColumnIds);
         // handle newly shown columns if some
@@ -468,10 +474,6 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             event.columnApi.autoSizeColumns(autoWidthColumnIds);
             displayedVirtualColumnsAfterResize = event.columnApi.getAllDisplayedVirtualColumns();
         }
-
-        this.setState({
-            resized: true,
-        });
     };
 
     //
