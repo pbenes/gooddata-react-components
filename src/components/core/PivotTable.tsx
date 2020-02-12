@@ -172,8 +172,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
 
     private watchingIntervalId: number | null;
     private watchingTimeoutId: number | null;
-    private ignoreVirtualColumnsChanged: boolean = false;
-    // private autoresizeColumnsAfterSortChanged: boolean = false;
+    private resizing: boolean = false;
 
     constructor(props: IPivotTableInnerProps) {
         super(props);
@@ -203,11 +202,13 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     }
 
     public componentDidMount() {
+        console.log("componentDidMount");
         if (this.containerRef) {
             this.containerRef.addEventListener("mousedown", this.preventHeaderResizerEvents);
         }
     }
     public componentWillUnmount() {
+        console.log("componentWillUnmount");
         if (this.containerRef) {
             this.containerRef.removeEventListener("mousedown", this.preventHeaderResizerEvents);
         }
@@ -275,7 +276,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
                     bottom: 0,
                     right: 0,
                     top: 0,
-                    background: "white",
+                    background: "red",
                 }}
             >
                 <LoadingComponent />
@@ -430,7 +431,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     }
 
     private setGridDataSource() {
-        this.setState({ execution: null });
+        this.setState({ execution: null, resized: false });
         if (this.gridApi) {
             this.gridApi.setDatasource(this.agGridDataSource);
         }
@@ -447,6 +448,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         const autoWidthColumnIds: string[] = this.getColumnIdsToAutoresize(displayedVirtualColumns);
         if (previouslyResizedColumnIds.length >= autoWidthColumnIds.length) {
             console.log("autosizing DONE");
+            this.resizing = false;
             this.setState({
                 resized: true,
             });
@@ -454,19 +456,34 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         }
         console.log("autosizing: ", autoWidthColumnIds, displayedVirtualColumns);
         // do some diff of ids from previous run?
-        columnApi.autoSizeColumns(autoWidthColumnIds);
+        const newColumnIds = difference(autoWidthColumnIds, previouslyResizedColumnIds);
+        columnApi.autoSizeColumns(newColumnIds);
         setTimeout(() => {
             this.autoresizeVisibleColumns(columnApi, autoWidthColumnIds);
         }, 100);
     };
 
     private autoresizeColumns = (event: AgGridEvent) => {
+        console.log(event.api.getRenderedNodes());
+        console.log(event.api.paginationGetRowCount());
+        console.log(event.api.paginationGetTotalPages());
         console.log(event.api.paginationIsLastPageFound());
+        console.log(event.api.getDisplayedRowCount());
+        console.log(event.api.getLastDisplayedRow());
+        console.log(event.api.getLastRenderedRow());
         console.log(event.api.getInfinitePageState());
         console.log(event.api.getVirtualPageState());
-        if (event.api.getInfinitePageState()[0].pageStatus !== "loaded") {
+        console.log(event.api.getInfiniteRowCount());
+        console.log(event.api.getVirtualRowCount());
+        if (
+            event.api.getRenderedNodes().length === 0 ||
+            event.api.getInfinitePageState()[0].pageStatus !== "loaded" ||
+            this.state.resized ||
+            this.resizing
+        ) {
             return;
         }
+        this.resizing = true;
         this.autoresizeVisibleColumns(event.columnApi, []);
     };
 
@@ -489,7 +506,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     };
 
     private onVirtualColumnsChanged = (_event: GridColumnsChangedEvent) => {
-        console.log("onVirtualColumnsChanged with ignore: ", this.ignoreVirtualColumnsChanged);
+        console.log("onVirtualColumnsChanged");
         //        if (!this.ignoreVirtualColumnsChanged) {
         //            this.autoresizeColumns(event); // handles horizontal scrolling
         //        }
@@ -542,6 +559,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     private onModelUpdated = (event: ModelUpdatedEvent) => {
         this.updateStickyRow();
         if (this.state.execution) {
+            console.log("onModelUpdated");
             this.autoresizeColumns(event);
         }
         // handles change of model after sort change only
@@ -702,10 +720,8 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
 
     private columnResized = (columnEvent: ColumnResizedEvent) => {
         if (!columnEvent.finished) {
-            this.ignoreVirtualColumnsChanged = true;
             return; // only update the height once the user is done setting the column size
         }
-        this.ignoreVirtualColumnsChanged = false;
         this.updateDesiredHeight(this.state.execution.executionResult);
     };
 
