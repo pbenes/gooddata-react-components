@@ -170,6 +170,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         left: 0,
     };
 
+    private ww: any = {};
     private watchingIntervalId: number | null;
     private watchingTimeoutId: number | null;
     private resizing: boolean = false;
@@ -431,7 +432,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     }
 
     private setGridDataSource() {
-        this.setState({ execution: null, resized: false });
+        this.setState({ execution: null });
         if (this.gridApi) {
             this.gridApi.setDatasource(this.agGridDataSource);
         }
@@ -449,6 +450,10 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         if (previouslyResizedColumnIds.length >= autoWidthColumnIds.length) {
             console.log("autosizing DONE");
             this.resizing = false;
+            this.ww = columnApi.getAllDisplayedVirtualColumns().reduce((acc, col) => {
+                return { ...acc, [col.getColId()]: col.getActualWidth() };
+            }, {});
+            debugger;
             this.setState({
                 resized: true,
             });
@@ -557,7 +562,10 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     };
 
     private onModelUpdated = (event: ModelUpdatedEvent) => {
-        this.updateStickyRow();
+        debugger;
+        if (false) {
+            this.updateStickyRow();
+        }
         if (this.state.execution) {
             console.log("onModelUpdated");
             this.autoresizeColumns(event);
@@ -739,6 +747,9 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     };
 
     private sortChanged = (event: SortChangedEvent): void => {
+        if (true) {
+            return;
+        }
         const execution = this.getExecution();
 
         invariant(execution !== undefined, "changing sorts without prior execution cannot work");
@@ -759,7 +770,8 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             },
         });
 
-        this.updateGrouping();
+        debugger;
+        //        this.updateGrouping();
         console.log("sort changed");
         // this.autoresizeColumnsAfterSortChanged = true;
         // this.autoresizeColumns(event); // calling autoresize here is too soon
@@ -797,6 +809,16 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             intl: this.props.intl,
         };
 
+        const cDefLeafs = getTreeLeaves(columnDefs);
+        cDefLeafs.forEach(cDef => {
+            if (cDef) {
+                debugger;
+                const look = this.ww[cDef.field];
+                if (look) {
+                    cDef.width = look;
+                }
+            }
+        });
         return {
             // Initial data
             columnDefs,
