@@ -453,7 +453,6 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             this.ww = columnApi.getAllDisplayedVirtualColumns().reduce((acc, col) => {
                 return { ...acc, [col.getColId()]: col.getActualWidth() };
             }, {});
-            debugger;
             this.setState({
                 resized: true,
             });
@@ -562,10 +561,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     };
 
     private onModelUpdated = (event: ModelUpdatedEvent) => {
-        debugger;
-        if (false) {
-            this.updateStickyRow();
-        }
+        this.updateStickyRow();
         if (this.state.execution) {
             console.log("onModelUpdated");
             this.autoresizeColumns(event);
@@ -770,7 +766,6 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             },
         });
 
-        debugger;
         //        this.updateGrouping();
         console.log("sort changed");
         // this.autoresizeColumnsAfterSortChanged = true;
@@ -812,7 +807,6 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         const cDefLeafs = getTreeLeaves(columnDefs);
         cDefLeafs.forEach(cDef => {
             if (cDef) {
-                debugger;
                 const look = this.ww[cDef.field];
                 if (look) {
                     cDef.width = look;
