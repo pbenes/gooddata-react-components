@@ -255,6 +255,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
                 agGridDataSourceUpdateNeeded = true;
             }
             if (agGridDataSourceUpdateNeeded) {
+                this.ww = {};
                 this.updateAGGridDataSource();
             }
         });
