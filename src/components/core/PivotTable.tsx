@@ -727,6 +727,11 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             return; // only update the height once the user is done setting the column size
         }
         this.updateDesiredHeight(this.state.execution.executionResult);
+        if (columnEvent && columnEvent.source !== "autosizeColumns" && columnEvent.columns) {
+            columnEvent.columns.forEach(column => {
+                this.ww[column.getColId()] = column.getActualWidth();
+            });
+        }
     };
 
     private onMenuAggregationClick = (menuAggregationClickConfig: IMenuAggregationClickConfig) => {
