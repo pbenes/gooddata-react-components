@@ -170,7 +170,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         left: 0,
     };
 
-    private ww: any = {};
+    private columnWidths: { [colId: string]: number } = {};
     private watchingIntervalId: number | null;
     private watchingTimeoutId: number | null;
     private resizing: boolean = false;
@@ -255,8 +255,10 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
                 agGridDataSourceUpdateNeeded = true;
             }
             if (agGridDataSourceUpdateNeeded) {
-                this.ww = {};
                 this.updateAGGridDataSource();
+            }
+            if (this.props.dataSource.getFingerprint() !== prevProps.dataSource.getFingerprint()) {
+                this.columnWidths = {};
             }
         });
 
@@ -451,7 +453,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         if (previouslyResizedColumnIds.length >= autoWidthColumnIds.length) {
             console.log("autosizing DONE");
             this.resizing = false;
-            this.ww = columnApi.getAllDisplayedVirtualColumns().reduce((acc, col) => {
+            this.columnWidths = columnApi.getAllDisplayedVirtualColumns().reduce((acc, col) => {
                 return { ...acc, [col.getColId()]: col.getActualWidth() };
             }, {});
             this.setState({
@@ -730,7 +732,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         this.updateDesiredHeight(this.state.execution.executionResult);
         if (columnEvent && columnEvent.source !== "autosizeColumns" && columnEvent.columns) {
             columnEvent.columns.forEach(column => {
-                this.ww[column.getColId()] = column.getActualWidth();
+                this.columnWidths[column.getColId()] = column.getActualWidth();
             });
         }
     };
@@ -749,9 +751,6 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     };
 
     private sortChanged = (event: SortChangedEvent): void => {
-        if (true) {
-            return;
-        }
         const execution = this.getExecution();
 
         invariant(execution !== undefined, "changing sorts without prior execution cannot work");
@@ -772,7 +771,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             },
         });
 
-        //        this.updateGrouping();
+        this.updateGrouping();
         console.log("sort changed");
         // this.autoresizeColumnsAfterSortChanged = true;
         // this.autoresizeColumns(event); // calling autoresize here is too soon
@@ -813,7 +812,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         const cDefLeafs = getTreeLeaves(columnDefs);
         cDefLeafs.forEach(cDef => {
             if (cDef) {
-                const look = this.ww[cDef.field];
+                const look = this.columnWidths[cDef.field];
                 if (look) {
                     cDef.width = look;
                 }
