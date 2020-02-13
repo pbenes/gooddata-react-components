@@ -259,6 +259,9 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             }
             if (this.props.dataSource.getFingerprint() !== prevProps.dataSource.getFingerprint()) {
                 this.columnWidths = {};
+                this.setState({
+                    resized: false,
+                });
             }
         });
 
