@@ -323,6 +323,15 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     //
     //
 
+    private getColumnIdentifier(columnDef: any) {
+        return columnDef.drillItems
+            .filter((item: any) => item.attributeHeaderItem || item.measureHeaderItem)
+            .map((item: any) => {
+                return item.attributeHeaderItem ? item.attributeHeaderItem.uri : item.measureHeaderItem.uri;
+            })
+            .join(".");
+    }
+
     private isTableHidden() {
         return this.state.columnDefs.length === 0;
     }
@@ -457,7 +466,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             console.log("autosizing DONE");
             this.resizing = false;
             this.columnWidths = columnApi.getAllDisplayedVirtualColumns().reduce((acc, col) => {
-                return { ...acc, [col.getColId()]: col.getActualWidth() };
+                return { ...acc, [this.getColumnIdentifier(col.getDefinition())]: col.getActualWidth() };
             }, {});
             this.setState({
                 resized: true,
@@ -735,7 +744,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         this.updateDesiredHeight(this.state.execution.executionResult);
         if (columnEvent && columnEvent.source !== "autosizeColumns" && columnEvent.columns) {
             columnEvent.columns.forEach(column => {
-                this.columnWidths[column.getColId()] = column.getActualWidth();
+                this.columnWidths[this.getColumnIdentifier(column.getDefinition())] = column.getActualWidth();
             });
         }
     };
@@ -815,7 +824,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         const cDefLeafs = getTreeLeaves(columnDefs);
         cDefLeafs.forEach(cDef => {
             if (cDef) {
-                const look = this.columnWidths[cDef.field];
+                const look = this.columnWidths[this.getColumnIdentifier(cDef)];
                 if (look) {
                     cDef.width = look;
                 }
