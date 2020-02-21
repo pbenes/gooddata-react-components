@@ -29,9 +29,10 @@ const getMenu = cell => {
 const clickOnMenuAggregationItem = async (t, cell, aggregationItemClass, attribute) => {
     await t.hover(cell.find(".s-header-cell-label span"));
     const menu = getMenu(cell);
-    await t.takeScreenshot("clickbefore.png");
+    //    const stamp = Math.random();
+    //    await t.takeScreenshot(`${stamp}-clickbefore.png`);
     await t.click(menu);
-    await t.takeScreenshot("clickafter.png");
+    //    await t.takeScreenshot(`${stamp}-clickafter.png`);
 
     const sumTotal = Selector(aggregationItemClass).find(".s-menu-aggregation-inner");
 
