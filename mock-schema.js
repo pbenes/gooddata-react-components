@@ -2943,4 +2943,9 @@ module.exports = [
             ]
         },
     },
+    { ...getBaseProjectSchema('Storybook with table resizing', 'resizingstorybook'),
+        featureFlags: {
+            enableTableColumnsAutoResizing: true
+        }
+    },
 ];
