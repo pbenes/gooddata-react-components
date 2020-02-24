@@ -185,6 +185,19 @@ storiesOf("URI components", module)
             </div>,
         ),
     )
+    .add("table with feature flag", () =>
+        screenshotWrap(
+            <div style={{ width: 800, height: 400 }}>
+                <Visualization
+                    projectId="storybook"
+                    uri={"/gdc/md/resizingstorybook/obj/1001"}
+                    onError={onErrorHandler}
+                    LoadingComponent={null}
+                    ErrorComponent={null}
+                />
+            </div>,
+        ),
+    )
     .add("chart with PoP measures", () =>
         screenshotWrap(
             <div style={{ width: 800, height: 400 }}>

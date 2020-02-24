@@ -30,6 +30,7 @@ import {
     IBucketFilter,
     isAttributeFilter,
     IAttributeFilter,
+    IFeatureFlags,
 } from "../../../interfaces/Visualization";
 
 import { ATTRIBUTE, DATE, METRIC } from "../../../constants/bucket";
@@ -263,6 +264,7 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
     private visualizationProperties: IVisualizationProperties;
     private locale: ILocale;
     private environment: VisualizationEnvironment;
+    private featureFlags: IFeatureFlags;
 
     constructor(props: IVisConstruct) {
         super();
@@ -274,6 +276,7 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
         this.intl = createInternalIntl(this.locale);
         this.onExportReady = props.callbacks.onExportReady && this.onExportReady.bind(this);
         this.environment = props.environment;
+        this.featureFlags = props.featureFlags ? props.featureFlags : {};
     }
 
     public unmount() {
@@ -416,27 +419,14 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
             );
             const totals: VisualizationObject.IVisualizationTotal[] = (rowsBucket && rowsBucket.totals) || [];
 
-            let configUpdated = config;
-            if (this.environment !== DASHBOARDS_ENVIRONMENT) {
-                // Menu aggregations turned off in KD
-                configUpdated = merge(
-                    {
-                        menu: {
-                            aggregations: true,
-                            aggregationsSubMenu: true,
-                        },
-                    },
-                    configUpdated,
-                );
-            }
-
+            const updatedConfig = this.enrichConfigWithAutosize(this.enrichConfigWithMenu(config));
             const pivotTableProps = {
                 projectId: this.projectId,
                 drillableItems,
                 onDrill,
                 onFiredDrillEvent,
                 totals,
-                config: configUpdated,
+                config: updatedConfig,
                 height,
                 locale,
                 dataSource,
@@ -549,5 +539,29 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
 
     protected getDimensions(mdObject: VisualizationObject.IVisualizationObjectContent): AFM.IDimension[] {
         return generateDimensions(mdObject, VisualizationTypes.TABLE);
+    }
+
+    private enrichConfigWithMenu(config: any) {
+        if (this.environment !== DASHBOARDS_ENVIRONMENT) {
+            // Menu aggregations turned off in KD
+            return merge(
+                {
+                    menu: {
+                        aggregations: true,
+                        aggregationsSubMenu: true,
+                    },
+                },
+                config,
+            );
+        }
+
+        return config;
+    }
+
+    private enrichConfigWithAutosize(config: any) {
+        // TODO: to constant
+        if (this.featureFlags.enableTableColumnsAutoResizing) {
+            return merge(config, { columnSizing: { defaultWidth: "viewport" } });
+        }
     }
 }
