@@ -5,73 +5,73 @@ const featureFlags = {
     enableSortingByTotalGroup: true,
 };
 
-const barChartAfmExecutions = [
+const barChartAfmExecutions = (projectId) => [
     {
         _description: 'Bar chart with 2M, 1VB and stackMeasures is true',
-        execution: require('./stories/test_data/bar_chart_with_2M_1VB_stackMeasures_request.json'),
-        executionResponse: require('./stories/test_data/bar_chart_with_2M_1VB_stackMeasures_response.json'),
-        executionResult: require('./stories/test_data/bar_chart_with_2M_1VB_stackMeasures_result.json')
+        execution: require('./stories/test_data/bar_chart_with_2M_1VB_stackMeasures_request.ts')(projectId),
+        executionResponse: require('./stories/test_data/bar_chart_with_2M_1VB_stackMeasures_response.ts')(projectId),
+        executionResult: require('./stories/test_data/bar_chart_with_2M_1VB_stackMeasures_result.ts')(projectId)
     },
     {
         _description: 'Bar chart with 2M, 2VB and stackMeasures is true',
-        execution: require('./stories/test_data/bar_chart_with_2M_2VB_stackMeasures_request.json'),
-        executionResponse: require('./stories/test_data/bar_chart_with_2M_2VB_stackMeasures_response.json'),
-        executionResult: require('./stories/test_data/bar_chart_with_2M_2VB_stackMeasures_result.json')
+        execution: require('./stories/test_data/bar_chart_with_2M_2VB_stackMeasures_request.ts')(projectId),
+        executionResponse: require('./stories/test_data/bar_chart_with_2M_2VB_stackMeasures_response.ts')(projectId),
+        executionResult: require('./stories/test_data/bar_chart_with_2M_2VB_stackMeasures_result.ts')(projectId)
     },
     {
         _description: 'Bar chart with 1M, 2VB and 1 SB',
-        execution: require('./stories/test_data/bar_chart_with_1M_2VB_1SB_request.json'),
-        executionResponse: require('./stories/test_data/bar_chart_with_1M_2VB_1SB_response.json'),
-        executionResult: require('./stories/test_data/bar_chart_with_1M_2VB_1SB_result.json')
+        execution: require('./stories/test_data/bar_chart_with_1M_2VB_1SB_request.ts')(projectId),
+        executionResponse: require('./stories/test_data/bar_chart_with_1M_2VB_1SB_response.ts')(projectId),
+        executionResult: require('./stories/test_data/bar_chart_with_1M_2VB_1SB_result.ts')(projectId)
     },
     {
         _description: 'Bar chart with 2M and 2VB',
-        execution: require('./stories/test_data/bar_chart_with_2M_2VB_request.json'),
-        executionResponse: require('./stories/test_data/bar_chart_with_2M_2VB_response.json'),
-        executionResult: require('./stories/test_data/bar_chart_with_2M_2VB_result.json')
+        execution: require('./stories/test_data/bar_chart_with_2M_2VB_request.ts')(projectId),
+        executionResponse: require('./stories/test_data/bar_chart_with_2M_2VB_response.ts')(projectId),
+        executionResult: require('./stories/test_data/bar_chart_with_2M_2VB_result.ts')(projectId)
     },
 ];
 
-const heatmapAfmExecutions = [{
-        execution: require('./stories/test_data/heat_map_with_58_rows_mock_request.json'),
-        executionResult: require('./stories/test_data/heat_map_with_58_rows_mock_result.json')
+const heatmapAfmExecutions = projectId => [{
+        execution: require('./stories/test_data/heat_map_with_58_rows_mock_request.ts')(projectId),
+        executionResult: require('./stories/test_data/heat_map_with_58_rows_mock_result.ts')(projectId)
     }, {
-        execution: require('./stories/test_data/heat_map_with_60_rows_mock_request.json'),
-        executionResult: require('./stories/test_data/heat_map_with_60_rows_mock_result.json')
+        execution: require('./stories/test_data/heat_map_with_60_rows_mock_request.ts')(projectId),
+        executionResult: require('./stories/test_data/heat_map_with_60_rows_mock_result.ts')(projectId)
     }, {
-        execution: require('./stories/test_data/heat_map_with_empty_cells_request.json'),
-        executionResult: require('./stories/test_data/heat_map_with_empty_cells_result.json')
+        execution: require('./stories/test_data/heat_map_with_empty_cells_request.ts')(projectId),
+        executionResult: require('./stories/test_data/heat_map_with_empty_cells_result.ts')(projectId)
     }];
 
-const pivotTableAfmExecutions = [
+const pivotTableAfmExecutions = projectId => [
     {
-        execution: require("./stories/test_data/pivot_table_with_subtotals_request.json"),
-        executionResponse: require("./stories/test_data/pivot_table_with_subtotals_response.json"),
-        executionResult: require("./stories/test_data/pivot_table_with_subtotals_result.json"),
+        execution: require("./stories/test_data/pivot_table_with_subtotals_request.ts")(projectId),
+        executionResponse: require("./stories/test_data/pivot_table_with_subtotals_response.ts")(projectId),
+        executionResult: require("./stories/test_data/pivot_table_with_subtotals_result.ts")(projectId),
     }];
 
-const pivotTableSubtotalsAfmExecutions = [
+const pivotTableSubtotalsAfmExecutions = projectId => [
     {
-        execution: require("./stories/test_data/pivot_table_with_subtotals_2_measures_request.json"),
-        executionResponse: require("./stories/test_data/pivot_table_with_subtotals_2_measures_response.json"),
-        executionResult: require("./stories/test_data/pivot_table_with_subtotals_2_measures_result.json"),
+        execution: require("./stories/test_data/pivot_table_with_subtotals_2_measures_request.ts")(projectId),
+        executionResponse: require("./stories/test_data/pivot_table_with_subtotals_2_measures_response.ts")(projectId),
+        executionResult: require("./stories/test_data/pivot_table_with_subtotals_2_measures_result.ts")(projectId),
     }];
 
-const pivotTableGrandtotalSubtotalAfmExecutions = [
+const pivotTableGrandtotalSubtotalAfmExecutions = projectId => [
     {
-        execution: require("./stories/test_data/pivot_table_with_grandtotal_subtotal_2_measures_request.json"),
-        executionResponse: require("./stories/test_data/pivot_table_with_grandtotal_subtotal_2_measures_response.json"),
-        executionResult: require("./stories/test_data/pivot_table_with_grandtotal_subtotal_2_measures_result.json"),
+        execution: require("./stories/test_data/pivot_table_with_grandtotal_subtotal_2_measures_request.ts")(projectId),
+        executionResponse: require("./stories/test_data/pivot_table_with_grandtotal_subtotal_2_measures_response.ts")(projectId),
+        executionResult: require("./stories/test_data/pivot_table_with_grandtotal_subtotal_2_measures_result.ts")(projectId),
     }];
 
-const xirrAfmExecutions = [
+const xirrAfmExecutions = projectId => [
     {
-        execution: require("./stories/test_data/xirr_simple_request.json"),
-        executionResponse: require("./stories/test_data/xirr_simple_response.json"),
-        executionResult: require("./stories/test_data/xirr_simple_result.json"),
+        execution: require("./stories/test_data/xirr_simple_request.ts")(projectId),
+        executionResponse: require("./stories/test_data/xirr_simple_response.ts")(projectId),
+        executionResult: require("./stories/test_data/xirr_simple_result.ts")(projectId),
     }];
 
-const barChartVisualizationObjects = [
+const barChartVisualizationObjects = projectId => [
     {
         title: 'Bar chart with 2M, 1VB and stackMeasures is true',
         identifier: 'bar-chart-2M-1VB-stackMeasures',
@@ -199,7 +199,7 @@ const barChartVisualizationObjects = [
     },
 ];
 
-const geoChartVisualizationObjects = [
+const geoChartVisualizationObjects = projectId => [
     {
         title: 'GeoPushpinChart chart with Location, Size, Color, Segment and Tooltip',
         identifier: 'pushpin-chart-location-size-color-segment-tooltip',
@@ -238,47 +238,47 @@ const geoChartVisualizationObjects = [
     },
 ];
 
-const geoChartAfmExecutions = [
-    {   
+const geoChartAfmExecutions = projectId => [
+    {
         _description: "GeoPushpin with location",
-        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_request.json"),
-        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_response.json"),
-        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_result.json")
+        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_request.ts")(projectId),
+        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_response.ts")(projectId),
+        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_result.ts")(projectId)
     },
     {
         _description: "GeoPushpin with location and size",
-        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_size_request.json"),
-        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_size_response.json"),
-        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_size_result.json")
+        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_size_request.ts")(projectId),
+        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_size_response.ts")(projectId),
+        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_size_result.ts")(projectId)
     },
     {
         _description: "GeoPushpin with location and color",
-        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_color_request.json"),
-        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_color_response.json"),
-        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_color_result.json")
+        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_color_request.ts")(projectId),
+        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_color_response.ts")(projectId),
+        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_color_result.ts")(projectId)
     },
     {
         _description: "GeoPushpin with location, size and segment",
-        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_size_segment_request.json"),
-        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_size_segment_response.json"),
-        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_size_segment_result.json")
+        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_size_segment_request.ts")(projectId),
+        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_size_segment_response.ts")(projectId),
+        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_size_segment_result.ts")(projectId)
     },
     {
         _description: "GeoPushpin with location, size an color",
-        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_request.json"),
-        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_response.json"),
-        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_result.json")
+        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_request.ts")(projectId),
+        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_response.ts")(projectId),
+        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_result.ts")(projectId)
     },
     {
         _description: "GeoPushpin with location, size, color, segment and tooltip",
-        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_request.json"),
-        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_response.json"),
-        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_result.json")
+        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_request.ts")(projectId),
+        executionResponse: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_response.ts")(projectId),
+        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_result.ts")(projectId)
     },
     {
         _description: "GeoPushpin with location, size, color, segment and tooltip with Location filter",
-        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_filters_request.json"),
-        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_filters_result.json")
+        execution: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_filters_request.ts")(projectId),
+        executionResult: require("./stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_filters_result.ts")(projectId)
     }
 ];
 
@@ -927,23 +927,23 @@ const getBaseProjectSchema = (title, identifier) => {
                             [
                                 [{
                                         attributeHeaderItem: {
-                                            uri: '/gdc/md/mockproject/obj/4/elements?id=1',
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=1`,
                                             name: 'Pink'
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
-                                            uri: '/gdc/md/mockproject/obj/4/elements?id=2',
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=2`,
                                             name: 'Red'
                                         }
                                     }, {
                                         attributeHeaderItem: {
-                                            uri: '/gdc/md/mockproject/obj/4/elements?id=3',
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=3`,
                                             name: 'Purple'
                                         }
                                     }, {
                                         attributeHeaderItem: {
-                                            uri: '/gdc/md/mockproject/obj/4/elements?id=4',
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=4`,
                                             name: 'Salmon'
                                         }
                                     }
@@ -1014,25 +1014,25 @@ const getBaseProjectSchema = (title, identifier) => {
                                 [
                                     {
                                         attributeHeaderItem: {
-                                            uri: '/gdc/md/mockproject/obj/4/elements?id=1',
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=1`,
                                             name: 'Pink'
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
-                                            uri: '/gdc/md/mockproject/obj/4/elements?id=2',
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=2`,
                                             name: 'Red'
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
-                                            uri: '/gdc/md/mockproject/obj/4/elements?id=3',
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=3`,
                                             name: 'Purple'
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
-                                            uri: '/gdc/md/mockproject/obj/4/elements?id=4',
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=4`,
                                             name: 'Salmon'
                                         }
                                     }
@@ -2050,7 +2050,7 @@ const getBaseProjectSchema = (title, identifier) => {
                                     definition: {
                                         measure: {
                                             item: {
-                                                uri: '/gdc/md/storybook/obj/1'
+                                                uri: `/gdc/md/${identifier}/obj/1`
                                             }
                                         }
                                     },
@@ -2061,7 +2061,7 @@ const getBaseProjectSchema = (title, identifier) => {
                                     definition: {
                                         measure: {
                                             item: {
-                                                uri: '/gdc/md/storybook/obj/2'
+                                                uri: `/gdc/md/${identifier}/obj/2`
                                             }
                                         }
                                     },
@@ -2071,19 +2071,19 @@ const getBaseProjectSchema = (title, identifier) => {
                             attributes: [
                                 {
                                     displayForm: {
-                                        uri: '/gdc/md/storybook/obj/4.df'
+                                        uri: `/gdc/md/${identifier}/obj/4.df`
                                     },
                                     localIdentifier: 'a1'
                                 },
                                 {
                                     displayForm: {
-                                        uri: '/gdc/md/storybook/obj/5.df'
+                                        uri: `/gdc/md/${identifier}/obj/5.df`
                                     },
                                     localIdentifier: 'a2'
                                 },
                                 {
                                     displayForm: {
-                                        uri: '/gdc/md/storybook/obj/6.df'
+                                        uri: `/gdc/md/${identifier}/obj/6.df`
                                     },
                                     localIdentifier: 'a3'
                                 }
@@ -2143,11 +2143,11 @@ const getBaseProjectSchema = (title, identifier) => {
                                         attributeHeader: {
                                             name: 'Region',
                                             localIdentifier: 'a1',
-                                            uri: '/gdc/md/storybook/obj/4.df',
+                                            uri: `/gdc/md/${identifier}/obj/4.df`,
                                             identifier: '3.df',
                                             formOf: {
                                                 name: 'Region',
-                                                uri: '/gdc/md/storybook/obj/4',
+                                                uri: `/gdc/md/${identifier}/obj/4`,
                                                 identifier: '3'
                                             },
                                             totalItems: [
@@ -2163,11 +2163,11 @@ const getBaseProjectSchema = (title, identifier) => {
                                         attributeHeader: {
                                             name: 'Department',
                                             localIdentifier: 'a2',
-                                            uri: '/gdc/md/storybook/obj/5.df',
+                                            uri: `/gdc/md/${identifier}/obj/5.df`,
                                             identifier: '4.df',
                                             formOf: {
                                                 name: 'Department',
-                                                uri: '/gdc/md/storybook/obj/5',
+                                                uri: `/gdc/md/${identifier}/obj/5`,
                                                 identifier: '4'
                                             },
                                             totalItems: [
@@ -2192,11 +2192,11 @@ const getBaseProjectSchema = (title, identifier) => {
                                         attributeHeader: {
                                             name: 'Is Won?',
                                             localIdentifier: 'a3',
-                                            uri: '/gdc/md/storybook/obj/6.df',
+                                            uri: `/gdc/md/${identifier}/obj/6.df`,
                                             identifier: '5.df',
                                             formOf: {
                                                 name: 'Is Won?',
-                                                uri: '/gdc/md/storybook/obj/6',
+                                                uri: `/gdc/md/${identifier}/obj/6`,
                                                 identifier: '5'
                                             }
                                         }
@@ -2209,7 +2209,7 @@ const getBaseProjectSchema = (title, identifier) => {
                                                         name: '_Close [BOP]',
                                                         format: '#,##0.00',
                                                         localIdentifier: 'm1',
-                                                        uri: '/gdc/md/storybook/obj/1',
+                                                        uri: `/gdc/md/${identifier}/obj/1`,
                                                         identifier: '1'
                                                     }
                                                 },
@@ -2218,7 +2218,7 @@ const getBaseProjectSchema = (title, identifier) => {
                                                         name: '_Close [EOP]',
                                                         format: '#,##0.00',
                                                         localIdentifier: 'm2',
-                                                        uri: '/gdc/md/storybook/obj/2',
+                                                        uri: `/gdc/md/${identifier}/obj/2`,
                                                         identifier: '2'
                                                     }
                                                 }
@@ -2305,49 +2305,49 @@ const getBaseProjectSchema = (title, identifier) => {
                                     {
                                         attributeHeaderItem: {
                                             name: 'East Coast',
-                                            uri: '/gdc/md/storybook/obj/4/elements?id=1'
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=1`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'East Coast',
-                                            uri: '/gdc/md/storybook/obj/4/elements?id=1'
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=1`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'East Coast',
-                                            uri: '/gdc/md/storybook/obj/4/elements?id=1'
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=1`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'East Coast',
-                                            uri: '/gdc/md/storybook/obj/4/elements?id=1'
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=1`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'West Coast',
-                                            uri: '/gdc/md/storybook/obj/4/elements?id=2'
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=2`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'West Coast',
-                                            uri: '/gdc/md/storybook/obj/4/elements?id=2'
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=2`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'West Coast',
-                                            uri: '/gdc/md/storybook/obj/4/elements?id=2'
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=2`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'West Coast',
-                                            uri: '/gdc/md/storybook/obj/4/elements?id=2'
+                                            uri: `/gdc/md/${identifier}/obj/4/elements?id=2`
                                         }
                                     },
                                     {
@@ -2361,13 +2361,13 @@ const getBaseProjectSchema = (title, identifier) => {
                                     {
                                         attributeHeaderItem: {
                                             name: 'Direct Sales',
-                                            uri: '/gdc/md/storybook/obj/5/elements?id=1'
+                                            uri: `/gdc/md/${identifier}/obj/5/elements?id=1`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'Inside Sales',
-                                            uri: '/gdc/md/storybook/obj/5/elements?id=2'
+                                            uri: `/gdc/md/${identifier}/obj/5/elements?id=2`
                                         }
                                     },
                                     {
@@ -2385,13 +2385,13 @@ const getBaseProjectSchema = (title, identifier) => {
                                     {
                                         attributeHeaderItem: {
                                             name: 'Direct Sales',
-                                            uri: '/gdc/md/storybook/obj/5/elements?id=1'
+                                            uri: `/gdc/md/${identifier}/obj/5/elements?id=1`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'Inside Sales',
-                                            uri: '/gdc/md/storybook/obj/5/elements?id=2'
+                                            uri: `/gdc/md/${identifier}/obj/5/elements?id=2`
                                         }
                                     },
                                     {
@@ -2419,25 +2419,25 @@ const getBaseProjectSchema = (title, identifier) => {
                                     {
                                         attributeHeaderItem: {
                                             name: 'false',
-                                            uri: '/gdc/md/storybook/obj/6/elements?id=1'
+                                            uri: `/gdc/md/${identifier}/obj/6/elements?id=1`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'false',
-                                            uri: '/gdc/md/storybook/obj/6/elements?id=1'
+                                            uri: `/gdc/md/${identifier}/obj/6/elements?id=1`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'true',
-                                            uri: '/gdc/md/storybook/obj/6/elements?id=2'
+                                            uri: `/gdc/md/${identifier}/obj/6/elements?id=2`
                                         }
                                     },
                                     {
                                         attributeHeaderItem: {
                                             name: 'true',
-                                            uri: '/gdc/md/storybook/obj/6/elements?id=2'
+                                            uri: `/gdc/md/${identifier}/obj/6/elements?id=2`
                                         }
                                     }
                                 ],
@@ -2483,13 +2483,13 @@ const getBaseProjectSchema = (title, identifier) => {
                     }
                 }
             },
-            ...barChartAfmExecutions,
-            ...heatmapAfmExecutions,
-            ...pivotTableAfmExecutions,
-            ...pivotTableSubtotalsAfmExecutions,
-            ...pivotTableGrandtotalSubtotalAfmExecutions,
-            ...xirrAfmExecutions,
-            ...geoChartAfmExecutions,
+            ...barChartAfmExecutions(identifier),
+            ...heatmapAfmExecutions(identifier),
+            ...pivotTableAfmExecutions(identifier),
+            ...pivotTableSubtotalsAfmExecutions(identifier),
+            ...pivotTableGrandtotalSubtotalAfmExecutions(identifier),
+            ...xirrAfmExecutions(identifier),
+            ...geoChartAfmExecutions(identifier),
         ],
         visualizationClasses: [{
             title: 'Table',
