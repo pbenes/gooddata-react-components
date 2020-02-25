@@ -1,10 +1,15 @@
-// (C) 2007-2019 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 
 import { AFM } from "@gooddata/typings";
-import * as fixtures from "../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../stories/test_data/fixtures";
 import { createIntlMock } from "../../../visualizations/utils/intlUtils";
 import { getRowHeaders, getFields } from "../agGridHeaders";
 import { getRow, getRowTotals } from "../agGridData";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("xms7ga4tf3g3nzucd8380o2bev8oeknp") : fixture,
+);
 
 const intl = createIntlMock();
 
@@ -234,20 +239,20 @@ describe("getRow", () => {
                 a_1024: {
                     attributeHeaderItem: {
                         name: "East Coast",
-                        uri: "/gdc/md/ux8xk21n3al4qr1akoz7j6xkl5dt1dqj/obj/1023/elements?id=1225",
+                        uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/1023/elements?id=1225",
                     },
                 },
                 a_1027: {
                     attributeHeaderItem: {
                         name: "Direct Sales",
-                        uri: "/gdc/md/ux8xk21n3al4qr1akoz7j6xkl5dt1dqj/obj/1026/elements?id=1226",
+                        uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/1026/elements?id=1226",
                     },
                 },
                 a_1094: { totalHeaderItem: { name: "nat", type: "nat" } },
                 a_64727: {
                     attributeHeaderItem: {
                         name: "Exclude",
-                        uri: "/gdc/md/ux8xk21n3al4qr1akoz7j6xkl5dt1dqj/obj/64726/elements?id=966650",
+                        uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/64726/elements?id=966650",
                     },
                 },
             },

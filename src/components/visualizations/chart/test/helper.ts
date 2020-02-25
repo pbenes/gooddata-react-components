@@ -1,4 +1,4 @@
-// (C) 2007-2019 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 import {
     findAttributeInDimension,
     findMeasureGroupInDimensions,
@@ -17,7 +17,7 @@ import { barChartWithStackByAndViewByAttributes } from "../../../../../stories/t
 import { IChartOptions } from "../../../../interfaces/Config";
 
 export function generateChartOptions(
-    dataSet: any = barChartWithStackByAndViewByAttributes,
+    dataSet: any = barChartWithStackByAndViewByAttributes("storybook"),
     config: any = {
         type: "column",
         stacking: false,

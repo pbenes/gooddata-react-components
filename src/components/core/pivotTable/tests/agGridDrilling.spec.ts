@@ -1,7 +1,7 @@
-// (C) 2007-2019 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 
 import { Execution } from "@gooddata/typings";
-import * as fixtures from "../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../stories/test_data/fixtures";
 import { IMappingHeader } from "../../../../interfaces/MappingHeader";
 import { createIntlMock } from "../../../visualizations/utils/intlUtils";
 import { executionToAGGridAdapter } from "../agGridDataSource";
@@ -16,6 +16,11 @@ import { IGridHeader } from "../agGridTypes";
 import { getTreeLeaves } from "../agGridUtils";
 
 import { getDrillIntersection } from "../../../visualizations/utils/drilldownEventing";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("d20eyb3wfs0xe5l0lfscdnrnyhq1t42q") : fixture,
+);
 
 const pivotTableWithColumnAndRowAttributes = fixtures.pivotTableWithColumnAndRowAttributes;
 const intl = createIntlMock();
@@ -78,7 +83,7 @@ describe("assignDrillItemsAndType", () => {
                     identifier: "aaEGaXAEgB7U",
                     localIdentifier: "franchiseFeesIdentifier",
                     name: "$ Franchise Fees",
-                    uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/6685",
+                    uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/6685",
                     format: "[>=0]$#,##0;[<0]-$#,##0",
                 },
             },
@@ -102,7 +107,7 @@ describe("assignDrillItemsAndType", () => {
             {
                 attributeHeaderItem: {
                     name: "Alabama",
-                    uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2210/elements?id=6340109",
+                    uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/2210/elements?id=6340109",
                 },
             },
             {
@@ -110,9 +115,9 @@ describe("assignDrillItemsAndType", () => {
                     identifier: "label.restaurantlocation.locationstate",
                     localIdentifier: "state",
                     name: "Location State",
-                    uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2211",
+                    uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/2211",
                     formOf: {
-                        uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2210",
+                        uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/2210",
                         identifier: "attr.restaurantlocation.locationstate",
                         name: "Location State",
                     },
@@ -141,7 +146,7 @@ describe("convertDrillIntersectionToLegacy", () => {
         {
             header: {
                 identifier: "",
-                uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2009/elements?id=1",
+                uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/2009/elements?id=1",
             },
             id: "1",
             title: "Q1",
@@ -149,7 +154,7 @@ describe("convertDrillIntersectionToLegacy", () => {
         {
             header: {
                 identifier: "date.aam81lMifn6q",
-                uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2011",
+                uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/2011",
             },
             id: "year",
             title: "Quarter (Date)",
@@ -157,7 +162,7 @@ describe("convertDrillIntersectionToLegacy", () => {
         {
             header: {
                 identifier: "",
-                uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2071/elements?id=1",
+                uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/2071/elements?id=1",
             },
             id: "1",
             title: "Jan",
@@ -165,7 +170,7 @@ describe("convertDrillIntersectionToLegacy", () => {
         {
             header: {
                 identifier: "date.abm81lMifn6q",
-                uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2073",
+                uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/2073",
             },
             id: "month",
             title: "Month (Date)",
@@ -173,7 +178,7 @@ describe("convertDrillIntersectionToLegacy", () => {
         {
             header: {
                 identifier: "aabHeqImaK0d",
-                uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/6694",
+                uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/6694",
             },
             id: "franchiseFeesAdRoyaltyIdentifier",
             title: "$ Franchise Fees (Ad Royalty)",
@@ -187,7 +192,7 @@ describe("convertDrillIntersectionToLegacy", () => {
             {
                 header: {
                     identifier: "label.restaurantlocation.locationstate",
-                    uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2211",
+                    uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/2211",
                 },
                 id: "state",
                 title: "Location State",
@@ -195,7 +200,7 @@ describe("convertDrillIntersectionToLegacy", () => {
             {
                 header: {
                     identifier: "",
-                    uri: "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2210/elements?id=6340109",
+                    uri: "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/2210/elements?id=6340109",
                 },
                 id: "6340109",
                 title: "Alabama",

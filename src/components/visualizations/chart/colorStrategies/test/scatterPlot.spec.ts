@@ -3,11 +3,16 @@ import range = require("lodash/range");
 import { Execution } from "@gooddata/typings";
 
 import { getMVS } from "../../test/helper";
-import * as fixtures from "../../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../../stories/test_data/fixtures";
 import { IColorMapping } from "../../../../../interfaces/Config";
 import { ColorFactory, IColorStrategy } from "../../colorFactory";
 import { CUSTOM_COLOR_PALETTE } from "../../../../../../stories/data/colors";
 import ScatterPlotColorStrategy from "../scatterPlot";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("storybook") : fixture,
+);
 
 describe("ScatterPlotColorStrategy", () => {
     it("should create palette with same color from first measure for all attribute elements", () => {

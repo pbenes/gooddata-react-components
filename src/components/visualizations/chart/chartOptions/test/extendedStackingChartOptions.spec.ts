@@ -190,7 +190,7 @@ describe("getCategoriesForTwoAttributes", () => {
 });
 
 describe("getDrillableSeriesWithParentAttribute", () => {
-    const dataSet = barChartWith4MetricsAndViewBy2Attribute;
+    const dataSet = barChartWith4MetricsAndViewBy2Attribute("storybook");
     const { afm } = dataSet.executionRequest;
     const {
         measureGroup,

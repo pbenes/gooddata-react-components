@@ -1,4 +1,4 @@
-// (C) 2007-2019 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 import cloneDeep = require("lodash/cloneDeep");
 import { AFM } from "@gooddata/typings";
 import Highcharts from "../../chart/highcharts/highchartsEntryPoint";
@@ -1018,8 +1018,8 @@ describe("Drilldown Eventing", () => {
             const intl = createIntlMock();
             const { columnDefs, rowData } = executionToAGGridAdapter(
                 {
-                    executionResponse: pivotTableWithColumnAndRowAttributes.executionResponse,
-                    executionResult: pivotTableWithColumnAndRowAttributes.executionResult,
+                    executionResponse: pivotTableWithColumnAndRowAttributes("storybook").executionResponse,
+                    executionResult: pivotTableWithColumnAndRowAttributes("storybook").executionResult,
                 },
                 {},
                 intl,

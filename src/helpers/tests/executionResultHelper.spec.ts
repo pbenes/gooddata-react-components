@@ -1,6 +1,6 @@
 // (C) 2007-2020 GoodData Corporation
 import { Execution } from "@gooddata/typings";
-import * as fixtures from "../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../stories/test_data/fixtures";
 import {
     STACK_BY_DIMENSION_INDEX,
     VIEW_BY_DIMENSION_INDEX,
@@ -22,6 +22,11 @@ import {
     getNthAttributeName,
     getNthDimensionHeaders,
 } from "../executionResultHelper";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("d20eyb3wfs0xe5l0lfscdnrnyhq1t42q") : fixture,
+);
 
 describe("findInDimensionHeaders", () => {
     it("should call supplied callback for all headers in all dimensions until it returns a non null value", () => {
@@ -234,8 +239,9 @@ describe("getHeaderItemName", () => {
 });
 
 describe("getHeadersInDimension", () => {
-    const executionResponse = require("../../../stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_response.json")
-        .executionResponse;
+    const executionResponse = require("../../../stories/test_data/geo_chart/geo_chart_with_location_size_color_segment_tooltip_response.ts")(
+        "storybook",
+    ).executionResponse;
 
     it("should return attribute headers", () => {
         const { dimensions } = executionResponse;
