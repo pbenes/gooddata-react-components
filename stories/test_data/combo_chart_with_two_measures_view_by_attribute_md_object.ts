@@ -1,69 +1,69 @@
-module.exports = (projectId: string) => { 
- return {
-    "buckets": [
-        {
-            "localIdentifier": "measures",
-            "items": [
-                {
-                    "measure": {
-                        "localIdentifier": "lostMetric",
-                        "definition": {
-                            "measureDefinition": {
-                                "item": {
-                                    "uri": "/gdc/md/" + projectId + "/obj/1283"
-                                }
-                            }
+// (C) 2020 GoodData Corporation
+module.exports = (projectId: string) => {
+    return {
+        buckets: [
+            {
+                localIdentifier: "measures",
+                items: [
+                    {
+                        measure: {
+                            localIdentifier: "lostMetric",
+                            definition: {
+                                measureDefinition: {
+                                    item: {
+                                        uri: "/gdc/md/" + projectId + "/obj/1283",
+                                    },
+                                },
+                            },
+                            title: "Lost",
                         },
-                        "title": "Lost"
-                    }
-                }
-            ]
-        },
-        {
-            "localIdentifier": "secondary_measures",
-            "items": [
-                {
-                    "measure": {
-                        "localIdentifier": "wonMetric",
-                        "definition": {
-                            "measureDefinition": {
-                                "item": {
-                                    "uri": "/gdc/md/" + projectId + "/obj/1284"
-                                }
-                            }
+                    },
+                ],
+            },
+            {
+                localIdentifier: "secondary_measures",
+                items: [
+                    {
+                        measure: {
+                            localIdentifier: "wonMetric",
+                            definition: {
+                                measureDefinition: {
+                                    item: {
+                                        uri: "/gdc/md/" + projectId + "/obj/1284",
+                                    },
+                                },
+                            },
+                            title: "Won",
                         },
-                        "title": "Won"
-                    }
-                }
-            ]
-        },
-        {
-            "localIdentifier": "view",
-            "items": [
-                {
-                    "visualizationAttribute": {
-                        "localIdentifier": "yearCreatedAttribute",
-                        "displayForm": {
-                            "uri": "/gdc/md/" + projectId + "/obj/158"
-                        }
-                    }
-                }
-            ]
-        }
-    ],
-    "filters": [
-        {
-            "negativeAttributeFilter": {
-                "displayForm": {
-                    "uri": "/gdc/md/" + projectId + "/obj/992"
+                    },
+                ],
+            },
+            {
+                localIdentifier: "view",
+                items: [
+                    {
+                        visualizationAttribute: {
+                            localIdentifier: "yearCreatedAttribute",
+                            displayForm: {
+                                uri: "/gdc/md/" + projectId + "/obj/158",
+                            },
+                        },
+                    },
+                ],
+            },
+        ],
+        filters: [
+            {
+                negativeAttributeFilter: {
+                    displayForm: {
+                        uri: "/gdc/md/" + projectId + "/obj/992",
+                    },
+                    notIn: [] as any,
                 },
-                "notIn": []
-            }
-        }
-    ],
-    "visualizationClass": {
-        "uri": "/gdc/md/" + projectId + "/obj/76038"
-    }
-}
-;
- };
+            },
+        ],
+        visualizationClass: {
+            uri: "/gdc/md/" + projectId + "/obj/76038",
+        },
+    };
+};
