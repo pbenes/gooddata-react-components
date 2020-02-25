@@ -3282,12 +3282,12 @@ Object {
             "formOf": Object {
               "identifier": "region",
               "name": "Region",
-              "uri": "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/1023",
+              "uri": "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/1023",
             },
             "identifier": "label.owner.region",
             "localIdentifier": "regionAttribute",
             "name": "Region",
-            "uri": "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/1024",
+            "uri": "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/1024",
           },
         },
       ],
@@ -3328,7 +3328,7 @@ Object {
         "a_1024": Object {
           "attributeHeaderItem": Object {
             "name": "East Coast",
-            "uri": "/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/1024/elements?id=1225",
+            "uri": "/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/1024/elements?id=1225",
           },
         },
       },

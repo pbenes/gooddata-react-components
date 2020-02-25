@@ -1,7 +1,7 @@
-// (C) 2007-2019 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 
 import { Execution } from "@gooddata/typings";
-import * as fixtures from "../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../stories/test_data/fixtures";
 import {
     assortDimensionHeaders,
     headerToGrid,
@@ -14,6 +14,11 @@ import {
     mergeHeaderEndIndex,
     shouldMergeHeaders,
 } from "../agGridHeaders";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("xms7ga4tf3g3nzucd8380o2bev8oeknp") : fixture,
+);
 
 describe("identifyHeader", () => {
     it("should return correct field key for an attribute header", () => {

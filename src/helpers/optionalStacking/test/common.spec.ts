@@ -1,4 +1,4 @@
-// (C) 2007-2019 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 import { VisualizationObject } from "@gooddata/typings";
 import {
     getComputeRatio,
@@ -8,7 +8,12 @@ import {
 } from "../common";
 import { measure } from "../../../helpers/model";
 import { IChartConfig } from "../../../interfaces/Config";
-import * as fixtures from "../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../stories/test_data/fixtures";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("d20eyb3wfs0xe5l0lfscdnrnyhq1t42q") : fixture,
+);
 
 const [M1, M2]: VisualizationObject.IMeasure[] = ["m1", "m2"].map((name: string) => {
     return measure(name).localIdentifier(name);

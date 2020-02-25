@@ -1,10 +1,15 @@
-// (C) 2007-2018 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 import { generateChartOptions } from "../../test/helper";
 
-import * as fixtures from "../../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../../stories/test_data/fixtures";
 import getLegend, { shouldLegendBeEnabled, getLegendItems } from "../legendBuilder";
 import { DEFAULT_LEGEND_CONFIG } from "../../../typings/legend";
 import { VisualizationTypes } from "../../../../../constants/visualizationTypes";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("storybook") : fixture,
+);
 
 describe("shouldLegendBeEnabled", () => {
     it("should return false by default", () => {

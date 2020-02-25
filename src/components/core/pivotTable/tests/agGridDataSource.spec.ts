@@ -1,8 +1,13 @@
-// (C) 2019 GoodData Corporation
-import * as fixtures from "../../../../../stories/test_data/fixtures";
+// (C) 2019-2020 GoodData Corporation
+import * as fnFixtures from "../../../../../stories/test_data/fixtures";
 import { createAgGridDataSource, executionToAGGridAdapter } from "../agGridDataSource";
 import { GroupingProviderFactory } from "../GroupingProvider";
 import { createIntlMock } from "../../../visualizations/utils/intlUtils";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("xms7ga4tf3g3nzucd8380o2bev8oeknp") : fixture,
+);
 
 const pivotTableWithColumnAndRowAttributes = fixtures.pivotTableWithColumnAndRowAttributes;
 const intl = createIntlMock();

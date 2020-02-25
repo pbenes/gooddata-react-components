@@ -1,4 +1,4 @@
-// (C) 2007-2019 GoodData Corporation
+// (C) 2007-2020 GoodData Corporation
 import * as React from "react";
 import { shallow, mount } from "enzyme";
 import noop = require("lodash/noop");
@@ -6,13 +6,18 @@ import get = require("lodash/get");
 
 import { IntlWrapper } from "../../../core/base/IntlWrapper";
 import ChartTransformation from "../ChartTransformation";
-import * as fixtures from "../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../stories/test_data/fixtures";
 import HighChartsRenderer from "../HighChartsRenderer";
 import { IChartConfig, IColorPaletteItem } from "../../../../interfaces/Config";
 import { getRgbString } from "../../utils/color";
 import Chart from "../Chart";
 import { VisualizationTypes } from "../../../../constants/visualizationTypes";
 import { TOP, BOTTOM, MIDDLE } from "../../../../constants/alignments";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("d20eyb3wfs0xe5l0lfscdnrnyhq1t42q") : fixture,
+);
 
 describe("ChartTransformation", () => {
     const defaultProps = {

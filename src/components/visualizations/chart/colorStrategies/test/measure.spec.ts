@@ -2,11 +2,16 @@
 import { Execution } from "@gooddata/typings";
 
 import { getMVS } from "../../test/helper";
-import * as fixtures from "../../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../../stories/test_data/fixtures";
 import { ColorFactory } from "../../colorFactory";
 import { IColorMapping, IColorPalette } from "../../../../../interfaces/Config";
 import { getColorsFromStrategy } from "./helpers";
 import MeasureColorStrategy from "../measure";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("storybook") : fixture,
+);
 
 const customPalette = [
     {

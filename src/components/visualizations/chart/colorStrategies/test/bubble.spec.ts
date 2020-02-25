@@ -2,11 +2,16 @@
 import { Execution } from "@gooddata/typings";
 
 import { getMVS } from "../../test/helper";
-import * as fixtures from "../../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../../stories/test_data/fixtures";
 import { IColorMapping } from "../../../../../interfaces/Config";
 import { ColorFactory } from "../../colorFactory";
 import { CUSTOM_COLOR_PALETTE } from "../../../../../../stories/data/colors";
 import BubbleChartColorStrategy from "../bubbleChart";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("d20eyb3wfs0xe5l0lfscdnrnyhq1t42q") : fixture,
+);
 
 describe("BubbleChartStrategy", () => {
     it("should create palette with color from first measure", () => {
