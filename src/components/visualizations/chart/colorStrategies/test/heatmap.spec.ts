@@ -3,12 +3,18 @@ import range = require("lodash/range");
 import { Execution } from "@gooddata/typings";
 
 import { getMVS } from "../../test/helper";
-import * as fixtures from "../../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../../stories/test_data/fixtures";
 import { ColorFactory, IColorStrategy } from "../../colorFactory";
 import { HEATMAP_BLUE_COLOR_PALETTE } from "../../../utils/color";
 import { CUSTOM_COLOR_PALETTE } from "../../../../../../stories/data/colors";
 import { IColorMapping } from "../../../../../interfaces/Config";
 import HeatmapColorStrategy from "../heatmap";
+
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("storybook") : fixture,
+);
 
 describe("HeatmapColorStrategy", () => {
     it("should return HeatmapColorStrategy strategy with 7 colors from default heatmap color palette", () => {

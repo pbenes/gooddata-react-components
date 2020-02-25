@@ -1,7 +1,7 @@
 // (C) 2007-2020 GoodData Corporation
 
 import { AFM } from "@gooddata/typings";
-import * as fixtures from "../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../stories/test_data/fixtures";
 import { assortDimensionHeaders } from "../agGridHeaders";
 import {
     getAttributeSortItemFieldAndDirection,
@@ -10,6 +10,11 @@ import {
     getSortItemByColId,
     getSortsFromModel,
 } from "../agGridSorting";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("xms7ga4tf3g3nzucd8380o2bev8oeknp") : fixture,
+);
 
 const pivotTableWithColumnAndRowAttributes = fixtures.pivotTableWithColumnAndRowAttributes;
 

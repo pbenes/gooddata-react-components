@@ -1,4 +1,4 @@
-// (C) 2019 GoodData Corporation
+// (C) 2019-2020 GoodData Corporation
 import { setMeasuresToSecondaryAxis } from "../dualAxis";
 import { IChartConfig } from "../../interfaces/Config";
 import { comboWithThreeMeasuresAndViewByAttributeMdObject } from "../../../stories/test_data/fixtures";
@@ -6,7 +6,7 @@ import { comboWithThreeMeasuresAndViewByAttributeMdObject } from "../../../stori
 describe("setMeasuresToSecondaryAxis", () => {
     const dualAxisConfig = { secondary_yaxis: { rotation: "90" } };
     const expectedDualAxisConfig = {
-        mdObject: comboWithThreeMeasuresAndViewByAttributeMdObject,
+        mdObject: comboWithThreeMeasuresAndViewByAttributeMdObject("storybook"),
         secondary_yaxis: {
             ...dualAxisConfig.secondary_yaxis,
             measures: ["expectedMetric"],
@@ -24,7 +24,7 @@ describe("setMeasuresToSecondaryAxis", () => {
         (_desc, value, expected) => {
             const config: IChartConfig = {
                 type: "combo2",
-                mdObject: comboWithThreeMeasuresAndViewByAttributeMdObject,
+                mdObject: comboWithThreeMeasuresAndViewByAttributeMdObject("storybook"),
                 dualAxis: value,
                 ...dualAxisConfig,
             };

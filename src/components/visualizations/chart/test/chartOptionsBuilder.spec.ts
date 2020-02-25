@@ -30,9 +30,12 @@ import {
 import { DEFAULT_CATEGORIES_LIMIT } from "../highcharts/commonConfiguration";
 import { generateChartOptions, getMVS, getMVSForViewByTwoAttributes } from "./helper";
 import * as headerPredicateFactory from "../../../../factory/HeaderPredicateFactory";
-import * as fixtures from "../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../stories/test_data/fixtures";
 import { PIE_CHART_LIMIT, STACK_BY_DIMENSION_INDEX } from "../constants";
 import { DEFAULT_COLOR_PALETTE, getLighterColor, getRgbString, GRAY, TRANSPARENT } from "../../utils/color";
+
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
 
 import { IColorStrategy } from "../colorFactory";
 import {
@@ -50,6 +53,9 @@ import BubbleChartColorStrategy from "../colorStrategies/bubbleChart";
 import MeasureColorStrategy from "../colorStrategies/measure";
 import AttributeColorStrategy from "../colorStrategies/attribute";
 
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("storybook") : fixture,
+);
 const FIRST_DEFAULT_COLOR_ITEM_AS_STRING = getRgbString(DEFAULT_COLOR_PALETTE[0]);
 const SECOND_DEFAULT_COLOR_ITEM_AS_STRING = getRgbString(DEFAULT_COLOR_PALETTE[1]);
 

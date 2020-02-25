@@ -483,20 +483,21 @@ export const chartWith20MetricsAndViewByAttribute: any = (projectId: string) => 
         .executionResult,
 });
 
-export const metricsInSecondaryAxis = chartWith20MetricsAndViewByAttribute.executionRequest.afm.measures
-    .map((measure: any, index: number) => {
-        if (index % 2 === 0) {
-            return measure.localIdentifier;
-        }
-        return null;
-    })
-    .filter((localIdentifier: string) => localIdentifier);
+export const metricsInSecondaryAxis = (projectId: string) =>
+    chartWith20MetricsAndViewByAttribute(projectId)
+        .executionRequest.afm.measures.map((measure: any, index: number) => {
+            if (index % 2 === 0) {
+                return measure.localIdentifier;
+            }
+            return null;
+        })
+        .filter((localIdentifier: string) => localIdentifier);
 
-export function barChartWithNTimes3MetricsAndViewByAttribute(n = 1) {
+export function barChartWithNTimes3MetricsAndViewByAttribute(projectId: string, n = 1) {
     let dataSet: any = immutableSet(
-        barChartWith3MetricsAndViewByAttribute,
+        barChartWith3MetricsAndViewByAttribute(projectId),
         "executionRequest.afm.measures",
-        repeatItemsNTimes(barChartWith3MetricsAndViewByAttribute.executionRequest.afm.measures, n),
+        repeatItemsNTimes(barChartWith3MetricsAndViewByAttribute(projectId).executionRequest.afm.measures, n),
     );
     dataSet = immutableSet(
         dataSet,
@@ -515,107 +516,112 @@ export function barChartWithNTimes3MetricsAndViewByAttribute(n = 1) {
     return dataSet;
 }
 
-export const barChartWith18MetricsAndViewByAttribute: any = barChartWithNTimes3MetricsAndViewByAttribute(6);
+export const barChartWith18MetricsAndViewByAttribute: any = (projectId: string) =>
+    barChartWithNTimes3MetricsAndViewByAttribute(projectId, 6);
 
-export const barChartWith60MetricsAndViewByAttribute: any = barChartWithNTimes3MetricsAndViewByAttribute(18);
+export const barChartWith60MetricsAndViewByAttribute: any = (projectId: string) =>
+    barChartWithNTimes3MetricsAndViewByAttribute(projectId, 18);
 
-export const barChartWith150MetricsAndViewByAttribute: any = barChartWithNTimes3MetricsAndViewByAttribute(54);
+export const barChartWith150MetricsAndViewByAttribute: any = (projectId: string) =>
+    barChartWithNTimes3MetricsAndViewByAttribute(projectId, 54);
 
-export const barChartWith6PopMeasuresAndViewByAttribute = (() => {
-    const n = 6;
-    let dataSet: any = immutableSet(
-        barChartWithPopMeasureAndViewByAttribute,
-        "executionRequest.afm.measures",
-        range(n).reduce((result, measuresIndex) => {
-            const { measures } = barChartWithPopMeasureAndViewByAttribute.executionRequest.afm;
-            const popMeasure = cloneDeep(measures[0]);
-            const postfix = `_${measuresIndex}`;
-            popMeasure.localIdentifier += postfix;
-            popMeasure.definition.popMeasure.measureIdentifier += postfix;
-            popMeasure.definition.popMeasure.popAttribute = {
-                uri: popMeasure.definition.popMeasure.popAttribute + postfix,
-            };
-            popMeasure.alias += postfix;
-            const sourceMeasure = cloneDeep(measures[1]);
-            sourceMeasure.localIdentifier += postfix;
-            sourceMeasure.definition.measure.item.uri += postfix;
-            sourceMeasure.alias += postfix;
-            return result.concat([popMeasure, sourceMeasure]);
-        }, []),
-    );
-    dataSet = immutableSet(
-        dataSet,
-        `executionResponse.dimensions[${STACK_BY_DIMENSION_INDEX}].headers[0].measureGroupHeader.items`,
-        repeatItemsNTimes(
-            dataSet.executionResponse.dimensions[STACK_BY_DIMENSION_INDEX].headers[0].measureGroupHeader
-                .items,
-            n,
-        ).map((headerItem: any, headerItemIndex: any) => {
-            const postfix = `_${Math.floor(headerItemIndex / 2)}`;
-            return {
-                measureHeaderItem: {
-                    ...headerItem.measureHeaderItem,
-                    localIdentifier: headerItem.measureHeaderItem.localIdentifier + postfix,
-                },
-            };
-        }),
-    );
-    dataSet = immutableSet(
-        dataSet,
-        "executionResult.data",
-        repeatItemsNTimes(dataSet.executionResult.data, n),
-    );
-    return dataSet;
-})();
+export const barChartWith6PopMeasuresAndViewByAttribute: any = (projectId: string) =>
+    (() => {
+        const n = 6;
+        let dataSet: any = immutableSet(
+            barChartWithPopMeasureAndViewByAttribute(projectId),
+            "executionRequest.afm.measures",
+            range(n).reduce((result, measuresIndex) => {
+                const { measures } = barChartWithPopMeasureAndViewByAttribute(projectId).executionRequest.afm;
+                const popMeasure = cloneDeep(measures[0]);
+                const postfix = `_${measuresIndex}`;
+                popMeasure.localIdentifier += postfix;
+                popMeasure.definition.popMeasure.measureIdentifier += postfix;
+                popMeasure.definition.popMeasure.popAttribute = {
+                    uri: popMeasure.definition.popMeasure.popAttribute + postfix,
+                };
+                popMeasure.alias += postfix;
+                const sourceMeasure = cloneDeep(measures[1]);
+                sourceMeasure.localIdentifier += postfix;
+                sourceMeasure.definition.measure.item.uri += postfix;
+                sourceMeasure.alias += postfix;
+                return result.concat([popMeasure, sourceMeasure]);
+            }, []),
+        );
+        dataSet = immutableSet(
+            dataSet,
+            `executionResponse.dimensions[${STACK_BY_DIMENSION_INDEX}].headers[0].measureGroupHeader.items`,
+            repeatItemsNTimes(
+                dataSet.executionResponse.dimensions[STACK_BY_DIMENSION_INDEX].headers[0].measureGroupHeader
+                    .items,
+                n,
+            ).map((headerItem: any, headerItemIndex: any) => {
+                const postfix = `_${Math.floor(headerItemIndex / 2)}`;
+                return {
+                    measureHeaderItem: {
+                        ...headerItem.measureHeaderItem,
+                        localIdentifier: headerItem.measureHeaderItem.localIdentifier + postfix,
+                    },
+                };
+            }),
+        );
+        dataSet = immutableSet(
+            dataSet,
+            "executionResult.data",
+            repeatItemsNTimes(dataSet.executionResult.data, n),
+        );
+        return dataSet;
+    })();
 
-export const barChartWith6PreviousPeriodMeasures = (() => {
-    const n = 6;
-    let dataSet: any = immutableSet(
-        barChartWithPreviousPeriodMeasure,
-        "executionRequest.afm.measures",
-        range(n).reduce((result, measuresIndex) => {
-            const { measures } = barChartWithPreviousPeriodMeasure.executionRequest.afm;
-            const previousPeriodMeasure = cloneDeep(measures[0]);
-            const postfix = `_${measuresIndex}`;
-            previousPeriodMeasure.localIdentifier += postfix;
-            previousPeriodMeasure.definition.previousPeriodMeasure.measureIdentifier += postfix;
-            previousPeriodMeasure.definition.previousPeriodMeasure.dateDataSets.forEach(
-                (dateDataSet: any) => {
-                    dateDataSet.dataSet.uri += postfix;
-                },
-            );
-            previousPeriodMeasure.alias += postfix;
-            const sourceMeasure = cloneDeep(measures[1]);
-            sourceMeasure.localIdentifier += postfix;
-            sourceMeasure.definition.measure.item.uri += postfix;
-            sourceMeasure.alias += postfix;
-            return result.concat([previousPeriodMeasure, sourceMeasure]);
-        }, []),
-    );
-    dataSet = immutableSet(
-        dataSet,
-        `executionResponse.dimensions[${STACK_BY_DIMENSION_INDEX}].headers[0].measureGroupHeader.items`,
-        repeatItemsNTimes(
-            dataSet.executionResponse.dimensions[STACK_BY_DIMENSION_INDEX].headers[0].measureGroupHeader
-                .items,
-            n,
-        ).map((headerItem: any, headerItemIndex: any) => {
-            const postfix = `_${Math.floor(headerItemIndex / 2)}`;
-            return {
-                measureHeaderItem: {
-                    ...headerItem.measureHeaderItem,
-                    localIdentifier: headerItem.measureHeaderItem.localIdentifier + postfix,
-                },
-            };
-        }),
-    );
-    dataSet = immutableSet(
-        dataSet,
-        "executionResult.data",
-        repeatItemsNTimes(dataSet.executionResult.data, n),
-    );
-    return dataSet;
-})();
+export const barChartWith6PreviousPeriodMeasures: any = (projectId: string) =>
+    (() => {
+        const n = 6;
+        let dataSet: any = immutableSet(
+            barChartWithPreviousPeriodMeasure(projectId),
+            "executionRequest.afm.measures",
+            range(n).reduce((result, measuresIndex) => {
+                const { measures } = barChartWithPreviousPeriodMeasure(projectId).executionRequest.afm;
+                const previousPeriodMeasure = cloneDeep(measures[0]);
+                const postfix = `_${measuresIndex}`;
+                previousPeriodMeasure.localIdentifier += postfix;
+                previousPeriodMeasure.definition.previousPeriodMeasure.measureIdentifier += postfix;
+                previousPeriodMeasure.definition.previousPeriodMeasure.dateDataSets.forEach(
+                    (dateDataSet: any) => {
+                        dateDataSet.dataSet.uri += postfix;
+                    },
+                );
+                previousPeriodMeasure.alias += postfix;
+                const sourceMeasure = cloneDeep(measures[1]);
+                sourceMeasure.localIdentifier += postfix;
+                sourceMeasure.definition.measure.item.uri += postfix;
+                sourceMeasure.alias += postfix;
+                return result.concat([previousPeriodMeasure, sourceMeasure]);
+            }, []),
+        );
+        dataSet = immutableSet(
+            dataSet,
+            `executionResponse.dimensions[${STACK_BY_DIMENSION_INDEX}].headers[0].measureGroupHeader.items`,
+            repeatItemsNTimes(
+                dataSet.executionResponse.dimensions[STACK_BY_DIMENSION_INDEX].headers[0].measureGroupHeader
+                    .items,
+                n,
+            ).map((headerItem: any, headerItemIndex: any) => {
+                const postfix = `_${Math.floor(headerItemIndex / 2)}`;
+                return {
+                    measureHeaderItem: {
+                        ...headerItem.measureHeaderItem,
+                        localIdentifier: headerItem.measureHeaderItem.localIdentifier + postfix,
+                    },
+                };
+            }),
+        );
+        dataSet = immutableSet(
+            dataSet,
+            "executionResult.data",
+            repeatItemsNTimes(dataSet.executionResult.data, n),
+        );
+        return dataSet;
+    })();
 
 export const customPalette = [
     {

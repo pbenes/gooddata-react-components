@@ -1,7 +1,12 @@
-// (C) 2019 GoodData Corporation
+// (C) 2019-2020 GoodData Corporation
 import { IGridTotalsRow } from "../agGridTypes";
 import { areTotalsChanged, isInvalidGetRowsRequest, wrapGetPageWithCaching } from "../agGridDataSourceUtils";
-import * as fixtures from "../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../stories/test_data/fixtures";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("d20eyb3wfs0xe5l0lfscdnrnyhq1t42q") : fixture,
+);
 
 describe("getGridDataSourceUtils", () => {
     describe("isInvalidGetRowsRequest", () => {

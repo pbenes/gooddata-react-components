@@ -3,12 +3,17 @@ import { Execution } from "@gooddata/typings";
 import { RGBType } from "@gooddata/gooddata-js";
 
 import { getMVS } from "../../test/helper";
-import * as fixtures from "../../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../../stories/test_data/fixtures";
 import { ColorFactory } from "../../colorFactory";
 import { DEFAULT_COLOR_PALETTE, getRgbString } from "../../../utils/color";
 import { IColorMapping, IColorPalette, IColorPaletteItem } from "../../../../../interfaces/Config";
 import { getColorsFromStrategy } from "./helpers";
 import AttributeColorStrategy from "../attribute";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("d20eyb3wfs0xe5l0lfscdnrnyhq1t42q") : fixture,
+);
 
 describe("AttributeColorStrategy", () => {
     it("should return AttributeColorStrategy with two colors from default color palette", () => {
