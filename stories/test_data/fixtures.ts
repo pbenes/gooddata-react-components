@@ -5,402 +5,483 @@ import { VisualizationObject } from "@gooddata/typings";
 import { immutableSet, repeatItemsNTimes } from "../../src/components/visualizations/utils/common";
 import { STACK_BY_DIMENSION_INDEX } from "../../src/components/visualizations/chart/constants";
 
-export const barChartWithSingleMeasureAndNoAttributes: any = {
-    executionRequest: require("../test_data/bar_chart_with_single_measure_and_no_attributes_request.json")
-        .execution,
-    executionResponse: require("../test_data/bar_chart_with_single_measure_and_no_attributes_response.json")
+export const barChartWithSingleMeasureAndNoAttributes: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_single_measure_and_no_attributes_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/bar_chart_with_single_measure_and_no_attributes_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bar_chart_with_single_measure_and_no_attributes_result.ts")(
+        projectId,
+    ).executionResult,
+});
+
+export const barChartWithoutAttributes: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_without_attributes_request.ts")(projectId).execution,
+    executionResponse: require("../test_data/bar_chart_without_attributes_response.ts")(projectId)
         .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_single_measure_and_no_attributes_result.json")
+    executionResult: require("../test_data/bar_chart_without_attributes_result.ts")(projectId)
         .executionResult,
-};
+});
 
-export const barChartWithoutAttributes: any = {
-    executionRequest: require("../test_data/bar_chart_without_attributes_request.json").execution,
-    executionResponse: require("../test_data/bar_chart_without_attributes_response.json").executionResponse,
-    executionResult: require("../test_data/bar_chart_without_attributes_result.json").executionResult,
-};
+export const barChartWithNegativeAndZeroValues: any = (projectId: string) =>
+    immutableSet(barChartWithoutAttributes(projectId), "executionResult.data", [["-116625456.54"], ["0"]]);
 
-export const barChartWithNegativeAndZeroValues: any = immutableSet(
-    barChartWithoutAttributes,
-    "executionResult.data",
-    [["-116625456.54"], ["0"]],
-);
+export const barChartWith3MetricsAndViewByAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_3_metrics_and_view_by_attribute_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/bar_chart_with_3_metrics_and_view_by_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bar_chart_with_3_metrics_and_view_by_attribute_result.ts")(
+        projectId,
+    ).executionResult,
+});
 
-export const barChartWith3MetricsAndViewByAttribute: any = {
-    executionRequest: require("../test_data/bar_chart_with_3_metrics_and_view_by_attribute_request.json")
+export const barChartWith2MetricsAndViewByAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_2_metrics_and_view_by_attribute_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/bar_chart_with_2_metrics_and_view_by_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bar_chart_with_2_metrics_and_view_by_attribute_result.ts")(
+        projectId,
+    ).executionResult,
+});
+
+export const barChartWith4MetricsAndViewBy2Attribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_result.ts")(
+        projectId,
+    ).executionResult,
+});
+
+export const barChartWith4MetricsAndViewBy2AttributeAndSomeNullDataPoint: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_with_some_null_datapoints_result.ts")(
+        projectId,
+    ).executionResult,
+});
+
+export const chartWithTwoAttributesAndSomeNullDatapoints: any = (projectId: string) => ({
+    executionRequest: require("../test_data/chart_with_2_attributes_and_null_datapoints_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/chart_with_2_attributes_and_null_datapoints_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/chart_with_2_attributes_and_null_datapoints_result.ts")(projectId)
+        .executionResult,
+});
+
+export const scatterPlotWith2MetricsAndAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/scatter_plot_with_2_metrics_and_attribute_request.ts")(projectId)
         .execution,
-    executionResponse: require("../test_data/bar_chart_with_3_metrics_and_view_by_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_3_metrics_and_view_by_attribute_result.json")
+    executionResponse: require("../test_data/scatter_plot_with_2_metrics_and_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/scatter_plot_with_2_metrics_and_attribute_result.ts")(projectId)
         .executionResult,
-};
+    mdObject: require("../test_data/scatter_plot_with_2_metrics_and_attribute_md.ts")(projectId),
+});
 
-export const barChartWith2MetricsAndViewByAttribute: any = {
-    executionRequest: require("../test_data/bar_chart_with_2_metrics_and_view_by_attribute_request.json")
-        .execution,
-    executionResponse: require("../test_data/bar_chart_with_2_metrics_and_view_by_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_2_metrics_and_view_by_attribute_result.json")
-        .executionResult,
-};
-
-export const barChartWith4MetricsAndViewBy2Attribute: any = {
-    executionRequest: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_request.json")
-        .execution,
-    executionResponse: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_result.json")
-        .executionResult,
-};
-
-export const barChartWith4MetricsAndViewBy2AttributeAndSomeNullDataPoint: any = {
-    executionRequest: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_request.json")
-        .execution,
-    executionResponse: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_with_some_null_datapoints_result.json")
-        .executionResult,
-};
-
-export const chartWithTwoAttributesAndSomeNullDatapoints: any = {
-    executionRequest: require("../test_data/chart_with_2_attributes_and_null_datapoints_request.json")
-        .execution,
-    executionResponse: require("../test_data/chart_with_2_attributes_and_null_datapoints_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/chart_with_2_attributes_and_null_datapoints_result.json")
-        .executionResult,
-};
-
-export const scatterPlotWith2MetricsAndAttribute: any = {
-    executionRequest: require("../test_data/scatter_plot_with_2_metrics_and_attribute_request.json")
-        .execution,
-    executionResponse: require("../test_data/scatter_plot_with_2_metrics_and_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/scatter_plot_with_2_metrics_and_attribute_result.json")
-        .executionResult,
-    mdObject: require("../test_data/scatter_plot_with_2_metrics_and_attribute_md.json"),
-};
-
-export const scatterWithNulls = {
+export const scatterWithNulls = (projectId: string) => ({
     ...scatterPlotWith2MetricsAndAttribute,
-    executionResult: require("../test_data/scatter_plot_with_nulls_result.json").executionResult,
-};
+    executionResult: require("../test_data/scatter_plot_with_nulls_result.ts")(projectId).executionResult,
+});
 
-export const bubbleChartWith3MetricsAndAttributeMd: any = {
-    mdObject: require("../test_data/bubble_chart_with_3_metrics_and_attribute_md.json"),
-};
+export const bubbleChartWith3MetricsAndAttributeMd: any = (projectId: string) => ({
+    mdObject: require("../test_data/bubble_chart_with_3_metrics_and_attribute_md.ts")(projectId),
+});
 
-export const bubbleChartWith3MetricsAndAttribute: any = {
-    executionRequest: require("../test_data/bubble_chart_with_3_metrics_and_attribute_request.json")
+export const bubbleChartWith3MetricsAndAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bubble_chart_with_3_metrics_and_attribute_request.ts")(projectId)
         .execution,
-    executionResponse: require("../test_data/bubble_chart_with_3_metrics_and_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/bubble_chart_with_3_metrics_and_attribute_result.json")
+    executionResponse: require("../test_data/bubble_chart_with_3_metrics_and_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bubble_chart_with_3_metrics_and_attribute_result.ts")(projectId)
         .executionResult,
     ...bubbleChartWith3MetricsAndAttributeMd,
-};
+});
 
-export const bubbleChartWith3MetricsMd: any = {
-    mdObject: require("../test_data/bubble_chart_with_3_metrics_md.json"),
-};
+export const bubbleChartWith3MetricsMd: any = (projectId: string) => ({
+    mdObject: require("../test_data/bubble_chart_with_3_metrics_md.ts")(projectId),
+});
 
-export const bubbleChartWith3AMMetricsAndAttribute: any = {
-    executionRequest: require("../test_data/bubble_chart_with_3_am_metrics_and_attribute_request.json")
-        .execution,
-    executionResponse: require("../test_data/bubble_chart_with_3_am_metrics_and_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/bubble_chart_with_3_am_metrics_and_attribute_result.json")
+export const bubbleChartWith3AMMetricsAndAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bubble_chart_with_3_am_metrics_and_attribute_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/bubble_chart_with_3_am_metrics_and_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bubble_chart_with_3_am_metrics_and_attribute_result.ts")(projectId)
         .executionResult,
-    mdObject: require("../test_data/bubble_chart_with_3_am_metrics_and_attribute_md.json"),
-};
+    mdObject: require("../test_data/bubble_chart_with_3_am_metrics_and_attribute_md.ts")(projectId),
+});
 
-export const bubbleChartWith3Metrics: any = {
-    executionRequest: require("../test_data/bubble_chart_with_3_metrics_request.json").execution,
-    executionResponse: require("../test_data/bubble_chart_with_3_metrics_response.json").executionResponse,
-    executionResult: require("../test_data/bubble_chart_with_3_metrics_result.json").executionResult,
+export const bubbleChartWith3Metrics: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bubble_chart_with_3_metrics_request.ts")(projectId).execution,
+    executionResponse: require("../test_data/bubble_chart_with_3_metrics_response.ts")(projectId)
+        .executionResponse,
+    executionResult: require("../test_data/bubble_chart_with_3_metrics_result.ts")(projectId).executionResult,
     ...bubbleChartWith3MetricsAndAttributeMd,
-};
+});
 
-export const bubbleChartWithNulls = {
+export const bubbleChartWithNulls = (projectId: string) => ({
     ...bubbleChartWith3MetricsAndAttribute,
     ...bubbleChartWith3MetricsAndAttributeMd,
-    executionResult: require("../test_data/bubble_chart_with_nulls_result.json").executionResult,
-};
+    executionResult: require("../test_data/bubble_chart_with_nulls_result.ts")(projectId).executionResult,
+});
 
-export const areaChartWith3MetricsAndViewByAttribute: any = {
-    executionRequest: require("../test_data/area_chart_with_3_metrics_and_view_by_attribute_request.json")
+export const areaChartWith3MetricsAndViewByAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/area_chart_with_3_metrics_and_view_by_attribute_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/area_chart_with_3_metrics_and_view_by_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/area_chart_with_3_metrics_and_view_by_attribute_result.ts")(
+        projectId,
+    ).executionResult,
+});
+
+export const areaChartWith1MetricsAndStackByAttributeAndFilters: any = (projectId: string) => ({
+    executionRequest: require("../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_result.ts")(
+        projectId,
+    ).executionResult,
+});
+
+export const areaChartWithNegativeValues: any = (projectId: string) => ({
+    executionRequest: require("../test_data/area_chart_with_negative_values_request.ts")(projectId).execution,
+    executionResponse: require("../test_data/area_chart_with_negative_values_response.ts")(projectId)
+        .executionResponse,
+    executionResult: require("../test_data/area_chart_with_negative_values_result.ts")(projectId)
+        .executionResult,
+});
+
+export const areaChartWithMeasureViewByAndStackBy: any = (projectId: string) => ({
+    executionRequest: require("../test_data/area_chart_with_measure_view_by_and_stack_by_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/area_chart_with_measure_view_by_and_stack_by_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/area_chart_with_measure_view_by_and_stack_by_result.ts")(projectId)
+        .executionResult,
+});
+
+export const barChartWithViewByAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_view_by_attribute_request.ts")(projectId)
         .execution,
-    executionResponse: require("../test_data/area_chart_with_3_metrics_and_view_by_attribute_response.json")
+    executionResponse: require("../test_data/bar_chart_with_view_by_attribute_response.ts")(projectId)
         .executionResponse,
-    executionResult: require("../test_data/area_chart_with_3_metrics_and_view_by_attribute_result.json")
+    executionResult: require("../test_data/bar_chart_with_view_by_attribute_result.ts")(projectId)
         .executionResult,
-};
+});
 
-export const areaChartWith1MetricsAndStackByAttributeAndFilters: any = {
-    executionRequest: require("../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_request.json")
+export const barChartWithManyViewByAttributeValues: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_many_view_by_attribute_values_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/bar_chart_with_many_view_by_attribute_values_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bar_chart_with_many_view_by_attribute_values_result.ts")(projectId)
+        .executionResult,
+});
+
+export const barChartWithStackByAndViewByAttributes: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_stack_by_and_view_by_attributes_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/bar_chart_with_stack_by_and_view_by_attributes_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bar_chart_with_stack_by_and_view_by_attributes_result.ts")(
+        projectId,
+    ).executionResult,
+});
+
+export const barChartWithStackByAndOnlyOneStack: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_request.ts")(projectId)
         .execution,
-    executionResponse: require("../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_result.json")
+    executionResponse: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_result.ts")(projectId)
         .executionResult,
-};
+});
 
-export const areaChartWithNegativeValues: any = {
-    executionRequest: require("../test_data/area_chart_with_negative_values_request.json").execution,
-    executionResponse: require("../test_data/area_chart_with_negative_values_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/area_chart_with_negative_values_result.json").executionResult,
-};
+export const barChartWithPopMeasureAndViewByAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_pop_measure_and_view_by_attribute_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/bar_chart_with_pop_measure_and_view_by_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/bar_chart_with_pop_measure_and_view_by_attribute_result.ts")(
+        projectId,
+    ).executionResult,
+});
 
-export const areaChartWithMeasureViewByAndStackBy: any = {
-    executionRequest: require("../test_data/area_chart_with_measure_view_by_and_stack_by_request.json")
+export const barChartWithPreviousPeriodMeasure: any = (projectId: string) => ({
+    executionRequest: require("../test_data/bar_chart_with_previous_period_measure_request.ts")(projectId)
         .execution,
-    executionResponse: require("../test_data/area_chart_with_measure_view_by_and_stack_by_response.json")
+    executionResponse: require("../test_data/bar_chart_with_previous_period_measure_response.ts")(projectId)
         .executionResponse,
-    executionResult: require("../test_data/area_chart_with_measure_view_by_and_stack_by_result.json")
+    executionResult: require("../test_data/bar_chart_with_previous_period_measure_result.ts")(projectId)
         .executionResult,
-};
+});
 
-export const barChartWithViewByAttribute: any = {
-    executionRequest: require("../test_data/bar_chart_with_view_by_attribute_request.json").execution,
-    executionResponse: require("../test_data/bar_chart_with_view_by_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_view_by_attribute_result.json").executionResult,
-};
+export const columnChartWithMeasureViewByAndComputeRatio: any = (projectId: string) => ({
+    executionRequest: require("../test_data/column_chart_with_measure_and_view_by_and_computeRatio_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/column_chart_with_measure_and_view_by_and_computeRatio_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/column_chart_with_measure_and_view_by_and_computeRatio_result.ts")(
+        projectId,
+    ).executionResult,
+});
 
-export const barChartWithManyViewByAttributeValues: any = {
-    executionRequest: require("../test_data/bar_chart_with_many_view_by_attribute_values_request.json")
+export const columnChartWithMeasureViewBy: any = (projectId: string) => ({
+    executionRequest: require("../test_data/column_chart_with_measure_and_view_by_request.ts")(projectId)
         .execution,
-    executionResponse: require("../test_data/bar_chart_with_many_view_by_attribute_values_response.json")
+    executionResponse: require("../test_data/column_chart_with_measure_and_view_by_response.ts")(projectId)
         .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_many_view_by_attribute_values_result.json")
+    executionResult: require("../test_data/column_chart_with_measure_and_view_by_result.ts")(projectId)
         .executionResult,
-};
+});
 
-export const barChartWithStackByAndViewByAttributes: any = {
-    executionRequest: require("../test_data/bar_chart_with_stack_by_and_view_by_attributes_request.json")
+export const columnChartWithMeasureViewBy2AttributesAndComputeRatio: any = (projectId: string) => ({
+    executionRequest: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_and_computeRatio_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_and_computeRatio_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_and_computeRatio_result.ts")(
+        projectId,
+    ).executionResult,
+});
+
+export const columnChartWithMeasureViewBy2Attributes: any = (projectId: string) => ({
+    executionRequest: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_result.ts")(
+        projectId,
+    ).executionResult,
+});
+
+export const pieChartWithMetricsOnly: any = (projectId: string) => ({
+    executionRequest: require("../test_data/pie_chart_with_metrics_only_request.ts")(projectId).execution,
+    executionResponse: require("../test_data/pie_chart_with_metrics_only_response.ts")(projectId)
+        .executionResponse,
+    executionResult: require("../test_data/pie_chart_with_metrics_only_result.ts")(projectId).executionResult,
+});
+
+export const headlineWithOneMeasure: any = (projectId: string) => ({
+    executionRequest: require("../test_data/headline_with_one_measure_request.ts")(projectId).execution,
+    executionResponse: require("../test_data/headline_with_one_measure_response.ts")(projectId)
+        .executionResponse,
+    executionResult: require("../test_data/headline_with_one_measure_result.ts")(projectId).executionResult,
+});
+
+export const headlineWithTwoMeasures: any = (projectId: string) => ({
+    executionRequest: require("../test_data/headline_with_two_measures_request.ts")(projectId).execution,
+    executionResponse: require("../test_data/headline_with_two_measures_response.ts")(projectId)
+        .executionResponse,
+    executionResult: require("../test_data/headline_with_two_measures_result.ts")(projectId).executionResult,
+});
+
+export const pivotTableWithColumnAndRowAttributes: any = (projectId: string) => ({
+    executionRequest: require("../test_data/pivot_table_with_column_and_row_attributes_request.ts")(projectId)
         .execution,
-    executionResponse: require("../test_data/bar_chart_with_stack_by_and_view_by_attributes_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_stack_by_and_view_by_attributes_result.json")
+    executionResponse: require("../test_data/pivot_table_with_column_and_row_attributes_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/pivot_table_with_column_and_row_attributes_result.ts")(projectId)
         .executionResult,
-};
+});
 
-export const barChartWithStackByAndOnlyOneStack: any = {
-    executionRequest: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_request.json")
-        .execution,
-    executionResponse: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_response.json")
+export const pivotTableWithColumnRowAttributesAndTotals: any = (projectId: string) => ({
+    executionRequest: require("../test_data/pivot_table_with_column_row_attributes_and_totals_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/pivot_table_with_column_row_attributes_and_totals_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/pivot_table_with_column_row_attributes_and_totals_result.ts")(
+        projectId,
+    ).executionResult,
+});
+
+export const pivotTableWithSubtotals: any = (projectId: string) => ({
+    executionRequest: require("../test_data/pivot_table_with_subtotals_request.ts")(projectId).execution,
+    executionResponse: require("../test_data/pivot_table_with_subtotals_response.ts")(projectId)
         .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_result.json")
-        .executionResult,
-};
-
-export const barChartWithPopMeasureAndViewByAttribute: any = {
-    executionRequest: require("../test_data/bar_chart_with_pop_measure_and_view_by_attribute_request.json")
-        .execution,
-    executionResponse: require("../test_data/bar_chart_with_pop_measure_and_view_by_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_pop_measure_and_view_by_attribute_result.json")
-        .executionResult,
-};
-
-export const barChartWithPreviousPeriodMeasure: any = {
-    executionRequest: require("../test_data/bar_chart_with_previous_period_measure_request.json").execution,
-    executionResponse: require("../test_data/bar_chart_with_previous_period_measure_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_previous_period_measure_result.json")
-        .executionResult,
-};
-
-export const columnChartWithMeasureViewByAndComputeRatio: any = {
-    executionRequest: require("../test_data/column_chart_with_measure_and_view_by_and_computeRatio_request.json")
-        .execution,
-    executionResponse: require("../test_data/column_chart_with_measure_and_view_by_and_computeRatio_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/column_chart_with_measure_and_view_by_and_computeRatio_result.json")
-        .executionResult,
-};
-
-export const columnChartWithMeasureViewBy: any = {
-    executionRequest: require("../test_data/column_chart_with_measure_and_view_by_request.json").execution,
-    executionResponse: require("../test_data/column_chart_with_measure_and_view_by_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/column_chart_with_measure_and_view_by_result.json")
-        .executionResult,
-};
-
-export const columnChartWithMeasureViewBy2AttributesAndComputeRatio: any = {
-    executionRequest: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_and_computeRatio_request.json")
-        .execution,
-    executionResponse: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_and_computeRatio_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_and_computeRatio_result.json")
-        .executionResult,
-};
-
-export const columnChartWithMeasureViewBy2Attributes: any = {
-    executionRequest: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_request.json")
-        .execution,
-    executionResponse: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_result.json")
-        .executionResult,
-};
-
-export const pieChartWithMetricsOnly: any = {
-    executionRequest: require("../test_data/pie_chart_with_metrics_only_request.json").execution,
-    executionResponse: require("../test_data/pie_chart_with_metrics_only_response.json").executionResponse,
-    executionResult: require("../test_data/pie_chart_with_metrics_only_result.json").executionResult,
-};
-
-export const headlineWithOneMeasure: any = {
-    executionRequest: require("../test_data/headline_with_one_measure_request.json").execution,
-    executionResponse: require("../test_data/headline_with_one_measure_response.json").executionResponse,
-    executionResult: require("../test_data/headline_with_one_measure_result.json").executionResult,
-};
-
-export const headlineWithTwoMeasures: any = {
-    executionRequest: require("../test_data/headline_with_two_measures_request.json").execution,
-    executionResponse: require("../test_data/headline_with_two_measures_response.json").executionResponse,
-    executionResult: require("../test_data/headline_with_two_measures_result.json").executionResult,
-};
-
-export const pivotTableWithColumnAndRowAttributes: any = {
-    executionRequest: require("../test_data/pivot_table_with_column_and_row_attributes_request.json")
-        .execution,
-    executionResponse: require("../test_data/pivot_table_with_column_and_row_attributes_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/pivot_table_with_column_and_row_attributes_result.json")
-        .executionResult,
-};
-
-export const pivotTableWithColumnRowAttributesAndTotals: any = {
-    executionRequest: require("../test_data/pivot_table_with_column_row_attributes_and_totals_request.json")
-        .execution,
-    executionResponse: require("../test_data/pivot_table_with_column_row_attributes_and_totals_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/pivot_table_with_column_row_attributes_and_totals_result.json")
-        .executionResult,
-};
-
-export const pivotTableWithSubtotals: any = {
-    executionRequest: require("../test_data/pivot_table_with_subtotals_request.json").execution,
-    executionResponse: require("../test_data/pivot_table_with_subtotals_response.json").executionResponse,
-    executionResult: require("../test_data/pivot_table_with_subtotals_result.json").executionResult,
-};
+    executionResult: require("../test_data/pivot_table_with_subtotals_result.ts")(projectId).executionResult,
+});
 
 export const comboWithTwoMeasuresAndViewByAttribute = barChartWith2MetricsAndViewByAttribute;
-export const comboWithTwoMeasuresAndViewByAttributeMdObject: VisualizationObject.IVisualizationObjectContent = {
-    buckets: require("../test_data/combo_chart_with_two_measures_view_by_attribute_md_object.json").buckets,
-    filters: require("../test_data/combo_chart_with_two_measures_view_by_attribute_md_object.json").buckets,
-    visualizationClass: require("../test_data/combo_chart_with_two_measures_view_by_attribute_md_object.json")
+export const comboWithTwoMeasuresAndViewByAttributeMdObject: (
+    projectId: string,
+) => VisualizationObject.IVisualizationObjectContent = (projectId: string) => ({
+    buckets: require("../test_data/combo_chart_with_two_measures_view_by_attribute_md_object.ts")(projectId)
         .buckets,
-};
+    filters: require("../test_data/combo_chart_with_two_measures_view_by_attribute_md_object.ts")(projectId)
+        .buckets,
+    visualizationClass: require("../test_data/combo_chart_with_two_measures_view_by_attribute_md_object.ts")(
+        projectId,
+    ).buckets,
+});
 
 export const comboWithThreeMeasuresAndViewByAttribute = barChartWith3MetricsAndViewByAttribute;
-export const comboWithThreeMeasuresAndViewByAttributeMdObject: VisualizationObject.IVisualizationObjectContent = {
-    buckets: require("../test_data/combo_chart_with_three_measures_view_by_attribute_md_object.json").buckets,
-    visualizationClass: require("../test_data/combo_chart_with_three_measures_view_by_attribute_md_object.json")
-        .visualizationClass,
-};
+export const comboWithThreeMeasuresAndViewByAttributeMdObject: (
+    projectId: string,
+) => VisualizationObject.IVisualizationObjectContent = (projectId: string) => ({
+    buckets: require("../test_data/combo_chart_with_three_measures_view_by_attribute_md_object.ts")(projectId)
+        .buckets,
+    visualizationClass: require("../test_data/combo_chart_with_three_measures_view_by_attribute_md_object.ts")(
+        projectId,
+    ).visualizationClass,
+});
 
-export const tableWithSorting: any = {
-    executionRequest: require("../test_data/table_with_sort_request.json").execution,
-    executionResponse: require("../test_data/table_with_sort_response.json").executionResponse,
-    executionResult: require("../test_data/table_with_sort_result.json").executionResult,
-};
+export const tableWithSorting: any = (projectId: string) => ({
+    executionRequest: require("../test_data/table_with_sort_request.ts")(projectId).execution,
+    executionResponse: require("../test_data/table_with_sort_response.ts")(projectId).executionResponse,
+    executionResult: require("../test_data/table_with_sort_result.ts")(projectId).executionResult,
+});
 
-export const treemapWithMetricAndViewByAttributeMd: any = {
-    mdObject: require("../test_data/treemap_with_metric_and_view_by_attribute_md.json"),
-};
+export const treemapWithMetricAndViewByAttributeMd: any = (projectId: string) => ({
+    mdObject: require("../test_data/treemap_with_metric_and_view_by_attribute_md.ts")(projectId),
+});
 
-export const treemapWithMetricAndViewByAttribute: any = {
-    executionRequest: require("../test_data/treemap_with_metric_and_view_by_attribute_request.json")
+export const treemapWithMetricAndViewByAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/treemap_with_metric_and_view_by_attribute_request.ts")(projectId)
         .execution,
-    executionResponse: require("../test_data/treemap_with_metric_and_view_by_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/treemap_with_metric_and_view_by_attribute_result.json")
+    executionResponse: require("../test_data/treemap_with_metric_and_view_by_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/treemap_with_metric_and_view_by_attribute_result.ts")(projectId)
         .executionResult,
     ...treemapWithMetricAndViewByAttributeMd,
-};
+});
 
-export const treemapWithMetricAndViewByAndOnlyOneElement: any = {
-    executionRequest: require("../test_data/treemap_with_metric_and_view_by_attribute_request.json")
+export const treemapWithMetricAndViewByAndOnlyOneElement: any = (projectId: string) => ({
+    executionRequest: require("../test_data/treemap_with_metric_and_view_by_attribute_request.ts")(projectId)
         .execution,
-    executionResponse: require("../test_data/treemap_with_metric_and_view_by_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/treemap_with_metric_and_view_by_and_only_one_element_result.json")
-        .executionResult, // tslint:disable-line:max-line-length
+    executionResponse: require("../test_data/treemap_with_metric_and_view_by_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/treemap_with_metric_and_view_by_and_only_one_element_result.ts")(
+        projectId,
+    ).executionResult, // tslint:disable-line:max-line-length
     ...treemapWithMetricAndViewByAttributeMd,
-};
+});
 
-export const treemapWithMetricAndStackByAttributeMd: any = {
-    mdObject: require("../test_data/treemap_with_metric_and_stack_by_attribute_md.json"),
-};
+export const treemapWithMetricAndStackByAttributeMd: any = (projectId: string) => ({
+    mdObject: require("../test_data/treemap_with_metric_and_stack_by_attribute_md.ts")(projectId),
+});
 
-export const treemapWithMetricAndStackByAttribute: any = {
-    ...treemapWithMetricAndViewByAttribute, // execution is the same
-    ...treemapWithMetricAndStackByAttributeMd,
-};
+export const treemapWithMetricAndStackByAttribute: any = (projectId: string) => ({
+    ...treemapWithMetricAndViewByAttribute(projectId), // execution is the same
+    ...treemapWithMetricAndStackByAttributeMd(projectId),
+});
 
-export const treemapWithMetricViewByAndStackByAttributeMd: any = {
-    mdObject: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_md.json"),
-};
+export const treemapWithMetricViewByAndStackByAttributeMd: any = (projectId: string) => ({
+    mdObject: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_md.ts")(projectId),
+});
 
-export const treemapWithMetricViewByAndStackByAttribute: any = {
-    executionRequest: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_request.json")
-        .execution,
-    executionResponse: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_result.json")
-        .executionResult, // tslint:disable-line:max-line-length
+export const treemapWithMetricViewByAndStackByAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_result.ts")(
+        projectId,
+    ).executionResult, // tslint:disable-line:max-line-length
     ...treemapWithMetricViewByAndStackByAttributeMd,
-};
+});
 
-export const treemapWithTwoMetricsAndStackByAttributeMd: any = {
-    mdObject: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_md.json"),
-};
+export const treemapWithTwoMetricsAndStackByAttributeMd: any = (projectId: string) => ({
+    mdObject: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_md.ts")(projectId),
+});
 
-export const treemapWithTwoMetricsAndStackByAttribute: any = {
-    executionRequest: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_request.json")
-        .execution,
-    executionResponse: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_response.json")
-        .executionResponse,
-    executionResult: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_result.json")
-        .executionResult, // tslint:disable-line:max-line-length
+export const treemapWithTwoMetricsAndStackByAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_request.ts")(
+        projectId,
+    ).execution,
+    executionResponse: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_response.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_result.ts")(
+        projectId,
+    ).executionResult, // tslint:disable-line:max-line-length
     ...treemapWithTwoMetricsAndStackByAttributeMd,
-};
+});
 
-export const treemapWithThreeMetricsMd: any = {
-    mdObject: require("../test_data/treemap_with_three_metrics_md.json"),
-};
+export const treemapWithThreeMetricsMd: any = (projectId: string) => ({
+    mdObject: require("../test_data/treemap_with_three_metrics_md.ts")(projectId),
+});
 
-export const treemapWithThreeMetrics: any = {
-    executionRequest: require("../test_data/treemap_with_three_metrics_request.json").execution,
-    executionResponse: require("../test_data/treemap_with_three_metrics_response.json").executionResponse,
-    executionResult: require("../test_data/treemap_with_three_metrics_result.json").executionResult, // tslint:disable-line:max-line-length
-    ...treemapWithThreeMetricsMd,
-};
-
-export const treemapWithOneMetricMd: any = {
-    mdObject: require("../test_data/treemap_with_one_metric_md.json"),
-};
-
-export const treemapWithOneMetric: any = {
-    executionRequest: require("../test_data/treemap_with_one_metric_request.json").execution,
-    executionResponse: require("../test_data/treemap_with_one_metric_response.json").executionResponse,
-    executionResult: require("../test_data/treemap_with_one_metric_result.json").executionResult, // tslint:disable-line:max-line-length
-    ...treemapWithOneMetricMd,
-};
-
-export const chartWith20MetricsAndViewByAttribute: any = {
-    executionRequest: require("../test_data/chart_with_20_metric_and_view_by_attribute_request.json")
-        .execution,
-    executionResponse: require("../test_data/chart_with_20_metric_and_view_by_attribute_reponse.json")
+export const treemapWithThreeMetrics: any = (projectId: string) => ({
+    executionRequest: require("../test_data/treemap_with_three_metrics_request.ts")(projectId).execution,
+    executionResponse: require("../test_data/treemap_with_three_metrics_response.ts")(projectId)
         .executionResponse,
-    executionResult: require("../test_data/chart_with_20_metric_and_view_by_attribute_result.json")
+    executionResult: require("../test_data/treemap_with_three_metrics_result.ts")(projectId).executionResult, // tslint:disable-line:max-line-length
+    ...treemapWithThreeMetricsMd,
+});
+
+export const treemapWithOneMetricMd: any = (projectId: string) => ({
+    mdObject: require("../test_data/treemap_with_one_metric_md.ts")(projectId),
+});
+
+export const treemapWithOneMetric: any = (projectId: string) => ({
+    executionRequest: require("../test_data/treemap_with_one_metric_request.ts")(projectId).execution,
+    executionResponse: require("../test_data/treemap_with_one_metric_response.ts")(projectId)
+        .executionResponse,
+    executionResult: require("../test_data/treemap_with_one_metric_result.ts")(projectId).executionResult, // tslint:disable-line:max-line-length
+    ...treemapWithOneMetricMd,
+});
+
+export const chartWith20MetricsAndViewByAttribute: any = (projectId: string) => ({
+    executionRequest: require("../test_data/chart_with_20_metric_and_view_by_attribute_request.ts")(projectId)
+        .execution,
+    executionResponse: require("../test_data/chart_with_20_metric_and_view_by_attribute_reponse.ts")(
+        projectId,
+    ).executionResponse,
+    executionResult: require("../test_data/chart_with_20_metric_and_view_by_attribute_result.ts")(projectId)
         .executionResult,
-};
+});
 
 export const metricsInSecondaryAxis = chartWith20MetricsAndViewByAttribute.executionRequest.afm.measures
     .map((measure: any, index: number) => {
@@ -587,67 +668,75 @@ export const customPalette = [
     },
 ];
 
-export const heatmapMetricRowColumn: any = {
-    executionRequest: require("./heat_map_with_metric_row_column_request.json").execution,
-    executionResponse: require("./heat_map_with_metric_row_column_response.json").executionResponse,
-    executionResult: require("./heat_map_with_metric_row_column_result.json").executionResult,
-};
+export const heatmapMetricRowColumn: any = (projectId: string) => ({
+    executionRequest: require("./heat_map_with_metric_row_column_request.ts")(projectId).execution,
+    executionResponse: require("./heat_map_with_metric_row_column_response.ts")(projectId).executionResponse,
+    executionResult: require("./heat_map_with_metric_row_column_result.ts")(projectId).executionResult,
+});
 
-export const heatmapEmptyCells: any = {
-    executionRequest: require("./heat_map_with_empty_cells_request.json").execution,
-    executionResponse: require("./heat_map_with_empty_cells_response.json").executionResponse,
-    executionResult: require("./heat_map_with_empty_cells_result.json").executionResult,
-};
+export const heatmapEmptyCells: any = (projectId: string) => ({
+    executionRequest: require("./heat_map_with_empty_cells_request.ts")(projectId).execution,
+    executionResponse: require("./heat_map_with_empty_cells_response.ts")(projectId).executionResponse,
+    executionResult: require("./heat_map_with_empty_cells_result.ts")(projectId).executionResult,
+});
 
-export const pivotTableWithTwoMetricsFourAttributesSubtotals = {
-    executionRequest: require("./pivot_table_with_2_metrics_4_attributes_subtotals_request.json").execution,
-    executionResponse: require("./pivot_table_with_2_metrics_4_attributes_subtotals_response.json")
+export const pivotTableWithTwoMetricsFourAttributesSubtotals = (projectId: string) => ({
+    executionRequest: require("./pivot_table_with_2_metrics_4_attributes_subtotals_request.ts")(projectId)
+        .execution,
+    executionResponse: require("./pivot_table_with_2_metrics_4_attributes_subtotals_response.ts")(projectId)
         .executionResponse,
-    executionResult: require("./pivot_table_with_2_metrics_4_attributes_subtotals_result.json")
+    executionResult: require("./pivot_table_with_2_metrics_4_attributes_subtotals_result.ts")(projectId)
         .executionResult,
-};
+});
 
-export const dualChartWithComputedAttribute: any = {
-    executionRequest: require("./dual_chart_with_computed_attribute_request.json").execution,
-    executionResponse: require("./dual_chart_with_computed_attribute_response.json").executionResponse,
-    executionResult: require("./dual_chart_with_computed_attribute_result.json").executionResult,
-};
+export const dualChartWithComputedAttribute: any = (projectId: string) => ({
+    executionRequest: require("./dual_chart_with_computed_attribute_request.ts")(projectId).execution,
+    executionResponse: require("./dual_chart_with_computed_attribute_response.ts")(projectId)
+        .executionResponse,
+    executionResult: require("./dual_chart_with_computed_attribute_result.ts")(projectId).executionResult,
+});
 
 export default {
-    pivotTableWithColumnAndRowAttributes,
-    pivotTableWithColumnRowAttributesAndTotals,
-    pivotTableWithSubtotals,
-    barChartWithSingleMeasureAndNoAttributes,
-    barChartWithoutAttributes,
-    barChartWith3MetricsAndViewByAttribute,
-    areaChartWith3MetricsAndViewByAttribute,
-    areaChartWithNegativeValues,
-    areaChartWith1MetricsAndStackByAttributeAndFilters,
-    areaChartWithMeasureViewByAndStackBy,
-    barChartWith18MetricsAndViewByAttribute,
-    barChartWith60MetricsAndViewByAttribute,
-    barChartWithViewByAttribute,
-    barChartWithManyViewByAttributeValues,
-    barChartWithStackByAndViewByAttributes,
-    barChartWithPopMeasureAndViewByAttribute,
-    barChartWith6PopMeasuresAndViewByAttribute,
-    barChartWithPreviousPeriodMeasure,
-    barChartWith6PreviousPeriodMeasures,
-    pieChartWithMetricsOnly,
-    barChartWithNegativeAndZeroValues,
-    headlineWithOneMeasure,
-    headlineWithTwoMeasures,
-    comboWithTwoMeasuresAndViewByAttribute,
-    comboWithTwoMeasuresAndViewByAttributeMdObject,
-    scatterWithNulls,
-    tableWithSorting,
-    treemapWithMetricAndViewByAttribute,
-    treemapWithMetricAndStackByAttribute,
-    treemapWithMetricViewByAndStackByAttribute,
-    treemapWithTwoMetricsAndStackByAttribute,
-    treemapWithMetricAndViewByAndOnlyOneElement,
-    treemapWithThreeMetrics,
-    treemapWithOneMetric,
-    heatmapMetricRowColumn,
-    pivotTableWithTwoMetricsFourAttributesSubtotals,
+    pivotTableWithColumnAndRowAttributes: pivotTableWithColumnAndRowAttributes("mockproject"),
+    pivotTableWithColumnRowAttributesAndTotals: pivotTableWithColumnRowAttributesAndTotals("mockproject"),
+    pivotTableWithSubtotals: pivotTableWithSubtotals("mockproject"),
+    barChartWithSingleMeasureAndNoAttributes: barChartWithSingleMeasureAndNoAttributes("mockproject"),
+    barChartWithoutAttributes: barChartWithoutAttributes("mockproject"),
+    barChartWith3MetricsAndViewByAttribute: barChartWith3MetricsAndViewByAttribute("mockproject"),
+    areaChartWith3MetricsAndViewByAttribute: areaChartWith3MetricsAndViewByAttribute("mockproject"),
+    areaChartWithNegativeValues: areaChartWithNegativeValues("mockproject"),
+    areaChartWith1MetricsAndStackByAttributeAndFilters: areaChartWith1MetricsAndStackByAttributeAndFilters(
+        "mockproject",
+    ),
+    areaChartWithMeasureViewByAndStackBy: areaChartWithMeasureViewByAndStackBy("mockproject"),
+    barChartWith18MetricsAndViewByAttribute: barChartWith18MetricsAndViewByAttribute("mockproject"),
+    barChartWith60MetricsAndViewByAttribute: barChartWith60MetricsAndViewByAttribute("mockproject"),
+    barChartWithViewByAttribute: barChartWithViewByAttribute("mockproject"),
+    barChartWithManyViewByAttributeValues: barChartWithManyViewByAttributeValues("mockproject"),
+    barChartWithStackByAndViewByAttributes: barChartWithStackByAndViewByAttributes("mockproject"),
+    barChartWithPopMeasureAndViewByAttribute: barChartWithPopMeasureAndViewByAttribute("mockproject"),
+    barChartWith6PopMeasuresAndViewByAttribute: barChartWith6PopMeasuresAndViewByAttribute("mockproject"),
+    barChartWithPreviousPeriodMeasure: barChartWithPreviousPeriodMeasure("mockproject"),
+    barChartWith6PreviousPeriodMeasures: barChartWith6PreviousPeriodMeasures("mockproject"),
+    pieChartWithMetricsOnly: pieChartWithMetricsOnly("mockproject"),
+    barChartWithNegativeAndZeroValues: barChartWithNegativeAndZeroValues("mockproject"),
+    headlineWithOneMeasure: headlineWithOneMeasure("mockproject"),
+    headlineWithTwoMeasures: headlineWithTwoMeasures("mockproject"),
+    comboWithTwoMeasuresAndViewByAttribute: comboWithTwoMeasuresAndViewByAttribute("mockproject"),
+    comboWithTwoMeasuresAndViewByAttributeMdObject: comboWithTwoMeasuresAndViewByAttributeMdObject(
+        "mockproject",
+    ),
+    scatterWithNulls: scatterWithNulls("mockproject"),
+    tableWithSorting: tableWithSorting("mockproject"),
+    treemapWithMetricAndViewByAttribute: treemapWithMetricAndViewByAttribute("mockproject"),
+    treemapWithMetricAndStackByAttribute: treemapWithMetricAndStackByAttribute("mockproject"),
+    treemapWithMetricViewByAndStackByAttribute: treemapWithMetricViewByAndStackByAttribute("mockproject"),
+    treemapWithTwoMetricsAndStackByAttribute: treemapWithTwoMetricsAndStackByAttribute("mockproject"),
+    treemapWithMetricAndViewByAndOnlyOneElement: treemapWithMetricAndViewByAndOnlyOneElement("mockproject"),
+    treemapWithThreeMetrics: treemapWithThreeMetrics("mockproject"),
+    treemapWithOneMetric: treemapWithOneMetric("mockproject"),
+    heatmapMetricRowColumn: heatmapMetricRowColumn("mockproject"),
+    pivotTableWithTwoMetricsFourAttributesSubtotals: pivotTableWithTwoMetricsFourAttributesSubtotals(
+        "mockproject",
+    ),
 };

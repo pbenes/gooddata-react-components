@@ -455,7 +455,7 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
                                 const extendedPivotTableProps = this.getExtendedPivotTableProps(
                                     pivotTableProps,
                                     {
-                                        ...configUpdated,
+                                        ...updatedConfig,
                                         maxHeight: clientHeight,
                                     },
                                 );
@@ -480,7 +480,7 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
                     <ReactMeasure client={true}>
                         {({ measureRef, contentRect }: any) => {
                             const extendedPivotTableProps = this.getExtendedPivotTableProps(pivotTableProps, {
-                                ...configUpdated,
+                                ...updatedConfig,
                                 maxHeight: contentRect.client.height,
                             });
 
