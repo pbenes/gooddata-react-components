@@ -2076,8 +2076,8 @@ describe("chartOptionsBuilder", () => {
 
             describe("with first and last drillable measures", () => {
                 const twoDrillableMeasuresItems = [
-                    headerPredicateFactory.uriMatch("/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/1283"),
-                    headerPredicateFactory.uriMatch("/gdc/md/d20eyb3wfs0xe5l0lfscdnrnyhq1t42q/obj/1285"),
+                    headerPredicateFactory.uriMatch("/gdc/md/storybook/obj/1283"),
+                    headerPredicateFactory.uriMatch("/gdc/md/storybook/obj/1285"),
                 ];
                 const twoDrillableMeasuresSeriesData = getDrillableSeries(
                     seriesWithoutDrillability,
