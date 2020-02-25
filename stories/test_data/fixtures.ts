@@ -99,7 +99,7 @@ export const scatterPlotWith2MetricsAndAttribute: any = (projectId: string) => (
 });
 
 export const scatterWithNulls = (projectId: string) => ({
-    ...scatterPlotWith2MetricsAndAttribute,
+    ...scatterPlotWith2MetricsAndAttribute(projectId),
     executionResult: require("../test_data/scatter_plot_with_nulls_result.ts")(projectId).executionResult,
 });
 
@@ -115,7 +115,7 @@ export const bubbleChartWith3MetricsAndAttribute: any = (projectId: string) => (
     ).executionResponse,
     executionResult: require("../test_data/bubble_chart_with_3_metrics_and_attribute_result.ts")(projectId)
         .executionResult,
-    ...bubbleChartWith3MetricsAndAttributeMd,
+    ...bubbleChartWith3MetricsAndAttributeMd(projectId),
 });
 
 export const bubbleChartWith3MetricsMd: any = (projectId: string) => ({
@@ -139,12 +139,12 @@ export const bubbleChartWith3Metrics: any = (projectId: string) => ({
     executionResponse: require("../test_data/bubble_chart_with_3_metrics_response.ts")(projectId)
         .executionResponse,
     executionResult: require("../test_data/bubble_chart_with_3_metrics_result.ts")(projectId).executionResult,
-    ...bubbleChartWith3MetricsAndAttributeMd,
+    ...bubbleChartWith3MetricsAndAttributeMd(projectId),
 });
 
 export const bubbleChartWithNulls = (projectId: string) => ({
-    ...bubbleChartWith3MetricsAndAttribute,
-    ...bubbleChartWith3MetricsAndAttributeMd,
+    ...bubbleChartWith3MetricsAndAttribute(projectId),
+    ...bubbleChartWith3MetricsAndAttributeMd(projectId),
     executionResult: require("../test_data/bubble_chart_with_nulls_result.ts")(projectId).executionResult,
 });
 
@@ -391,7 +391,7 @@ export const treemapWithMetricAndViewByAttribute: any = (projectId: string) => (
     ).executionResponse,
     executionResult: require("../test_data/treemap_with_metric_and_view_by_attribute_result.ts")(projectId)
         .executionResult,
-    ...treemapWithMetricAndViewByAttributeMd,
+    ...treemapWithMetricAndViewByAttributeMd(projectId),
 });
 
 export const treemapWithMetricAndViewByAndOnlyOneElement: any = (projectId: string) => ({
@@ -403,7 +403,7 @@ export const treemapWithMetricAndViewByAndOnlyOneElement: any = (projectId: stri
     executionResult: require("../test_data/treemap_with_metric_and_view_by_and_only_one_element_result.ts")(
         projectId,
     ).executionResult, // tslint:disable-line:max-line-length
-    ...treemapWithMetricAndViewByAttributeMd,
+    ...treemapWithMetricAndViewByAttributeMd(projectId),
 });
 
 export const treemapWithMetricAndStackByAttributeMd: any = (projectId: string) => ({
@@ -429,7 +429,7 @@ export const treemapWithMetricViewByAndStackByAttribute: any = (projectId: strin
     executionResult: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_result.ts")(
         projectId,
     ).executionResult, // tslint:disable-line:max-line-length
-    ...treemapWithMetricViewByAndStackByAttributeMd,
+    ...treemapWithMetricViewByAndStackByAttributeMd(projectId),
 });
 
 export const treemapWithTwoMetricsAndStackByAttributeMd: any = (projectId: string) => ({
@@ -446,7 +446,7 @@ export const treemapWithTwoMetricsAndStackByAttribute: any = (projectId: string)
     executionResult: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_result.ts")(
         projectId,
     ).executionResult, // tslint:disable-line:max-line-length
-    ...treemapWithTwoMetricsAndStackByAttributeMd,
+    ...treemapWithTwoMetricsAndStackByAttributeMd(projectId),
 });
 
 export const treemapWithThreeMetricsMd: any = (projectId: string) => ({
@@ -458,7 +458,7 @@ export const treemapWithThreeMetrics: any = (projectId: string) => ({
     executionResponse: require("../test_data/treemap_with_three_metrics_response.ts")(projectId)
         .executionResponse,
     executionResult: require("../test_data/treemap_with_three_metrics_result.ts")(projectId).executionResult, // tslint:disable-line:max-line-length
-    ...treemapWithThreeMetricsMd,
+    ...treemapWithThreeMetricsMd(projectId),
 });
 
 export const treemapWithOneMetricMd: any = (projectId: string) => ({
@@ -470,7 +470,7 @@ export const treemapWithOneMetric: any = (projectId: string) => ({
     executionResponse: require("../test_data/treemap_with_one_metric_response.ts")(projectId)
         .executionResponse,
     executionResult: require("../test_data/treemap_with_one_metric_result.ts")(projectId).executionResult, // tslint:disable-line:max-line-length
-    ...treemapWithOneMetricMd,
+    ...treemapWithOneMetricMd(projectId),
 });
 
 export const chartWith20MetricsAndViewByAttribute: any = (projectId: string) => ({
@@ -703,46 +703,46 @@ export const dualChartWithComputedAttribute: any = (projectId: string) => ({
 });
 
 export default {
-    pivotTableWithColumnAndRowAttributes: pivotTableWithColumnAndRowAttributes("mockproject"),
-    pivotTableWithColumnRowAttributesAndTotals: pivotTableWithColumnRowAttributesAndTotals("mockproject"),
-    pivotTableWithSubtotals: pivotTableWithSubtotals("mockproject"),
-    barChartWithSingleMeasureAndNoAttributes: barChartWithSingleMeasureAndNoAttributes("mockproject"),
-    barChartWithoutAttributes: barChartWithoutAttributes("mockproject"),
-    barChartWith3MetricsAndViewByAttribute: barChartWith3MetricsAndViewByAttribute("mockproject"),
-    areaChartWith3MetricsAndViewByAttribute: areaChartWith3MetricsAndViewByAttribute("mockproject"),
-    areaChartWithNegativeValues: areaChartWithNegativeValues("mockproject"),
+    pivotTableWithColumnAndRowAttributes: pivotTableWithColumnAndRowAttributes("storybook"),
+    pivotTableWithColumnRowAttributesAndTotals: pivotTableWithColumnRowAttributesAndTotals("storybook"),
+    pivotTableWithSubtotals: pivotTableWithSubtotals("storybook"),
+    barChartWithSingleMeasureAndNoAttributes: barChartWithSingleMeasureAndNoAttributes("storybook"),
+    barChartWithoutAttributes: barChartWithoutAttributes("storybook"),
+    barChartWith3MetricsAndViewByAttribute: barChartWith3MetricsAndViewByAttribute("storybook"),
+    areaChartWith3MetricsAndViewByAttribute: areaChartWith3MetricsAndViewByAttribute("storybook"),
+    areaChartWithNegativeValues: areaChartWithNegativeValues("storybook"),
     areaChartWith1MetricsAndStackByAttributeAndFilters: areaChartWith1MetricsAndStackByAttributeAndFilters(
-        "mockproject",
+        "storybook",
     ),
-    areaChartWithMeasureViewByAndStackBy: areaChartWithMeasureViewByAndStackBy("mockproject"),
-    barChartWith18MetricsAndViewByAttribute: barChartWith18MetricsAndViewByAttribute("mockproject"),
-    barChartWith60MetricsAndViewByAttribute: barChartWith60MetricsAndViewByAttribute("mockproject"),
-    barChartWithViewByAttribute: barChartWithViewByAttribute("mockproject"),
-    barChartWithManyViewByAttributeValues: barChartWithManyViewByAttributeValues("mockproject"),
-    barChartWithStackByAndViewByAttributes: barChartWithStackByAndViewByAttributes("mockproject"),
-    barChartWithPopMeasureAndViewByAttribute: barChartWithPopMeasureAndViewByAttribute("mockproject"),
-    barChartWith6PopMeasuresAndViewByAttribute: barChartWith6PopMeasuresAndViewByAttribute("mockproject"),
-    barChartWithPreviousPeriodMeasure: barChartWithPreviousPeriodMeasure("mockproject"),
-    barChartWith6PreviousPeriodMeasures: barChartWith6PreviousPeriodMeasures("mockproject"),
-    pieChartWithMetricsOnly: pieChartWithMetricsOnly("mockproject"),
-    barChartWithNegativeAndZeroValues: barChartWithNegativeAndZeroValues("mockproject"),
-    headlineWithOneMeasure: headlineWithOneMeasure("mockproject"),
-    headlineWithTwoMeasures: headlineWithTwoMeasures("mockproject"),
-    comboWithTwoMeasuresAndViewByAttribute: comboWithTwoMeasuresAndViewByAttribute("mockproject"),
+    areaChartWithMeasureViewByAndStackBy: areaChartWithMeasureViewByAndStackBy("storybook"),
+    barChartWith18MetricsAndViewByAttribute: barChartWith18MetricsAndViewByAttribute("storybook"),
+    barChartWith60MetricsAndViewByAttribute: barChartWith60MetricsAndViewByAttribute("storybook"),
+    barChartWithViewByAttribute: barChartWithViewByAttribute("storybook"),
+    barChartWithManyViewByAttributeValues: barChartWithManyViewByAttributeValues("storybook"),
+    barChartWithStackByAndViewByAttributes: barChartWithStackByAndViewByAttributes("storybook"),
+    barChartWithPopMeasureAndViewByAttribute: barChartWithPopMeasureAndViewByAttribute("storybook"),
+    barChartWith6PopMeasuresAndViewByAttribute: barChartWith6PopMeasuresAndViewByAttribute("storybook"),
+    barChartWithPreviousPeriodMeasure: barChartWithPreviousPeriodMeasure("storybook"),
+    barChartWith6PreviousPeriodMeasures: barChartWith6PreviousPeriodMeasures("storybook"),
+    pieChartWithMetricsOnly: pieChartWithMetricsOnly("storybook"),
+    barChartWithNegativeAndZeroValues: barChartWithNegativeAndZeroValues("storybook"),
+    headlineWithOneMeasure: headlineWithOneMeasure("storybook"),
+    headlineWithTwoMeasures: headlineWithTwoMeasures("storybook"),
+    comboWithTwoMeasuresAndViewByAttribute: comboWithTwoMeasuresAndViewByAttribute("storybook"),
     comboWithTwoMeasuresAndViewByAttributeMdObject: comboWithTwoMeasuresAndViewByAttributeMdObject(
-        "mockproject",
+        "storybook",
     ),
-    scatterWithNulls: scatterWithNulls("mockproject"),
-    tableWithSorting: tableWithSorting("mockproject"),
-    treemapWithMetricAndViewByAttribute: treemapWithMetricAndViewByAttribute("mockproject"),
-    treemapWithMetricAndStackByAttribute: treemapWithMetricAndStackByAttribute("mockproject"),
-    treemapWithMetricViewByAndStackByAttribute: treemapWithMetricViewByAndStackByAttribute("mockproject"),
-    treemapWithTwoMetricsAndStackByAttribute: treemapWithTwoMetricsAndStackByAttribute("mockproject"),
-    treemapWithMetricAndViewByAndOnlyOneElement: treemapWithMetricAndViewByAndOnlyOneElement("mockproject"),
-    treemapWithThreeMetrics: treemapWithThreeMetrics("mockproject"),
-    treemapWithOneMetric: treemapWithOneMetric("mockproject"),
-    heatmapMetricRowColumn: heatmapMetricRowColumn("mockproject"),
+    scatterWithNulls: scatterWithNulls("storybook"),
+    tableWithSorting: tableWithSorting("storybook"),
+    treemapWithMetricAndViewByAttribute: treemapWithMetricAndViewByAttribute("storybook"),
+    treemapWithMetricAndStackByAttribute: treemapWithMetricAndStackByAttribute("storybook"),
+    treemapWithMetricViewByAndStackByAttribute: treemapWithMetricViewByAndStackByAttribute("storybook"),
+    treemapWithTwoMetricsAndStackByAttribute: treemapWithTwoMetricsAndStackByAttribute("storybook"),
+    treemapWithMetricAndViewByAndOnlyOneElement: treemapWithMetricAndViewByAndOnlyOneElement("storybook"),
+    treemapWithThreeMetrics: treemapWithThreeMetrics("storybook"),
+    treemapWithOneMetric: treemapWithOneMetric("storybook"),
+    heatmapMetricRowColumn: heatmapMetricRowColumn("storybook"),
     pivotTableWithTwoMetricsFourAttributesSubtotals: pivotTableWithTwoMetricsFourAttributesSubtotals(
-        "mockproject",
+        "storybook",
     ),
 };

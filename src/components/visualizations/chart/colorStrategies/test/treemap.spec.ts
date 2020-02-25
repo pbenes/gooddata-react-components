@@ -2,12 +2,17 @@
 import { Execution } from "@gooddata/typings";
 
 import { getMVS } from "../../test/helper";
-import * as fixtures from "../../../../../../stories/test_data/fixtures";
+import * as fnFixtures from "../../../../../../stories/test_data/fixtures";
 import { ColorFactory } from "../../colorFactory";
 import { DEFAULT_COLOR_PALETTE, getRgbString } from "../../../utils/color";
 import { IColorMapping, IColorPalette, IColorPaletteItem } from "../../../../../interfaces/Config";
 import TreemapColorStrategy from "../treemap";
 import { getColorsFromStrategy } from "./helpers";
+import mapValues = require("lodash/mapValues");
+import isFunction = require("lodash/isFunction");
+const fixtures = mapValues(fnFixtures, (fixture: any) =>
+    isFunction(fixture) ? fixture("storybook") : fixture,
+);
 
 const customPalette = [
     {

@@ -10,7 +10,7 @@ import BubbleChartColorStrategy from "../bubbleChart";
 import mapValues = require("lodash/mapValues");
 import isFunction = require("lodash/isFunction");
 const fixtures = mapValues(fnFixtures, (fixture: any) =>
-    isFunction(fixture) ? fixture("d20eyb3wfs0xe5l0lfscdnrnyhq1t42q") : fixture,
+    isFunction(fixture) ? fixture("hzyl5wlh8rnu0ixmbzlaqpzf09ttb7c8") : fixture,
 );
 
 describe("BubbleChartStrategy", () => {
