@@ -563,5 +563,7 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
         if (this.featureFlags.enableTableColumnsAutoResizing) {
             return merge(config, { columnSizing: { defaultWidth: "viewport" } });
         }
+
+        return config;
     }
 }
