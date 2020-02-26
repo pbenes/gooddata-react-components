@@ -336,13 +336,14 @@ export const headlineWithTwoMeasures: any = {
 
 export const pivotTableWithColumnAndRowAttributes: any = {
     executionRequest: require("../test_data/pivot_table_with_column_and_row_attributes_request.js")(
-        "storybook",
+        "xms7ga4tf3g3nzucd8380o2bev8oeknp",
     ).execution,
     executionResponse: require("../test_data/pivot_table_with_column_and_row_attributes_response.js")(
-        "storybook",
+        "xms7ga4tf3g3nzucd8380o2bev8oeknp",
     ).executionResponse,
-    executionResult: require("../test_data/pivot_table_with_column_and_row_attributes_result.js")("storybook")
-        .executionResult,
+    executionResult: require("../test_data/pivot_table_with_column_and_row_attributes_result.js")(
+        "xms7ga4tf3g3nzucd8380o2bev8oeknp",
+    ).executionResult,
 };
 
 export const pivotTableWithColumnRowAttributesAndTotals: any = {
