@@ -1,8 +1,7 @@
 // (C) 2007-2020 GoodData Corporation
 import { IFeatureFlags, SDK } from "@gooddata/gooddata-js";
 import { getCachedOrLoad } from "./sdkCache";
-// import { IChartConfig } from "../interfaces/Config";
-import { isTable } from "../components/visualizations/utils/common";
+import { IChartConfig } from "../interfaces/Config";
 
 export async function getFeatureFlags(sdk: SDK, projectId: string): Promise<IFeatureFlags> {
     const apiCallIdentifier = `getFeatureFlags.${projectId}`;
@@ -16,10 +15,7 @@ export async function getFeatureFlags(sdk: SDK, projectId: string): Promise<IFea
     }
 }
 
-export function setConfigFromFeatureFlags(
-    config: any,
-    featureFlags: IFeatureFlags,
-): any /* TODO: IChartConfig, but used for table via common props */ {
+export function setConfigFromFeatureFlags(config: IChartConfig, featureFlags: IFeatureFlags): IChartConfig {
     if (!featureFlags) {
         return config;
     }
@@ -30,10 +26,13 @@ export function setConfigFromFeatureFlags(
         result = { ...result, disableDrillUnderline: true };
     }
 
-    // TODO: decide if === true like above?
-    if (config && isTable(config.type) && featureFlags.enableTableColumnsAutoResizing) {
-        result = { ...result, columnSizing: { defaultWidth: "viewport" } };
+    return result;
+}
+
+export function getTableConfigFromFeatureFlags(featureFlags: IFeatureFlags) {
+    if (featureFlags.enableTableColumnsAutoResizing) {
+        return { columnSizing: { defaultWidth: "viewport" } };
     }
 
-    return result;
+    return {};
 }
