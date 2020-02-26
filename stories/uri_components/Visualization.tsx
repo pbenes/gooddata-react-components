@@ -4,6 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { AFM } from "@gooddata/typings";
 import { screenshotWrap } from "@gooddata/test-storybook";
+import { ScreenshotReadyWrapper, visualizationNotLoadingResolver } from "../utils/ScreenshotReadyWrapper";
 
 import { Visualization, IVisualizationProps } from "../../src/components/uri/Visualization";
 import { CUSTOM_COLORS } from "../data/colors";
@@ -187,15 +188,17 @@ storiesOf("URI components", module)
     )
     .add("table with feature flag resizing", () =>
         screenshotWrap(
-            <div style={{ width: 800, height: 400 }}>
-                <Visualization
-                    projectId="resizingstorybook"
-                    uri={"/gdc/md/resizingstorybook/obj/1001"}
-                    onError={onErrorHandler}
-                    LoadingComponent={null}
-                    ErrorComponent={null}
-                />
-            </div>,
+            <ScreenshotReadyWrapper resolver={visualizationNotLoadingResolver()}>
+                <div style={{ width: 800, height: 400 }}>
+                    <Visualization
+                        projectId="resizingstorybook"
+                        uri={"/gdc/md/resizingstorybook/obj/1001"}
+                        onError={onErrorHandler}
+                        LoadingComponent={null}
+                        ErrorComponent={null}
+                    />
+                </div>
+            </ScreenshotReadyWrapper>,
         ),
     )
     .add("chart with PoP measures", () =>
