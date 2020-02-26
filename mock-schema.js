@@ -2483,13 +2483,13 @@ const getBaseProjectSchema = (title, identifier) => {
                     }
                 }
             },
-            ...barChartAfmExecutions,
-            ...heatmapAfmExecutions,
-            ...pivotTableAfmExecutions,
-            ...pivotTableSubtotalsAfmExecutions,
-            ...pivotTableGrandtotalSubtotalAfmExecutions,
-            ...xirrAfmExecutions,
-            ...geoChartAfmExecutions,
+            ...barChartAfmExecutions(identifier),
+            ...heatmapAfmExecutions(identifier),
+            ...pivotTableAfmExecutions(identifier),
+            ...pivotTableSubtotalsAfmExecutions(identifier),
+            ...pivotTableGrandtotalSubtotalAfmExecutions(identifier),
+            ...xirrAfmExecutions(identifier),
+            ...geoChartAfmExecutions(identifier),
         ],
         visualizationClasses: [{
             title: 'Table',
