@@ -705,12 +705,15 @@ export const heatmapEmptyCells: any = {
 };
 
 export const pivotTableWithTwoMetricsFourAttributesSubtotals = {
-    executionRequest: require("./pivot_table_with_2_metrics_4_attributes_subtotals_request.js")("storybook")
-        .execution,
-    executionResponse: require("./pivot_table_with_2_metrics_4_attributes_subtotals_response.js")("storybook")
-        .executionResponse,
-    executionResult: require("./pivot_table_with_2_metrics_4_attributes_subtotals_result.js")("storybook")
-        .executionResult,
+    executionRequest: require("./pivot_table_with_2_metrics_4_attributes_subtotals_request.js")(
+        "ux8xk21n3al4qr1akoz7j6xkl5dt1dqj",
+    ).execution,
+    executionResponse: require("./pivot_table_with_2_metrics_4_attributes_subtotals_response.js")(
+        "ux8xk21n3al4qr1akoz7j6xkl5dt1dqj",
+    ).executionResponse,
+    executionResult: require("./pivot_table_with_2_metrics_4_attributes_subtotals_result.js")(
+        "ux8xk21n3al4qr1akoz7j6xkl5dt1dqj",
+    ).executionResult,
 };
 
 export const dualChartWithComputedAttribute: any = {
