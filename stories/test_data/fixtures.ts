@@ -114,13 +114,14 @@ export const bubbleChartWith3MetricsAndAttributeMd: any = {
 
 export const bubbleChartWith3MetricsAndAttribute: any = {
     executionRequest: require("../test_data/bubble_chart_with_3_metrics_and_attribute_request.js")(
-        "storybook",
+        "hzyl5wlh8rnu0ixmbzlaqpzf09ttb7c8",
     ).execution,
     executionResponse: require("../test_data/bubble_chart_with_3_metrics_and_attribute_response.js")(
-        "storybook",
+        "hzyl5wlh8rnu0ixmbzlaqpzf09ttb7c8",
     ).executionResponse,
-    executionResult: require("../test_data/bubble_chart_with_3_metrics_and_attribute_result.js")("storybook")
-        .executionResult,
+    executionResult: require("../test_data/bubble_chart_with_3_metrics_and_attribute_result.js")(
+        "hzyl5wlh8rnu0ixmbzlaqpzf09ttb7c8",
+    ).executionResult,
     ...bubbleChartWith3MetricsAndAttributeMd,
 };
 
