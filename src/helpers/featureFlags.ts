@@ -31,7 +31,7 @@ export function setConfigFromFeatureFlags(
     }
 
     // TODO: decide if === true like above?
-    if (isTable(config.type) && featureFlags.enableTableColumnsAutoResizing) {
+    if (config && isTable(config.type) && featureFlags.enableTableColumnsAutoResizing) {
         result = { ...result, columnSizing: { defaultWidth: "viewport" } };
     }
 

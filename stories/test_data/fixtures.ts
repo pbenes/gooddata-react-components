@@ -240,13 +240,14 @@ export const barChartWithStackByAndViewByAttributes: any = {
 
 export const barChartWithStackByAndOnlyOneStack: any = {
     executionRequest: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_request.js")(
-        "storybook",
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
     ).execution,
     executionResponse: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_response.js")(
-        "storybook",
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
     ).executionResponse,
-    executionResult: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_result.js")("storybook")
-        .executionResult,
+    executionResult: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_result.js")(
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
+    ).executionResult,
 };
 
 export const barChartWithPopMeasureAndViewByAttribute: any = {
