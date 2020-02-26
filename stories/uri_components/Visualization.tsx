@@ -185,11 +185,11 @@ storiesOf("URI components", module)
             </div>,
         ),
     )
-    .add("table with feature flag", () =>
+    .add("table with feature flag resizing", () =>
         screenshotWrap(
             <div style={{ width: 800, height: 400 }}>
                 <Visualization
-                    projectId="storybook"
+                    projectId="resizingstorybook"
                     uri={"/gdc/md/resizingstorybook/obj/1001"}
                     onError={onErrorHandler}
                     LoadingComponent={null}
