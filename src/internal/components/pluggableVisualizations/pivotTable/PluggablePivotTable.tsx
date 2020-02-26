@@ -559,7 +559,6 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
             return config;
         }
 
-        // TODO: to constant
         const columnSizing: IColumnSizing = { defaultWidth: "viewport" };
         return merge(config, { columnSizing });
     }
