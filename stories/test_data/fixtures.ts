@@ -203,12 +203,15 @@ export const areaChartWithMeasureViewByAndStackBy: any = {
 };
 
 export const barChartWithViewByAttribute: any = {
-    executionRequest: require("../test_data/bar_chart_with_view_by_attribute_request.js")("storybook")
-        .execution,
-    executionResponse: require("../test_data/bar_chart_with_view_by_attribute_response.js")("storybook")
-        .executionResponse,
-    executionResult: require("../test_data/bar_chart_with_view_by_attribute_result.js")("storybook")
-        .executionResult,
+    executionRequest: require("../test_data/bar_chart_with_view_by_attribute_request.js")(
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
+    ).execution,
+    executionResponse: require("../test_data/bar_chart_with_view_by_attribute_response.js")(
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
+    ).executionResponse,
+    executionResult: require("../test_data/bar_chart_with_view_by_attribute_result.js")(
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
+    ).executionResult,
 };
 
 export const barChartWithManyViewByAttributeValues: any = {
