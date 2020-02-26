@@ -2906,8 +2906,8 @@ const getBaseProjectSchema = (title, identifier) => {
                 }]
             },
 
-            ...barChartVisualizationObjects,
-            ...geoChartVisualizationObjects,
+            ...barChartVisualizationObjects(identifier),
+            ...geoChartVisualizationObjects(identifier),
         ],
         featureFlags
     }
