@@ -1,51 +1,51 @@
-module.exports = projectId => { 
- return {
-    "execution": {
-        "afm": {
-            "measures": [
-                {
-                    "localIdentifier": "33bd337ed5534fd383861f11ff657b23",
-                    "definition": {
-                        "measure": {
-                            "item": {
-                                "uri": "/gdc/md/" + projectId + "/obj/1144"
-                            }
-                        }
+// (C) 2020 GoodData Corporation
+module.exports = projectId => {
+    return {
+        execution: {
+            afm: {
+                measures: [
+                    {
+                        localIdentifier: "33bd337ed5534fd383861f11ff657b23",
+                        definition: {
+                            measure: {
+                                item: {
+                                    uri: "/gdc/md/" + projectId + "/obj/1144",
+                                },
+                            },
+                        },
+                        alias: "Amount",
                     },
-                    "alias": "Amount"
-                },
-                {
-                    "localIdentifier": "88291f6f6fef47a7b9c5ad709af2b45b",
-                    "definition": {
-                        "measure": {
-                            "item": {
-                                "uri": "/gdc/md/" + projectId + "/obj/13465"
-                            }
-                        }
+                    {
+                        localIdentifier: "88291f6f6fef47a7b9c5ad709af2b45b",
+                        definition: {
+                            measure: {
+                                item: {
+                                    uri: "/gdc/md/" + projectId + "/obj/13465",
+                                },
+                            },
+                        },
+                        alias: "# of Open Opps.",
                     },
-                    "alias": "# of Open Opps."
-                }
-            ],
-            "attributes": [
-                {
-                    "displayForm": {
-                        "uri": "/gdc/md/" + projectId + "/obj/1027"
+                ],
+                attributes: [
+                    {
+                        displayForm: {
+                            uri: "/gdc/md/" + projectId + "/obj/1027",
+                        },
+                        localIdentifier: "departmentAttribute",
                     },
-                    "localIdentifier": "departmentAttribute"
-                }
-            ]
+                ],
+            },
+            resultSpec: {
+                dimensions: [
+                    {
+                        itemIdentifiers: ["measureGroup"],
+                    },
+                    {
+                        itemIdentifiers: ["departmentAttribute"],
+                    },
+                ],
+            },
         },
-        "resultSpec": {
-            "dimensions": [
-                {
-                    "itemIdentifiers": ["measureGroup"]
-                },
-                {
-                    "itemIdentifiers": ["departmentAttribute"]
-                }
-            ]
-        }
-    }
-}
-;
- };
+    };
+};
