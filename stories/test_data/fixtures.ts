@@ -4,7 +4,7 @@ import { range, cloneDeep } from "lodash";
 import { immutableSet, repeatItemsNTimes } from "../../src/components/visualizations/utils/common";
 import { STACK_BY_DIMENSION_INDEX } from "../../src/components/visualizations/chart/constants";
 
-export const barChartWithSingleMeasureAndNoAttributes = projectId => ({
+export const barChartWithSingleMeasureAndNoAttributes = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_single_measure_and_no_attributes_request.js")(
         projectId,
     ).execution,
@@ -16,7 +16,7 @@ export const barChartWithSingleMeasureAndNoAttributes = projectId => ({
     ).executionResult,
 });
 
-export const barChartWithoutAttributes = projectId => ({
+export const barChartWithoutAttributes = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_without_attributes_request.js")(projectId).execution,
     executionResponse: require("../test_data/bar_chart_without_attributes_response.js")(projectId)
         .executionResponse,
@@ -24,10 +24,10 @@ export const barChartWithoutAttributes = projectId => ({
         .executionResult,
 });
 
-export const barChartWithNegativeAndZeroValues = projectId =>
+export const barChartWithNegativeAndZeroValues = (projectId: string) =>
     immutableSet(barChartWithoutAttributes(projectId), "executionResult.data", [["-116625456.54"], ["0"]]);
 
-export const barChartWith3MetricsAndViewByAttribute = projectId => ({
+export const barChartWith3MetricsAndViewByAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_3_metrics_and_view_by_attribute_request.js")(
         projectId,
     ).execution,
@@ -39,7 +39,7 @@ export const barChartWith3MetricsAndViewByAttribute = projectId => ({
     ).executionResult,
 });
 
-export const barChartWith2MetricsAndViewByAttribute = projectId => ({
+export const barChartWith2MetricsAndViewByAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_2_metrics_and_view_by_attribute_request.js")(
         projectId,
     ).execution,
@@ -51,7 +51,7 @@ export const barChartWith2MetricsAndViewByAttribute = projectId => ({
     ).executionResult,
 });
 
-export const barChartWith4MetricsAndViewBy2Attribute = projectId => ({
+export const barChartWith4MetricsAndViewBy2Attribute = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_request.js")(
         projectId,
     ).execution,
@@ -63,7 +63,7 @@ export const barChartWith4MetricsAndViewBy2Attribute = projectId => ({
     ).executionResult,
 });
 
-export const barChartWith4MetricsAndViewBy2AttributeAndSomeNullDataPoint = projectId => ({
+export const barChartWith4MetricsAndViewBy2AttributeAndSomeNullDataPoint = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_4_metrics_and_view_by_two_attributes_request.js")(
         projectId,
     ).execution,
@@ -75,7 +75,7 @@ export const barChartWith4MetricsAndViewBy2AttributeAndSomeNullDataPoint = proje
     ).executionResult,
 });
 
-export const chartWithTwoAttributesAndSomeNullDatapoints = projectId => ({
+export const chartWithTwoAttributesAndSomeNullDatapoints = (projectId: string) => ({
     executionRequest: require("../test_data/chart_with_2_attributes_and_null_datapoints_request.js")(
         projectId,
     ).execution,
@@ -86,7 +86,7 @@ export const chartWithTwoAttributesAndSomeNullDatapoints = projectId => ({
         .executionResult,
 });
 
-export const scatterPlotWith2MetricsAndAttribute = projectId => ({
+export const scatterPlotWith2MetricsAndAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/scatter_plot_with_2_metrics_and_attribute_request.js")(projectId)
         .execution,
     executionResponse: require("../test_data/scatter_plot_with_2_metrics_and_attribute_response.js")(
@@ -97,16 +97,16 @@ export const scatterPlotWith2MetricsAndAttribute = projectId => ({
     mdObject: require("../test_data/scatter_plot_with_2_metrics_and_attribute_md.js")(projectId),
 });
 
-export const scatterWithNulls = projectId => ({
+export const scatterWithNulls = (projectId: string) => ({
     ...scatterPlotWith2MetricsAndAttribute(projectId),
     executionResult: require("../test_data/scatter_plot_with_nulls_result.js")(projectId).executionResult,
 });
 
-export const bubbleChartWith3MetricsAndAttributeMd = projectId => ({
+export const bubbleChartWith3MetricsAndAttributeMd = (projectId: string) => ({
     mdObject: require("../test_data/bubble_chart_with_3_metrics_and_attribute_md.js")(projectId),
 });
 
-export const bubbleChartWith3MetricsAndAttribute = projectId => ({
+export const bubbleChartWith3MetricsAndAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/bubble_chart_with_3_metrics_and_attribute_request.js")(projectId)
         .execution,
     executionResponse: require("../test_data/bubble_chart_with_3_metrics_and_attribute_response.js")(
@@ -117,11 +117,11 @@ export const bubbleChartWith3MetricsAndAttribute = projectId => ({
     ...bubbleChartWith3MetricsAndAttributeMd(projectId),
 });
 
-export const bubbleChartWith3MetricsMd = projectId => ({
+export const bubbleChartWith3MetricsMd = (projectId: string) => ({
     mdObject: require("../test_data/bubble_chart_with_3_metrics_md.js")(projectId),
 });
 
-export const bubbleChartWith3AMMetricsAndAttribute = projectId => ({
+export const bubbleChartWith3AMMetricsAndAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/bubble_chart_with_3_am_metrics_and_attribute_request.js")(
         projectId,
     ).execution,
@@ -133,7 +133,7 @@ export const bubbleChartWith3AMMetricsAndAttribute = projectId => ({
     mdObject: require("../test_data/bubble_chart_with_3_am_metrics_and_attribute_md.js")(projectId),
 });
 
-export const bubbleChartWith3Metrics = projectId => ({
+export const bubbleChartWith3Metrics = (projectId: string) => ({
     executionRequest: require("../test_data/bubble_chart_with_3_metrics_request.js")(projectId).execution,
     executionResponse: require("../test_data/bubble_chart_with_3_metrics_response.js")(projectId)
         .executionResponse,
@@ -141,13 +141,13 @@ export const bubbleChartWith3Metrics = projectId => ({
     ...bubbleChartWith3MetricsAndAttributeMd(projectId),
 });
 
-export const bubbleChartWithNulls = projectId => ({
+export const bubbleChartWithNulls = (projectId: string) => ({
     ...bubbleChartWith3MetricsAndAttribute(projectId),
     ...bubbleChartWith3MetricsAndAttributeMd(projectId),
     executionResult: require("../test_data/bubble_chart_with_nulls_result.js")(projectId).executionResult,
 });
 
-export const areaChartWith3MetricsAndViewByAttribute = projectId => ({
+export const areaChartWith3MetricsAndViewByAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/area_chart_with_3_metrics_and_view_by_attribute_request.js")(
         projectId,
     ).execution,
@@ -159,7 +159,7 @@ export const areaChartWith3MetricsAndViewByAttribute = projectId => ({
     ).executionResult,
 });
 
-export const areaChartWith1MetricsAndStackByAttributeAndFilters = projectId => ({
+export const areaChartWith1MetricsAndStackByAttributeAndFilters = (projectId: string) => ({
     executionRequest: require("../test_data/area_chart_with_single_metric_and_stack_by_attribute_and_filters_request.js")(
         projectId,
     ).execution,
@@ -171,7 +171,7 @@ export const areaChartWith1MetricsAndStackByAttributeAndFilters = projectId => (
     ).executionResult,
 });
 
-export const areaChartWithNegativeValues = projectId => ({
+export const areaChartWithNegativeValues = (projectId: string) => ({
     executionRequest: require("../test_data/area_chart_with_negative_values_request.js")(projectId).execution,
     executionResponse: require("../test_data/area_chart_with_negative_values_response.js")(projectId)
         .executionResponse,
@@ -179,7 +179,7 @@ export const areaChartWithNegativeValues = projectId => ({
         .executionResult,
 });
 
-export const areaChartWithMeasureViewByAndStackBy = projectId => ({
+export const areaChartWithMeasureViewByAndStackBy = (projectId: string) => ({
     executionRequest: require("../test_data/area_chart_with_measure_view_by_and_stack_by_request.js")(
         projectId,
     ).execution,
@@ -190,7 +190,7 @@ export const areaChartWithMeasureViewByAndStackBy = projectId => ({
         .executionResult,
 });
 
-export const barChartWithViewByAttribute = projectId => ({
+export const barChartWithViewByAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_view_by_attribute_request.js")(projectId)
         .execution,
     executionResponse: require("../test_data/bar_chart_with_view_by_attribute_response.js")(projectId)
@@ -199,7 +199,7 @@ export const barChartWithViewByAttribute = projectId => ({
         .executionResult,
 });
 
-export const barChartWithManyViewByAttributeValues = projectId => ({
+export const barChartWithManyViewByAttributeValues = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_many_view_by_attribute_values_request.js")(
         projectId,
     ).execution,
@@ -210,7 +210,7 @@ export const barChartWithManyViewByAttributeValues = projectId => ({
         .executionResult,
 });
 
-export const barChartWithStackByAndViewByAttributes = projectId => ({
+export const barChartWithStackByAndViewByAttributes = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_stack_by_and_view_by_attributes_request.js")(
         projectId,
     ).execution,
@@ -222,7 +222,7 @@ export const barChartWithStackByAndViewByAttributes = projectId => ({
     ).executionResult,
 });
 
-export const barChartWithStackByAndOnlyOneStack = projectId => ({
+export const barChartWithStackByAndOnlyOneStack = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_request.js")(projectId)
         .execution,
     executionResponse: require("../test_data/bar_chart_with_stack_by_and_only_one_stack_response.js")(
@@ -232,7 +232,7 @@ export const barChartWithStackByAndOnlyOneStack = projectId => ({
         .executionResult,
 });
 
-export const barChartWithPopMeasureAndViewByAttribute = projectId => ({
+export const barChartWithPopMeasureAndViewByAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_pop_measure_and_view_by_attribute_request.js")(
         projectId,
     ).execution,
@@ -244,7 +244,7 @@ export const barChartWithPopMeasureAndViewByAttribute = projectId => ({
     ).executionResult,
 });
 
-export const barChartWithPreviousPeriodMeasure = projectId => ({
+export const barChartWithPreviousPeriodMeasure = (projectId: string) => ({
     executionRequest: require("../test_data/bar_chart_with_previous_period_measure_request.js")(projectId)
         .execution,
     executionResponse: require("../test_data/bar_chart_with_previous_period_measure_response.js")(projectId)
@@ -253,7 +253,7 @@ export const barChartWithPreviousPeriodMeasure = projectId => ({
         .executionResult,
 });
 
-export const columnChartWithMeasureViewByAndComputeRatio = projectId => ({
+export const columnChartWithMeasureViewByAndComputeRatio = (projectId: string) => ({
     executionRequest: require("../test_data/column_chart_with_measure_and_view_by_and_computeRatio_request.js")(
         projectId,
     ).execution,
@@ -265,7 +265,7 @@ export const columnChartWithMeasureViewByAndComputeRatio = projectId => ({
     ).executionResult,
 });
 
-export const columnChartWithMeasureViewBy = projectId => ({
+export const columnChartWithMeasureViewBy = (projectId: string) => ({
     executionRequest: require("../test_data/column_chart_with_measure_and_view_by_request.js")(projectId)
         .execution,
     executionResponse: require("../test_data/column_chart_with_measure_and_view_by_response.js")(projectId)
@@ -274,7 +274,7 @@ export const columnChartWithMeasureViewBy = projectId => ({
         .executionResult,
 });
 
-export const columnChartWithMeasureViewBy2AttributesAndComputeRatio = projectId => ({
+export const columnChartWithMeasureViewBy2AttributesAndComputeRatio = (projectId: string) => ({
     executionRequest: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_and_computeRatio_request.js")(
         projectId,
     ).execution,
@@ -286,7 +286,7 @@ export const columnChartWithMeasureViewBy2AttributesAndComputeRatio = projectId 
     ).executionResult,
 });
 
-export const columnChartWithMeasureViewBy2Attributes = projectId => ({
+export const columnChartWithMeasureViewBy2Attributes = (projectId: string) => ({
     executionRequest: require("../test_data/column_chart_with_measure_and_view_by_two_attributes_request.js")(
         projectId,
     ).execution,
@@ -298,28 +298,28 @@ export const columnChartWithMeasureViewBy2Attributes = projectId => ({
     ).executionResult,
 });
 
-export const pieChartWithMetricsOnly = projectId => ({
+export const pieChartWithMetricsOnly = (projectId: string) => ({
     executionRequest: require("../test_data/pie_chart_with_metrics_only_request.js")(projectId).execution,
     executionResponse: require("../test_data/pie_chart_with_metrics_only_response.js")(projectId)
         .executionResponse,
     executionResult: require("../test_data/pie_chart_with_metrics_only_result.js")(projectId).executionResult,
 });
 
-export const headlineWithOneMeasure = projectId => ({
+export const headlineWithOneMeasure = (projectId: string) => ({
     executionRequest: require("../test_data/headline_with_one_measure_request.js")(projectId).execution,
     executionResponse: require("../test_data/headline_with_one_measure_response.js")(projectId)
         .executionResponse,
     executionResult: require("../test_data/headline_with_one_measure_result.js")(projectId).executionResult,
 });
 
-export const headlineWithTwoMeasures = projectId => ({
+export const headlineWithTwoMeasures = (projectId: string) => ({
     executionRequest: require("../test_data/headline_with_two_measures_request.js")(projectId).execution,
     executionResponse: require("../test_data/headline_with_two_measures_response.js")(projectId)
         .executionResponse,
     executionResult: require("../test_data/headline_with_two_measures_result.js")(projectId).executionResult,
 });
 
-export const pivotTableWithColumnAndRowAttributes = projectId => ({
+export const pivotTableWithColumnAndRowAttributes = (projectId: string) => ({
     executionRequest: require("../test_data/pivot_table_with_column_and_row_attributes_request.js")(projectId)
         .execution,
     executionResponse: require("../test_data/pivot_table_with_column_and_row_attributes_response.js")(
@@ -329,7 +329,7 @@ export const pivotTableWithColumnAndRowAttributes = projectId => ({
         .executionResult,
 });
 
-export const pivotTableWithColumnRowAttributesAndTotals = projectId => ({
+export const pivotTableWithColumnRowAttributesAndTotals = (projectId: string) => ({
     executionRequest: require("../test_data/pivot_table_with_column_row_attributes_and_totals_request.js")(
         projectId,
     ).execution,
@@ -341,7 +341,7 @@ export const pivotTableWithColumnRowAttributesAndTotals = projectId => ({
     ).executionResult,
 });
 
-export const pivotTableWithSubtotals = projectId => ({
+export const pivotTableWithSubtotals = (projectId: string) => ({
     executionRequest: require("../test_data/pivot_table_with_subtotals_request.js")(projectId).execution,
     executionResponse: require("../test_data/pivot_table_with_subtotals_response.js")(projectId)
         .executionResponse,
@@ -349,7 +349,7 @@ export const pivotTableWithSubtotals = projectId => ({
 });
 
 export const comboWithTwoMeasuresAndViewByAttribute = barChartWith2MetricsAndViewByAttribute;
-export const comboWithTwoMeasuresAndViewByAttributeMdObject = projectId => ({
+export const comboWithTwoMeasuresAndViewByAttributeMdObject = (projectId: string) => ({
     buckets: require("../test_data/combo_chart_with_two_measures_view_by_attribute_md_object.js")(projectId)
         .buckets,
     filters: require("../test_data/combo_chart_with_two_measures_view_by_attribute_md_object.js")(projectId)
@@ -360,7 +360,7 @@ export const comboWithTwoMeasuresAndViewByAttributeMdObject = projectId => ({
 });
 
 export const comboWithThreeMeasuresAndViewByAttribute = barChartWith3MetricsAndViewByAttribute;
-export const comboWithThreeMeasuresAndViewByAttributeMdObject = projectId => ({
+export const comboWithThreeMeasuresAndViewByAttributeMdObject = (projectId: string) => ({
     buckets: require("../test_data/combo_chart_with_three_measures_view_by_attribute_md_object.js")(projectId)
         .buckets,
     visualizationClass: require("../test_data/combo_chart_with_three_measures_view_by_attribute_md_object.js")(
@@ -368,17 +368,17 @@ export const comboWithThreeMeasuresAndViewByAttributeMdObject = projectId => ({
     ).visualizationClass,
 });
 
-export const tableWithSorting = projectId => ({
+export const tableWithSorting = (projectId: string) => ({
     executionRequest: require("../test_data/table_with_sort_request.js")(projectId).execution,
     executionResponse: require("../test_data/table_with_sort_response.js")(projectId).executionResponse,
     executionResult: require("../test_data/table_with_sort_result.js")(projectId).executionResult,
 });
 
-export const treemapWithMetricAndViewByAttributeMd = projectId => ({
+export const treemapWithMetricAndViewByAttributeMd = (projectId: string) => ({
     mdObject: require("../test_data/treemap_with_metric_and_view_by_attribute_md.js")(projectId),
 });
 
-export const treemapWithMetricAndViewByAttribute = projectId => ({
+export const treemapWithMetricAndViewByAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/treemap_with_metric_and_view_by_attribute_request.js")(projectId)
         .execution,
     executionResponse: require("../test_data/treemap_with_metric_and_view_by_attribute_response.js")(
@@ -389,7 +389,7 @@ export const treemapWithMetricAndViewByAttribute = projectId => ({
     ...treemapWithMetricAndViewByAttributeMd(projectId),
 });
 
-export const treemapWithMetricAndViewByAndOnlyOneElement = projectId => ({
+export const treemapWithMetricAndViewByAndOnlyOneElement = (projectId: string) => ({
     executionRequest: require("../test_data/treemap_with_metric_and_view_by_attribute_request.js")(projectId)
         .execution,
     executionResponse: require("../test_data/treemap_with_metric_and_view_by_attribute_response.js")(
@@ -401,20 +401,20 @@ export const treemapWithMetricAndViewByAndOnlyOneElement = projectId => ({
     ...treemapWithMetricAndViewByAttributeMd(projectId),
 });
 
-export const treemapWithMetricAndStackByAttributeMd = projectId => ({
+export const treemapWithMetricAndStackByAttributeMd = (projectId: string) => ({
     mdObject: require("../test_data/treemap_with_metric_and_stack_by_attribute_md.js")(projectId),
 });
 
-export const treemapWithMetricAndStackByAttribute = projectId => ({
+export const treemapWithMetricAndStackByAttribute = (projectId: string) => ({
     ...treemapWithMetricAndViewByAttribute(projectId), // execution is the same
     ...treemapWithMetricAndStackByAttributeMd(projectId),
 });
 
-export const treemapWithMetricViewByAndStackByAttributeMd = projectId => ({
+export const treemapWithMetricViewByAndStackByAttributeMd = (projectId: string) => ({
     mdObject: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_md.js")(projectId),
 });
 
-export const treemapWithMetricViewByAndStackByAttribute = projectId => ({
+export const treemapWithMetricViewByAndStackByAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/treemap_with_metric_view_by_and_stack_by_attribute_request.js")(
         projectId,
     ).execution,
@@ -427,11 +427,11 @@ export const treemapWithMetricViewByAndStackByAttribute = projectId => ({
     ...treemapWithMetricViewByAndStackByAttributeMd(projectId),
 });
 
-export const treemapWithTwoMetricsAndStackByAttributeMd = projectId => ({
+export const treemapWithTwoMetricsAndStackByAttributeMd = (projectId: string) => ({
     mdObject: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_md.js")(projectId),
 });
 
-export const treemapWithTwoMetricsAndStackByAttribute = projectId => ({
+export const treemapWithTwoMetricsAndStackByAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/treemap_with_two_metrics_and_stack_by_attribute_request.js")(
         projectId,
     ).execution,
@@ -444,11 +444,11 @@ export const treemapWithTwoMetricsAndStackByAttribute = projectId => ({
     ...treemapWithTwoMetricsAndStackByAttributeMd(projectId),
 });
 
-export const treemapWithThreeMetricsMd = projectId => ({
+export const treemapWithThreeMetricsMd = (projectId: string) => ({
     mdObject: require("../test_data/treemap_with_three_metrics_md.js")(projectId),
 });
 
-export const treemapWithThreeMetrics = projectId => ({
+export const treemapWithThreeMetrics = (projectId: string) => ({
     executionRequest: require("../test_data/treemap_with_three_metrics_request.js")(projectId).execution,
     executionResponse: require("../test_data/treemap_with_three_metrics_response.js")(projectId)
         .executionResponse,
@@ -456,11 +456,11 @@ export const treemapWithThreeMetrics = projectId => ({
     ...treemapWithThreeMetricsMd(projectId),
 });
 
-export const treemapWithOneMetricMd = projectId => ({
+export const treemapWithOneMetricMd = (projectId: string) => ({
     mdObject: require("../test_data/treemap_with_one_metric_md.js")(projectId),
 });
 
-export const treemapWithOneMetric = projectId => ({
+export const treemapWithOneMetric = (projectId: string) => ({
     executionRequest: require("../test_data/treemap_with_one_metric_request.js")(projectId).execution,
     executionResponse: require("../test_data/treemap_with_one_metric_response.js")(projectId)
         .executionResponse,
@@ -468,7 +468,7 @@ export const treemapWithOneMetric = projectId => ({
     ...treemapWithOneMetricMd(projectId),
 });
 
-export const chartWith20MetricsAndViewByAttribute = projectId => ({
+export const chartWith20MetricsAndViewByAttribute = (projectId: string) => ({
     executionRequest: require("../test_data/chart_with_20_metric_and_view_by_attribute_request.js")(projectId)
         .execution,
     executionResponse: require("../test_data/chart_with_20_metric_and_view_by_attribute_reponse.js")(
@@ -478,17 +478,17 @@ export const chartWith20MetricsAndViewByAttribute = projectId => ({
         .executionResult,
 });
 
-export const metricsInSecondaryAxis = projectId =>
+export const metricsInSecondaryAxis = (projectId: string) =>
     chartWith20MetricsAndViewByAttribute(projectId)
-        .executionRequest.afm.measures.map((measure, index) => {
+        .executionRequest.afm.measures.map((measure: any, index: number) => {
             if (index % 2 === 0) {
                 return measure.localIdentifier;
             }
             return null;
         })
-        .filter(localIdentifier => localIdentifier);
+        .filter((localIdentifier: string) => localIdentifier);
 
-export function barChartWithNTimes3MetricsAndViewByAttribute(projectId, n = 1) {
+export function barChartWithNTimes3MetricsAndViewByAttribute(projectId: string, n = 1) {
     let dataSet = immutableSet(
         barChartWith3MetricsAndViewByAttribute(projectId),
         "executionRequest.afm.measures",
@@ -511,16 +511,16 @@ export function barChartWithNTimes3MetricsAndViewByAttribute(projectId, n = 1) {
     return dataSet;
 }
 
-export const barChartWith18MetricsAndViewByAttribute = projectId =>
+export const barChartWith18MetricsAndViewByAttribute = (projectId: string) =>
     barChartWithNTimes3MetricsAndViewByAttribute(projectId, 6);
 
-export const barChartWith60MetricsAndViewByAttribute = projectId =>
+export const barChartWith60MetricsAndViewByAttribute = (projectId: string) =>
     barChartWithNTimes3MetricsAndViewByAttribute(projectId, 18);
 
-export const barChartWith150MetricsAndViewByAttribute = projectId =>
+export const barChartWith150MetricsAndViewByAttribute = (projectId: string) =>
     barChartWithNTimes3MetricsAndViewByAttribute(projectId, 54);
 
-export const barChartWith6PopMeasuresAndViewByAttribute = projectId =>
+export const barChartWith6PopMeasuresAndViewByAttribute = (projectId: string) =>
     (() => {
         const n = 6;
         let dataSet = immutableSet(
@@ -550,7 +550,7 @@ export const barChartWith6PopMeasuresAndViewByAttribute = projectId =>
                 dataSet.executionResponse.dimensions[STACK_BY_DIMENSION_INDEX].headers[0].measureGroupHeader
                     .items,
                 n,
-            ).map((headerItem, headerItemIndex) => {
+            ).map((headerItem: any, headerItemIndex: any) => {
                 const postfix = `_${Math.floor(headerItemIndex / 2)}`;
                 return {
                     measureHeaderItem: {
@@ -568,7 +568,7 @@ export const barChartWith6PopMeasuresAndViewByAttribute = projectId =>
         return dataSet;
     })();
 
-export const barChartWith6PreviousPeriodMeasures = projectId =>
+export const barChartWith6PreviousPeriodMeasures = (projectId: string) =>
     (() => {
         const n = 6;
         let dataSet = immutableSet(
@@ -580,7 +580,7 @@ export const barChartWith6PreviousPeriodMeasures = projectId =>
                 const postfix = `_${measuresIndex}`;
                 previousPeriodMeasure.localIdentifier += postfix;
                 previousPeriodMeasure.definition.previousPeriodMeasure.measureIdentifier += postfix;
-                previousPeriodMeasure.definition.previousPeriodMeasure.dateDataSets.forEach(dateDataSet => {
+                previousPeriodMeasure.definition.previousPeriodMeasure.dateDataSets.forEach((dateDataSet: any) => {
                     dateDataSet.dataSet.uri += postfix;
                 });
                 previousPeriodMeasure.alias += postfix;
@@ -598,7 +598,7 @@ export const barChartWith6PreviousPeriodMeasures = projectId =>
                 dataSet.executionResponse.dimensions[STACK_BY_DIMENSION_INDEX].headers[0].measureGroupHeader
                     .items,
                 n,
-            ).map((headerItem, headerItemIndex) => {
+            ).map((headerItem: any, headerItemIndex: number) => {
                 const postfix = `_${Math.floor(headerItemIndex / 2)}`;
                 return {
                     measureHeaderItem: {
@@ -667,19 +667,19 @@ export const customPalette = [
     },
 ];
 
-export const heatmapMetricRowColumn = projectId => ({
+export const heatmapMetricRowColumn = (projectId: string) => ({
     executionRequest: require("./heat_map_with_metric_row_column_request.js")(projectId).execution,
     executionResponse: require("./heat_map_with_metric_row_column_response.js")(projectId).executionResponse,
     executionResult: require("./heat_map_with_metric_row_column_result.js")(projectId).executionResult,
 });
 
-export const heatmapEmptyCells = projectId => ({
+export const heatmapEmptyCells = (projectId: string) => ({
     executionRequest: require("./heat_map_with_empty_cells_request.js")(projectId).execution,
     executionResponse: require("./heat_map_with_empty_cells_response.js")(projectId).executionResponse,
     executionResult: require("./heat_map_with_empty_cells_result.js")(projectId).executionResult,
 });
 
-export const pivotTableWithTwoMetricsFourAttributesSubtotals = projectId => ({
+export const pivotTableWithTwoMetricsFourAttributesSubtotals = (projectId: string) => ({
     executionRequest: require("./pivot_table_with_2_metrics_4_attributes_subtotals_request.js")(projectId)
         .execution,
     executionResponse: require("./pivot_table_with_2_metrics_4_attributes_subtotals_response.js")(projectId)
@@ -688,7 +688,7 @@ export const pivotTableWithTwoMetricsFourAttributesSubtotals = projectId => ({
         .executionResult,
 });
 
-export const dualChartWithComputedAttribute = projectId => ({
+export const dualChartWithComputedAttribute = (projectId: string) => ({
     executionRequest: require("./dual_chart_with_computed_attribute_request.js")(projectId).execution,
     executionResponse: require("./dual_chart_with_computed_attribute_response.js")(projectId)
         .executionResponse,
