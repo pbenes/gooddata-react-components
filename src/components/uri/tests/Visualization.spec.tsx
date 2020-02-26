@@ -254,7 +254,7 @@ describe("VisualizationWrapped", () => {
         });
     });
 
-    it.only("should render PivotTable with table column resizing if ff set to true", () => {
+    it("should render PivotTable with table column resizing if ff set to true", () => {
         const getFeatureFlags = async () => {
             return { enableTableColumnsAutoResizing: true };
         };
