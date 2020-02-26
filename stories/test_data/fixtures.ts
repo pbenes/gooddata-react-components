@@ -224,13 +224,13 @@ export const barChartWithManyViewByAttributeValues: any = {
 
 export const barChartWithStackByAndViewByAttributes: any = {
     executionRequest: require("../test_data/bar_chart_with_stack_by_and_view_by_attributes_request.js")(
-        "storybook",
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
     ).execution,
     executionResponse: require("../test_data/bar_chart_with_stack_by_and_view_by_attributes_response.js")(
-        "storybook",
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
     ).executionResponse,
     executionResult: require("../test_data/bar_chart_with_stack_by_and_view_by_attributes_result.js")(
-        "storybook",
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
     ).executionResult,
 };
 
