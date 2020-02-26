@@ -1,5 +1,5 @@
 // (C) 2020 GoodData Corporation
-module.exports = (projectId: string) => {
+module.exports = projectId => {
     return {
         execution: {
             afm: {

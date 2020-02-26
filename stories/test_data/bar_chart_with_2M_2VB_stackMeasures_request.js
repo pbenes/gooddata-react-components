@@ -1,5 +1,5 @@
 // (C) 2020 GoodData Corporation
-module.exports = (projectId: string) => {
+module.exports = projectId => {
     return {
         execution: {
             afm: {
@@ -12,7 +12,7 @@ module.exports = (projectId: string) => {
                         alias: "Amount",
                     },
                     {
-                        localIdentifier: "c85bc0e35ef04744ae33a15363877f0d",
+                        localIdentifier: "m2",
                         definition: {
                             measure: { item: { uri: "/gdc/md/" + projectId + "/obj/2" } },
                         },
@@ -24,14 +24,30 @@ module.exports = (projectId: string) => {
                         displayForm: { uri: "/gdc/md/" + projectId + "/obj/4.df" },
                         localIdentifier: "a1",
                     },
+                    {
+                        displayForm: { uri: "/gdc/md/" + projectId + "/obj/5.df" },
+                        localIdentifier: "a2",
+                    },
                 ],
             },
             resultSpec: {
-                dimensions: [{ itemIdentifiers: ["measureGroup"] }, { itemIdentifiers: ["a1"] }],
+                dimensions: [
+                    { itemIdentifiers: ["measureGroup"] },
+                    {
+                        itemIdentifiers: ["a1", "a2"],
+                    },
+                ],
                 sorts: [
                     {
                         attributeSortItem: {
                             attributeIdentifier: "a1",
+                            direction: "desc",
+                            aggregation: "sum",
+                        },
+                    },
+                    {
+                        attributeSortItem: {
+                            attributeIdentifier: "a2",
                             direction: "desc",
                             aggregation: "sum",
                         },
