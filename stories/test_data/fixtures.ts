@@ -33,13 +33,13 @@ export const barChartWithNegativeAndZeroValues: any = immutableSet(
 
 export const barChartWith3MetricsAndViewByAttribute: any = {
     executionRequest: require("../test_data/bar_chart_with_3_metrics_and_view_by_attribute_request.js")(
-        "storybook",
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
     ).execution,
     executionResponse: require("../test_data/bar_chart_with_3_metrics_and_view_by_attribute_response.js")(
-        "storybook",
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
     ).executionResponse,
     executionResult: require("../test_data/bar_chart_with_3_metrics_and_view_by_attribute_result.js")(
-        "storybook",
+        "d20eyb3wfs0xe5l0lfscdnrnyhq1t42q",
     ).executionResult,
 };
 
