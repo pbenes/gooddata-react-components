@@ -543,10 +543,10 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
 
     private enrichConfigWithMenu(config: IPivotTableConfig): IPivotTableConfig {
         if (this.environment === DASHBOARDS_ENVIRONMENT) {
+            // Menu aggregations turned off in KD
             return config;
         }
 
-        // Menu aggregations turned off in KD
         const menu: IMenu = {
             aggregations: true,
             aggregationsSubMenu: true,
