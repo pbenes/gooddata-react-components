@@ -448,6 +448,7 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
             };
 
             if (this.environment === DASHBOARDS_ENVIRONMENT) {
+                console.log("env dash");
                 if (isNil(height)) {
                     render(
                         <ReactMeasure client={true}>
@@ -458,13 +459,19 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
                                     height: "100%",
                                     textAlign: "left",
                                 };
-                                const extendedPivotTableProps = this.getExtendedPivotTableProps(
-                                    pivotTableProps,
-                                    {
+
+                                const columnWidths = {
+                                    a_952: (window as any).wwx || 100,
+                                };
+
+                                console.log("using columnWidths: ", columnWidths);
+                                const extendedPivotTableProps = {
+                                    ...this.getExtendedPivotTableProps(pivotTableProps, {
                                         ...updatedConfig,
                                         maxHeight: clientHeight,
-                                    },
-                                );
+                                    }),
+                                    columnWidths,
+                                };
 
                                 return (
                                     <div
@@ -485,9 +492,15 @@ export class PluggablePivotTable extends AbstractPluggableVisualization {
                 render(
                     <ReactMeasure client={true}>
                         {({ measureRef, contentRect }: any) => {
+                            const columnWidths = {
+                                a_952: Math.round(Math.random() * 100 + 50),
+                            };
+
+                            console.log("using columnWidths: ", columnWidths);
                             const extendedPivotTableProps = this.getExtendedPivotTableProps(pivotTableProps, {
                                 ...updatedConfig,
                                 maxHeight: contentRect.client.height,
+                                columnWidths,
                             });
 
                             return (

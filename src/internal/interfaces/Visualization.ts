@@ -318,4 +318,5 @@ export interface IGdcConfig {
     colorPalette?: IColorPalette;
     isExportMode?: boolean;
     isInEditMode?: boolean;
+    columnWidths?: any;
 }

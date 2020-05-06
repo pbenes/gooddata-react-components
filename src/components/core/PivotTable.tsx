@@ -139,10 +139,15 @@ export interface IResizedColumns {
     [columnIdentifier: string]: { width: number };
 }
 
+export interface IColumnProps {
+    columnWidths?: any;
+}
+
 export type IPivotTableInnerProps = IPivotTableProps &
     ILoadingInjectedProps &
     IDataSourceProviderInjectedProps &
-    WrappedComponentProps;
+    WrappedComponentProps &
+    IColumnProps;
 
 export enum ColumnEventSourceType {
     AUTOSIZE_COLUMNS = "autosizeColumns",
@@ -232,6 +237,16 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         ) {
             this.setGroupingProvider(nextProps.groupRows && nextState.sortedByFirstAttribute);
         }
+
+        Object.keys(this.resizedColumns).forEach(col => {
+            if (!nextProps.columnWidths) {
+                return;
+            }
+
+            if (nextProps.columnWidths[col]) {
+                this.resizedColumns[col].width = nextProps.columnWidths[col];
+            }
+        });
     }
 
     public componentDidUpdate(prevProps: IPivotTableInnerProps, prevState: IPivotTableState) {
@@ -278,8 +293,14 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             }
         });
 
+        debugger;
         if (this.isAgGridRerenderNeeded(this.props, prevProps)) {
             this.forceRerender();
+        } else if (!isEqual(this.props.columnWidths, prevProps.columnWidths)) {
+            if ((window as any).wwx) {
+                console.log("force rerender");
+                this.forceRerender();
+            }
         }
 
         if (this.props.config.maxHeight && this.state.execution) {
@@ -289,6 +310,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
 
     public renderVisualization() {
         const { desiredHeight } = this.state;
+        console.log("create go");
         const gridOptions = this.createGridOptions();
 
         // columnDefs are loaded with first page request. Show overlay loading before first page is available.
@@ -484,6 +506,9 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         };
         const tablePagesLoaded = () => {
             const pages = event.api.getCacheBlockState();
+            if (!pages) {
+                return false;
+            }
             return Object.keys(pages).every((pageId: string) => pages[pageId].pageStatus === "loaded");
         };
 
@@ -862,6 +887,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
 
         let maxWidthProp = {};
         if (this.isColumnAutoresizeEnabled()) {
+            console.log("enriching", JSON.stringify(this.resizedColumns));
             this.enrichColumnDefinitionsWithWidths(getTreeLeaves(columnDefs), this.resizedColumns);
             maxWidthProp = { maxWidth: 500 };
         }
@@ -983,7 +1009,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             },
 
             // Custom CSS classes
-            rowClass: "gd-table-row",
+            rowClass: `gd-table-row gd-table-row-${Math.round(Math.random() * 100)}`,
             rowHeight: DEFAULT_ROW_HEIGHT,
             autoSizePadding: DEFAULT_AUTOSIZE_PADDING,
         };
@@ -1166,6 +1192,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             if (columnDefinition) {
                 const resizedColumn = resizedColumns[this.getColumnIdentifier(columnDefinition)];
                 if (resizedColumn) {
+                    console.log("Updating coldef to ", columnDefinition, resizedColumn.width);
                     columnDefinition.width = resizedColumn.width;
                 }
             }
