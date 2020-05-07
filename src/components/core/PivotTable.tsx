@@ -212,6 +212,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         this.gridApi = null;
 
         this.setGroupingProvider(props.groupRows);
+        (window as any).forceRerender = this.forceRerender.bind(this);
     }
 
     public componentWillMount() {
@@ -895,6 +896,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         return {
             // Initial data
             columnDefs,
+            // columnDefs: [ ...columnDefs ],
             rowData,
             defaultColDef: {
                 cellClass: this.getCellClass(null),
