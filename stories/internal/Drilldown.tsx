@@ -30,7 +30,15 @@ import {
     TABLE_HEADERS_AM,
 } from "../../src/components/visualizations/table/fixtures/arithmericMeasures";
 import { PivotTable, Model } from "../../src";
-import { ATTRIBUTE_1, MEASURE_1, MEASURE_2, MEASURE_AM_1_2 } from "../data/componentProps";
+import {
+    ATTRIBUTE_1,
+    ATTRIBUTE_3,
+    ATTRIBUTE_COUNTRY,
+    ATTRIBUTE_POPULARITY,
+    MEASURE_1,
+    MEASURE_2,
+    MEASURE_AM_1_2,
+} from "../data/componentProps";
 import HeadlineTransformation from "../../src/components/visualizations/headline/HeadlineTransformation";
 import {
     headlineWithOneMeasure,
@@ -1121,10 +1129,11 @@ storiesOf("Internal/Drilldown", module)
                         projectId="storybook"
                         onDrill={action("onDrill")}
                         measures={[MEASURE_1, MEASURE_2]}
-                        rows={[ATTRIBUTE_1]}
+                        rows={[ATTRIBUTE_3, ATTRIBUTE_POPULARITY, ATTRIBUTE_1]}
                         drillableItems={[
                             { uri: "/gdc/md/storybook/obj/2" },
                             headerPredicateFactory.uriMatch("/gdc/md/storybook/obj/1"),
+                            headerPredicateFactory.uriMatch("/gdc/md/storybook/obj/5.df"),
                         ]}
                         LoadingComponent={null}
                         ErrorComponent={null}

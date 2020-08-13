@@ -251,12 +251,14 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
     public componentDidMount() {
         if (this.containerRef) {
             this.containerRef.addEventListener("mousedown", this.onContainerMouseDown);
+            this.containerRef.addEventListener("mousemove", this.onContainerMouseMove);
         }
     }
 
     public componentWillUnmount() {
         if (this.containerRef) {
             this.containerRef.removeEventListener("mousedown", this.onContainerMouseDown);
+            this.containerRef.removeEventListener("mousemove", this.onContainerMouseMove);
         }
     }
 
@@ -947,6 +949,10 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         return getDrillIntersection(completeDrillItems);
     };
 
+    private gridCellOver = cellEvent => {
+        debugger;
+    };
+
     private cellClicked = (cellEvent: IGridCellEvent) => {
         const {
             onDrill,
@@ -1172,6 +1178,8 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
         this.isAltKeyPressed = event.altKey;
     };
 
+    private onContainerMouseMove = (event: MouseEvent) => {};
+
     private getInfiniteInitialRowCountRowCount() {
         // this method return rowCount from last execution,
         // remove horizontal scrollbar flickering when sort change for small tables
@@ -1254,6 +1262,7 @@ export class PivotTableInner extends BaseVisualization<IPivotTableInnerProps, IP
             onColumnResized: this.onGridColumnResized,
             onGridSizeChanged: this.gridSizeChanged,
             onGridColumnsChanged: this.gridColumnsChanged,
+            onCellMouseOver: this.gridCellOver,
 
             // Basic options
             suppressMovableColumns: true,
